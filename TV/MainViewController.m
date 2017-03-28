@@ -98,10 +98,10 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-//    cell.model = self.dataSource[indexPath.section];
+    cell.model = self.dataSource[indexPath.section];
     [cell.moreImageView whenTapped:^{
         ShowSceneViewController *controller = [[ShowSceneViewController alloc] init];
-//        controller.model = self.dataSource[indexPath.section];
+        controller.model = self.dataSource[indexPath.section];
         [self pushViewController:controller animation:YES];
     }];
     [cell.backgroundImageView whenTapped:^{

@@ -9,9 +9,11 @@
 #import "ChangJingViewController.h"
 #import "ProductViewController.h"
 #import "WPWaveRippleView.h"
-@interface ChangJingViewController ()<UIScrollViewDelegate>
-@property (nonatomic,retain)UIScrollView *scrollView;
-@property (nonatomic,retain)NSMutableArray *imageArr;
+#import "ChangJingCell.h"
+#import "ChangJingModel.h"
+@interface ChangJingViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
+@property (nonatomic, strong)NSMutableArray<ChangJingModel *> *dataSource;
+@property (nonatomic, weak) UICollectionView *collectionView;
 @property (nonatomic, strong) WPWaveRippleView *waveRippleView;
 @end
 
@@ -21,40 +23,66 @@
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden = YES;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSArray *imageStrs = [self.model.pic2 componentsSeparatedByString:@","];
-    for (NSString *str in imageStrs) {
-        [self.imageArr addObject:[NSString stringWithFormat:@"%@%@", WEIMING, str]];
-    }
-    [self loadScroll];
+    [self setupUI];
     [self.view bringSubviewToFront:_buttomView];
     [self.view bringSubviewToFront:_backBtn];
     _buttomView.backgroundColor = RGB(51, 51, 51);
     _buttomView.alpha = 0.8;
+    [self loadData];
 }
-- (void)loadScroll
-{
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, -20, kScreenWidth, kScreenHeight+20)];
-    _scrollView.pagingEnabled = YES;
-    _scrollView.delegate = self;
-    _scrollView.contentSize = CGSizeMake(kScreenWidth*self.imageArr.count, 0);
-    _scrollView.scrollEnabled = YES;
-    _scrollView.showsVerticalScrollIndicator = NO;
-    _scrollView.showsHorizontalScrollIndicator = NO;
-    [self.view addSubview:_scrollView];
-    
-    for (int i = 0; i<self.imageArr.count; i++) {
-        UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(kScreenWidth*i, 0, kScreenWidth, kScreenHeight)];
-        [image sd_setImageWithURL:[NSURL URLWithString:self.imageArr[i]]];
-        [_scrollView addSubview:image];
+- (void)loadData {
+    [[HttpRequestManager shareManager] addPOSTURL:@"/Content/ByScenesId" person:RequestPersonWeiMing parameters:@{@"id": self.model.ID} success:^(id successResponse) {
+        NSLog(@"%@", successResponse);
+        NSArray *scenes = successResponse[@"data"][@"scenes"];
+        self.dataSource = [ChangJingModel mj_objectArrayWithKeyValuesArray:scenes];
+        
+        [self.collectionView reloadData];
+//        for (int i = 0; i<self.imageArr.count; i++) {
+//            UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(kScreenWidth*i, 0, kScreenWidth, kScreenHeight)];
+//            [image sd_setImageWithURL:[NSURL URLWithString:self.imageArr[i]]];
+//            //[_scrollView addSubview:image];
+//            
+//            self.waveRippleView = [[WPWaveRippleView alloc] initWithTintColor:RGB(80, 197, 176) minRadius:3 waveCount:5 timeInterval:1 duration:4];
+//            self.waveRippleView.frame = CGRectMake(100+kScreenWidth*i, 300, 50, 50);
+//            //[_scrollView addSubview:[self waveRippleView]];
+//            [[self waveRippleView] startAnimating];
+//        }
+    } fail:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
+}
 
-        self.waveRippleView = [[WPWaveRippleView alloc] initWithTintColor:[UIColor redColor] minRadius:3 waveCount:5 timeInterval:1 duration:4];
-        self.waveRippleView.frame = CGRectMake(100+kScreenWidth*i, 300, 50, 50);
-        [_scrollView addSubview:[self waveRippleView]];
-        [[self waveRippleView] startAnimating];
-    }
+- (void)setupUI {
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    flowLayout.itemSize = self.view.size;
+    flowLayout.minimumLineSpacing = 0;
+    flowLayout.minimumInteritemSpacing = 0;
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
+    self.collectionView = collectionView;
+    collectionView.backgroundColor = huiseColor;
+    collectionView.showsVerticalScrollIndicator = NO;
+    collectionView.showsHorizontalScrollIndicator = NO;
+    collectionView.pagingEnabled = YES;
+    [collectionView registerClass:[ChangJingCell class] forCellWithReuseIdentifier:@"cell"];
+    collectionView.delegate = self;
+    collectionView.dataSource = self;
+    [self.view addSubview:collectionView];
 }
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.dataSource.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    ChangJingCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    cell.model = self.dataSource[indexPath.item];
+    return cell;
+}
+
 
 - (IBAction)backBtn:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -73,10 +101,10 @@
 - (IBAction)dianzan:(id)sender {
 }
 
-- (NSMutableArray *)imageArr {
-    if (!_imageArr) {
-        _imageArr = [NSMutableArray array];
+- (NSMutableArray<ChangJingModel *> *)dataSource {
+    if (!_dataSource) {
+        _dataSource = [NSMutableArray array];
     }
-    return _imageArr;
+    return _dataSource;
 }
 @end
