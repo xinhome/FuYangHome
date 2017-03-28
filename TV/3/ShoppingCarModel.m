@@ -9,9 +9,13 @@
 #import "ShoppingCarModel.h"
 
 @implementation ShoppingCarModel
-
-- (void)setValue:(id)value forUndefinedKey:(nonnull NSString *)key
+//+ (NSDictionary *)mj_replacedKeyFromPropertyName {
+//    return @{@"goodsId": @"id"};
+//}
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
-    
+    if ([key isEqualToString:@"id"]) {
+        _goodsId = value;
+    }
 }
 @end
