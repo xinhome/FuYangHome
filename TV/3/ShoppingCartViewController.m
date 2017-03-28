@@ -24,6 +24,7 @@
 @property (nonatomic, strong) NSMutableArray *shoppingArray;
 @property (nonatomic, strong) NSMutableArray *deleteGoodsArray;
 @property (nonatomic, assign) BOOL isRightItemSelect;
+@property (nonatomic, strong) NSMutableArray *jieSuanGoodsArray;
 
 @end
 
