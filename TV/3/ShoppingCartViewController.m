@@ -150,6 +150,9 @@
             [MBProgressHUD hideHUDForView:self.view];
             [MBProgressHUD showError:@"网络异常"];
         }];
+        
+        
+        
     }
 }
 #pragma mark - 全选按钮
