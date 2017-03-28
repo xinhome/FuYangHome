@@ -108,6 +108,7 @@
 }
 
 - (void)btnClick1:(UIButton *)sender {
+    self.selectedColor = [sender titleForState:UIControlStateNormal];
     for (UIButton *btn in self.btns1) {
         if (btn == sender) {
             btn.selected = YES;
@@ -118,6 +119,7 @@
 }
 
 - (void)btnClick2:(UIButton *)sender {
+    self.selectedSize = [sender titleForState:UIControlStateNormal];
     for (UIButton *btn in self.btns2) {
         if (btn == sender) {
             btn.selected = YES;

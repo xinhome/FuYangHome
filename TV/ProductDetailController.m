@@ -131,6 +131,14 @@
         return;
     }
     
+    if (self.headerView.selectedColor == nil) {
+        [MBProgressHUD showError:@"请选择颜色"];
+        return;
+    }
+    if (self.headerView.selectedSize == nil) {
+        [MBProgressHUD showError:@"请选择规格"];
+        return;
+    }
     float totalFee = _num+[self.model1.price floatValue];
     NSDictionary *parameters = @{
                                  @"picPath": [self.model1.image componentsSeparatedByString:@","].firstObject,
@@ -139,9 +147,10 @@
                                  @"title": self.model1.title,
                                  @"num": @(_num),
                                  @"itemId": self.itemID,
-                                 @"userId": self.user.ID
+                                 @"userId": self.user.ID,
+                                 @"colour": self.headerView.selectedColor,
+                                 @"style": self.headerView.selectedSize
                                  };
-    NSLog(@"%@", parameters);
     [MBProgressHUD showMessage:@"正在添加购物车" toView:self.view];
     [[HttpRequestManager shareManager] addPOSTURL:@"/Order/addCar" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];

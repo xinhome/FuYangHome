@@ -14,6 +14,8 @@
 @property (nonatomic, weak) SDCycleScrollView *cycleView;///<<#注释#>
 @property (nonatomic, weak) UILabel *priceLabel;///<<#注释#>
 @property (nonatomic, weak) UILabel *nameLabel;///<<#注释#>
+@property (nonatomic, copy) NSString *selectedColor;
+@property (nonatomic, copy) NSString *selectedSize;
 @property (nonatomic, strong) NSArray *colors;///<<#注释#>
 @property (nonatomic, strong) NSArray *sizes;///<<#注释#>
 @property (nonatomic, strong) ParamDataModel *model;///<<#注释#>
