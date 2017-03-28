@@ -28,8 +28,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 //    self.window.rootViewController = [[MyTabBarViewController alloc] init];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[ViewController2 alloc] init]];
-//    self.window.rootViewController = [[MyTabBarViewController alloc] init];
+//    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[ViewController2 alloc] init]];
+    self.window.rootViewController = [[MyTabBarViewController alloc] init];
     [self.window makeKeyAndVisible];
     [self configShareSDK];
     return YES;
