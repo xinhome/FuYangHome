@@ -62,8 +62,6 @@
 		8F195D4F1E7D347F00E8770D /* SystemMsgLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F195D4E1E7D347F00E8770D /* SystemMsgLabel.m */; };
 		8F195D521E7D3A5A00E8770D /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F195D511E7D3A5A00E8770D /* AddressCell.m */; };
 		8F195D551E7D3DB400E8770D /* AddAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F195D541E7D3DB400E8770D /* AddAddressCell.m */; };
-		8F2B76701E8A4FD10023A763 /* ChangJingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F2B766F1E8A4FD10023A763 /* ChangJingModel.m */; };
-		8F2B76731E8A4FD90023A763 /* ChangJingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F2B76721E8A4FD90023A763 /* ChangJingCell.m */; };
 		8F3909AC1E5C2C3C0011E366 /* MBProgressHUD+Add.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3909881E5C2C3B0011E366 /* MBProgressHUD+Add.m */; };
 		8F3909AD1E5C2C3C0011E366 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F39098A1E5C2C3B0011E366 /* MBProgressHUD+MJ.m */; };
 		8F3909AE1E5C2C3C0011E366 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8F39098B1E5C2C3B0011E366 /* MBProgressHUD.bundle */; };
@@ -2914,7 +2912,6 @@
 				8FE388A61E7FC14B006CD8EA /* NSData+ImageContentType.m in Sources */,
 				8FAFFFAD1E84B90900B17671 /* TableViewCell.m in Sources */,
 				F4F22EEB1DCDEBAA007C83F8 /* phoneChangeViewController.m in Sources */,
-				8F2B76731E8A4FD90023A763 /* ChangJingCell.m in Sources */,
 				8F0F16B21E827D0D00D7D308 /* MJRefreshBackFooter.m in Sources */,
 				F4F22F101DCDEBAA007C83F8 /* ThereDetailViewController.m in Sources */,
 				8F0CF44F1E867045008E95DE /* ShoppingCartViewController.m in Sources */,
@@ -2942,7 +2939,6 @@
 				8F0F16C41E827D0D00D7D308 /* UIView+MJExtension.m in Sources */,
 				8F5DB8631E83A62500D834F8 /* ProductDetailModel.m in Sources */,
 				8F0F16C01E827D0D00D7D308 /* MJRefreshConst.m in Sources */,
-				8F2B76701E8A4FD10023A763 /* ChangJingModel.m in Sources */,
 				8F0CF4741E8670CA008E95DE /* LiuXSegmentView.m in Sources */,
 				8FE388671E7FABFB006CD8EA /* SceneShowView.m in Sources */,
 				8F0CF43D1E866FE9008E95DE /* MyZiLiaoTableViewCell.m in Sources */,
