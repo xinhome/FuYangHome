@@ -28,10 +28,10 @@
 
 - (void)loadData {
     [MBProgressHUD showMessage:@"正在加载.." toView:self.view];
-    [[HttpRequestManager shareManager] addPOSTURL:@"/Item/ByCategoryId" person:RequestPersonWeiMing parameters:@{@"category_id": self.categoryId} success:^(id successResponse) {
+    [[HttpRequestManager shareManager] addPOSTURL:@"/Content/ById" person:RequestPersonWeiMing parameters:@{@"id": self.categoryId} success:^(id successResponse) {
         NSLog(@"%@", successResponse);
         [MBProgressHUD hideHUDForView:self.view];
-        self.dataSource = [AllProductModel mj_objectArrayWithKeyValuesArray:successResponse];
+        self.dataSource = [AllProductModel mj_objectArrayWithKeyValuesArray:successResponse[@"data"][@"items"]];
         [self.collectionView reloadData];
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view];

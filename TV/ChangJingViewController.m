@@ -89,7 +89,7 @@
 }
 - (IBAction)LookAtAll:(id)sender {
     ProductViewController *Pro= [[ProductViewController alloc]init];
-    Pro.categoryId = self.model.categoryId;
+    Pro.categoryId = self.model.ID;
     [self.navigationController pushViewController:Pro animated:YES];
 }
 
