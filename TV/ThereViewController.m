@@ -9,16 +9,16 @@
 #import "ThereViewController.h"
 #import "thereTableViewCell.h"
 #import "ThereDetailViewController.h"
-#import "MagazineModel.h"
+#import "ThereModel.h"
 @interface ThereViewController ()<UITableViewDelegate,UITableViewDataSource>
-@property (nonatomic, strong) NSMutableArray<MagazineModel *> *dataSource;///<<#注释#>
+@property (nonatomic, strong) NSMutableArray<ThereModel *> *dataSource;///<<#注释#>
 @end
 
 @implementation ThereViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"";
+    self.navigationItem.title = @"社区";
     [self initUI];
     [self loadChooseBtn];
     [self loadNewData];
@@ -33,7 +33,11 @@
         NSLog(@"%@", successResponse);
         [MBProgressHUD hideHUDForView:self.view];
         if ([successResponse isSuccess]) {
-            self.dataSource = [MagazineModel mj_objectArrayWithKeyValuesArray:successResponse[@"data"]];
+            NSArray *data = successResponse[@"data"];
+            for (NSDictionary *dict in data) {
+                [self.dataSource addObject:[[ThereModel alloc] initWithDictionary:dict]];
+            }
+            
             [self.tableView reloadData];
         } else {
             [MBProgressHUD showResponseMessage:successResponse];
@@ -124,5 +128,11 @@
 - (IBAction)tuijianBtnClick:(id)sender {
     [self.tuijianBnt setTitleColor:RGB(100, 216, 170) forState:UIControlStateNormal];
     [self.zuixinBtn setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
+}
+- (NSMutableArray<ThereModel *> *)dataSource {
+    if (!_dataSource) {
+        _dataSource = [NSMutableArray array];
+    }
+    return _dataSource;
 }
 @end

@@ -25,7 +25,6 @@
     [self initUI];
     [self loadNewData];
     [self loadMoreData];
-
 }
 
 - (void)loadNewData {

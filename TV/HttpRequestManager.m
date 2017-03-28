@@ -42,7 +42,7 @@ static HttpRequestManager *requestManager = nil;
             baseURL = @"http://xwmasd.ngrok.cc/FyHome";
             break;
         default:
-            baseURL = @"http://59.110.8.72/FyHome";
+            baseURL = @"http://xwmasd.ngrok.cc/FyHome";
             break;
     }
     NSString *url = [NSString stringWithFormat:@"%@%@", baseURL, URL];

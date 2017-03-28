@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MagazineModel.h"
+#import "ThereModel.h"
 
 @interface thereTableViewCell : UITableViewCell
 
@@ -20,5 +20,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *dianzanLable;
 @property (weak, nonatomic) IBOutlet UIButton *image;
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
-@property (nonatomic, strong) MagazineModel *model;///<<#注释#>
+@property (nonatomic, strong) ThereModel *model;///<<#注释#>
 @end

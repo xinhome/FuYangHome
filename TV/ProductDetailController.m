@@ -26,6 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"产品详情";
+    _num = 1;
     [self setupUI];
     
     [self loadData];
@@ -168,7 +169,7 @@
 }
 
 - (void)add {
-    _num++;
+    _num = _num + 1;
     self.count.text = [NSString stringWithFormat:@"%d",_num];
 }
 
