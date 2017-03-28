@@ -18,13 +18,13 @@
     self.contentLable.textColor = RGB(102, 102, 102);
     self.image.layer.masksToBounds = YES;
     self.image.layer.cornerRadius = 3;
-    
 }
-- (void)setModel:(MagazineModel *)model {
+- (void)setModel:(ThereModel *)model {
     _model = model;
-    NSLog(@"%@", [NSString stringWithFormat:@"%@%@", KAIKANG, model.user.url]);
-    [self.avatar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", KAIKANG, model.user.url]]];
-    self.nikeNameLable.text = model.user.name;
+//    NSLog(@"%@", [NSString stringWithFormat:@"%@%@", KAIKANG, model.user.url]);
+    self.titleLable.text = model.title;
+    self.contentLable.text = model.desc;
+    [self.image sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", KAIKANG, [model.image componentsSeparatedByString:@","].firstObject]] forState:UIControlStateNormal];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

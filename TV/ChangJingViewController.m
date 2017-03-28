@@ -11,6 +11,7 @@
 #import "WPWaveRippleView.h"
 #import "ChangJingCell.h"
 #import "ChangJingModel.h"
+#import <ShareSDKUI/ShareSDKUI.h>
 @interface ChangJingViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong)NSMutableArray<ChangJingModel *> *dataSource;
 @property (nonatomic, weak) UICollectionView *collectionView;
@@ -40,16 +41,6 @@
         self.dataSource = [ChangJingModel mj_objectArrayWithKeyValuesArray:scenes];
         
         [self.collectionView reloadData];
-//        for (int i = 0; i<self.imageArr.count; i++) {
-//            UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(kScreenWidth*i, 0, kScreenWidth, kScreenHeight)];
-//            [image sd_setImageWithURL:[NSURL URLWithString:self.imageArr[i]]];
-//            //[_scrollView addSubview:image];
-//            
-//            self.waveRippleView = [[WPWaveRippleView alloc] initWithTintColor:RGB(80, 197, 176) minRadius:3 waveCount:5 timeInterval:1 duration:4];
-//            self.waveRippleView.frame = CGRectMake(100+kScreenWidth*i, 300, 50, 50);
-//            //[_scrollView addSubview:[self waveRippleView]];
-//            [[self waveRippleView] startAnimating];
-//        }
     } fail:^(NSError *error) {
         NSLog(@"%@", error);
     }];
@@ -58,10 +49,10 @@
 - (void)setupUI {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    flowLayout.itemSize = self.view.size;
+    flowLayout.itemSize = CGSizeMake(kScreenWidth, kScreenHeight);
     flowLayout.minimumLineSpacing = 0;
     flowLayout.minimumInteritemSpacing = 0;
-    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, -64, kScreenWidth, kScreenHeight+64+60) collectionViewLayout:flowLayout];
     self.collectionView = collectionView;
     collectionView.backgroundColor = huiseColor;
     collectionView.showsVerticalScrollIndicator = NO;
@@ -71,6 +62,12 @@
     collectionView.delegate = self;
     collectionView.dataSource = self;
     [self.view addSubview:collectionView];
+    
+    [self setupToolView];
+}
+
+- (void)setupToolView {
+    
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -82,7 +79,6 @@
     cell.model = self.dataSource[indexPath.item];
     return cell;
 }
-
 
 - (IBAction)backBtn:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -96,6 +92,23 @@
 - (IBAction)comment:(id)sender {
     CommonViewController *controller = [[CommonViewController alloc]init];
     [self.navigationController pushViewController:controller    animated:YES];
+}
+
+/**
+ 分享
+
+ @param sender
+ */
+- (IBAction)share:(id)sender {
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    [shareParams SSDKSetupShareParamsByText:@"分享内容"
+                                     images:nil
+                                        url:[NSURL URLWithString:@"http://mob.com"]
+                                      title:@"分享标题"
+                                       type:SSDKContentTypeAuto];
+    [ShareSDK showShareActionSheet:nil items:nil shareParams:shareParams onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+        
+    }];
 }
 
 - (IBAction)dianzan:(id)sender {

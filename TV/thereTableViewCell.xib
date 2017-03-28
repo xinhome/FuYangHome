@@ -21,7 +21,6 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="X0m-h8-TpX">
                         <rect key="frame" x="234" y="19" width="127" height="115"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                        <state key="normal" backgroundImage="2.png"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5N5-rN-Yd6">
                         <rect key="frame" x="121" y="132" width="62" height="19"/>
@@ -97,7 +96,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="2.png" width="590" height="330"/>
         <image name="comment1.png" width="41" height="43"/>
         <image name="favor1.png" width="44" height="43"/>
     </resources>

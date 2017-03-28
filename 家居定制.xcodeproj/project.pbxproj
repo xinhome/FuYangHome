@@ -95,6 +95,7 @@
 		8F5DB92B1E83B2BA00D834F8 /* ShareSDKConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F5DB9181E83B2BA00D834F8 /* ShareSDKConnector.framework */; };
 		8F5DB9301E83B63E00D834F8 /* CommunityDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5DB92F1E83B63E00D834F8 /* CommunityDetailView.m */; };
 		8F9F21101E865B7E002A8052 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F9F210F1E865B7E002A8052 /* SearchResultCell.m */; };
+		8FA0917F1E8A636F00B9ACD1 /* ThereModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA0917E1E8A636F00B9ACD1 /* ThereModel.m */; };
 		8FA6F74B1E5FD058006CC20B /* riqidata.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA6F74A1E5FD058006CC20B /* riqidata.png */; };
 		8FA6F74D1E5FD088006CC20B /* riqi1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA6F74C1E5FD088006CC20B /* riqi1.png */; };
 		8FA6F74F1E5FD116006CC20B /* shijianzhaou.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA6F74E1E5FD116006CC20B /* shijianzhaou.png */; };
@@ -574,6 +575,8 @@
 		8F5DB92F1E83B63E00D834F8 /* CommunityDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunityDetailView.m; sourceTree = "<group>"; };
 		8F9F210E1E865B7E002A8052 /* SearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultCell.h; sourceTree = "<group>"; };
 		8F9F210F1E865B7E002A8052 /* SearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultCell.m; sourceTree = "<group>"; };
+		8FA0917D1E8A636F00B9ACD1 /* ThereModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThereModel.h; sourceTree = "<group>"; };
+		8FA0917E1E8A636F00B9ACD1 /* ThereModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThereModel.m; sourceTree = "<group>"; };
 		8FA6F74A1E5FD058006CC20B /* riqidata.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = riqidata.png; sourceTree = "<group>"; };
 		8FA6F74C1E5FD088006CC20B /* riqi1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = riqi1.png; sourceTree = "<group>"; };
 		8FA6F74E1E5FD116006CC20B /* shijianzhaou.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shijianzhaou.png; sourceTree = "<group>"; };
@@ -1471,6 +1474,9 @@
 		8F5DB92C1E83B5B200D834F8 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				F4F22E0E1DCDEBA9007C83F8 /* ThereViewController.h */,
+				F4F22E0F1DCDEBA9007C83F8 /* ThereViewController.m */,
+				F4F22E101DCDEBA9007C83F8 /* ThereViewController.xib */,
 				F4F22E081DCDEBA9007C83F8 /* ThereDetailViewController.h */,
 				F4F22E091DCDEBA9007C83F8 /* ThereDetailViewController.m */,
 				F4F22E0A1DCDEBA9007C83F8 /* ThereDetailViewController.xib */,
@@ -1506,6 +1512,15 @@
 				F4F22E0D1DCDEBA9007C83F8 /* thereTableViewCell.xib */,
 			);
 			name = "详情页";
+			sourceTree = "<group>";
+		};
+		8FA0917C1E8A634D00B9ACD1 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				8FA0917D1E8A636F00B9ACD1 /* ThereModel.h */,
+				8FA0917E1E8A636F00B9ACD1 /* ThereModel.m */,
+			);
+			name = model;
 			sourceTree = "<group>";
 		};
 		8FAC928C1E88C19300021D71 /* Util */ = {
@@ -2391,6 +2406,7 @@
 		F4F22D2E1DCDEBA9007C83F8 /* 社区 */ = {
 			isa = PBXGroup;
 			children = (
+				8FA0917C1E8A634D00B9ACD1 /* model */,
 				8F0CF47C1E86714E008E95DE /* 退换货 */,
 				8F5DB92D1E83B60A00D834F8 /* view */,
 				8F5DB92C1E83B5B200D834F8 /* controller */,
@@ -2405,9 +2421,6 @@
 				F4F22E211DCDEBA9007C83F8 /* userTableViewCell.h */,
 				F4F22E221DCDEBA9007C83F8 /* userTableViewCell.m */,
 				F4F22E231DCDEBA9007C83F8 /* userTableViewCell.xib */,
-				F4F22E0E1DCDEBA9007C83F8 /* ThereViewController.h */,
-				F4F22E0F1DCDEBA9007C83F8 /* ThereViewController.m */,
-				F4F22E101DCDEBA9007C83F8 /* ThereViewController.xib */,
 				F4F22DCF1DCDEBA9007C83F8 /* phoneChangeViewController.h */,
 				F4F22DD01DCDEBA9007C83F8 /* phoneChangeViewController.m */,
 				F4F22DD11DCDEBA9007C83F8 /* phoneChangeViewController.xib */,
@@ -2800,6 +2813,7 @@
 				8FE660C31E7BE1050047DF58 /* AFHTTPSessionManager.m in Sources */,
 				8FE388B21E7FC14B006CD8EA /* UIImageView+HighlightedWebCache.m in Sources */,
 				8F0F167D1E82627A00D7D308 /* AllProductCell.m in Sources */,
+				8FA0917F1E8A636F00B9ACD1 /* ThereModel.m in Sources */,
 				8F5DB8661E83A78E00D834F8 /* ParamDataModel.m in Sources */,
 				8F0F16C21E827D0D00D7D308 /* UIScrollView+MJExtension.m in Sources */,
 				F4F22ED71DCDEBAA007C83F8 /* main2TableViewCell.m in Sources */,
