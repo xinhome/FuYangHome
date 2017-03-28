@@ -127,6 +127,8 @@
 		8FAFFFA91E84B8B300B17671 /* ViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAFFFA81E84B8B300B17671 /* ViewController2.m */; };
 		8FAFFFAD1E84B90900B17671 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAFFFAB1E84B90900B17671 /* TableViewCell.m */; };
 		8FAFFFAE1E84B90900B17671 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FAFFFAC1E84B90900B17671 /* TableViewCell.xib */; };
+		8FB15A0D1E8A376700313726 /* ChangJingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB15A0C1E8A376700313726 /* ChangJingModel.m */; };
+		8FDE05F51E8A3156008B6DC9 /* ChangJingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FDE05F41E8A3156008B6DC9 /* ChangJingCell.m */; };
 		8FE3884D1E7F6A0B006CD8EA /* unselect.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE3884C1E7F6A0B006CD8EA /* unselect.png */; };
 		8FE3884F1E7F6AFC006CD8EA /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE3884E1E7F6AFC006CD8EA /* selected.png */; };
 		8FE388511E7F6B77006CD8EA /* 灰框.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE388501E7F6B77006CD8EA /* 灰框.png */; };
@@ -686,6 +688,10 @@
 		8FAFFFAA1E84B90900B17671 /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		8FAFFFAB1E84B90900B17671 /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
 		8FAFFFAC1E84B90900B17671 /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		8FB15A0B1E8A376700313726 /* ChangJingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangJingModel.h; sourceTree = "<group>"; };
+		8FB15A0C1E8A376700313726 /* ChangJingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangJingModel.m; sourceTree = "<group>"; };
+		8FDE05F31E8A3156008B6DC9 /* ChangJingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangJingCell.h; sourceTree = "<group>"; };
+		8FDE05F41E8A3156008B6DC9 /* ChangJingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangJingCell.m; sourceTree = "<group>"; };
 		8FE3884C1E7F6A0B006CD8EA /* unselect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselect.png; sourceTree = "<group>"; };
 		8FE3884E1E7F6AFC006CD8EA /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		8FE388501E7F6B77006CD8EA /* 灰框.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "灰框.png"; sourceTree = "<group>"; };
@@ -1645,6 +1651,8 @@
 				8F5DB8621E83A62500D834F8 /* ProductDetailModel.m */,
 				8F5DB8641E83A78E00D834F8 /* ParamDataModel.h */,
 				8F5DB8651E83A78E00D834F8 /* ParamDataModel.m */,
+				8FB15A0B1E8A376700313726 /* ChangJingModel.h */,
+				8FB15A0C1E8A376700313726 /* ChangJingModel.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -1668,6 +1676,8 @@
 				8FEF6B0C1E80B929000FB1DE /* SceneShowCell.m */,
 				8F9F210E1E865B7E002A8052 /* SearchResultCell.h */,
 				8F9F210F1E865B7E002A8052 /* SearchResultCell.m */,
+				8FDE05F31E8A3156008B6DC9 /* ChangJingCell.h */,
+				8FDE05F41E8A3156008B6DC9 /* ChangJingCell.m */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -2787,6 +2797,7 @@
 				8FEF6B721E8124FB000FB1DE /* ProductDetailCell.m in Sources */,
 				8FF632C91E8369D500ED8751 /* TZTestCell.m in Sources */,
 				8F0F16791E825FE200D7D308 /* AllProductModel.m in Sources */,
+				8FDE05F51E8A3156008B6DC9 /* ChangJingCell.m in Sources */,
 				F4F22F1E1DCDEBAA007C83F8 /* UIView+Extesion.m in Sources */,
 				8FE660C31E7BE1050047DF58 /* AFHTTPSessionManager.m in Sources */,
 				8FE388B21E7FC14B006CD8EA /* UIImageView+HighlightedWebCache.m in Sources */,
@@ -2907,6 +2918,7 @@
 				8F0F16B21E827D0D00D7D308 /* MJRefreshBackFooter.m in Sources */,
 				F4F22F101DCDEBAA007C83F8 /* ThereDetailViewController.m in Sources */,
 				8F0CF44F1E867045008E95DE /* ShoppingCartViewController.m in Sources */,
+				8FB15A0D1E8A376700313726 /* ChangJingModel.m in Sources */,
 				F4F22EA61DCDEBAA007C83F8 /* DPPhotoListViewController.m in Sources */,
 				8F0CF4751E8670CA008E95DE /* OrderDetailsViewController.m in Sources */,
 				8FE388811E7FC0F2006CD8EA /* UIView+SDExtension.m in Sources */,
