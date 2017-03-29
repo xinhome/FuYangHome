@@ -62,6 +62,8 @@
 		8F195D4F1E7D347F00E8770D /* SystemMsgLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F195D4E1E7D347F00E8770D /* SystemMsgLabel.m */; };
 		8F195D521E7D3A5A00E8770D /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F195D511E7D3A5A00E8770D /* AddressCell.m */; };
 		8F195D551E7D3DB400E8770D /* AddAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F195D541E7D3DB400E8770D /* AddAddressCell.m */; };
+		8F22C4B41E8B50CC00EDC6C5 /* CommunityDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F22C4B31E8B50CC00EDC6C5 /* CommunityDetailCell.m */; };
+		8F22C4B71E8B663A00EDC6C5 /* CommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F22C4B61E8B663A00EDC6C5 /* CommentView.m */; };
 		8F3909AC1E5C2C3C0011E366 /* MBProgressHUD+Add.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3909881E5C2C3B0011E366 /* MBProgressHUD+Add.m */; };
 		8F3909AD1E5C2C3C0011E366 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F39098A1E5C2C3B0011E366 /* MBProgressHUD+MJ.m */; };
 		8F3909AE1E5C2C3C0011E366 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8F39098B1E5C2C3B0011E366 /* MBProgressHUD.bundle */; };
@@ -360,7 +362,6 @@
 		F4F22F091DCDEBAA007C83F8 /* shuhang.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F22DFD1DCDEBA9007C83F8 /* shuhang.png */; };
 		F4F22F0B1DCDEBAA007C83F8 /* sousuo.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F22DFF1DCDEBA9007C83F8 /* sousuo.png */; };
 		F4F22F101DCDEBAA007C83F8 /* ThereDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F22E091DCDEBA9007C83F8 /* ThereDetailViewController.m */; };
-		F4F22F111DCDEBAA007C83F8 /* ThereDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4F22E0A1DCDEBA9007C83F8 /* ThereDetailViewController.xib */; };
 		F4F22F121DCDEBAA007C83F8 /* thereTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F22E0C1DCDEBA9007C83F8 /* thereTableViewCell.m */; };
 		F4F22F131DCDEBAA007C83F8 /* thereTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4F22E0D1DCDEBA9007C83F8 /* thereTableViewCell.xib */; };
 		F4F22F141DCDEBAA007C83F8 /* ThereViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F22E0F1DCDEBA9007C83F8 /* ThereViewController.m */; };
@@ -517,6 +518,10 @@
 		8F195D511E7D3A5A00E8770D /* AddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressCell.m; sourceTree = "<group>"; };
 		8F195D531E7D3DB400E8770D /* AddAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAddressCell.h; sourceTree = "<group>"; };
 		8F195D541E7D3DB400E8770D /* AddAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAddressCell.m; sourceTree = "<group>"; };
+		8F22C4B21E8B50CC00EDC6C5 /* CommunityDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunityDetailCell.h; sourceTree = "<group>"; };
+		8F22C4B31E8B50CC00EDC6C5 /* CommunityDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunityDetailCell.m; sourceTree = "<group>"; };
+		8F22C4B51E8B663A00EDC6C5 /* CommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentView.h; sourceTree = "<group>"; };
+		8F22C4B61E8B663A00EDC6C5 /* CommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentView.m; sourceTree = "<group>"; };
 		8F2B766E1E8A4FD10023A763 /* ChangJingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangJingModel.h; sourceTree = "<group>"; };
 		8F2B766F1E8A4FD10023A763 /* ChangJingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangJingModel.m; sourceTree = "<group>"; };
 		8F2B76711E8A4FD90023A763 /* ChangJingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangJingCell.h; sourceTree = "<group>"; };
@@ -1058,7 +1063,6 @@
 		F4F22DFF1DCDEBA9007C83F8 /* sousuo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sousuo.png; sourceTree = "<group>"; };
 		F4F22E081DCDEBA9007C83F8 /* ThereDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThereDetailViewController.h; path = ../ThereDetailViewController.h; sourceTree = "<group>"; };
 		F4F22E091DCDEBA9007C83F8 /* ThereDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThereDetailViewController.m; path = ../ThereDetailViewController.m; sourceTree = "<group>"; };
-		F4F22E0A1DCDEBA9007C83F8 /* ThereDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ThereDetailViewController.xib; path = ../ThereDetailViewController.xib; sourceTree = "<group>"; };
 		F4F22E0B1DCDEBA9007C83F8 /* thereTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = thereTableViewCell.h; path = ../thereTableViewCell.h; sourceTree = "<group>"; };
 		F4F22E0C1DCDEBA9007C83F8 /* thereTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = thereTableViewCell.m; path = ../thereTableViewCell.m; sourceTree = "<group>"; };
 		F4F22E0D1DCDEBA9007C83F8 /* thereTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = thereTableViewCell.xib; path = ../thereTableViewCell.xib; sourceTree = "<group>"; };
@@ -1479,7 +1483,6 @@
 				F4F22E101DCDEBA9007C83F8 /* ThereViewController.xib */,
 				F4F22E081DCDEBA9007C83F8 /* ThereDetailViewController.h */,
 				F4F22E091DCDEBA9007C83F8 /* ThereDetailViewController.m */,
-				F4F22E0A1DCDEBA9007C83F8 /* ThereDetailViewController.xib */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -1489,6 +1492,10 @@
 			children = (
 				8F5DB92E1E83B63E00D834F8 /* CommunityDetailView.h */,
 				8F5DB92F1E83B63E00D834F8 /* CommunityDetailView.m */,
+				8F22C4B21E8B50CC00EDC6C5 /* CommunityDetailCell.h */,
+				8F22C4B31E8B50CC00EDC6C5 /* CommunityDetailCell.m */,
+				8F22C4B51E8B663A00EDC6C5 /* CommentView.h */,
+				8F22C4B61E8B663A00EDC6C5 /* CommentView.m */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -2605,7 +2612,6 @@
 				F4F22EA91DCDEBAA007C83F8 /* fanhiu.9.png in Resources */,
 				F4F22EA71DCDEBAA007C83F8 /* fabu1.png in Resources */,
 				F4F22EAF1DCDEBAA007C83F8 /* fengehengxian.png in Resources */,
-				F4F22F111DCDEBAA007C83F8 /* ThereDetailViewController.xib in Resources */,
 				F4F22EB21DCDEBAA007C83F8 /* forgetPwd2ViewController.xib in Resources */,
 				F4F22ED91DCDEBAA007C83F8 /* mainBG.png in Resources */,
 				F4F22EC81DCDEBAA007C83F8 /* jianhao.png in Resources */,
@@ -2787,6 +2793,7 @@
 				8F0CF4531E867045008E95DE /* BottomDeleteView.m in Sources */,
 				8F0F16BD1E827D0D00D7D308 /* MJRefreshNormalHeader.m in Sources */,
 				8FE388A81E7FC14B006CD8EA /* SDWebImageCompat.m in Sources */,
+				8F22C4B71E8B663A00EDC6C5 /* CommentView.m in Sources */,
 				8FE6605C1E7BB9EC0047DF58 /* UserHeaderView.m in Sources */,
 				8FE660641E7BBD1D0047DF58 /* Global.m in Sources */,
 				8FF632C01E8369D500ED8751 /* TZGifPhotoPreviewController.m in Sources */,
@@ -2885,6 +2892,7 @@
 				8FF632BD1E8369D400ED8751 /* NSBundle+TZImagePicker.m in Sources */,
 				8F0CF4501E867045008E95DE /* ShoppingCartTableViewCell.m in Sources */,
 				8FE388AB1E7FC14B006CD8EA /* SDWebImageDownloaderOperation.m in Sources */,
+				8F22C4B41E8B50CC00EDC6C5 /* CommunityDetailCell.m in Sources */,
 				8F0CF43C1E866FE9008E95DE /* MyZiLiaoViewController.m in Sources */,
 				F4F22EF81DCDEBAA007C83F8 /* registViewController.m in Sources */,
 				F4F22EA51DCDEBAA007C83F8 /* DPPhotoGroupViewController.m in Sources */,
