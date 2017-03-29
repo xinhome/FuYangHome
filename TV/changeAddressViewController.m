@@ -19,7 +19,7 @@
 #define titleColor  RGB(51, 51, 51)
 #define conColor   RGB(102, 102, 102)
 #define smallColor   RGB(153, 153, 153)
-@property (nonatomic,retain)UIScrollView *scrollView;
+@property (nonatomic,strong)UIScrollView *scrollView;
 @property (nonatomic, strong) NSIndexPath *selectIndexPath;///<<#注释#>
 @property (nonatomic, assign) BOOL showIV;///< <#注释#>
 @property (nonatomic, weak) UIView *toolView;///<<#注释#>
@@ -46,6 +46,14 @@
     [self setupUI];
     self.selectIndexPath = [NSIndexPath indexPathForRow:CGFLOAT_MAX inSection:CGFLOAT_MAX];
     [self configToolView];
+    [self loadData];
+}
+- (void)loadData {
+    [[HttpRequestManager shareManager] addPOSTURL:@"/OrderShopping/showAll" person:RequestPersonWeiMing parameters:@{@"userId": [[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"]} success:^(id successResponse) {
+        NSLog(@"%@", successResponse);
+    } fail:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 #pragma mark - 删除地址
 - (void)deleteAddress {
