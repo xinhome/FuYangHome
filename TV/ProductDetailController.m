@@ -160,7 +160,7 @@
         } else {
             [MBProgressHUD showResponseMessage:successResponse];
         }
-        NSLog(@"%@", successResponse);
+//        NSLog(@"%@", successResponse);
     } fail:^(NSError *error) {
         NSLog(@"%@", error);
         [MBProgressHUD hideHUDForView:self.view];

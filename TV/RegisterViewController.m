@@ -106,7 +106,7 @@
     }
     [MBProgressHUD showMessage:@"正在发送..." toView:self.view];
     [[HttpRequestManager shareManager] addPOSTURL:@"/FyjjController/my" person:RequestPersonYuChuan parameters:@{@"pone": self.tel.text} success:^(id successResponse) {
-        NSLog(@"%@", successResponse);
+//        NSLog(@"%@", successResponse);
         [MBProgressHUD hideHUDForView:self.view];
         if ([successResponse isSuccess]) {
             [MBProgressHUD showSuccess:@"发送成功"];

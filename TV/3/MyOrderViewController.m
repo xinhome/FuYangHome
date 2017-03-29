@@ -60,7 +60,7 @@
     [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
     [[HttpRequestManager shareManager] addPOSTURL:@"/Order/showAllOrder" person:RequestPersonWeiMing parameters:@{@"userId": userId,@"status": @0} success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
-        NSLog(@"订单-----%@", successResponse);
+//        NSLog(@"订单-----%@", successResponse);
         if ([successResponse isSuccess]) {
             
             

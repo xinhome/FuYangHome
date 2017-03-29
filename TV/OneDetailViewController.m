@@ -47,7 +47,7 @@
                                  @"id": self.model.magazineId,
                                  };
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getone" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
-        NSLog(@"%@", successResponse);
+//        NSLog(@"%@", successResponse);
     } fail:^(NSError *error) {
         NSLog(@"%@", error);
     }];

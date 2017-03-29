@@ -29,7 +29,7 @@
 - (void)loadData {
     [MBProgressHUD showMessage:@"正在加载.." toView:self.view];
     [[HttpRequestManager shareManager] addPOSTURL:@"/Content/ById" person:RequestPersonWeiMing parameters:@{@"id": self.categoryId} success:^(id successResponse) {
-        NSLog(@"%@", successResponse);
+//        NSLog(@"%@", successResponse);
         [MBProgressHUD hideHUDForView:self.view];
         self.dataSource = [AllProductModel mj_objectArrayWithKeyValuesArray:successResponse[@"data"][@"items"]];
         [self.collectionView reloadData];

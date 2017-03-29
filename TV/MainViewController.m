@@ -64,7 +64,7 @@
     }];
     
     [[HttpRequestManager shareManager] addPOSTURL:@"/content/picAll" person:RequestPersonWeiMing parameters:nil success:^(id successResponse) {
-        NSLog(@"%@", successResponse);
+//        NSLog(@"%@", successResponse);
         NSString *string = successResponse[@"data"][@"data"][0][@"image"];
         for (NSString *str in [string componentsSeparatedByString:@","]) {
             [self.images addObject:[NSString stringWithFormat:@"%@%@", WEIMING, str]];

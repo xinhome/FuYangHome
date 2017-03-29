@@ -33,7 +33,7 @@
 }
 - (void)loadData {
     [[HttpRequestManager shareManager] addPOSTURL:@"/Content/ById" person:RequestPersonYuChuan parameters:@{@"category_id": self.model.categoryId} success:^(id successResponse) {
-        NSLog(@"%@", successResponse);
+//        NSLog(@"%@", successResponse);
     } fail:^(NSError *error) {
         NSLog(@"%@", error);
     }];
