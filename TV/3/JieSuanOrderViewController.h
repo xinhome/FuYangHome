@@ -10,4 +10,6 @@
 
 @interface JieSuanOrderViewController : BaseViewController
 
+@property (nonatomic, strong) NSArray *listArray;
+
 @end

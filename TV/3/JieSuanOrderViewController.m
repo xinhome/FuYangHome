@@ -12,6 +12,7 @@
 #import "JieSuanView.h"
 #import "JieSuanListTableViewCell.h"
 #import "ReturnGoodsTableViewCell.h"
+#import "ShoppingCarModel.h"
 
 @interface JieSuanOrderViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -48,7 +49,7 @@
     if (section == 0) {
         return 1;
     } else {
-        return 3;
+        return _listArray.count;
     }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -107,6 +108,7 @@
             make.size.mas_offset(CGSizeMake(rateWidth(75), rateHeight(37)));
         }];
         [cell.contentView addSubview:view1];
+        cell.selectionStyle = NO;
         return cell;
     } else {
         static NSString *identifier = @"cellone";
@@ -116,6 +118,7 @@
         }
         cell.selectionStyle = NO;
         cell.shouHouBtn.hidden = YES;
+        cell.cellModel = (ShoppingCarModel *)_listArray[indexPath.row];
         return cell;
     }
 }
@@ -140,7 +143,8 @@
     if (section == 1) {
         UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(40))];
         headerView.backgroundColor = [UIColor whiteColor];
-        UILabel *orderNumLB = [UILabel labelWithText:@"订单编号：111111111" textColor:UIColorFromRGB(0x666666) fontSize:14];
+        ShoppingCarModel *model = (ShoppingCarModel *)_listArray[0];
+        UILabel *orderNumLB = [UILabel labelWithText:[NSString stringWithFormat:@"订单编号：%@", model.orderId] textColor:UIColorFromRGB(0x666666) fontSize:14];
         [orderNumLB sizeToFit];
         [headerView addSubview:orderNumLB];
         [orderNumLB mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -165,14 +169,19 @@
     if (section == 1) {
         UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(80))];
         footerView.backgroundColor = [UIColor whiteColor];
-        UILabel *priceLB = [UILabel labelWithText:@"共计：68元（含10元运费）" textColor:UIColorFromRGB(0x666666) fontSize:15];
+        CGFloat sumPrice = 0.0;
+        NSString *str;
+        for (ShoppingCarModel *model in _listArray) {
+            sumPrice = sumPrice + [model.totalFee floatValue];
+            str = [NSString stringWithFormat:@"共计：%.2f元（含0元运费）", sumPrice];
+        }
+        UILabel *priceLB = [UILabel labelWithText:str textColor:UIColorFromRGB(0x666666) fontSize:15];
         [priceLB sizeToFit];
         [footerView addSubview:priceLB];
         [priceLB mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(footerView).offset(rateHeight(15));
             make.centerX.equalTo(footerView);
         }];
-        
         return footerView;
     } else {
         UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(10))];
