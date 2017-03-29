@@ -12,7 +12,7 @@
 #import "CommunityDetailView.h"
 #import "CommentView.h"
 
-@interface ThereDetailViewController ()
+@interface ThereDetailViewController ()<CommentViewDelegate>
 
 @end
 
@@ -43,10 +43,40 @@
     CommunityDetailView *headerView = [[CommunityDetailView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
     [headerView.comment whenTapped:^{
         CommentView *commentView = [[CommentView alloc] init];
+        commentView.delegate = self;
         [commentView show];
+    }];
+    [headerView.praise whenTapped:^{
+        [self praise];
     }];
     headerView.model = self.model;
     self.tableView.tableHeaderView = headerView;
+}
+#pragma mark - 点赞
+- (void)praise {
+    NSDictionary *parameters = @{
+                                 @"user.id": [[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"],
+                                 @"magazine.magazineId": self.model.magazineId
+                                 };
+    [[HttpRequestManager shareManager] addPOSTURL:@"/thumbs/add" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
+        NSLog(@"%@", successResponse);
+    } fail:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
+}
+#pragma mark - CommentViewDelegate
+- (void)sendContent:(CommentView *)commentView content:(NSString *)content {
+    NSDictionary *parameters = @{
+                                 @"reviewer.id": [[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"],
+                                 @"magazine.magazineId": self.model.magazineId,
+                                 @"parentComment.commentId": @0,
+                                 @"commentContent": content
+                                 };
+    [[HttpRequestManager shareManager] addPOSTURL:@"/comments/add" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
+        NSLog(@"%@", successResponse);
+    } fail:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 #pragma mark - tableView dataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

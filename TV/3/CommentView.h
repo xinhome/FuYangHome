@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "EaseTextView.h"
+@class CommentView;
+@protocol CommentViewDelegate <NSObject>
 
+- (void)sendContent:(CommentView *)commentView content:(NSString *)content;
+
+@end
 /// 评论的view
 @interface CommentView : UIView<EaseTextViewDelegate>
-@property (nonatomic, weak) EaseTextView *textView;///<<#注释#>
+@property (nonatomic, weak) EaseTextView *textView;///
 - (void)show;
+@property (nonatomic, weak) id<CommentViewDelegate> delegate;
 @end

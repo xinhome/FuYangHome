@@ -36,13 +36,13 @@ static HttpRequestManager *requestManager = nil;
     NSString *baseURL = nil;
     switch (person) {
         case RequestPersonWeiMing:
-            baseURL = @"http://xwmasd.ngrok.cc/FyHome";
+            baseURL = @"http://59.110.8.72/FyHome";
             break;
         case RequestPersonYuChuan:
-            baseURL = @"http://xwmasd.ngrok.cc/FyHome";
+            baseURL = @"http://59.110.8.72/FyHome";
             break;
         default:
-            baseURL = @"http://xwmasd.ngrok.cc/FyHome";
+            baseURL = @"http://59.110.8.72/FyHome";
             break;
     }
     NSString *url = [NSString stringWithFormat:@"%@%@", baseURL, URL];
