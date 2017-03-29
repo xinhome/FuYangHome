@@ -335,7 +335,6 @@
 		F4F22EE21DCDEBAA007C83F8 /* nav_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F22DC21DCDEBA9007C83F8 /* nav_back@2x.png */; };
 		F4F22EE31DCDEBAA007C83F8 /* nav_back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F22DC31DCDEBA9007C83F8 /* nav_back@3x.png */; };
 		F4F22EE41DCDEBAA007C83F8 /* OneDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F22DC51DCDEBA9007C83F8 /* OneDetailViewController.m */; };
-		F4F22EE51DCDEBAA007C83F8 /* OneDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4F22DC61DCDEBA9007C83F8 /* OneDetailViewController.xib */; };
 		F4F22EE61DCDEBAA007C83F8 /* OneTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F22DC81DCDEBA9007C83F8 /* OneTableViewCell.m */; };
 		F4F22EE81DCDEBAA007C83F8 /* OneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F22DCB1DCDEBA9007C83F8 /* OneViewController.m */; };
 		F4F22EE91DCDEBAA007C83F8 /* OneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4F22DCC1DCDEBA9007C83F8 /* OneViewController.xib */; };
@@ -1028,7 +1027,6 @@
 		F4F22DC31DCDEBA9007C83F8 /* nav_back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back@3x.png"; sourceTree = "<group>"; };
 		F4F22DC41DCDEBA9007C83F8 /* OneDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OneDetailViewController.h; path = ../OneDetailViewController.h; sourceTree = "<group>"; };
 		F4F22DC51DCDEBA9007C83F8 /* OneDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OneDetailViewController.m; path = ../OneDetailViewController.m; sourceTree = "<group>"; };
-		F4F22DC61DCDEBA9007C83F8 /* OneDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OneDetailViewController.xib; path = ../OneDetailViewController.xib; sourceTree = "<group>"; };
 		F4F22DC71DCDEBA9007C83F8 /* OneTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OneTableViewCell.h; path = ../OneTableViewCell.h; sourceTree = "<group>"; };
 		F4F22DC81DCDEBA9007C83F8 /* OneTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OneTableViewCell.m; path = ../OneTableViewCell.m; sourceTree = "<group>"; };
 		F4F22DCA1DCDEBA9007C83F8 /* OneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OneViewController.h; path = ../OneViewController.h; sourceTree = "<group>"; };
@@ -1186,7 +1184,6 @@
 			children = (
 				F4F22DC41DCDEBA9007C83F8 /* OneDetailViewController.h */,
 				F4F22DC51DCDEBA9007C83F8 /* OneDetailViewController.m */,
-				F4F22DC61DCDEBA9007C83F8 /* OneDetailViewController.xib */,
 				F4F22DCA1DCDEBA9007C83F8 /* OneViewController.h */,
 				F4F22DCB1DCDEBA9007C83F8 /* OneViewController.m */,
 				F4F22DCC1DCDEBA9007C83F8 /* OneViewController.xib */,
@@ -2624,7 +2621,6 @@
 				F4F22EBB1DCDEBAA007C83F8 /* geren2.png in Resources */,
 				F4F22F191DCDEBAA007C83F8 /* tongpai.png in Resources */,
 				F4F22EAA1DCDEBAA007C83F8 /* fanhui9.png in Resources */,
-				F4F22EE51DCDEBAA007C83F8 /* OneDetailViewController.xib in Resources */,
 				F4F22E841DCDEBAA007C83F8 /* camare.png in Resources */,
 				F4F22EB81DCDEBAA007C83F8 /* gallery_chs_seleceted@3x.png in Resources */,
 				F4F22ECF1DCDEBAA007C83F8 /* logo .png in Resources */,

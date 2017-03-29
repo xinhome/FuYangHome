@@ -10,16 +10,18 @@
 #import "AddressModel.h"
 
 @interface AddAddressViewController ()
-
+@property (nonatomic, copy) NSString *provience;
+@property (nonatomic, copy) NSString *city;
+@property (nonatomic, copy) NSString *distr;
 @end
 
 @implementation AddAddressViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-   self.title = @"编辑";
+    self.title = @"编辑";
     [self loadUI];
     [self addBackForUser];
+    NSLog(@"%@", self.user);
 }
 - (void)loadUI
 {
@@ -42,7 +44,6 @@
     self.lab3.textColor = RGB(51, 51, 51);
     self.lab4.textColor = RGB(51, 51, 51);
     self.lab5.textColor = RGB(51, 51, 51);
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,7 +56,26 @@
     model.address = [NSString stringWithFormat:@"%@%@%@", self.tf1.text, self.tf2.text, self.tf3.text];
     model.contact = self.tf4.text;
     model.contactTel = self.tf5.text;
-    self.callBack(model);
+    NSDictionary *parameters = @{
+                                 @"userId": [[NSUserDefaults standardUserDefaults] objectForKey:@"myUserId"],
+                                 @"receiverName": self.tf4.text,
+                                 @"receiverMobile": self.tf5.text,
+                                 @"receiverState": self.provience,
+                                 @"receiverCity": self.city,
+                                 @"receiverDistrict": self.distr,
+                                 @"receiverAddress": self.tf1.text
+                                 };
+    [[HttpRequestManager shareManager] addPOSTURL:@"/OrderShopping/save" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
+        if ([successResponse isSuccess]) {
+            self.callBack(model);
+        } else {
+            [MBProgressHUD showError:@"添加失败"];
+        }
+        NSLog(@"%@", successResponse);
+    } fail:^(NSError *error) {
+        NSLog(@"%@", error);
+        [MBProgressHUD showError:@"添加失败"];
+    }];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -63,9 +83,11 @@
     [self.view endEditing:YES];
     TWSelectCityView *city = [[TWSelectCityView alloc] initWithTWFrame:self.view.bounds TWselectCityTitle:@"选择地区"];
     [city showCityView:^(NSString *proviceStr, NSString *cityStr, NSString *distr) {
+        self.provience = proviceStr;
+        self.city = cityStr;
+        self.distr = distr;
         NSString *str    = [NSString stringWithFormat:@"%@%@%@",proviceStr,cityStr,distr];
         self.tf1.text = str;
-      
     } tag:2];
 }
 @end
