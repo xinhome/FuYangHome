@@ -37,7 +37,7 @@
                                  @"password1": self.pwd2.text
                                  };
     [[HttpRequestManager shareManager] addPOSTURL:@"/FyjjController/xiugaimima" person:RequestPersonYuChuan parameters:parameters success:^(id successResponse) {
-        NSLog(@"%@", successResponse);
+//        NSLog(@"%@", successResponse);
         if ([successResponse isSuccess]) {
             [MBProgressHUD showSuccess:@"修改成功"];
             [self popViewController];

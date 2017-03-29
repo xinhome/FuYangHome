@@ -103,7 +103,7 @@
     NSDictionary *parameters = @{@"pone": self.tel.text, @"password": self.password.text};
     [[HttpRequestManager shareManager] addPOSTURL:@"/FyjjController/yy" person:RequestPersonYuChuan parameters:parameters success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
-        NSLog(@"登录%@", successResponse);
+//        NSLog(@"登录%@", successResponse);
         if ([successResponse isSuccess]) {
             NSDictionary *data = successResponse[@"data"];
             User *user = [User mj_objectWithKeyValues:data];

@@ -110,7 +110,7 @@
     self.nameLB.text = cellModel.title;
     self.colorLB.text = [NSString stringWithFormat:@"颜色：%@", cellModel.colour];
     self.priceLB.text = [NSString stringWithFormat:@"￥%.2f", [cellModel.price floatValue]];
-    self.num = cellModel.num;
+    self.num = [cellModel.num intValue];
     self.numBtn.numLB.text = [NSString stringWithFormat:@"%ld", (long)self.num];
     NSURL *imgUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WeiMingURL,cellModel.picPath]];
     [self.goodsImg sd_setImageWithURL:imgUrl];

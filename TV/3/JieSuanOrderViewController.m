@@ -11,6 +11,7 @@
 #import "OrderFirstView.h"
 #import "JieSuanView.h"
 #import "JieSuanListTableViewCell.h"
+#import "ReturnGoodsTableViewCell.h"
 
 @interface JieSuanOrderViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -109,10 +110,12 @@
         return cell;
     } else {
         static NSString *identifier = @"cellone";
-        JieSuanListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        ReturnGoodsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         if (cell == nil) {
-            cell = [[JieSuanListTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier];
+            cell = [[ReturnGoodsTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier];
         }
+        cell.selectionStyle = NO;
+        cell.shouHouBtn.hidden = YES;
         return cell;
     }
 }
@@ -121,12 +124,61 @@
     if (indexPath.section == 0) {
         return rateHeight(260);
     } else {
-        return rateHeight(208);
+        return rateHeight(95);
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return rateHeight(20);
+    if (section == 0) {
+        return 0.01;
+    } else {
+        return rateHeight(40);
+    }
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (section == 1) {
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(40))];
+        headerView.backgroundColor = [UIColor whiteColor];
+        UILabel *orderNumLB = [UILabel labelWithText:@"订单编号：111111111" textColor:UIColorFromRGB(0x666666) fontSize:14];
+        [orderNumLB sizeToFit];
+        [headerView addSubview:orderNumLB];
+        [orderNumLB mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(headerView).offset(rateWidth(20));
+            make.centerY.equalTo(headerView);
+        }];
+        return headerView;
+    } else {
+        return nil;
+    }
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (section == 1) {
+        return rateHeight(80);
+    } else {
+        return rateHeight(10);
+    }
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if (section == 1) {
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(80))];
+        footerView.backgroundColor = [UIColor whiteColor];
+        UILabel *priceLB = [UILabel labelWithText:@"共计：68元（含10元运费）" textColor:UIColorFromRGB(0x666666) fontSize:15];
+        [priceLB sizeToFit];
+        [footerView addSubview:priceLB];
+        [priceLB mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(footerView).offset(rateHeight(15));
+            make.centerX.equalTo(footerView);
+        }];
+        
+        return footerView;
+    } else {
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(10))];
+        footerView.backgroundColor = RGB(242, 242, 242);
+        return footerView;
+    }
 }
 
 - (UITableView *)myTableView
@@ -135,7 +187,7 @@
         _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-rateHeight(170)) style:(UITableViewStyleGrouped)];
         _myTableView.dataSource = self;
         _myTableView.delegate = self;
-        
+        _myTableView.separatorStyle = NO;
     }
     return _myTableView;
 }

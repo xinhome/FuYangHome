@@ -50,7 +50,7 @@
     [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
     [[HttpRequestManager shareManager] addPOSTURL:@"/Content/list" person:RequestPersonYuChuan parameters:nil success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
-        NSLog(@"%@", successResponse);
+//        NSLog(@"%@", successResponse);
         if ([successResponse isSuccess]) {
             NSArray *data = successResponse[@"data"];
             self.dataSource = [HomeContentModel mj_objectArrayWithKeyValuesArray:data];

@@ -36,7 +36,7 @@
 }
 - (void)loadData {
     [[HttpRequestManager shareManager] addPOSTURL:@"/Content/ByScenesId" person:RequestPersonWeiMing parameters:@{@"id": self.model.ID} success:^(id successResponse) {
-        NSLog(@"%@", successResponse);
+//        NSLog(@"%@", successResponse);
         NSArray *scenes = successResponse[@"data"][@"scenes"];
         self.dataSource = [ChangJingModel mj_objectArrayWithKeyValuesArray:scenes];
         

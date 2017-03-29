@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSMutableArray *deleteGoodsArray;
 @property (nonatomic, assign) BOOL isRightItemSelect;
 @property (nonatomic, strong) NSMutableArray *jieSuanGoodsArray;
+@property (nonatomic, assign) CGFloat sumPrice;
 
 @end
 
@@ -36,8 +37,14 @@
     [self setNavigationBar];
     [self.view addSubview:self.myTableView];
     [self addJieSuanView];
-    [self setUpData];
+//    [self setUpData];
     self.deleteGoodsArray = [NSMutableArray array];
+    self.jieSuanGoodsArray = [NSMutableArray array];
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setUpData];
 }
 
 - (void)setNavigationBar
@@ -56,11 +63,9 @@
             [MBProgressHUD hideHUDForView:self.view];
             if ([successResponse isSuccess]) {
                 NSArray *data = successResponse[@"data"];
-                NSLog(@"data---%@",data);
                 if (data.count != 0) {
                     NSMutableArray *orderArr = [NSMutableArray arrayWithArray:data[0][@"order"][@"orders"]];
                     [orderArr removeObjectAtIndex:0];
-                    NSLog(@"orderArr---%@", orderArr);
                     self.shoppingArray = [NSMutableArray array];
                     for (NSDictionary *dic in orderArr) {
                         ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
@@ -116,7 +121,6 @@
 #pragma mark - 删除按钮
 - (void)actionDeleteGoods:(UIButton *)btn
 {
-    NSLog(@"删除订单%@", _deleteGoodsArray);
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDefaults valueForKey:@"myUserId"];
     if (userId != nil && _deleteGoodsArray.count != 0) {
@@ -125,11 +129,9 @@
             [MBProgressHUD hideHUDForView:self.view];
             if ([successResponse isSuccess]) {
                 NSArray *data = successResponse[@"data"];
-                NSLog(@"data---%@",data);
                 if (data.count != 0) {
                     NSMutableArray *orderArr = [NSMutableArray arrayWithArray:data[0][@"order"][@"orders"]];
                     [orderArr removeObjectAtIndex:0];
-                    NSLog(@"orderArr---%@", orderArr);
                     [self.shoppingArray removeAllObjects];
                     [self.btnStatusArr removeAllObjects];
                     for (NSDictionary *dic in orderArr) {
@@ -151,9 +153,6 @@
             [MBProgressHUD hideHUDForView:self.view];
             [MBProgressHUD showError:@"网络异常"];
         }];
-        
-        
-        
     }
 }
 #pragma mark - 全选按钮
@@ -161,16 +160,26 @@
 {
     btn.selected = !btn.selected;
     self.isBottomSelect = !_isBottomSelect;
-    if (_isBottomSelect == YES) {
+    if (_isBottomSelect) {
         [self.btnStatusArr removeAllObjects];
         for (int i = 0; i < _shoppingArray.count; i++) {
             [self.btnStatusArr addObject:[NSString stringWithFormat:@"1"]];
         }
-        if (_isRightItemSelect == YES) {
+        if (_isRightItemSelect) {
             [_deleteGoodsArray removeAllObjects];
             for (ShoppingCarModel *model in _shoppingArray) {
                 [_deleteGoodsArray addObject:[NSString stringWithFormat:@"%@", model.goodsId]];
             }
+        } else {
+            [_jieSuanGoodsArray removeAllObjects];
+            for (ShoppingCarModel *model in _shoppingArray) {
+                [_jieSuanGoodsArray addObject:model];
+            }
+            self.sumPrice = 0.0;
+            for (ShoppingCarModel *model in _jieSuanGoodsArray) {
+                _sumPrice = _sumPrice + [model.num intValue]*[model.price floatValue];
+            }
+            self.bottomJieSuanV.gongJiLB.text = [NSString stringWithFormat:@"共计：%.2f元（含0元运费）", _sumPrice];
         }
         [self.bottomJieSuanV.selectAllBtn setImage:[UIImage imageNamed:@"灰选中"] forState:(UIControlStateNormal)];
         [self.bottomDeleteV.selectAllBtn setImage:[UIImage imageNamed:@"全选选中"] forState:(UIControlStateNormal)];
@@ -180,10 +189,16 @@
         for (int i = 0; i < _shoppingArray.count; i++) {
             [self.btnStatusArr addObject:[NSString stringWithFormat:@"0"]];
         }
-        if (_isRightItemSelect == YES) {
+        if (_isRightItemSelect) {
             [_deleteGoodsArray removeAllObjects];
+        } else {
+            [_jieSuanGoodsArray removeAllObjects];
+            self.sumPrice = 0.0;
+//            for (ShoppingCarModel *model in _jieSuanGoodsArray) {
+//                _sumPrice = _sumPrice + [model.num intValue]*[model.price floatValue];
+//            }
+            self.bottomJieSuanV.gongJiLB.text = [NSString stringWithFormat:@"共计：%.2f元（含0元运费）", _sumPrice];
         }
-        
         [self.bottomJieSuanV.selectAllBtn setImage:[UIImage imageNamed:@"椭圆 4"] forState:(UIControlStateNormal)];
         [self.bottomDeleteV.selectAllBtn setImage:[UIImage imageNamed:@"全选"] forState:(UIControlStateNormal)];
         [_myTableView reloadData];
@@ -206,12 +221,10 @@
     if (btn.selected == YES) {
         [btn setImage:nil forState:(UIControlStateNormal)];
         [btn setTitle:@"取消" forState:(UIControlStateNormal)];
-        NSLog(@"yes");
         self.bottomJieSuanV.hidden = YES;
         self.bottomDeleteV.hidden = NO;
     } else {
         [btn setImage:[UIImage imageNamed:@"shanchu "] forState:(UIControlStateNormal)];
-        NSLog(@"no");
         self.bottomJieSuanV.hidden = NO;
         self.bottomDeleteV.hidden = YES;
     }
@@ -224,16 +237,33 @@
         if (_isRightItemSelect) {
             ShoppingCarModel *model = _shoppingArray[btn.tag];
             [_deleteGoodsArray addObject:[NSString stringWithFormat:@"%@", model.goodsId]];
+        } else {
+            ShoppingCarModel *model = _shoppingArray[btn.tag];
+            [_jieSuanGoodsArray addObject:model];
+            self.sumPrice = 0.0;
+            for (ShoppingCarModel *model in _jieSuanGoodsArray) {
+                _sumPrice = _sumPrice + [model.num intValue]*[model.price floatValue];
+            }
+            self.bottomJieSuanV.gongJiLB.text = [NSString stringWithFormat:@"共计：%.2f元（含0元运费）", _sumPrice];
         }
     } else if ([_btnStatusArr[btn.tag] intValue] == 1) {
         _btnStatusArr[btn.tag] = @"0";
-        if (_isRightItemSelect == YES) {
+        if (_isRightItemSelect) {
             ShoppingCarModel *model = _shoppingArray[btn.tag];
-            for (NSString *str in _deleteGoodsArray) {
-                if ([str isEqualToString:[NSString stringWithFormat:@"%@", model.goodsId]]) {
-                    [_deleteGoodsArray removeObject:str];
-                }
+            [_deleteGoodsArray removeObject:model.goodsId];
+//            for (NSString *str in _deleteGoodsArray) {
+//                if ([str isEqualToString:[NSString stringWithFormat:@"%@", model.goodsId]]) {
+//                    [_deleteGoodsArray removeObject:str];
+//                }
+//            }
+        } else {
+            ShoppingCarModel *model = _shoppingArray[btn.tag];
+            [_jieSuanGoodsArray removeObject:model];
+            self.sumPrice = 0.0;
+            for (ShoppingCarModel *model in _jieSuanGoodsArray) {
+                _sumPrice = _sumPrice + [model.num intValue]*[model.price floatValue];
             }
+            self.bottomJieSuanV.gongJiLB.text = [NSString stringWithFormat:@"共计：%.2f元（含0元运费）", _sumPrice];
         }
     }
     [_myTableView reloadData];
@@ -241,8 +271,42 @@
 #pragma mark - 结算按钮
 - (void)actionJieSuan:(UIButton *)btn
 {
-    JieSuanOrderViewController *jieSuanVC = [[JieSuanOrderViewController alloc] init];
-    [self.navigationController pushViewController:jieSuanVC animated:YES];
+    if (_jieSuanGoodsArray.count != 0) {
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        for (int i = 0; i < _jieSuanGoodsArray.count; i ++) {
+            NSString *ID = [NSString stringWithFormat:@"order[%d].id", i];
+            NSString *itemId = [NSString stringWithFormat:@"order[%d].itemId", i];
+            NSString *orderId = [NSString stringWithFormat:@"order[%d].orderId", i];
+            NSString *num = [NSString stringWithFormat:@"order[%d].num", i];
+            NSString *price = [NSString stringWithFormat:@"order[%d].price", i];
+            NSString *totalFee = [NSString stringWithFormat:@"order[%d].totalFee", i];
+            NSString *picPath = [NSString stringWithFormat:@"order[%d].picPath", i];
+            ShoppingCarModel *model = (ShoppingCarModel *)_jieSuanGoodsArray[i];
+            parameters[ID] = model.goodsId;
+            parameters[itemId] = model.itemId;
+            parameters[orderId] = model.orderId;
+            parameters[num] = model.num;
+            parameters[price] = model.price;
+            parameters[totalFee] = [NSString stringWithFormat:@"%.2f", [model.num intValue]*[model.price floatValue]];
+            parameters[picPath] = model.picPath;
+        }
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *userId = [userDefaults valueForKey:@"myUserId"];
+        parameters[@"userId"] = userId;
+        NSLog(@"-------%@", parameters);
+            [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
+            [[HttpRequestManager shareManager] addPOSTURL:@"/Order/showCarById" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
+                [MBProgressHUD hideHUDForView:self.view];
+                if ([successResponse isSuccess]) {
+                    NSLog(@"结算：%@", successResponse);
+                    JieSuanOrderViewController *jieSuanVC = [[JieSuanOrderViewController alloc] init];
+                    [self.navigationController pushViewController:jieSuanVC animated:YES];
+                }
+            } fail:^(NSError *error) {
+                [MBProgressHUD hideHUDForView:self.view];
+                [MBProgressHUD showError:@"网络异常"];
+            }];
+    }
 }
 #pragma mark - tableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -305,13 +369,6 @@
     }
     return _myTableView;
 }
-//- (NSMutableArray *)shoppingArray
-//{
-//    if (!_shoppingArray) {
-//        _shoppingArray = [NSMutableArray array];
-//    }
-//    return _shoppingArray;
-//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

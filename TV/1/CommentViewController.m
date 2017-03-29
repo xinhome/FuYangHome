@@ -39,7 +39,7 @@
 //                                 @"commentContent"
                                  };
     [[HttpRequestManager shareManager] addPOSTURL:@"" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
-        NSLog(@"%@", successResponse);
+//        NSLog(@"%@", successResponse);
     } fail:^(NSError *error) {
         NSLog(@"%@", error);
     }];

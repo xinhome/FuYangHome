@@ -38,15 +38,15 @@
     [quanxuan sizeToFit];
     [self addSubview:quanxuan];
     [quanxuan mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(selectAllBtn.mas_right).offset(rateWidth(5));
+        make.left.equalTo(selectAllBtn.mas_right).offset(rateWidth(2));
         make.centerY.equalTo(self);
     }];
     
-    UILabel *hejiLB = [UILabel labelWithText:@"共计：60元（含10元运费）" textColor:RGB(100, 100, 100) fontSize:14];
+    UILabel *hejiLB = [UILabel labelWithText:@"共计：0.00元（含0元运费）" textColor:RGB(100, 100, 100) fontSize:14];
     [hejiLB sizeToFit];
     [self addSubview:hejiLB];
     [hejiLB mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(quanxuan.mas_right).offset(rateWidth(25));
+        make.left.equalTo(quanxuan.mas_right).offset(rateWidth(10));
         make.centerY.equalTo(self);
     }];
     self.gongJiLB = hejiLB;
