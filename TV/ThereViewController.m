@@ -44,7 +44,7 @@ typedef NS_ENUM(NSInteger, CommunityType) {
                                  @"type": @(type)
                                  };
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
-//        NSLog(@"%@", successResponse);
+        NSLog(@"%@", successResponse);
         [MBProgressHUD hideHUDForView:self.view];
         if ([successResponse isSuccess]) {
             self.currentPage = 0;

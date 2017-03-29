@@ -40,6 +40,7 @@
     if ([text isEqualToString:@"\n"]) {
         [self removeFromSuperview];
         [textView resignFirstResponder];
+        [self.delegate sendContent:self content:[textView.text substringWithRange:NSMakeRange(0, textView.text.length)]];
         return NO;
     }
     
