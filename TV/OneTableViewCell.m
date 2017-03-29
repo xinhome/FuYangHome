@@ -108,7 +108,7 @@
     
     _title.text = model.magazineName;
     
-    NSMutableArray *urls = [[model.magazineUrlContent componentsSeparatedByString:@";"] mutableCopy];
+    NSMutableArray *urls = [[model.magazineUrlContent componentsSeparatedByString:@","] mutableCopy];
 //    [urls removeObjectAtIndex:0];
     
     switch (urls.count) {

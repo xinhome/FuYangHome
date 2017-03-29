@@ -18,11 +18,15 @@
         addBtn.layer.borderColor = [RGB(44, 194, 167) CGColor];
         addBtn.layer.borderWidth = 1;
         addBtn.frame = CGRectMake(0, 0, rateWidth(230), 54);
-        addBtn.center = self.contentView.center;
         self.addAddressBtn = addBtn;
         [self.contentView addSubview:addBtn];
     }
     return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.addAddressBtn.center = self.contentView.center;
 }
 
 @end

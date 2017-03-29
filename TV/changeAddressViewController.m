@@ -36,13 +36,6 @@
     self.title = @"收货地址";
     [self addRightItemWithImage:@"shanchu " action:@selector(deleteAddress)];
     [self addBackForUser];
-    for (int i = 0; i < 6; i ++) {
-        AddressModel *model = [[AddressModel alloc] init];
-        model.address = @"天津市河西区富力中心大厦B座21层";
-        model.contact = @"李先生";
-        model.contactTel = @"022-85860201";
-        [self.addresses addObject:model];
-    }
     [self setupUI];
     self.selectIndexPath = [NSIndexPath indexPathForRow:CGFLOAT_MAX inSection:CGFLOAT_MAX];
     [self configToolView];
@@ -51,6 +44,8 @@
 - (void)loadData {
     [[HttpRequestManager shareManager] addPOSTURL:@"/OrderShopping/showAll" person:RequestPersonWeiMing parameters:@{@"userId": [[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"]} success:^(id successResponse) {
         NSLog(@"%@", successResponse);
+        self.addresses = [AddressModel mj_objectArrayWithKeyValuesArray:successResponse[@"data"]];
+        [self.tableView reloadData];
     } fail:^(NSError *error) {
         NSLog(@"%@", error);
     }];
@@ -188,9 +183,9 @@
         return cell;
     }
     AddressCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.contact.text = self.addresses[indexPath.section].contact;
-    cell.address.text = self.addresses[indexPath.section].address;
-    cell.contactTel.text = self.addresses[indexPath.section].contactTel;
+    cell.contact.text = self.addresses[indexPath.section].receiverName;
+    cell.address.text = self.addresses[indexPath.section].receiverAddress;
+    cell.contactTel.text = self.addresses[indexPath.section].receiverMobile;
 
     [cell.iv whenTapped:^{
         cell.iv.highlighted = !cell.iv.highlighted;
