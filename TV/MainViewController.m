@@ -14,6 +14,7 @@
 #import "Main5TableViewCell.h"
 #import "HomeContentModel.h"
 #import "HomeCell.h"
+#import "MagazineModel.h"
 
 @interface MainViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)NSMutableArray * images;
@@ -63,13 +64,15 @@
         [MBProgressHUD showError:@"网络异常"];
     }];
     
-    [[HttpRequestManager shareManager] addPOSTURL:@"/content/picAll" person:RequestPersonWeiMing parameters:nil success:^(id successResponse) {
-//        NSLog(@"%@", successResponse);
-        NSString *string = successResponse[@"data"][@"data"][0][@"image"];
-        for (NSString *str in [string componentsSeparatedByString:@","]) {
-            [self.images addObject:[NSString stringWithFormat:@"%@%@", WEIMING, str]];
+    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonWeiMing parameters:@{@"page":@0,@"type":@0} success:^(id successResponse) {
+        NSArray *data = successResponse[@"data"];
+        NSDictionary *dict = data.firstObject;
+        MagazineModel *model = [MagazineModel mj_objectWithKeyValues:dict];
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSString *image in [model.magazineUrlContent componentsSeparatedByString:@","]) {
+            [array addObject:[NSString stringWithFormat:@"%@%@", WEIMING, image]];
         }
-        self.cycleView.imageURLStringsGroup = self.images;
+        self.cycleView.imageURLStringsGroup = array;
     } fail:^(NSError *error) {
         NSLog(@"%@", error);
     }];

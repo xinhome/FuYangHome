@@ -53,9 +53,9 @@
 
 - (IBAction)xiugaiBtnClick:(id)sender {
     AddressModel *model = [[AddressModel alloc] init];
-    model.address = [NSString stringWithFormat:@"%@%@%@", self.tf1.text, self.tf2.text, self.tf3.text];
-    model.contact = self.tf4.text;
-    model.contactTel = self.tf5.text;
+    model.receiverAddress = [NSString stringWithFormat:@"%@%@%@", self.tf1.text, self.tf2.text, self.tf3.text];
+    model.receiverName = self.tf4.text;
+    model.receiverMobile = self.tf5.text;
     NSDictionary *parameters = @{
                                  @"userId": [[NSUserDefaults standardUserDefaults] objectForKey:@"myUserId"],
                                  @"receiverName": self.tf4.text,
@@ -63,7 +63,7 @@
                                  @"receiverState": self.provience,
                                  @"receiverCity": self.city,
                                  @"receiverDistrict": self.distr,
-                                 @"receiverAddress": self.tf1.text
+                                 @"receiverAddress": model.receiverAddress
                                  };
     [[HttpRequestManager shareManager] addPOSTURL:@"/OrderShopping/save" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
         if ([successResponse isSuccess]) {
