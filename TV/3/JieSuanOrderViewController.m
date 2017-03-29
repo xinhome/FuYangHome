@@ -13,6 +13,7 @@
 #import "JieSuanListTableViewCell.h"
 #import "ReturnGoodsTableViewCell.h"
 #import "ShoppingCarModel.h"
+#import "changeAddressViewController.h"
 
 @interface JieSuanOrderViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -107,6 +108,7 @@
             make.bottom.equalTo(view1).offset(-rateHeight(10));
             make.size.mas_offset(CGSizeMake(rateWidth(75), rateHeight(37)));
         }];
+        [xiuGaiBtn addTarget:self action:@selector(changeAddress:) forControlEvents:(UIControlEventTouchUpInside)];
         [cell.contentView addSubview:view1];
         cell.selectionStyle = NO;
         return cell;
@@ -189,7 +191,12 @@
         return footerView;
     }
 }
-
+#pragma mark - 修改地址
+- (void)changeAddress:(UIButton *)btn
+{
+    changeAddressViewController *changeAddressVC = [[changeAddressViewController alloc] init];
+    [self.navigationController pushViewController:changeAddressVC animated:YES];
+}
 - (UITableView *)myTableView
 {
     if (!_myTableView) {

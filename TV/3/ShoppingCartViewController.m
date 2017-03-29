@@ -67,7 +67,8 @@
                 NSArray *data = successResponse[@"data"];
                 if (data.count != 0) {
                     NSMutableArray *orderArr = [NSMutableArray arrayWithArray:data[0][@"order"][@"orders"]];
-                    [orderArr removeObjectAtIndex:0];
+//                    [orderArr removeObjectAtIndex:0];
+                
                     NSLog(@"购物车：%@", orderArr);
                     self.shoppingArray = [NSMutableArray array];
                     for (NSDictionary *dic in orderArr) {
