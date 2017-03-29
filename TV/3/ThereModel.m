@@ -20,6 +20,7 @@
         self.praise = [NSString stringWithFormat:@"%ld", praise.count];
         NSArray *comments = dict[@"comments"];
         self.comment = [NSString stringWithFormat:@"%ld", comments.count];
+        self.magazineId = dict[@"magazineId"];
     }
     return self;
 }

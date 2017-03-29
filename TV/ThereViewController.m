@@ -6,12 +6,25 @@
 //  Copyright © 2016年 Appcoda. All rights reserved.
 //
 
+typedef NS_ENUM(NSInteger, CommunityType) {
+    CommunityTypeRoom = 1,    // 卧室
+    CommunityTypeKitchen,     // 厨房
+    CommunityTypeLivingRoom,  // 客厅
+    CommunityTypeStudy,       // 书房
+    CommunityTypeBalcony,     // 阳台
+    CommunityTypeBathroom,    // 卫浴
+    CommunityTypeDIY,         // DIY
+    CommunityTypeAll          // 全部
+};
+
 #import "ThereViewController.h"
 #import "thereTableViewCell.h"
 #import "ThereDetailViewController.h"
 #import "ThereModel.h"
 @interface ThereViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray<ThereModel *> *dataSource;///<<#注释#>
+@property (nonatomic, assign) CommunityType communityType;///< 选择的类型
+@property (nonatomic, assign) int currentPage;///< <#注释#>
 @end
 
 @implementation ThereViewController
@@ -21,20 +34,26 @@
     self.navigationItem.title = @"社区";
     [self initUI];
     [self loadChooseBtn];
-    [self loadNewData];
+    [self loadNewData:CommunityTypeAll];
 }
-- (void)loadNewData {
+- (void)loadNewData:(CommunityType)type {
+    self.communityType = type;
     [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
     NSDictionary *parameters = @{
                                  @"page": @0,
-                                 @"type": @1
+                                 @"type": @(type)
                                  };
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
         NSLog(@"%@", successResponse);
         [MBProgressHUD hideHUDForView:self.view];
         if ([successResponse isSuccess]) {
+            self.currentPage = 0;
             NSArray *data = successResponse[@"data"];
+            [self.dataSource removeAllObjects];
             for (NSDictionary *dict in data) {
+                if ([dict valueForKey:@"comments"] == nil) {
+                    continue;
+                }
                 [self.dataSource addObject:[[ThereModel alloc] initWithDictionary:dict]];
             }
             
@@ -49,6 +68,35 @@
     }];
 }
 
+- (void)loadMoreData:(CommunityType)type {
+    self.currentPage ++;
+    NSDictionary *parameters = @{
+                                 @"page": @(self.currentPage),
+                                 @"type": @(type)
+                                 };
+    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
+        NSLog(@"%@", successResponse);
+        [self.tableView.mj_footer endRefreshing];
+        if ([successResponse isSuccess]) {
+            NSArray *data = successResponse[@"data"];
+            for (NSDictionary *dict in data) {
+                if ([dict valueForKey:@"comments"] == nil) {
+                    continue;
+                }
+                [self.dataSource addObject:[[ThereModel alloc] initWithDictionary:dict]];
+            }
+            
+            [self.tableView reloadData];
+        } else {
+            [MBProgressHUD showResponseMessage:successResponse];
+        }
+    } fail:^(NSError *error) {
+        NSLog(@"%@", error);
+        [self.tableView.mj_footer endRefreshing];
+        [MBProgressHUD showError:@"网络错误"];
+    }];
+}
+
 - (void)loadChooseBtn
 {
      [self.zuixinBtn setTitleColor:RGB(100, 216, 170) forState:UIControlStateNormal];
@@ -58,13 +106,20 @@
     float wight = (kScreenWidth-10)/titleArr.count;
     for (int i=0; i<titleArr.count; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btn addActionHandler:^{
+            if (i == 0) {
+                [self loadNewData:8];
+                return;
+            }
+            [self loadNewData:i];
+        }];
         if (i==0) {
             btn.frame = CGRectMake(0, 120, wight+10, 30);
         }else
         {
             btn.frame = CGRectMake(10+wight*i, 120, wight, 30);
         }
-
+        
         [btn setBackgroundColor:colorArr[i]];
         [btn setTitle:titleArr[i] forState:UIControlStateNormal];
         [btn setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
@@ -77,6 +132,9 @@
 {
     [self creatTableView];
     self.tableView.separatorStyle = 0;
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [self loadMoreData:self.communityType];
+    }];
     self.tableView.frame = CGRectMake(0, 150, kScreenWidth, kScreenHeight-150-kTabBarHeight);
 }
 
@@ -119,6 +177,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ThereDetailViewController *detail = [[ThereDetailViewController alloc]init];
+    detail.model = self.dataSource[indexPath.row];
     [self.navigationController pushViewController:detail animated:YES];
 }
 - (IBAction)zuixinBtnClick:(id)sender {

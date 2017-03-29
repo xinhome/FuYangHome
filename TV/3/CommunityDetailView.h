@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ThereModel.h"
 
 /// 社区详情
 @interface CommunityDetailView : UIView
+@property (nonatomic, weak) UIImageView *comment;///<<#注释#>
+@property (nonatomic, weak) UIImageView *praise;///<<#注释#>
+@property (nonatomic, strong) ThereModel *model;///<<#注释#>
 
 @end

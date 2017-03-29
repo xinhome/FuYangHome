@@ -18,7 +18,7 @@
 #define conColor   RGB(102, 102, 102)
 #define smallColor   RGB(153, 153, 153)
 @property (nonatomic,retain)UIScrollView *scrollView;
-
+@property (nonatomic, weak) UIWebView *webView;///<<#注释#>
 @end
 
 @implementation OneDetailViewController

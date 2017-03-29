@@ -80,9 +80,9 @@
 - (void)setModel:(ParamDataModel *)model {
     _model = model;
     NSArray<Param *> *params = model.params;
-    NSArray *colors = [params.firstObject.v componentsSeparatedByString:@","];
+    NSArray *colors = [params.lastObject.v componentsSeparatedByString:@","];
 
-    NSArray *sizes = [params.lastObject.v componentsSeparatedByString:@","];
+    NSArray *sizes = [params.firstObject.v componentsSeparatedByString:@","];
     
     for (int i = 0; i < colors.count; i ++) {
         UIButton *btn = [UIButton buttonWithTitle:colors[i] fontSize:13 titleColor:UIColorBlack background:UIColorWhite cornerRadius:12];

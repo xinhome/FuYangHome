@@ -25,6 +25,8 @@
     self.titleLable.text = model.title;
     self.contentLable.text = model.desc;
     [self.image sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", KAIKANG, [model.image componentsSeparatedByString:@","].firstObject]] forState:UIControlStateNormal];
+    self.commentLable.text = model.comment;
+    self.dianzanLable.text = model.praise;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
