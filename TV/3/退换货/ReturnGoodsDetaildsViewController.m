@@ -47,16 +47,18 @@
         dict[[NSString stringWithFormat:@"goodsImage%lu", (unsigned long)[_selectedPhotos indexOfObject:image]]] = string;
     }
     NSString *jsonStr = [dict mj_JSONString];
+//    NSLog(@"jsonStr:%@", jsonStr);
     
     [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
     NSDictionary *parameters = @{
                                  @"orderId": _model.orderId,
                                  @"reason": self.textView.text,
-                                 @"address": @"123",
+                                 @"num": @(self.num),
                                  @"image": jsonStr
                                  };
     [[HttpRequestManager shareManager] addPOSTURL:@"/Order/saveReturn" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
+        NSLog(@"申请退货：%@", successResponse);
         if ([successResponse isSuccess]) {
             [MBProgressHUD showSuccess:@"提交成功"];
         } else {
@@ -78,7 +80,6 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     switch (indexPath.section) {
         case 0:
         {
@@ -94,7 +95,8 @@
             [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(numLB.mas_bottom).offset(rateHeight(15));
                 make.left.equalTo(cell.contentView);
-                make.size.mas_offset(CGSizeMake(kScreenWidth, rateHeight(90)));
+                make.bottom.equalTo(cell.contentView);
+                make.width.equalTo(@(kScreenWidth));
             }];
             
             UIImageView *image = [UIImageView new];
@@ -371,7 +373,6 @@
         [tiJiaoBtn addActionHandler:^{
             [self setUpData];
         }];
-        
         return bgView;
     } else {
         return nil;
@@ -406,7 +407,6 @@
         cell.asset = _selectedAssets[indexPath.row];
         cell.deleteBtn.hidden = NO;
     }
-
     cell.gifLable.hidden = YES;
     cell.deleteBtn.tag = indexPath.row;
     [cell.deleteBtn addTarget:self action:@selector(deleteBtnClik:) forControlEvents:UIControlEventTouchUpInside];

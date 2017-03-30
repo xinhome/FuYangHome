@@ -56,7 +56,7 @@
     [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
     [[HttpRequestManager shareManager] addPOSTURL:@"/Order/showCar" person:RequestPersonWeiMing parameters:@{@"userId": userId,@"status": @3} success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
-        NSLog(@"申请退货-----%@", successResponse);
+        NSLog(@"申请售后-----%@", successResponse);
         if ([successResponse isSuccess]) {
             NSArray *orderArray = successResponse[@"data"];
             self.returnGoodsArray = [NSMutableArray array];

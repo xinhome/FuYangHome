@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSString *string; // 类型
 @property (nonatomic, strong) NSString *itemId;
 @property (nonatomic, strong) NSNumber *status;
+@property (nonatomic, strong) NSString *postFee; // 邮费
 
 
 @end
