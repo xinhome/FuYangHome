@@ -27,7 +27,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    self.window.rootViewController = [[MyTabBarViewController alloc] init];
+  //  self.window.rootViewController = [[MyTabBarViewController alloc] init];
 //    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[ViewController2 alloc] init]];
     self.window.rootViewController = [[MyTabBarViewController alloc] init];
     [self.window makeKeyAndVisible];
@@ -87,6 +87,7 @@
      }];
 }
 
+////////////////////////////////////////// 支付回调
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     if ([url.host isEqualToString:@"safepay"]) {
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
@@ -96,7 +97,7 @@
     return YES;
 }
 
-// NOTE: 9.0以后使用新API接口
+// NOTE: 9.0以后使用新API接口    支付回调
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
 {
     if ([url.host isEqualToString:@"safepay"]) {

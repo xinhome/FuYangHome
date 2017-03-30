@@ -20,10 +20,10 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    [self.dots removeAllObjects];
     for (WPWaveRippleView *dot in self.dots) {
         [dot removeFromSuperview];
     }
+    [self.dots removeAllObjects];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -38,7 +38,7 @@
 }
 - (void)setModel:(ChangJingModel *)model {
     _model = model;
-//    [self.imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, model.pic]]];
+    //[self.imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, model.pic]]];
     [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, model.pic]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
         self.imageView.image = image;
         for (Coordinate *coordinate in model.coordinates) {
@@ -48,6 +48,7 @@
             dotView.frame = CGRectMake(rateWidth(x), rateHeight(y), 50, 50);
             [self.contentView addSubview:dotView];
             [dotView startAnimating];
+            [self.dots addObject:dotView];
         }
     }];
 }
