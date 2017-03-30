@@ -38,7 +38,35 @@
     self.navigationItem.title = @"退换货";
     [self.view addSubview:self.myTableView];
 }
-
+#pragma mark - setUpData
+- (void)setUpData
+{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    for (UIImage *image in _selectedPhotos) {
+        NSString *string = [UIImageJPEGRepresentation(image, 1.0) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+        dict[[NSString stringWithFormat:@"goodsImage%lu", (unsigned long)[_selectedPhotos indexOfObject:image]]] = string;
+    }
+    NSString *jsonStr = [dict mj_JSONString];
+    
+    [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
+    NSDictionary *parameters = @{
+                                 @"orderId": _model.orderId,
+                                 @"reason": self.textView.text,
+                                 @"address": @"123",
+                                 @"image": jsonStr
+                                 };
+    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/saveReturn" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
+        [MBProgressHUD hideHUDForView:self.view];
+        if ([successResponse isSuccess]) {
+            [MBProgressHUD showSuccess:@"提交成功"];
+        } else {
+            [MBProgressHUD showResponseMessage:successResponse];
+        }
+    } fail:^(NSError *error) {
+        NSLog(@"%@", error);
+        [MBProgressHUD showError:@"网络异常"];
+    }];
+}
 #pragma mark - tableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -276,8 +304,10 @@
 }
 - (void)jiaNum:(UIButton *)btn
 {
-    self.num = self.num + 1;
-    self.numLB.text = [NSString stringWithFormat:@"%ld", (long)self.num];
+    if (self.num < [_model.num intValue]) {
+        self.num = self.num + 1;
+        self.numLB.text = [NSString stringWithFormat:@"%ld", (long)self.num];
+    }
 }
 #pragma mark - textView设置placehoder
 - (void)textViewDidChange:(UITextView *)textView
@@ -338,6 +368,9 @@
             make.centerX.equalTo(bgView);
             make.size.mas_offset(CGSizeMake(rateWidth(314), rateHeight(50)));
         }];
+        [tiJiaoBtn addActionHandler:^{
+            [self setUpData];
+        }];
         
         return bgView;
     } else {
@@ -373,9 +406,8 @@
         cell.asset = _selectedAssets[indexPath.row];
         cell.deleteBtn.hidden = NO;
     }
-    //    if (!self.allowPickingGifSwitch.isOn) {
+
     cell.gifLable.hidden = YES;
-    //    }
     cell.deleteBtn.tag = indexPath.row;
     [cell.deleteBtn addTarget:self action:@selector(deleteBtnClik:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
