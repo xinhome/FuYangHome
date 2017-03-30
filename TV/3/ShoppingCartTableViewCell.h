@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "ShoppingCartButtonView.h"
 #import "ShoppingCarModel.h"
+@protocol ChangeGoodsNumDelegate <NSObject>
+
+- (void)changeGoodsNum:(ShoppingCarModel *)model;
+@end
 
 @interface ShoppingCartTableViewCell : UITableViewCell
 
@@ -22,5 +26,6 @@
 @property (nonatomic, assign) NSInteger num;
 @property (nonatomic, strong) ShoppingCarModel *cellModel;
 @property (nonatomic, strong) NSString *orderId;
+@property (nonatomic, assign) id<ChangeGoodsNumDelegate>delegate;
 
 @end
