@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-static NSString const *WEIMING = @"http://xwmasd.ngrok.cc/FyHome/";
-static NSString const *KAIKANG = @"http://xwmasd.ngrok.cc/FyHome/";
+static NSString const *WEIMING = @"http://59.110.8.72/FyHome/";
+static NSString const *KAIKANG = @"http://59.110.8.72/FyHome/";
 
 @interface Global : NSObject
 
