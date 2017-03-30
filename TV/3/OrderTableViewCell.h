@@ -17,6 +17,6 @@
 @property (nonatomic, strong) UILabel *sumPriceLB;
 @property (nonatomic, strong) UIButton *deleteBtn;
 @property (nonatomic, strong) UIImageView *goodsImg;
-@property (nonnull, strong) UILabel * stateLB;
+@property (nonatomic, strong) UILabel * stateLB;
 
 @end

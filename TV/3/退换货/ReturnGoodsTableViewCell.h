@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ShoppingCarModel.h"
 
 @interface ReturnGoodsTableViewCell : UITableViewCell
 
@@ -15,5 +16,6 @@
 @property (nonatomic, strong) UILabel *priceLB;
 @property (nonatomic, strong) UIImageView *goodsImg;
 @property (nonatomic, strong) UIButton *shouHouBtn;
+@property (nonatomic, strong) ShoppingCarModel *cellModel;
 
 @end

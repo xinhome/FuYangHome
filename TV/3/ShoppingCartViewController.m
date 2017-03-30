@@ -26,6 +26,7 @@
 @property (nonatomic, assign) BOOL isRightItemSelect;
 @property (nonatomic, strong) NSMutableArray *jieSuanGoodsArray;
 @property (nonatomic, assign) CGFloat sumPrice;
+@property (nonatomic, strong) NSMutableArray *listArray;
 
 @end
 
@@ -44,6 +45,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [_jieSuanGoodsArray removeAllObjects];
     [self setUpData];
 }
 
@@ -64,10 +66,8 @@
             if ([successResponse isSuccess]) {
                 NSArray *data = successResponse[@"data"];
                 if (data.count != 0) {
-                    NSMutableArray *orderArr = [NSMutableArray arrayWithArray:data[0][@"order"][@"orders"]];
-                    [orderArr removeObjectAtIndex:0];
                     self.shoppingArray = [NSMutableArray array];
-                    for (NSDictionary *dic in orderArr) {
+                    for (NSDictionary *dic in data) {
                         ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
                         [model setValuesForKeysWithDictionary:dic];
                         [_shoppingArray addObject:model];
@@ -212,6 +212,7 @@
     [self.bottomJieSuanV.selectAllBtn setImage:[UIImage imageNamed:@"椭圆 4"] forState:(UIControlStateNormal)];
     [self.bottomDeleteV.selectAllBtn setImage:[UIImage imageNamed:@"全选"] forState:(UIControlStateNormal)];
     [self.btnStatusArr removeAllObjects];
+    [_jieSuanGoodsArray removeAllObjects];
     for (int i = 0; i < _shoppingArray.count; i++) {
         [self.btnStatusArr addObject:[NSString stringWithFormat:@"0"]];
     }
@@ -281,6 +282,7 @@
             NSString *price = [NSString stringWithFormat:@"order[%d].price", i];
             NSString *totalFee = [NSString stringWithFormat:@"order[%d].totalFee", i];
             NSString *picPath = [NSString stringWithFormat:@"order[%d].picPath", i];
+            NSString *title = [NSString stringWithFormat:@"order[%d].title", i];
             ShoppingCarModel *model = (ShoppingCarModel *)_jieSuanGoodsArray[i];
             parameters[ID] = model.goodsId;
             parameters[itemId] = model.itemId;
@@ -289,6 +291,7 @@
             parameters[price] = model.price;
             parameters[totalFee] = [NSString stringWithFormat:@"%.2f", [model.num intValue]*[model.price floatValue]];
             parameters[picPath] = model.picPath;
+            parameters[title] = model.title;
         }
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *userId = [userDefaults valueForKey:@"myUserId"];
@@ -299,7 +302,15 @@
                 [MBProgressHUD hideHUDForView:self.view];
                 if ([successResponse isSuccess]) {
                     NSLog(@"结算：%@", successResponse);
+                    self.listArray = [NSMutableArray array];
+                    NSArray *listArr = successResponse[@"data"][@"list"];
+                    for (NSDictionary *dic in listArr) {
+                        ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
+                        [model setValuesForKeysWithDictionary:dic];
+                        [_listArray addObject:model];
+                    }
                     JieSuanOrderViewController *jieSuanVC = [[JieSuanOrderViewController alloc] init];
+                    jieSuanVC.listArray = _listArray;
                     [self.navigationController pushViewController:jieSuanVC animated:YES];
                 }
             } fail:^(NSError *error) {
@@ -324,9 +335,7 @@
     if (cell == nil) {
         cell = [[ShoppingCartTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier];
     }
-    
     cell.selectionStyle = NO;
-    
     if (_shoppingArray.count != 0) {
         cell.cellModel = (ShoppingCarModel *)_shoppingArray[indexPath.section];
         cell.selectBtn.tag = indexPath.section;

@@ -55,7 +55,7 @@
         case 0:
         {
             UITableViewCell *cell = [[UITableViewCell alloc] init];
-            UILabel *numLB = [UILabel labelWithText:@"订单编号：11111111" textColor:UIColorFromRGB(0x666666) fontSize:14];
+            UILabel *numLB = [UILabel labelWithText:[NSString stringWithFormat:@"订单编号：%@", _model.orderId] textColor:UIColorFromRGB(0x666666) fontSize:14];
             numLB.frame = CGRectMake(rateWidth(20), rateHeight(15), 0, 0);
             [numLB sizeToFit];
             [cell.contentView addSubview:numLB];
@@ -71,6 +71,7 @@
             
             UIImageView *image = [UIImageView new];
             image.backgroundColor = [UIColor whiteColor];
+            [image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WeiMingURL,_model.picPath]]];
             [bgView addSubview:image];
             [image mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(bgView).offset(rateWidth(25));
@@ -78,7 +79,7 @@
                 make.size.mas_offset(CGSizeMake(rateHeight(80), rateHeight(80)));
             }];
             
-            UILabel *label1 = [UILabel labelWithText:@"产品名称" textColor:UIColorFromRGB(0x333333) fontSize:15];
+            UILabel *label1 = [UILabel labelWithText:_model.title textColor:UIColorFromRGB(0x333333) fontSize:15];
             [label1 sizeToFit];
             [bgView addSubview:label1];
             [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -86,7 +87,7 @@
                 make.top.equalTo(image).offset(rateHeight(5));
             }];
             
-            UILabel *label2 = [UILabel labelWithText:@"数量：1件" textColor:UIColorFromRGB(0x333333) fontSize:15];
+            UILabel *label2 = [UILabel labelWithText:[NSString stringWithFormat:@"数量：%@件", _model.num] textColor:UIColorFromRGB(0x333333) fontSize:15];
             [label2 sizeToFit];
             [bgView addSubview:label2];
             [label2 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -94,7 +95,7 @@
                 make.centerY.equalTo(image);
             }];
             
-            UILabel *label3 = [UILabel labelWithText:@"单价：￥50.00" textColor:RGB(242, 0, 0) fontSize:14];
+            UILabel *label3 = [UILabel labelWithText:[NSString stringWithFormat:@"单价：￥%.2f", [_model.price floatValue]] textColor:RGB(242, 0, 0) fontSize:14];
             [label3 sizeToFit];
             [bgView addSubview:label3];
             [label3 mas_makeConstraints:^(MASConstraintMaker *make) {

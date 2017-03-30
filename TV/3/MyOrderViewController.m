@@ -17,6 +17,7 @@
 
 @property (nonatomic, strong) UITableView *myTableView;
 @property (nonatomic, assign) NSInteger segmentIndex;
+@property (nonatomic, strong) NSMutableArray *orderArray;
 
 @end
 
@@ -30,7 +31,7 @@
     [self addSegment];
     self.tableView.hidden = YES;
     [self.view addSubview:self.myTableView];
-    [self setUpData];
+    [self setUpDataWithState:@"0" url:@"/Order/showAllOrder"];
 }
 
 - (void)setNavigationBar
@@ -44,6 +45,15 @@
     LiuXSegmentView *view=[[LiuXSegmentView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44) titles:@[@"全部",@"待发货",@"待收货",@"待评价"] bgColor:[UIColor whiteColor] clickBlick:^void(NSInteger index) {
          self.segmentIndex = index;
          [_myTableView reloadData];
+        if (index == 1) {
+            [self setUpDataWithState:@"0" url:@"/Order/showAllOrder"];
+        } else if (index == 2) {
+            [self setUpDataWithState:@"1" url:@"/Order/showCar"];
+        } else if (index == 3) {
+            [self setUpDataWithState:@"2" url:@"/Order/showCar"];
+        } else {
+            [self setUpDataWithState:@"3" url:@"/Order/showCar"];
+        }
     }];
     //以下属性可以根据需求修改
     view.titleFont = [UIFont boldSystemFontOfSize:16];
@@ -53,16 +63,24 @@
     [self.view addSubview:view];
 }
 #pragma mark - SetUpData
-- (void)setUpData
+- (void)setUpDataWithState:(NSString *)state url:(NSString *)url
 {
+    [_orderArray removeAllObjects];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDefaults valueForKey:@"myUserId"];
     [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
-    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/showAllOrder" person:RequestPersonWeiMing parameters:@{@"userId": userId,@"status": @0} success:^(id successResponse) {
+    [[HttpRequestManager shareManager] addPOSTURL:url person:RequestPersonWeiMing parameters:@{@"userId": userId,@"status": state} success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
-//        NSLog(@"订单-----%@", successResponse);
+        NSLog(@"订单-----%@", successResponse);
         if ([successResponse isSuccess]) {
-            
+            NSArray *orderArray = successResponse[@"data"];
+            self.orderArray = [NSMutableArray array];
+            for (NSDictionary *dic in orderArray) {
+                ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
+                [model setValuesForKeysWithDictionary:dic];
+                [_orderArray addObject:model];
+            }
+            [_myTableView reloadData];
             
         } else {
             [MBProgressHUD showResponseMessage:successResponse];
@@ -73,30 +91,31 @@
     }];
 }
 
+
 #pragma mark - tableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.segmentIndex == 1) {
-        return 2;
-    } else if (self.segmentIndex == 2) {
-        return 4;
-    } else if (self.segmentIndex == 3) {
-        return 3;
-    } else {
+//    if (self.segmentIndex == 1) {
+//        return 1;
+//    } else if (self.segmentIndex == 2) {
+//        return 1;
+//    } else if (self.segmentIndex == 3) {
+//        return 1;
+//    } else {
         return 1;
-    }
+//    }
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (self.segmentIndex == 1) {
-        return 3;
-    } else if (self.segmentIndex == 2) {
-        return 1;
-    } else if (self.segmentIndex == 3) {
-        return 2;
-    } else {
-        return 4;
-    }
+//    if (self.segmentIndex == 1) {
+        return _orderArray.count;
+//    } else if (self.segmentIndex == 2) {
+//        return 1;
+//    } else if (self.segmentIndex == 3) {
+//        return 2;
+//    } else {
+//        return 4;
+//    }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -107,6 +126,9 @@
     }
     cell.shouHouBtn.hidden = YES;
     cell.selectionStyle = NO;
+    if (_orderArray.count != 0) {
+        cell.cellModel = (ShoppingCarModel *)_orderArray[indexPath.section];
+    }
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -119,23 +141,36 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(40))];
-    headerView.backgroundColor = [UIColor whiteColor];
-    UILabel *orderNumLB = [UILabel labelWithText:@"订单编号：111111111" textColor:UIColorFromRGB(0x666666) fontSize:14];
-    [orderNumLB sizeToFit];
-    [headerView addSubview:orderNumLB];
-    [orderNumLB mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(headerView).offset(rateWidth(20));
-        make.centerY.equalTo(headerView);
-    }];
-    UILabel *stateLB = [UILabel labelWithText:@"交易成功" textColor:RGB(242, 0, 0) fontSize:13];
-    [headerView addSubview:stateLB];
-    [stateLB sizeToFit];
-    [stateLB mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(headerView).offset(-rateWidth(10));
-        make.centerY.equalTo(orderNumLB);
-    }];
-    return headerView;
+    if (_orderArray.count != 0) {
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(40))];
+        headerView.backgroundColor = [UIColor whiteColor];
+        ShoppingCarModel *model = (ShoppingCarModel *)_orderArray[section];
+        UILabel *orderNumLB = [UILabel labelWithText:[NSString stringWithFormat:@"订单编号：%@", model.orderId] textColor:UIColorFromRGB(0x666666) fontSize:14];
+        [orderNumLB sizeToFit];
+        [headerView addSubview:orderNumLB];
+        [orderNumLB mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(headerView).offset(rateWidth(20));
+            make.centerY.equalTo(headerView);
+        }];
+        NSString *str;
+        if ([model.status intValue] == 1) {
+            str = @"待发货";
+        } else if ([model.status intValue] == 2) {
+            str = @"待收货";
+        } else if ([model.status intValue] == 3) {
+            str = @"待评价";
+        }
+        UILabel *stateLB = [UILabel labelWithText:str textColor:RGB(242, 0, 0) fontSize:13];
+        [headerView addSubview:stateLB];
+        [stateLB sizeToFit];
+        [stateLB mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(headerView).offset(-rateWidth(10));
+            make.centerY.equalTo(orderNumLB);
+        }];
+        return headerView;
+    } else {
+        return nil;
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -143,9 +178,12 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
+    if (_orderArray.count != 0) {
         UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(80))];
         footerView.backgroundColor = [UIColor whiteColor];
-        UILabel *priceLB = [UILabel labelWithText:@"共计：68元（含10元运费）" textColor:UIColorFromRGB(0x666666) fontSize:15];
+        ShoppingCarModel *model = (ShoppingCarModel *)_orderArray[section];
+        CGFloat sumPrice = [model.num intValue]*[model.price floatValue];
+        UILabel *priceLB = [UILabel labelWithText:[NSString stringWithFormat:@"共计：%.2f元（含0元运费）", sumPrice] textColor:UIColorFromRGB(0x666666) fontSize:15];
         [priceLB sizeToFit];
         [footerView addSubview:priceLB];
         [priceLB mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -172,6 +210,9 @@
             make.size.mas_offset(CGSizeMake(kScreenWidth, rateHeight(15)));
         }];
         return footerView;
+    } else {
+        return nil;
+    }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
