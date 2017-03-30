@@ -13,7 +13,7 @@
 #import "JieSuanOrderViewController.h"
 #import "ShoppingCarModel.h"
 
-@interface ShoppingCartViewController ()
+@interface ShoppingCartViewController ()<ChangeGoodsNumDelegate>
 
 @property (nonatomic, strong) UITableView *myTableView;
 @property (nonatomic, strong) BottomJieSuanView *bottomJieSuanV;
@@ -65,6 +65,7 @@
             [MBProgressHUD hideHUDForView:self.view];
             if ([successResponse isSuccess]) {
                 NSArray *data = successResponse[@"data"];
+                NSLog(@"购物车：%@", data);
                 if (data.count != 0) {
                     self.shoppingArray = [NSMutableArray array];
                     for (NSDictionary *dic in data) {
@@ -334,6 +335,7 @@
     ShoppingCartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
         cell = [[ShoppingCartTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier];
+        cell.delegate = self;
     }
     cell.selectionStyle = NO;
     if (_shoppingArray.count != 0) {
@@ -365,7 +367,11 @@
 {
     
 }
-
+- (void)changeGoodsNum:(ShoppingCarModel *)model
+{
+    NSInteger index = [self.shoppingArray indexOfObject:model];
+    [self.shoppingArray replaceObjectAtIndex:index withObject:model];
+}
 
 - (UITableView *)myTableView
 {

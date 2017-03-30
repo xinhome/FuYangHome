@@ -97,33 +97,37 @@
 {
     if (self.num > 1) {
         self.num = self.num - 1;
-        [self editGoodsNum];
+        [self editGoodsNum:self.num];
     }
 }
 - (void)actionAdd:(UIButton *)btn
 {
     self.num = self.num + 1;
-    [self editGoodsNum];
+    [self editGoodsNum:self.num];
 }
 - (void)setCellModel:(ShoppingCarModel *)cellModel
 {
+    _cellModel = cellModel;
     self.nameLB.text = cellModel.title;
     self.colorLB.text = [NSString stringWithFormat:@"颜色：%@", cellModel.colour];
     self.priceLB.text = [NSString stringWithFormat:@"￥%.2f", [cellModel.price floatValue]];
+    self.numBtn.numLB.text = [NSString stringWithFormat:@"%d", [cellModel.num intValue]];
     self.num = [cellModel.num intValue];
-    self.numBtn.numLB.text = [NSString stringWithFormat:@"%ld", (long)self.num];
     NSURL *imgUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WeiMingURL,cellModel.picPath]];
     [self.goodsImg sd_setImageWithURL:imgUrl];
     self.orderId = cellModel.orderId;
 }
 #pragma mark - 编辑商品数量
-- (void)editGoodsNum
+- (void)editGoodsNum:(NSInteger)num
 {
+//    [self.delegate changeGoodsNum:num];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDefaults valueForKey:@"myUserId"];
     [[HttpRequestManager shareManager] addPOSTURL:@"/Order/updateCar" person:RequestPersonWeiMing parameters:@{@"userId":userId,@"orderId":self.orderId,@"num":@(self.num)} success:^(id successResponse) {
         if ([successResponse isSuccess]) {
             self.numBtn.numLB.text = [NSString stringWithFormat:@"%ld", (long)self.num];
+            self.cellModel.num = @(self.num);
+            [self.delegate changeGoodsNum:self.cellModel];
         } else {
             [MBProgressHUD showResponseMessage:successResponse];
         }
