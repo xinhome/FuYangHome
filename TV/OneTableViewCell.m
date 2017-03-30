@@ -14,7 +14,7 @@
 @property (nonatomic, weak) UILabel *month;///<<#注释#>
 @property (nonatomic, weak) UILabel *title;///<<#注释#>
 @property (nonatomic, weak) UIButton *commonBtn;///<<#注释#>
-@property (nonatomic, weak) UIButton *pariseBtn;///<<#注释#>
+
 @property (nonatomic, weak) UILabel *desc;///<<#注释#>
 @end
 
@@ -84,6 +84,7 @@
         [share setImage:UIImageNamed(@"share") forState:UIControlStateNormal];
         share.frame = CGRectMake(praise.right+3, title.bottom+10, 80, 35);
         [self.contentView addSubview:share];
+        _share = share;
         
         UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(title.left, common.bottom+5, kScreenWidth-title.left, 1)];
         line.backgroundColor = RGB(235, 235, 235);

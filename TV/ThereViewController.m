@@ -38,7 +38,7 @@ typedef NS_ENUM(NSInteger, CommunityType) {
 }
 - (void)loadNewData:(CommunityType)type {
     self.communityType = type;
-    [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
+    [MBProgressHUD showMessage:nil toView:self.view];
     NSDictionary *parameters = @{
                                  @"page": @0,
                                  @"type": @(type)
@@ -183,10 +183,14 @@ typedef NS_ENUM(NSInteger, CommunityType) {
 - (IBAction)zuixinBtnClick:(id)sender {
     [self.zuixinBtn setTitleColor:RGB(100, 216, 170) forState:UIControlStateNormal];
     [self.tuijianBnt setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
+//    [self.dataSource sortUsingComparator:^NSComparisonResult(ThereModel *obj1, ThereModel obj2) {
+//        
+//    }];
 }
 - (IBAction)tuijianBtnClick:(id)sender {
     [self.tuijianBnt setTitleColor:RGB(100, 216, 170) forState:UIControlStateNormal];
     [self.zuixinBtn setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
+    NSLog(@"最热");
 }
 - (NSMutableArray<ThereModel *> *)dataSource {
     if (!_dataSource) {

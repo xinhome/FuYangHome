@@ -294,6 +294,14 @@
     [_collectionView reloadData];
 }
 - (void)publish {
+    if (self.textField.text.length == 0 || self.textView.text) {
+        [MBProgressHUD showError:@"信息不完全"];
+        return;
+    }
+    if (_selectedPhotos.count == 0) {
+        [MBProgressHUD showError:@"选择图片"];
+        return;
+    }
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     for (UIImage *image in _selectedPhotos) {
         NSString *string = [UIImageJPEGRepresentation(image, 1.0) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];

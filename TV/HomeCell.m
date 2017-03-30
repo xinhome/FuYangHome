@@ -107,7 +107,11 @@
     self.date.text = [self translateDate:model.updated];
     self.title.text = model.titleDesc;
     self.subTitle.text = model.title;
-    for (int i = 0; i < model.items.count; i ++) {
+    NSInteger count = model.items.count;
+    if (model.items.count > 6) {
+        count = 6;
+    }
+    for (int i = 0; i < count; i ++) {
         NSString *url = [model.items[i].image componentsSeparatedByString:@","].firstObject;
         self.btns[i].title.text = model.items.firstObject.title;
         self.btns[i].price.text = [NSString stringWithFormat:@"%@￥", model.items.firstObject.price];
