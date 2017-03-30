@@ -102,7 +102,9 @@
     if ([url.host isEqualToString:@"safepay"]) {
         // 支付跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-            NSLog(@"result = %@",resultDic);
+            //NSLog(@"result = %@",resultDic);
+            NSDictionary *dict = [resultDic mj_JSONObject];
+            NSLog(@"%@", dict);
         }];
         
         // 授权跳转支付宝钱包进行支付，处理支付结果

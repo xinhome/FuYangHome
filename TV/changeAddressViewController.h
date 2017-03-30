@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 #import "AddAddressViewController.h"
 @interface changeAddressViewController : BaseViewController
-
+@property (nonatomic, copy) MYActionArgu selectAddress;
 @end

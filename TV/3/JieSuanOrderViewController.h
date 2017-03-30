@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ShoppingCarModel.h"
 
 @interface JieSuanOrderViewController : BaseViewController
 
-@property (nonatomic, strong) NSArray *listArray;
+@property (nonatomic, strong) NSArray<ShoppingCarModel *> *listArray;
 
 @end
