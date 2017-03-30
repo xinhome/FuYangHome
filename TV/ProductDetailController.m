@@ -34,11 +34,16 @@
 
 - (void)loadData {
     
+//    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/Item/ById" parameters:@{@"itemId": self.itemID} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        NSLog(@"%@", responseObject);
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        NSLog(@"%@", error);
+//    }];
     [[HttpRequestManager shareManager] addPOSTURL:@"/Item/ById" person:RequestPersonWeiMing parameters:@{@"itemId": self.itemID} success:^(id successResponse) {
         if ([successResponse isSuccess]) {
-            ProductDetailModel *model = [ProductDetailModel mj_objectWithKeyValues:successResponse[@"data"][@"data"]];
+            ProductDetailModel *model = [ProductDetailModel mj_objectWithKeyValues:successResponse[@"data"]];
             self.model1 = model;
-            NSString *paramData = successResponse[@"data"][@"data"][@"paramData"];
+            NSString *paramData = successResponse[@"data"][@"paramData"];
             NSDictionary *dict = [paramData mj_JSONObject];
             NSArray<ParamDataModel *> *model2 = [ParamDataModel mj_objectArrayWithKeyValuesArray:dict];
             NSMutableArray *arrM = [NSMutableArray array];
@@ -49,7 +54,7 @@
             self.headerView.nameLabel.text = model.title;
             self.headerView.priceLabel.text = [NSString stringWithFormat:@"￥ %@", model.price];
             self.headerView.model = model2.firstObject;
-            self.productShow = [successResponse[@"data"][@"data"][@"itemDesc"] filterImageUrl];
+            self.productShow = [successResponse[@"data"][@"itemDesc"] filterImageUrl];
             [self.tableView reloadData];
         } else {
             [MBProgressHUD showResponseMessage:successResponse];
@@ -140,7 +145,7 @@
         [MBProgressHUD showError:@"请选择规格"];
         return;
     }
-    float totalFee = _num+[self.model1.price floatValue];
+    float totalFee = _num*[self.model1.price floatValue];
     NSDictionary *parameters = @{
                                  @"picPath": [self.model1.image componentsSeparatedByString:@","].firstObject,
                                  @"totalFee": @(totalFee),
@@ -153,6 +158,11 @@
                                  @"style": self.headerView.selectedSize
                                  };
     [MBProgressHUD showMessage:@"正在添加购物车" toView:self.view];
+//    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/Order/addCar" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        NSLog(@"%@", responseObject);
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        NSLog(@"%@", error);
+//    }];
     [[HttpRequestManager shareManager] addPOSTURL:@"/Order/addCar" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
         if ([successResponse isSuccess]) {
