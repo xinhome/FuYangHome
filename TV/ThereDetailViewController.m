@@ -54,6 +54,7 @@
 }
 #pragma mark - 点赞
 - (void)praise {
+
     NSDictionary *parameters = @{
                                  @"user.id": [[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"],
                                  @"magazine.magazineId": self.model.magazineId

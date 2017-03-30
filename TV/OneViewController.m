@@ -9,6 +9,7 @@
 #import "OneViewController.h"
 #import "OneTableViewCell.h"
 #import "MagazineModel.h"
+#import <ShareSDKUI/ShareSDKUI.h>
 //#import "JHChartHeader.h"
 @interface OneViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -128,6 +129,17 @@
         cell= [[OneTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"OneCell"];
     }
     cell.model = self.dataSource[indexPath.row];
+    [cell.share addActionHandler:^{
+        NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+        [shareParams SSDKSetupShareParamsByText:@"分享内容"
+                                         images:nil
+                                            url:[NSURL URLWithString:@"http://mob.com"]
+                                          title:@"分享标题"
+                                           type:SSDKContentTypeAuto];
+        [ShareSDK showShareActionSheet:nil items:nil shareParams:shareParams onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+            
+        }];
+    }];
     cell.selectionStyle = 0;
     return cell;
 }
