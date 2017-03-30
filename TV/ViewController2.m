@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"支付订单";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"确认支付" style:UIBarButtonItemStyleDone target:self action:@selector(doAlipayPay)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"确认支付" style:UIBarButtonItemStyleDone target:self action:@selector(doAlipayPay2)];
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStyleGrouped];
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -42,6 +42,25 @@
         [resultStr appendString:oneStr];
     }
     return resultStr;
+}
+- (void)doAlipayPay2 {
+    NSDictionary *parameters = @{
+                                 @"subject": @"大乐透",
+                                 @"out_trade_no": @"70501111111S001111115",
+                                 @"total_amount": @"9.00",
+                                 @"body": @"iPhone6 16G"
+                                 };
+    [MBProgressHUD showMessage:@"加载"];
+    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/OrderBuy" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
+        [MBProgressHUD hideHUD];
+        NSLog(@"%@", successResponse);
+        [[AlipaySDK defaultService] payOrder:successResponse[@"data"] fromScheme:@"fuyangjiaju" callback:^(NSDictionary *resultDic) {
+            NSLog(@"reslut = %@",resultDic);
+        }];
+    } fail:^(NSError *error) {
+        [MBProgressHUD hideHUD];
+        NSLog(@"%@", error);
+    }];
 }
 #pragma mark -
 #pragma mark   ==============点击订单模拟支付行为==============

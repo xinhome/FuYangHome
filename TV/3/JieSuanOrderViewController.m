@@ -65,8 +65,35 @@
     }
     return resultStr;
 }
-- (void)doAlipayPay
-{
+- (void)doAlipayPay {
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    float total_amount = 0.0f;
+    for (int i = 0; i < self.listArray.count; i ++) {
+        ShoppingCarModel *model = self.listArray[i];
+        total_amount = total_amount + [model.num intValue] * [model.price floatValue];
+        NSString *ID = [NSString stringWithFormat:@"order[%d].id", i];
+        NSString *itemId = [NSString stringWithFormat:@"order[%d].itemId", i];
+        NSString *orderId = [NSString stringWithFormat:@"order[%d].orderId", i];
+        NSString *num = [NSString stringWithFormat:@"order[%d].num", i];
+        NSString *price = [NSString stringWithFormat:@"order[%d].price", i];
+        NSString *totalFee = [NSString stringWithFormat:@"order[%d].totalFee", i];
+        NSString *picPath = [NSString stringWithFormat:@"order[%d].picPath", i];
+        NSString *style = [NSString stringWithFormat:@"order[%d].style", i];
+        NSString *colour = [NSString stringWithFormat:@"order[%d].colour", i];
+        parameters[ID] = model.goodsId;
+        parameters[itemId] = model.itemId;
+        parameters[orderId] = model.orderId;
+        parameters[num] = model.num;
+        parameters[price] = model.price;
+        parameters[totalFee] = model.totalFee;
+        parameters[picPath] = model.picPath;
+        parameters[style] = model.string;
+        parameters[colour] = model.colour;
+    }
+    parameters[@"total_amount"] = @(total_amount);
+    NSLog(@"%@", parameters);
+}
+- (void)test {
     //重要说明
     //这里只是为了方便直接向商户展示支付宝的整个支付流程；所以Demo中加签过程直接放在客户端完成；
     //真实App里，privateKey等数据严禁放在客户端，加签过程务必要放在服务端完成；
@@ -89,16 +116,16 @@
     
     //partner和seller获取失败,提示
     //if ([appID length] == 0 ||
-       // ([rsa2PrivateKey length] == 0 && [rsaPrivateKey length] == 0))
-   // {
+    // ([rsa2PrivateKey length] == 0 && [rsaPrivateKey length] == 0))
+    // {
     //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
-      //                                                  message:@"缺少appId或者私钥。"
-      //                                                 delegate:self
-      //                                        cancelButtonTitle:@"确定"
-       //                                       otherButtonTitles:nil];
-      //  [alert show];
-       // return;
-   // }
+    //                                                  message:@"缺少appId或者私钥。"
+    //                                                 delegate:self
+    //                                        cancelButtonTitle:@"确定"
+    //                                       otherButtonTitles:nil];
+    //  [alert show];
+    // return;
+    // }
     
     /*
      *生成订单信息及签名
@@ -133,7 +160,6 @@
     double totalFee = 0.0;
     
     for (ShoppingCarModel *model in self.listArray) {
-        NSLog(@"%@", model.title);
         float price = [model.price floatValue] * [model.num intValue];
         totalFee = totalFee+price;
     }
@@ -147,7 +173,6 @@
     //将商品信息拼接成字符串
     NSString *orderInfo = [order orderInfoEncoded:NO];
     NSString *orderInfoEncoded = [order orderInfoEncoded:YES];
-    NSLog(@"orderSpec = %@", orderInfo);
     
     // NOTE: 获取私钥并将商户信息签名，外部商户的加签过程请务必放在服务端，防止公私钥数据泄露；
     //       需要遵循RSA签名规范，并将签名字符串base64编码和UrlEncode
