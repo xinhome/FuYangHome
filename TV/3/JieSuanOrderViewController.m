@@ -174,7 +174,7 @@
         CGFloat sumPrice = 0.0;
         NSString *str;
         for (ShoppingCarModel *model in _listArray) {
-            sumPrice = sumPrice + [model.totalFee floatValue];
+            sumPrice = sumPrice + [model.price floatValue]*[model.num intValue];
             str = [NSString stringWithFormat:@"共计：%.2f元（含0元运费）", sumPrice];
         }
         UILabel *priceLB = [UILabel labelWithText:str textColor:UIColorFromRGB(0x666666) fontSize:15];

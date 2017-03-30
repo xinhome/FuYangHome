@@ -66,12 +66,8 @@
             if ([successResponse isSuccess]) {
                 NSArray *data = successResponse[@"data"];
                 if (data.count != 0) {
-                    NSMutableArray *orderArr = [NSMutableArray arrayWithArray:data[0][@"order"][@"orders"]];
-//                    [orderArr removeObjectAtIndex:0];
-                
-                    NSLog(@"购物车：%@", orderArr);
                     self.shoppingArray = [NSMutableArray array];
-                    for (NSDictionary *dic in orderArr) {
+                    for (NSDictionary *dic in data) {
                         ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
                         [model setValuesForKeysWithDictionary:dic];
                         [_shoppingArray addObject:model];
