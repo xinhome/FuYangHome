@@ -120,7 +120,6 @@
 #pragma mark - 编辑商品数量
 - (void)editGoodsNum:(NSInteger)num
 {
-//    [self.delegate changeGoodsNum:num];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDefaults valueForKey:@"myUserId"];
     [[HttpRequestManager shareManager] addPOSTURL:@"/Order/updateCar" person:RequestPersonWeiMing parameters:@{@"userId":userId,@"orderId":self.orderId,@"num":@(self.num)} success:^(id successResponse) {

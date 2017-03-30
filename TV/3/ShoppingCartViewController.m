@@ -46,6 +46,8 @@
 {
     [super viewWillAppear:animated];
     [_jieSuanGoodsArray removeAllObjects];
+    self.sumPrice = 0.0;
+    self.bottomJieSuanV.gongJiLB.text = [NSString stringWithFormat:@"共计：%.2f元（含0元运费）", _sumPrice];
     [self setUpData];
 }
 
