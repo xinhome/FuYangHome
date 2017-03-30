@@ -7,7 +7,10 @@
 //
 
 #import "BaseViewController.h"
+#import "ShoppingCarModel.h"
 
 @interface ReturnGoodsDetaildsViewController : BaseViewController
+
+@property (nonatomic, strong) ShoppingCarModel *model;
 
 @end

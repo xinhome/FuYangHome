@@ -122,17 +122,21 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(40))];
-    headerView.backgroundColor = [UIColor whiteColor];
-    ShoppingCarModel *model = (ShoppingCarModel *)_returnGoodsArray[section];
-    UILabel *orderNumLB = [UILabel labelWithText:[NSString stringWithFormat:@"订单编号：%@", model.orderId] textColor:UIColorFromRGB(0x666666) fontSize:14];
-    [orderNumLB sizeToFit];
-    [headerView addSubview:orderNumLB];
-    [orderNumLB mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(headerView).offset(rateWidth(20));
-        make.centerY.equalTo(headerView);
-    }];
-    return headerView;
+    if (_returnGoodsArray.count != 0) {
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(40))];
+        headerView.backgroundColor = [UIColor whiteColor];
+        ShoppingCarModel *model = (ShoppingCarModel *)_returnGoodsArray[section];
+        UILabel *orderNumLB = [UILabel labelWithText:[NSString stringWithFormat:@"订单编号：%@", model.orderId] textColor:UIColorFromRGB(0x666666) fontSize:14];
+        [orderNumLB sizeToFit];
+        [headerView addSubview:orderNumLB];
+        [orderNumLB mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(headerView).offset(rateWidth(20));
+            make.centerY.equalTo(headerView);
+        }];
+        return headerView;
+    } else {
+        return nil;
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -158,7 +162,7 @@
                 make.centerX.equalTo(footerView);
             }];
             UIView *line = [UIView new];
-            line.backgroundColor = UIColorFromRGB(0xf7f7f7);
+            line.backgroundColor = UIColorFromRGB(0xf2f2f2);
             [footerView addSubview:line];
             [line mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.bottom.equalTo(footerView);
@@ -194,7 +198,7 @@
         }];
         
         UIView *line = [UIView new];
-        line.backgroundColor = UIColorFromRGB(0xf7f7f7);
+        line.backgroundColor = UIColorFromRGB(0xf2f2f2);
         [footerView addSubview:line];
         [line mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(footerView);
@@ -208,6 +212,8 @@
 {
     if (self.segmentIndex == 1) {
         ReturnGoodsDetaildsViewController *detailsVC = [[ReturnGoodsDetaildsViewController alloc] init];
+        ShoppingCarModel *model = (ShoppingCarModel *)_returnGoodsArray[indexPath.section];
+        detailsVC.model = model;
         [self.navigationController pushViewController:detailsVC animated:YES];
     }
 }
