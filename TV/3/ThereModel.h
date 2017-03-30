@@ -10,7 +10,7 @@
 
 /// 社区model
 @interface ThereModel : NSObject
-
+@property (nonatomic, copy) NSString *generateTime;
 @property (nonatomic, copy) NSString *magazineId;
 @property (nonatomic, copy) NSString *avatar;
 @property (nonatomic, copy) NSString *nickname;

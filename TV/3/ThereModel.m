@@ -21,6 +21,7 @@
         NSArray *comments = dict[@"comments"];
         self.comment = [NSString stringWithFormat:@"%ld", comments.count];
         self.magazineId = dict[@"magazineId"];
+        self.generateTime = dict[@"generateTime"];
     }
     return self;
 }

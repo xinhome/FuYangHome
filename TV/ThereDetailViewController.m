@@ -94,6 +94,13 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
     view.backgroundColor = RGB(224, 224, 224);
+    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 2, 30)];
+    line.backgroundColor = RGB(83, 204, 185);
+    [view addSubview:line];
+    UILabel *label = [UILabel labelWithText:@"评论" textColor:RGB(116, 116, 116) fontSize:16];
+    [label sizeToFit];
+    label.origin = CGPointMake(line.right+20, (30-label.height)/2);
+    [view addSubview:label];
     return view;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

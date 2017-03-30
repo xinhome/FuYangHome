@@ -183,14 +183,22 @@ typedef NS_ENUM(NSInteger, CommunityType) {
 - (IBAction)zuixinBtnClick:(id)sender {
     [self.zuixinBtn setTitleColor:RGB(100, 216, 170) forState:UIControlStateNormal];
     [self.tuijianBnt setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
-//    [self.dataSource sortUsingComparator:^NSComparisonResult(ThereModel *obj1, ThereModel obj2) {
-//        
-//    }];
+    [self.dataSource sortUsingComparator:^NSComparisonResult(ThereModel *obj1, ThereModel *obj2) {
+        NSString *time1 = obj1.generateTime;
+        NSString *time2 = obj2.generateTime;
+        return [time1 compare:time2];
+    }];
+    [self.tableView reloadData];
 }
 - (IBAction)tuijianBtnClick:(id)sender {
     [self.tuijianBnt setTitleColor:RGB(100, 216, 170) forState:UIControlStateNormal];
     [self.zuixinBtn setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
-    NSLog(@"最热");
+    [self.dataSource sortUsingComparator:^NSComparisonResult(ThereModel *obj1, ThereModel *obj2) {
+        NSString *praise1 = obj1.praise;
+        NSString *praise2 = obj2.praise;
+        return [praise1 compare:praise2];
+    }];
+    [self.tableView reloadData];
 }
 - (NSMutableArray<ThereModel *> *)dataSource {
     if (!_dataSource) {
