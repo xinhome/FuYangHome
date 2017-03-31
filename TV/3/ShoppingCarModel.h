@@ -18,7 +18,7 @@
 @property (nonatomic, strong) NSNumber *goodsId; // 商品id
 @property (nonatomic, strong) NSNumber *num; // 商品购买数量
 @property (nonatomic, strong) NSString *colour; // 颜色
-@property (nonatomic, strong) NSString *string; // 类型
+@property (nonatomic, strong) NSString *style; // 类型
 @property (nonatomic, strong) NSString *itemId;
 @property (nonatomic, strong) NSNumber *status;
 

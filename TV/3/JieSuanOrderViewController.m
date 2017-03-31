@@ -25,6 +25,7 @@
 @property (nonatomic, weak) UILabel *dizhiLabel;///<<#注释#>
 @property (nonatomic, weak) JieSuanView *contactPerson;///<<#注释#>
 @property (nonatomic, weak) JieSuanView *contactPhone;///<<#注释#>
+@property (nonatomic, strong) AddressModel *selectAddressModel;///<<#注释#>
 @end
 
 @implementation JieSuanOrderViewController
@@ -87,11 +88,32 @@
         parameters[price] = model.price;
         parameters[totalFee] = model.totalFee;
         parameters[picPath] = model.picPath;
-        parameters[style] = model.string;
+        parameters[style] = model.style;
         parameters[colour] = model.colour;
+        NSLog(@"%@", model.style);
     }
     parameters[@"total_amount"] = @(total_amount);
-    NSLog(@"%@", parameters);
+    parameters[@"userId"] = [[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"];
+    parameters[@"post_fee"] = @(0.06);
+    parameters[@"receiverName"] = self.contactPerson.secondLB.text;
+    parameters[@"receiverMobile"] = self.contactPhone.secondLB.text;
+    parameters[@"receiverState"] = self.selectAddressModel.receiverState;
+    parameters[@"receiverCity"] = self.selectAddressModel.receiverCity;
+    parameters[@"receiverDistrict"] = self.selectAddressModel.receiverDistrict;
+    parameters[@"receiverAddress"] = self.selectAddressModel.receiverAddress;
+//    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/OrderBuy" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
+//        NSLog(@"%@", successResponse);
+//        [[AlipaySDK defaultService] payOrder:successResponse[@"data"] fromScheme:@"fuyangjiaju" callback:^(NSDictionary *resultDic) {
+//            NSLog(@"%@", resultDic);
+//        }];
+//    } fail:^(NSError *error) {
+//        NSLog(@"%@", error);
+//    }];
+    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/Order/OrderBuy" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"%@", responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@", error);
+    }];
 }
 - (void)test {
     //重要说明
@@ -360,6 +382,7 @@
 {
     changeAddressViewController *changeAddressVC = [[changeAddressViewController alloc] init];
     [changeAddressVC setSelectAddress:^(AddressModel *model){
+        self.selectAddressModel = model;
         self.dizhiLabel.text = model.receiverAddress;
         self.contactPerson.secondLB.text = model.receiverName;
         self.contactPhone.secondLB.text = model.receiverMobile;
