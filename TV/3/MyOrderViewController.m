@@ -217,6 +217,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OrderDetailsViewController *orderDetailVC = [[OrderDetailsViewController alloc] init];
+    ShoppingCarModel *model = (ShoppingCarModel *)_orderArray[indexPath.section];
+    orderDetailVC.model = model;
     [self.navigationController pushViewController:orderDetailVC animated:YES];
 }
 #pragma mark - deleteOrder

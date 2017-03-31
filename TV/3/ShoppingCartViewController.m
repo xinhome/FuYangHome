@@ -374,6 +374,11 @@
 {
     NSInteger index = [self.shoppingArray indexOfObject:model];
     [self.shoppingArray replaceObjectAtIndex:index withObject:model];
+    self.sumPrice = 0.0;
+    for (ShoppingCarModel *model in _jieSuanGoodsArray) {
+        _sumPrice = _sumPrice + [model.num intValue]*[model.price floatValue];
+    }
+    self.bottomJieSuanV.gongJiLB.text = [NSString stringWithFormat:@"共计：%.2f元（含0元运费）", _sumPrice];
 }
 
 - (UITableView *)myTableView

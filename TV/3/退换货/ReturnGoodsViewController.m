@@ -54,9 +54,9 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDefaults valueForKey:@"myUserId"];
     [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
-    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/showCar" person:RequestPersonWeiMing parameters:@{@"userId": userId,@"status": @3} success:^(id successResponse) {
+    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/showCar" person:RequestPersonWeiMing parameters:@{@"userId": userId,@"status": @4} success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
-        NSLog(@"申请退货-----%@", successResponse);
+        NSLog(@"申请售后-----%@", successResponse);
         if ([successResponse isSuccess]) {
             NSArray *orderArray = successResponse[@"data"];
             self.returnGoodsArray = [NSMutableArray array];
@@ -74,7 +74,6 @@
         [MBProgressHUD hideHUDForView:self.view];
         [MBProgressHUD showError:@"网络异常"];
     }];
-
 }
 #pragma mark - tableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -91,7 +90,7 @@
     if (self.segmentIndex == 1) {
         return _returnGoodsArray.count;
     } else {
-        return 2;
+        return _returnGoodsArray.count;
     }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -148,18 +147,39 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if (self.segmentIndex == 1) {
-        if (_returnGoodsArray.count != 0) {
-            UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(60))];
-            footerView.backgroundColor = [UIColor whiteColor];
-            ShoppingCarModel *model = (ShoppingCarModel *)_returnGoodsArray[section];
-            CGFloat sumPrice = [model.num intValue]*[model.price floatValue];
-            UILabel *priceLB = [UILabel labelWithText:[NSString stringWithFormat:@"共计：%.2f元（含0元运费）", sumPrice] textColor:UIColorFromRGB(0x666666) fontSize:15];
-            [priceLB sizeToFit];
-            [footerView addSubview:priceLB];
-            [priceLB mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(footerView).offset(rateHeight(15));
-                make.centerX.equalTo(footerView);
+    if (_returnGoodsArray.count != 0) {
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(60))];
+        footerView.backgroundColor = [UIColor whiteColor];
+        ShoppingCarModel *model = (ShoppingCarModel *)_returnGoodsArray[section];
+        CGFloat sumPrice = [model.num intValue]*[model.price floatValue];
+        UILabel *priceLB = [UILabel labelWithText:[NSString stringWithFormat:@"共计：%.2f元（含0元运费）", sumPrice] textColor:UIColorFromRGB(0x666666) fontSize:15];
+        [priceLB sizeToFit];
+        [footerView addSubview:priceLB];
+        [priceLB mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(footerView).offset(rateHeight(15));
+            make.centerX.equalTo(footerView);
+        }];
+        if (self.segmentIndex == 1) {
+            UIView *line = [UIView new];
+            line.backgroundColor = UIColorFromRGB(0xf2f2f2);
+            [footerView addSubview:line];
+            [line mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(footerView);
+                make.left.equalTo(footerView);
+                make.size.mas_offset(CGSizeMake(kScreenWidth, rateHeight(5)));
+            }];
+        } else {
+            UIImageView *segmentImg = [UIImageView new];
+            if (section == 0) {
+                segmentImg.image = [UIImage imageNamed:@"审核中"];
+            } else {
+                segmentImg.image = [UIImage imageNamed:@"已完成"];
+            }
+            [segmentImg sizeToFit];
+            [footerView addSubview:segmentImg];
+            [segmentImg mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(footerView).offset(-rateWidth(20));
+                make.bottom.equalTo(footerView).offset(-rateHeight(10));
             }];
             UIView *line = [UIView new];
             line.backgroundColor = UIColorFromRGB(0xf2f2f2);
@@ -169,43 +189,10 @@
                 make.left.equalTo(footerView);
                 make.size.mas_offset(CGSizeMake(kScreenWidth, rateHeight(5)));
             }];
-            return footerView;
-        } else {
-            return nil;
         }
-    } else {
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(80))];
-        footerView.backgroundColor = [UIColor whiteColor];
-        UILabel *priceLB = [UILabel labelWithText:@"共计：68元（含10元运费）" textColor:UIColorFromRGB(0x666666) fontSize:15];
-        [priceLB sizeToFit];
-        [footerView addSubview:priceLB];
-        [priceLB mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(footerView).offset(rateHeight(15));
-            make.centerX.equalTo(footerView);
-        }];
-        
-        UIImageView *segmentImg = [UIImageView new];
-        if (section == 0) {
-            segmentImg.image = [UIImage imageNamed:@"审核中"];
-        } else {
-            segmentImg.image = [UIImage imageNamed:@"已完成"];
-        }
-        [segmentImg sizeToFit];
-        [footerView addSubview:segmentImg];
-        [segmentImg mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(footerView).offset(-rateWidth(20));
-            make.bottom.equalTo(footerView).offset(-rateHeight(10));
-        }];
-        
-        UIView *line = [UIView new];
-        line.backgroundColor = UIColorFromRGB(0xf2f2f2);
-        [footerView addSubview:line];
-        [line mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(footerView);
-            make.left.equalTo(footerView);
-            make.size.mas_offset(CGSizeMake(kScreenWidth, rateHeight(5)));
-        }];
         return footerView;
+    } else {
+        return nil;
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

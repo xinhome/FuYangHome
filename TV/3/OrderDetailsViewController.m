@@ -28,7 +28,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 2;
+        return 1;
     } else {
         return 1;
     }
@@ -42,6 +42,7 @@
     if (indexPath.section == 0) {
         ReturnGoodsTableViewCell *cell = [[ReturnGoodsTableViewCell alloc] init];
         cell.shouHouBtn.hidden = YES;
+        cell.cellModel = _model;
         cell.selectionStyle = NO;
         return cell;
     } else {
@@ -80,14 +81,22 @@
     if (section == 0) {
         UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(40))];
         headerView.backgroundColor = [UIColor whiteColor];
-        UILabel *orderNumLB = [UILabel labelWithText:@"订单编号：111111111" textColor:UIColorFromRGB(0x666666) fontSize:14];
+        UILabel *orderNumLB = [UILabel labelWithText:[NSString stringWithFormat:@"订单编号：%@", _model.orderId] textColor:UIColorFromRGB(0x666666) fontSize:14];
         [orderNumLB sizeToFit];
         [headerView addSubview:orderNumLB];
         [orderNumLB mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(headerView).offset(rateWidth(20));
             make.centerY.equalTo(headerView);
         }];
-        UILabel *stateLB = [UILabel labelWithText:@"交易成功" textColor:RGB(242, 0, 0) fontSize:13];
+        NSString *str;
+        if ([_model.status intValue] == 1) {
+            str = @"待发货";
+        } else if ([_model.status intValue] == 2) {
+            str = @"待收货";
+        } else if ([_model.status intValue] == 3) {
+            str = @"待评价";
+        }
+        UILabel *stateLB = [UILabel labelWithText:str textColor:RGB(242, 0, 0) fontSize:13];
         [headerView addSubview:stateLB];
         [stateLB sizeToFit];
         [stateLB mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -114,7 +123,8 @@
     if (section == 0) {
         UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(80))];
         footerView.backgroundColor = [UIColor whiteColor];
-        UILabel *priceLB = [UILabel labelWithText:@"共计：68元（含10元运费）" textColor:UIColorFromRGB(0x666666) fontSize:15];
+        CGFloat sumPrice = [_model.num intValue]*[_model.price floatValue];
+        UILabel *priceLB = [UILabel labelWithText:[NSString stringWithFormat:@"共计：%.2f元（含0元运费）", sumPrice] textColor:UIColorFromRGB(0x666666) fontSize:15];
         [priceLB sizeToFit];
         [footerView addSubview:priceLB];
         [priceLB mas_makeConstraints:^(MASConstraintMaker *make) {

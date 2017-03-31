@@ -38,7 +38,34 @@
     self.navigationItem.title = @"退换货";
     [self.view addSubview:self.myTableView];
 }
-
+#pragma mark - setUpData
+- (void)setUpData
+{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    for (UIImage *image in _selectedPhotos) {
+        NSString *string = [UIImageJPEGRepresentation(image, 1.0) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+        dict[[NSString stringWithFormat:@"goodsImage%lu", (unsigned long)[_selectedPhotos indexOfObject:image]]] = string;
+    }
+    NSString *jsonStr = [dict mj_JSONString];
+    
+    [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
+    NSDictionary *parameters = @{
+                                 @"orderId": _model.orderId,
+                                 @"reason": self.textView.text,
+                                 @"num": @(self.num),
+                                 @"image": jsonStr
+                                 };
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain",@"text/json",@"application/json",@"text/javascript",@"text/html", @"application/javascript", @"text/js", nil];
+    [manager POST:[NSString stringWithFormat:@"%@Order/saveReturn", WeiMingURL] parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [MBProgressHUD hideHUDForView:self.view];
+        NSLog(@"退货：%@", responseObject);
+        [MBProgressHUD showSuccess:@"提交成功"];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@", error);
+        [MBProgressHUD showError:@"网络异常"];
+    }];
+}
 #pragma mark - tableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -50,7 +77,6 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     switch (indexPath.section) {
         case 0:
         {
@@ -66,7 +92,8 @@
             [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(numLB.mas_bottom).offset(rateHeight(15));
                 make.left.equalTo(cell.contentView);
-                make.size.mas_offset(CGSizeMake(kScreenWidth, rateHeight(90)));
+                make.bottom.equalTo(cell.contentView);
+                make.width.equalTo(@(kScreenWidth));
             }];
             
             UIImageView *image = [UIImageView new];
@@ -276,8 +303,10 @@
 }
 - (void)jiaNum:(UIButton *)btn
 {
-    self.num = self.num + 1;
-    self.numLB.text = [NSString stringWithFormat:@"%ld", (long)self.num];
+    if (self.num < [_model.num intValue]) {
+        self.num = self.num + 1;
+        self.numLB.text = [NSString stringWithFormat:@"%ld", (long)self.num];
+    }
 }
 #pragma mark - textView设置placehoder
 - (void)textViewDidChange:(UITextView *)textView
@@ -338,7 +367,9 @@
             make.centerX.equalTo(bgView);
             make.size.mas_offset(CGSizeMake(rateWidth(314), rateHeight(50)));
         }];
-        
+        [tiJiaoBtn addActionHandler:^{
+            [self setUpData];
+        }];
         return bgView;
     } else {
         return nil;
@@ -373,9 +404,7 @@
         cell.asset = _selectedAssets[indexPath.row];
         cell.deleteBtn.hidden = NO;
     }
-    //    if (!self.allowPickingGifSwitch.isOn) {
     cell.gifLable.hidden = YES;
-    //    }
     cell.deleteBtn.tag = indexPath.row;
     [cell.deleteBtn addTarget:self action:@selector(deleteBtnClik:) forControlEvents:UIControlEventTouchUpInside];
     return cell;

@@ -20,7 +20,10 @@
 @property (nonatomic, strong) NSString *colour; // 颜色
 @property (nonatomic, strong) NSString *style; // 类型
 @property (nonatomic, strong) NSString *itemId;
-@property (nonatomic, strong) NSNumber *status;
+@property (nonatomic, strong) NSNumber *status; // 0:全部 1:待发货 2:待收货 3:待评价 4:退货
+@property (nonatomic, strong) NSString *postFee; // 邮费
+@property (nonatomic, strong) NSNumber *outRate; // 0:退货 1:退货中 2:退货完成
+@property (nonatomic, strong) NSNumber *buyerRate; // 0:待评价 1:已评价
 
 
 @end
