@@ -47,7 +47,6 @@
         dict[[NSString stringWithFormat:@"goodsImage%lu", (unsigned long)[_selectedPhotos indexOfObject:image]]] = string;
     }
     NSString *jsonStr = [dict mj_JSONString];
-//    NSLog(@"jsonStr:%@", jsonStr);
     
     [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
     NSDictionary *parameters = @{
@@ -58,7 +57,7 @@
                                  };
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain",@"text/json",@"application/json",@"text/javascript",@"text/html", @"application/javascript", @"text/js", nil];
-    [manager POST:@"http://xwmasd.ngrok.cc/FyHome/Order/saveReturn" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager POST:[NSString stringWithFormat:@"%@Order/s aveReturn", WeiMingURL] parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [MBProgressHUD hideHUDForView:self.view];
         NSLog(@"退货：%@", responseObject);
         [MBProgressHUD showSuccess:@"提交成功"];
