@@ -56,18 +56,28 @@
                                  @"num": @(self.num),
                                  @"image": jsonStr
                                  };
-    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/saveReturn" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain",@"text/json",@"application/json",@"text/javascript",@"text/html", @"application/javascript", @"text/js", nil];
+    [manager POST:@"http://xwmasd.ngrok.cc/FyHome/Order/saveReturn" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [MBProgressHUD hideHUDForView:self.view];
-        NSLog(@"申请退货：%@", successResponse);
-        if ([successResponse isSuccess]) {
-            [MBProgressHUD showSuccess:@"提交成功"];
-        } else {
-            [MBProgressHUD showResponseMessage:successResponse];
-        }
-    } fail:^(NSError *error) {
+        NSLog(@"退货：%@", responseObject);
+        [MBProgressHUD showSuccess:@"提交成功"];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@", error);
         [MBProgressHUD showError:@"网络异常"];
     }];
+//    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/saveReturn" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
+//        [MBProgressHUD hideHUDForView:self.view];
+//        NSLog(@"申请退货：%@", successResponse);
+//        if ([successResponse isSuccess]) {
+//            [MBProgressHUD showSuccess:@"提交成功"];
+//        } else {
+//            [MBProgressHUD showResponseMessage:successResponse];
+//        }
+//    } fail:^(NSError *error) {
+//        NSLog(@"%@", error);
+//        [MBProgressHUD showError:@"网络异常"];
+//    }];
 }
 #pragma mark - tableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
