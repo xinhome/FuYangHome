@@ -28,7 +28,7 @@
 @property (nonatomic, weak) UILabel *dizhiLabel;///<<#注释#>
 @property (nonatomic, weak) JieSuanView *contactPerson;///<<#注释#>
 @property (nonatomic, weak) JieSuanView *contactPhone;///<<#注释#>
-@property (nonatomic, strong) AddressModel *selectAddressModel;///<<#注释#>
+
 @property (nonatomic, strong) NSTimer *timer;///<<#注释#>
 @property (nonatomic, weak) UILabel *successLabel;///<<#注释#>
 @property (nonatomic, assign) int timeCount;///< <#注释#>
@@ -45,11 +45,14 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (void)aliPaySuccess:(NSNotification *)notification {
-    [self loadSuccessView];
+    NSLog(@"%@", notification.userInfo);
+    NSDictionary *result = [notification.userInfo[@"resultDict"][@"result"] mj_JSONObject];
+    if ([[result valueForKey:@"alipay_trade_app_pay_response"][@"code"] intValue] == 10000) {
+        [self loadSuccessView];
+    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.navigationItem.title = @"结算";
     self.view.backgroundColor = RGB(242, 242, 242);
     [self.view addSubview:self.myTableView];
@@ -108,15 +111,16 @@
         parameters[style] = model.style;
         parameters[colour] = model.colour;
     }
+    parameters[@"receiverId"] = self.selectAddressModel.receiverId;
     parameters[@"total_amount"] = @(0.01);
     parameters[@"userId"] = [[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"];
     parameters[@"post_fee"] = @(0.06);
-    parameters[@"receiverName"] = self.selectAddressModel.receiverName;
-    parameters[@"receiverMobile"] = self.selectAddressModel.receiverMobile;
-    parameters[@"receiverState"] = self.selectAddressModel.receiverState;
-    parameters[@"receiverCity"] = self.selectAddressModel.receiverCity;
-    parameters[@"receiverDistrict"] = self.selectAddressModel.receiverDistrict;
-    parameters[@"receiverAddress"] = self.selectAddressModel.receiverAddress;
+    //parameters[@"receiverName"] = self.selectAddressModel.receiverName;
+    //parameters[@"receiverMobile"] = self.selectAddressModel.receiverMobile;
+    //parameters[@"receiverState"] = self.selectAddressModel.receiverState;
+   // parameters[@"receiverCity"] = self.selectAddressModel.receiverCity;
+   // parameters[@"receiverDistrict"] = self.selectAddressModel.receiverDistrict;
+   // parameters[@"receiverAddress"] = self.selectAddressModel.receiverAddress;
 //    [MBProgressHUD showMessage:nil];
 //    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/OrderBuy" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
 //        [MBProgressHUD hideHUD];
