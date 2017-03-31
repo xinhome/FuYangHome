@@ -70,6 +70,12 @@
             [self.btns addObject:btn];
         }
         
+        UIImageView *borderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 125, 65)];
+        borderImageView.image = UIImageNamed(@"kuang");
+        borderImageView.centerX = kScreenWidth/2;
+        borderImageView.top = rateHeight(30);
+        [self.contentView addSubview:borderImageView];
+        
         UILabel *date = [UILabel labelWithText:@"MAY-20" textColor:UIColorWhite fontSize:12];
         self.date = date;
         [date sizeToFit];
