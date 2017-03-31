@@ -57,7 +57,7 @@
                                  };
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain",@"text/json",@"application/json",@"text/javascript",@"text/html", @"application/javascript", @"text/js", nil];
-    [manager POST:[NSString stringWithFormat:@"%@Order/s aveReturn", WeiMingURL] parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager POST:[NSString stringWithFormat:@"%@Order/saveReturn", WeiMingURL] parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [MBProgressHUD hideHUDForView:self.view];
         NSLog(@"退货：%@", responseObject);
         [MBProgressHUD showSuccess:@"提交成功"];
@@ -65,18 +65,6 @@
         NSLog(@"%@", error);
         [MBProgressHUD showError:@"网络异常"];
     }];
-//    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/saveReturn" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
-//        [MBProgressHUD hideHUDForView:self.view];
-//        NSLog(@"申请退货：%@", successResponse);
-//        if ([successResponse isSuccess]) {
-//            [MBProgressHUD showSuccess:@"提交成功"];
-//        } else {
-//            [MBProgressHUD showResponseMessage:successResponse];
-//        }
-//    } fail:^(NSError *error) {
-//        NSLog(@"%@", error);
-//        [MBProgressHUD showError:@"网络异常"];
-//    }];
 }
 #pragma mark - tableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
