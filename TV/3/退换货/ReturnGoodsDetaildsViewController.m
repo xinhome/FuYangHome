@@ -246,7 +246,6 @@
             _placehoderLabel.backgroundColor = [UIColor clearColor];
             [_textView addSubview:_placehoderLabel];
             
-            
             cell.selectionStyle = NO;
             return cell;
         }

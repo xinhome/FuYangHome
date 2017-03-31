@@ -8,10 +8,10 @@
 
 #import "MyOrderViewController.h"
 #import "LiuXSegmentView.h"
-#import "OrderTableViewCell.h"
 #import "OrderDetailsViewController.h"
 #import "JieSuanOrderViewController.h"
 #import "ReturnGoodsTableViewCell.h"
+#import "PingJiaViewController.h"
 #define redColor  RGB(255, 56, 65)
 @interface MyOrderViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -69,7 +69,7 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDefaults valueForKey:@"myUserId"];
     [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
-    [[HttpRequestManager shareManager] addPOSTURL:url person:RequestPersonWeiMing parameters:@{@"userId": userId,@"status": state} success:^(id successResponse) {
+    [[HttpRequestManager shareManager] addPOSTURL:url person:RequestPersonWeiMing parameters:@{@"userId": userId,@"status": state,@"buyerRate":@0} success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
         NSLog(@"订单-----%@", successResponse);
         if ([successResponse isSuccess]) {
@@ -159,6 +159,8 @@
             str = @"待收货";
         } else if ([model.status intValue] == 3) {
             str = @"待评价";
+        } else if ([model.status intValue] == 4) {
+            str = @"已完成";
         }
         UILabel *stateLB = [UILabel labelWithText:str textColor:RGB(242, 0, 0) fontSize:13];
         [headerView addSubview:stateLB];
@@ -191,15 +193,27 @@
             make.centerX.equalTo(footerView);
         }];
         
-        UIButton *shouhuoBtn = [UIButton buttonWithTitle:@"删除" fontSize:12 titleColor:RGB(105, 105, 105) background:[UIColor whiteColor] cornerRadius:4];
+        NSString *btnTitle;
+        if (self.segmentIndex == 4) {
+            btnTitle = @"评价";
+        } else {
+            btnTitle = @"删除";
+        }
+        UIButton *shouhuoBtn = [UIButton buttonWithTitle:btnTitle fontSize:12 titleColor:RGB(105, 105, 105) background:[UIColor whiteColor] cornerRadius:4];
         shouhuoBtn.layer.borderWidth = 1;
         shouhuoBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        shouhuoBtn.tag = section;
         [footerView addSubview:shouhuoBtn];
         [shouhuoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(footerView).offset(-rateWidth(10));
             make.bottom.equalTo(footerView).offset(-rateHeight(30));
             make.size.mas_offset(CGSizeMake(rateWidth(60), rateHeight(20)));
         }];
+        if (self.segmentIndex == 4) {
+            [shouhuoBtn addTarget:self action:@selector(pingJia:) forControlEvents:(UIControlEventTouchUpInside)];
+        } else {
+//            [shouhuoBtn addTarget:self action:@selector(pingJia:) forControlEvents:(UIControlEventTouchUpInside)];
+        }
         
         UIView *line = [UIView new];
         line.backgroundColor = UIColorFromRGB(0xf7f7f7);
@@ -226,7 +240,14 @@
 {
     NSLog(@"删除订单");
 }
-
+// 评价
+- (void)pingJia:(UIButton *)btn
+{
+    PingJiaViewController *pingJiaVC = [[PingJiaViewController alloc] init];
+    ShoppingCarModel *model = (ShoppingCarModel *)_orderArray[btn.tag];
+    pingJiaVC.model = model;
+    [self.navigationController pushViewController:pingJiaVC animated:YES];
+}
 - (UITableView *)myTableView
 {
     if (!_myTableView) {
