@@ -90,9 +90,8 @@
         parameters[picPath] = model.picPath;
         parameters[style] = model.style;
         parameters[colour] = model.colour;
-        NSLog(@"%@", model.style);
     }
-    parameters[@"total_amount"] = @(total_amount);
+    parameters[@"total_amount"] = @(0.01);
     parameters[@"userId"] = [[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"];
     parameters[@"post_fee"] = @(0.06);
     parameters[@"receiverName"] = self.selectAddressModel.receiverName;

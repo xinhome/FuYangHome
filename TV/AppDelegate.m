@@ -91,7 +91,7 @@
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     if ([url.host isEqualToString:@"safepay"]) {
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-            
+            NSLog(@"%@", resultDic);
         }];
     }
     return YES;
@@ -131,7 +131,8 @@
                 //【由于在跳转支付宝客户端支付的过程中，商户app在后台很可能被系统kill了，所以pay接口的callback就会失效，请商户对standbyCallback返回的回调结果进行处理,就是在这个方法里面处理跟callback一样的逻辑】
                 NSLog(@"platformapi  result = %@",resultDic);
             }
-             ];};
+             ];
+        }
     }
     return YES;
 }
