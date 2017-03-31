@@ -8,10 +8,10 @@
 
 #import "MyOrderViewController.h"
 #import "LiuXSegmentView.h"
-#import "OrderTableViewCell.h"
 #import "OrderDetailsViewController.h"
 #import "JieSuanOrderViewController.h"
 #import "ReturnGoodsTableViewCell.h"
+#import "PingJiaViewController.h"
 #define redColor  RGB(255, 56, 65)
 @interface MyOrderViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -202,6 +202,7 @@
         UIButton *shouhuoBtn = [UIButton buttonWithTitle:btnTitle fontSize:12 titleColor:RGB(105, 105, 105) background:[UIColor whiteColor] cornerRadius:4];
         shouhuoBtn.layer.borderWidth = 1;
         shouhuoBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        shouhuoBtn.tag = section;
         [footerView addSubview:shouhuoBtn];
         [shouhuoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(footerView).offset(-rateWidth(10));
@@ -242,7 +243,10 @@
 // 评价
 - (void)pingJia:(UIButton *)btn
 {
-    
+    PingJiaViewController *pingJiaVC = [[PingJiaViewController alloc] init];
+    ShoppingCarModel *model = (ShoppingCarModel *)_orderArray[btn.tag];
+    pingJiaVC.model = model;
+    [self.navigationController pushViewController:pingJiaVC animated:YES];
 }
 - (UITableView *)myTableView
 {

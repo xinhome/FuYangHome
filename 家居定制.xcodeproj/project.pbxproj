@@ -22,7 +22,6 @@
 		8F0CF45C1E86706F008E95DE /* MyTieZiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF4581E86706F008E95DE /* MyTieZiTableViewCell.m */; };
 		8F0CF45D1E86706F008E95DE /* TieZiButtonViw.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF45A1E86706F008E95DE /* TieZiButtonViw.m */; };
 		8F0CF4721E8670CA008E95DE /* MyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF45F1E8670CA008E95DE /* MyOrderViewController.m */; };
-		8F0CF4731E8670CA008E95DE /* OrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF4611E8670CA008E95DE /* OrderTableViewCell.m */; };
 		8F0CF4741E8670CA008E95DE /* LiuXSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF4631E8670CA008E95DE /* LiuXSegmentView.m */; };
 		8F0CF4751E8670CA008E95DE /* OrderDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF4651E8670CA008E95DE /* OrderDetailsViewController.m */; };
 		8F0CF4761E8670CA008E95DE /* JieSuanOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF4671E8670CA008E95DE /* JieSuanOrderViewController.m */; };
@@ -213,6 +212,7 @@
 		8FEF6B791E81273A000FB1DE /* CommonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6B781E81273A000FB1DE /* CommonCell.m */; };
 		8FEFE3E41E889EEE00C3BF6F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEFE3E31E889EEE00C3BF6F /* AppDelegate.m */; };
 		8FEFE3E71E889F0500C3BF6F /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEFE3E61E889F0500C3BF6F /* BaseViewController.m */; };
+		8FF543561E8E4BA2007609D7 /* PingJiaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF543551E8E4BA2007609D7 /* PingJiaViewController.m */; };
 		8FF632981E835DB000ED8751 /* share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FF632971E835DB000ED8751 /* share@2x.png */; };
 		8FF6329B1E835EA200ED8751 /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF6329A1E835EA200ED8751 /* CommentViewController.m */; };
 		8FF632BD1E8369D400ED8751 /* NSBundle+TZImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF632A11E8369D400ED8751 /* NSBundle+TZImagePicker.m */; };
@@ -439,8 +439,6 @@
 		8F0CF45A1E86706F008E95DE /* TieZiButtonViw.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TieZiButtonViw.m; sourceTree = "<group>"; };
 		8F0CF45E1E8670CA008E95DE /* MyOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderViewController.h; sourceTree = "<group>"; };
 		8F0CF45F1E8670CA008E95DE /* MyOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderViewController.m; sourceTree = "<group>"; };
-		8F0CF4601E8670CA008E95DE /* OrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderTableViewCell.h; sourceTree = "<group>"; };
-		8F0CF4611E8670CA008E95DE /* OrderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderTableViewCell.m; sourceTree = "<group>"; };
 		8F0CF4621E8670CA008E95DE /* LiuXSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiuXSegmentView.h; sourceTree = "<group>"; };
 		8F0CF4631E8670CA008E95DE /* LiuXSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiuXSegmentView.m; sourceTree = "<group>"; };
 		8F0CF4641E8670CA008E95DE /* OrderDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailsViewController.h; sourceTree = "<group>"; };
@@ -865,6 +863,8 @@
 		8FEFE3E31E889EEE00C3BF6F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = TV/AppDelegate.m; sourceTree = SOURCE_ROOT; };
 		8FEFE3E51E889F0500C3BF6F /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseViewController.h; path = TV/BaseViewController.h; sourceTree = SOURCE_ROOT; };
 		8FEFE3E61E889F0500C3BF6F /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseViewController.m; path = TV/BaseViewController.m; sourceTree = SOURCE_ROOT; };
+		8FF543541E8E4BA2007609D7 /* PingJiaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingJiaViewController.h; sourceTree = "<group>"; };
+		8FF543551E8E4BA2007609D7 /* PingJiaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingJiaViewController.m; sourceTree = "<group>"; };
 		8FF632971E835DB000ED8751 /* share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share@2x.png"; sourceTree = "<group>"; };
 		8FF632991E835EA200ED8751 /* CommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewController.h; sourceTree = "<group>"; };
 		8FF6329A1E835EA200ED8751 /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
@@ -2165,8 +2165,6 @@
 			children = (
 				8F0CF45E1E8670CA008E95DE /* MyOrderViewController.h */,
 				8F0CF45F1E8670CA008E95DE /* MyOrderViewController.m */,
-				8F0CF4601E8670CA008E95DE /* OrderTableViewCell.h */,
-				8F0CF4611E8670CA008E95DE /* OrderTableViewCell.m */,
 				8F0CF4621E8670CA008E95DE /* LiuXSegmentView.h */,
 				8F0CF4631E8670CA008E95DE /* LiuXSegmentView.m */,
 				8F0CF4641E8670CA008E95DE /* OrderDetailsViewController.h */,
@@ -2183,6 +2181,8 @@
 				8F0CF46F1E8670CA008E95DE /* JieSuanView.m */,
 				8F0CF4701E8670CA008E95DE /* OrderModel.h */,
 				8F0CF4711E8670CA008E95DE /* OrderModel.m */,
+				8FF543541E8E4BA2007609D7 /* PingJiaViewController.h */,
+				8FF543551E8E4BA2007609D7 /* PingJiaViewController.m */,
 			);
 			name = "订单";
 			sourceTree = "<group>";
@@ -2846,7 +2846,6 @@
 				8FEF6B751E8126BA000FB1DE /* CommonViewController.m in Sources */,
 				F4F22EE01DCDEBAA007C83F8 /* MyViewController.m in Sources */,
 				8F0CF45C1E86706F008E95DE /* MyTieZiTableViewCell.m in Sources */,
-				8F0CF4731E8670CA008E95DE /* OrderTableViewCell.m in Sources */,
 				8F0CF4511E867045008E95DE /* ShoppingCartButtonView.m in Sources */,
 				8FEF6B791E81273A000FB1DE /* CommonCell.m in Sources */,
 				8FF632C41E8369D500ED8751 /* TZImagePickerController.m in Sources */,
@@ -2919,6 +2918,7 @@
 				8FE660D31E7BE34B0047DF58 /* LoginViewController.m in Sources */,
 				8FE3885E1E7F8B89006CD8EA /* UserUtil.m in Sources */,
 				8FE6608C1E7BCE8A0047DF58 /* MASViewConstraint.m in Sources */,
+				8FF543561E8E4BA2007609D7 /* PingJiaViewController.m in Sources */,
 				8F195D4F1E7D347F00E8770D /* SystemMsgLabel.m in Sources */,
 				8FEF6B0D1E80B929000FB1DE /* SceneShowCell.m in Sources */,
 				8FAC928F1E88C19F00021D71 /* RSADataSigner.m in Sources */,
