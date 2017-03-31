@@ -75,6 +75,7 @@
                         [model setValuesForKeysWithDictionary:dic];
                         [_shoppingArray addObject:model];
                     }
+                    
                     dispatch_async(dispatch_get_main_queue(), ^{
                         self.btnStatusArr = [NSMutableArray array];
                         for (int i = 0; i < _shoppingArray.count; i++) {
