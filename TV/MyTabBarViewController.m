@@ -57,11 +57,10 @@
 }
 - (void)setUpOneChildViewController:(UIViewController *)viewController image:(UIImage *)image selectedImg:(UIImage*)selectedImg title:(NSString *)title{
     UINavigationController *navC = [[UINavigationController alloc] initWithRootViewController:viewController];
-        
-        
+    
     navC.tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:image selectedImage:[selectedImg imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
-        [self addChildViewController:navC];
+    [self addChildViewController:navC];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

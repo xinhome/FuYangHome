@@ -73,11 +73,12 @@
                                  @"parentComment.commentId": @0,
                                  @"commentContent": content
                                  };
-    [[HttpRequestManager shareManager] addPOSTURL:@"/comments/add" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
-        NSLog(@"%@", successResponse);
-    } fail:^(NSError *error) {
+    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/comments/add" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"%@", responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@", error);
     }];
+    
 }
 #pragma mark - tableView dataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

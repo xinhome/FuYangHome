@@ -28,7 +28,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
   //  self.window.rootViewController = [[MyTabBarViewController alloc] init];
-//    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[ViewController2 alloc] init]];
+   // self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[ViewController2 alloc] init]];
     self.window.rootViewController = [[MyTabBarViewController alloc] init];
     [self.window makeKeyAndVisible];
     [self configShareSDK];
@@ -106,6 +106,7 @@
             //NSLog(@"result = %@",resultDic);
             NSDictionary *dict = [resultDic mj_JSONObject];
             NSLog(@"%@", dict);
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"AlipaySuccess" object:self userInfo:@{@"resultDic": dict}];
         }];
         
         // 授权跳转支付宝钱包进行支付，处理支付结果

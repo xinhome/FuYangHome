@@ -43,6 +43,7 @@
     }
     return resultStr;
 }
+
 - (void)doAlipayPay2 {
     NSDictionary *parameters = @{
                                  @"subject": @"大乐透",

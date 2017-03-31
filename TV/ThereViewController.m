@@ -43,6 +43,11 @@ typedef NS_ENUM(NSInteger, CommunityType) {
                                  @"page": @0,
                                  @"type": @(type)
                                  };
+    //[[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/magazines/getall" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+      //  NSLog(@"%@", responseObject);
+    //} failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+      //  NSLog(@"%@", error);
+    //}];
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
         NSLog(@"%@", successResponse);
         [MBProgressHUD hideHUDForView:self.view];
