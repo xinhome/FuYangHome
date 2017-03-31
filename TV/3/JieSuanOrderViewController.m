@@ -95,24 +95,33 @@
     parameters[@"total_amount"] = @(total_amount);
     parameters[@"userId"] = [[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"];
     parameters[@"post_fee"] = @(0.06);
-    parameters[@"receiverName"] = self.contactPerson.secondLB.text;
-    parameters[@"receiverMobile"] = self.contactPhone.secondLB.text;
+    parameters[@"receiverName"] = self.selectAddressModel.receiverName;
+    parameters[@"receiverMobile"] = self.selectAddressModel.receiverMobile;
     parameters[@"receiverState"] = self.selectAddressModel.receiverState;
     parameters[@"receiverCity"] = self.selectAddressModel.receiverCity;
     parameters[@"receiverDistrict"] = self.selectAddressModel.receiverDistrict;
     parameters[@"receiverAddress"] = self.selectAddressModel.receiverAddress;
+//    [MBProgressHUD showMessage:nil];
 //    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/OrderBuy" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
+//        [MBProgressHUD hideHUD];
 //        NSLog(@"%@", successResponse);
 //        [[AlipaySDK defaultService] payOrder:successResponse[@"data"] fromScheme:@"fuyangjiaju" callback:^(NSDictionary *resultDic) {
 //            NSLog(@"%@", resultDic);
 //        }];
 //    } fail:^(NSError *error) {
+//        [MBProgressHUD hideHUD];
 //        NSLog(@"%@", error);
 //    }];
+    [MBProgressHUD showMessage:nil];
     [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/Order/OrderBuy" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [MBProgressHUD hideHUD];
         NSLog(@"%@", responseObject);
+        [[AlipaySDK defaultService] payOrder:responseObject[@"data"] fromScheme:@"fuyangjiaju" callback:^(NSDictionary *resultDic) {
+            NSLog(@"%@", resultDic);
+        }];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@", error);
+        [MBProgressHUD hideHUD];
     }];
 }
 - (void)test {

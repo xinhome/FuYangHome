@@ -2321,11 +2321,11 @@
 			children = (
 				8F0CF4431E867045008E95DE /* ShoppingCartViewController.h */,
 				8F0CF4441E867045008E95DE /* ShoppingCartViewController.m */,
+				8F0CF4491E867045008E95DE /* BottomJieSuanView.h */,
 				8F0CF4451E867045008E95DE /* ShoppingCartTableViewCell.h */,
 				8F0CF4461E867045008E95DE /* ShoppingCartTableViewCell.m */,
 				8F0CF4471E867045008E95DE /* ShoppingCartButtonView.h */,
 				8F0CF4481E867045008E95DE /* ShoppingCartButtonView.m */,
-				8F0CF4491E867045008E95DE /* BottomJieSuanView.h */,
 				8F0CF44A1E867045008E95DE /* BottomJieSuanView.m */,
 				8F0CF44B1E867045008E95DE /* BottomDeleteView.h */,
 				8F0CF44C1E867045008E95DE /* BottomDeleteView.m */,
