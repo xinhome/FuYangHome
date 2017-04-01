@@ -302,63 +302,45 @@
         NSString *userId = [userDefaults valueForKey:@"myUserId"];
         parameters[@"userId"] = userId;
         NSLog(@"-------%@", parameters);
-        [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/Order/showCarById" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            [MBProgressHUD hideHUDForView:self.view];
-            if ([responseObject isSuccess]) {
-                
-                self.listArray = [NSMutableArray array];
-                NSArray *listArr = responseObject[@"data"][@"list"];
-                for (NSDictionary *dic in listArr) {
-                    ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
-                    [model setValuesForKeysWithDictionary:dic];
-                    [_listArray addObject:model];
-                }
-                JieSuanOrderViewController *jieSuanVC = [[JieSuanOrderViewController alloc] init];
-                AddressModel *addressModel = [[AddressModel alloc] init];
-                addressModel.receiverAddress = responseObject[@"data"][@"receiverAddress"];
-                addressModel.receiverId = responseObject[@"data"][@"receiverId"];
-                addressModel.receiverCity = responseObject[@"data"][@"receiverCity"];
-                addressModel.receiverDistrict = responseObject[@"data"][@"receiverDistrict"];
-                addressModel.receiverMobile = responseObject[@"data"][@"receiverMobile"];
-                addressModel.receiverName = responseObject[@"receiverName"][@"receiverName"];
-                addressModel.receiverState = responseObject[@"receiverState"][@"receiverState"];
-                jieSuanVC.selectAddressModel = addressModel;
-                jieSuanVC.listArray = _listArray;
-                [self.navigationController pushViewController:jieSuanVC animated:YES];
-            }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"%@", error);
-        }];
-        /*
+//        [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/Order/showCarById" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//            
+//        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//            NSLog(@"%@", error);
+//        }];
+        
         [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
         [[HttpRequestManager shareManager] addPOSTURL:@"/Order/showCarById" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
             [MBProgressHUD hideHUDForView:self.view];
             if ([successResponse isSuccess]) {
-                NSLog(@"结算：%@", successResponse);
-                self.listArray = [NSMutableArray array];
-                NSArray *listArr = successResponse[@"data"][@"list"];
-                for (NSDictionary *dic in listArr) {
-                    ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
-                    [model setValuesForKeysWithDictionary:dic];
-                    [_listArray addObject:model];
+                [MBProgressHUD hideHUDForView:self.view];
+                if ([successResponse isSuccess]) {
+                    
+                    self.listArray = [NSMutableArray array];
+                    NSArray *listArr = successResponse[@"data"][@"list"];
+                    for (NSDictionary *dic in listArr) {
+                        ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
+                        [model setValuesForKeysWithDictionary:dic];
+                        [_listArray addObject:model];
+                    }
+                    JieSuanOrderViewController *jieSuanVC = [[JieSuanOrderViewController alloc] init];
+                    AddressModel *addressModel = [[AddressModel alloc] init];
+                    addressModel.receiverAddress = successResponse[@"data"][@"receiverAddress"];
+                    addressModel.receiverId = successResponse[@"data"][@"receiverId"];
+                    addressModel.receiverCity = successResponse[@"data"][@"receiverCity"];
+                    addressModel.receiverDistrict = successResponse[@"data"][@"receiverDistrict"];
+                    addressModel.receiverMobile = successResponse[@"data"][@"receiverMobile"];
+                    addressModel.receiverName = successResponse[@"data"][@"receiverName"];
+                    addressModel.receiverState = successResponse[@"data"][@"receiverState"];
+                    jieSuanVC.selectAddressModel = addressModel;
+                    jieSuanVC.listArray = _listArray;
+                    [self.navigationController pushViewController:jieSuanVC animated:YES];
                 }
-                JieSuanOrderViewController *jieSuanVC = [[JieSuanOrderViewController alloc] init];
-                AddressModel *addressModel = [[AddressModel alloc] init];
-                addressModel.receiverAddress = successResponse[@"data"][@"receiverAddress"];
-                addressModel.receiverCity = successResponse[@"data"][@"receiverCity"];
-                addressModel.receiverDistrict = successResponse[@"data"][@"receiverDistrict"];
-                addressModel.receiverMobile = successResponse[@"data"][@"receiverMobile"];
-                addressModel.receiverName = successResponse[@"receiverName"][@"receiverName"];
-                addressModel.receiverState = successResponse[@"receiverState"][@"receiverState"];
-                jieSuanVC.selectAddressModel = addressModel;
-                jieSuanVC.listArray = _listArray;
-                [self.navigationController pushViewController:jieSuanVC animated:YES];
             }
         } fail:^(NSError *error) {
             [MBProgressHUD hideHUDForView:self.view];
             [MBProgressHUD showError:@"网络异常"];
         }];
-         */
+        
     }
 }
 #pragma mark - tableViewDelegate

@@ -215,6 +215,8 @@
 		8FEF6B791E81273A000FB1DE /* CommonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6B781E81273A000FB1DE /* CommonCell.m */; };
 		8FEFE3E41E889EEE00C3BF6F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEFE3E31E889EEE00C3BF6F /* AppDelegate.m */; };
 		8FEFE3E71E889F0500C3BF6F /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEFE3E61E889F0500C3BF6F /* BaseViewController.m */; };
+		8FF338601E8F43B400CF2393 /* HPPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF3385D1E8F43B400CF2393 /* HPPhotoBrowser.m */; };
+		8FF338611E8F43B400CF2393 /* HPPhotoBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF3385F1E8F43B400CF2393 /* HPPhotoBrowserCell.m */; };
 		8FF543561E8E4BA2007609D7 /* PingJiaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF543551E8E4BA2007609D7 /* PingJiaViewController.m */; };
 		8FF632981E835DB000ED8751 /* share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FF632971E835DB000ED8751 /* share@2x.png */; };
 		8FF6329B1E835EA200ED8751 /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF6329A1E835EA200ED8751 /* CommentViewController.m */; };
@@ -870,6 +872,10 @@
 		8FEFE3E31E889EEE00C3BF6F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = TV/AppDelegate.m; sourceTree = SOURCE_ROOT; };
 		8FEFE3E51E889F0500C3BF6F /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseViewController.h; path = TV/BaseViewController.h; sourceTree = SOURCE_ROOT; };
 		8FEFE3E61E889F0500C3BF6F /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseViewController.m; path = TV/BaseViewController.m; sourceTree = SOURCE_ROOT; };
+		8FF3385C1E8F43B400CF2393 /* HPPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPhotoBrowser.h; sourceTree = "<group>"; };
+		8FF3385D1E8F43B400CF2393 /* HPPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPhotoBrowser.m; sourceTree = "<group>"; };
+		8FF3385E1E8F43B400CF2393 /* HPPhotoBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPPhotoBrowserCell.h; sourceTree = "<group>"; };
+		8FF3385F1E8F43B400CF2393 /* HPPhotoBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPPhotoBrowserCell.m; sourceTree = "<group>"; };
 		8FF543541E8E4BA2007609D7 /* PingJiaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingJiaViewController.h; sourceTree = "<group>"; };
 		8FF543551E8E4BA2007609D7 /* PingJiaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingJiaViewController.m; sourceTree = "<group>"; };
 		8FF632971E835DB000ED8751 /* share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share@2x.png"; sourceTree = "<group>"; };
@@ -1822,6 +1828,10 @@
 		8FE6605E1E7BBCFA0047DF58 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				8FF3385C1E8F43B400CF2393 /* HPPhotoBrowser.h */,
+				8FF3385D1E8F43B400CF2393 /* HPPhotoBrowser.m */,
+				8FF3385E1E8F43B400CF2393 /* HPPhotoBrowserCell.h */,
+				8FF3385F1E8F43B400CF2393 /* HPPhotoBrowserCell.m */,
 				8FE660691E7BCD6A0047DF58 /* TextView */,
 				8FE6605F1E7BBD070047DF58 /* UIView+customerView.h */,
 				8FE660601E7BBD070047DF58 /* UIView+customerView.m */,
@@ -2803,6 +2813,7 @@
 				8F0F16C31E827D0D00D7D308 /* UIScrollView+MJRefresh.m in Sources */,
 				8FE3886A1E7FB21B006CD8EA /* HomeCell.m in Sources */,
 				8FE6606C1E7BCD710047DF58 /* EaseTextView.m in Sources */,
+				8FF338611E8F43B400CF2393 /* HPPhotoBrowserCell.m in Sources */,
 				8F5DB9301E83B63E00D834F8 /* CommunityDetailView.m in Sources */,
 				8FEF6B6B1E810D4D000FB1DE /* ProductDetailController.m in Sources */,
 				8FF632CB1E8369D500ED8751 /* UIView+Layout.m in Sources */,
@@ -2915,6 +2926,7 @@
 				F4F22EA51DCDEBAA007C83F8 /* DPPhotoGroupViewController.m in Sources */,
 				8FE3887D1E7FC0F2006CD8EA /* TADotView.m in Sources */,
 				8F0F16C11E827D0D00D7D308 /* NSBundle+MJRefresh.m in Sources */,
+				8FF338601E8F43B400CF2393 /* HPPhotoBrowser.m in Sources */,
 				8FAC92951E88C25700021D71 /* NSDataEx.m in Sources */,
 				8FE6608A1E7BCE8A0047DF58 /* MASLayoutConstraint.m in Sources */,
 				8FEFE3E41E889EEE00C3BF6F /* AppDelegate.m in Sources */,

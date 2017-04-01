@@ -66,7 +66,7 @@
         return;
     }
     NSDictionary *parameters = @{
-                                 @"pone": self.user.pone,
+                                 @"pone": self.user.tel,
                                  @"newPone": self.pwd1.text
                                  };
     [MBProgressHUD showMessage:@"正在发送" toView:self.view];

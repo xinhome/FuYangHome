@@ -106,7 +106,10 @@
 //        NSLog(@"登录%@", successResponse);
         if ([successResponse isSuccess]) {
             NSDictionary *data = successResponse[@"data"];
-            User *user = [User mj_objectWithKeyValues:data];
+            User *user = [User shareInstance];
+            user.ID = data[@"id"];
+            user.tel = data[@"pone"];
+            user.avatar = [NSString stringWithFormat:@"%@%@", WEIMING, data[@"url"]];
             [[UserUtil shareInstance] saveUser:user];
             [self dismissViewControllerAnimated:YES completion:nil];
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];

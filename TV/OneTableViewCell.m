@@ -7,9 +7,10 @@
 //
 
 #import "OneTableViewCell.h"
+#import "HPPhotoBrowser.h"
 
 @interface OneTableViewCell ()
-@property (nonatomic, strong) NSMutableArray<UIImageView *> *ivs;///<<#注释#>
+
 @property (nonatomic, weak) UILabel *day;///<<#注释#>
 @property (nonatomic, weak) UILabel *month;///<<#注释#>
 @property (nonatomic, weak) UILabel *title;///<<#注释#>
@@ -128,7 +129,11 @@
     }
     
     for (int i = 0; i < urls.count; i ++) {
+        UIImageView *iv = self.ivs[i];
         [self.ivs[i] sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", KAIKANG, urls[i]]]];
+        [iv whenTapped:^{
+            [HPPhotoBrowser showFromImageView:iv inView:[UIApplication sharedApplication].keyWindow withURLStrings:urls atIndex:i];
+        }];
     }
     
     [self.commonBtn setTitle:[NSString stringWithFormat:@"%ld", model.comments.count] forState:UIControlStateNormal];

@@ -18,6 +18,7 @@
 
 @interface MyViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)NSArray *titleArray,*titleImageArray;
+@property (nonatomic, weak) UserHeaderView *headerView;///<<#注释#>
 @end
 
 @implementation MyViewController
@@ -26,6 +27,7 @@
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:RGB(68, 202, 181)] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    [self.headerView.avatar sd_setImageWithURL:[NSURL URLWithString:self.user.avatar]];
 }
 
 - (void)viewDidLoad {
@@ -47,6 +49,7 @@
 
 - (void)configHeaderView {
     UserHeaderView *headerView = [[UserHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 190)];
+    self.headerView = headerView;
     [headerView.avatar whenTapped:^{
         [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]] animated:YES completion:nil];
     }];

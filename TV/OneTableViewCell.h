@@ -13,5 +13,5 @@
 @property (nonatomic, weak) UIButton *pariseBtn;///<<#注释#>
 @property (nonatomic, weak) UIButton *share;///<<#注释#>
 @property (nonatomic, strong) MagazineModel *model;///<<#注释#>
-
+@property (nonatomic, strong) NSMutableArray<UIImageView *> *ivs;///<<#注释#>
 @end
