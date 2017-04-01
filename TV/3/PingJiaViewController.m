@@ -23,6 +23,8 @@
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *selectedPhotos;
 @property (nonatomic, strong) NSMutableArray *btnArray;
+@property (nonatomic, assign) NSInteger btnIndex; // 0好，1中，2差
+@property (nonatomic, assign) NSInteger isNiMing; // 0不匿名，1匿名
 
 @end
 
@@ -32,9 +34,41 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"提交评价";
-    [self addRightItemWithTitle:@"提交" action:nil];
+    [self addRightItemWithTitle:@"提交" action:@selector(actionTiJiao)];
     [self setUpUI];
     
+}
+#pragma mark - 提交评价
+- (void)actionTiJiao
+{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    for (UIImage *image in _selectedPhotos) {
+        NSString *string = [UIImageJPEGRepresentation(image, 1.0) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+        dict[[NSString stringWithFormat:@"returnGoodsImage%lu", (unsigned long)[_selectedPhotos indexOfObject:image]]] = string;
+    }
+    NSString *jsonStr = [dict mj_JSONString];
+    
+    [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
+    NSDictionary *parameters = @{
+                                 @"id": @([_model.goodsId intValue]),
+                                 @"buyerMsg": self.textView.text,
+                                 @"buyerStatus": @(_btnIndex),
+                                 @"buyerNm":@(_isNiMing),
+                                 @"buyerPic": jsonStr
+                                 };
+        NSLog(@"%@", parameters);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    //    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain",@"text/json",@"application/json",@"text/javascript",@"text/html", @"application/javascript", @"text/js", nil];
+    [manager POST:[NSString stringWithFormat:@"%@Order/saveMsg", WeiMingURL] parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [MBProgressHUD hideHUDForView:self.view];
+        NSLog(@"评价：%@", responseObject);
+        [MBProgressHUD showSuccess:@"提交成功"];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@", error);
+        [MBProgressHUD showError:@"网络异常"];
+    }];
 }
 
 - (void)setUpUI
@@ -58,6 +92,9 @@
         [btn addTarget:self action:@selector(actionTouch:) forControlEvents:(UIControlEventTouchUpInside)];
         [self.btnArray addObject:btn];
     }
+    UIButton *firstBtn = (UIButton *)_btnArray[0];
+    [firstBtn setBackgroundImage:[UIImage createImageWithColor:UIColorFromRGB(0xfe3102)] forState:UIControlStateNormal];
+    self.btnIndex = 0;
     
     UIView *line = [UIView new];
     line.backgroundColor = UIColorFromRGB(0xdfdce6);
@@ -139,14 +176,8 @@
         make.top.equalTo(line1.mas_bottom).offset(rateHeight(20));
         make.size.mas_offset(CGSizeMake(rateWidth(15), rateWidth(15)));
     }];
-    [niMingBtn addActionHandler:^{
-        niMingBtn.selected = !niMingBtn.selected;
-        if (niMingBtn.selected) {
-            [niMingBtn setImage:[UIImage imageNamed:@"匿名选中"] forState:(UIControlStateNormal)];
-        } else {
-            [niMingBtn setImage:[UIImage imageNamed:@"匿名未选"] forState:(UIControlStateNormal)];
-        }
-    }];
+    [niMingBtn addTarget:self action:@selector(actionNiMing:) forControlEvents:(UIControlEventTouchUpInside)];
+    self.isNiMing = 0;
     
     UILabel *label = [UILabel labelWithText:@"匿名评价" textColor:UIColorFromRGB(0x333333) fontSize:14];
     [label sizeToFit];
@@ -156,12 +187,25 @@
         make.left.equalTo(niMingBtn.mas_right).offset(rateWidth(15));
     }];
 }
+- (void)actionNiMing:(UIButton *)btn
+{
+    btn.selected = !btn.selected;
+    if (btn.selected) {
+        [btn setImage:[UIImage imageNamed:@"匿名选中"] forState:(UIControlStateNormal)];
+        _isNiMing = 1;
+    } else {
+        [btn setImage:[UIImage imageNamed:@"匿名未选"] forState:(UIControlStateNormal)];
+        _isNiMing = 0;
+    }
+}
 - (void)actionTouch:(UIButton *)btn
 {
     UIButton *button = (UIButton *)_btnArray[btn.tag];
     button.selected = !button.selected;
     if (button.selected) {
         [button setBackgroundImage:[UIImage createImageWithColor:UIColorFromRGB(0xfe3102)] forState:UIControlStateNormal];
+        _btnIndex = btn.tag;
+//        NSLog(@"btnIndex:%ld", (long)_btnIndex);
         for (int i = 0; i < _btnArray.count; i++) {
             UIButton *btn00 = (UIButton *)_btnArray[i];
             if (i != btn.tag) {
@@ -169,10 +213,8 @@
                 btn00.selected = NO;
             }
         }
-        NSLog(@"选中");
     } else if (button.selected == NO) {
         [button setBackgroundImage:[UIImage createImageWithColor:UIColorFromRGB(0xc1bfc7)] forState:UIControlStateNormal];
-        NSLog(@"取消");
     }
 }
 #pragma mark - textView设置placehoder

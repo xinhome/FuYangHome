@@ -10,6 +10,7 @@
 #import "LiuXSegmentView.h"
 #import "ReturnGoodsTableViewCell.h"
 #import "ReturnGoodsDetaildsViewController.h"
+#import "ReturnGoodsListViewController.h"
 
 @interface ReturnGoodsViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -27,7 +28,7 @@
     
     self.navigationItem.title = @"退换货";
     self.segmentIndex = 1;
-    [self addSegment];
+//    [self addSegment];
     [self.view addSubview:self.myTableView];
     self.showReturnGoodsArray = [NSMutableArray array];
 }
@@ -43,11 +44,11 @@
         self.segmentIndex = index;
         [self.showReturnGoodsArray removeAllObjects];
         if (index == 1) {
-            NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"status == 3 || status == 4"];
+            NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"status == 4 || status == 5"];
             NSPredicate *predicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[searchPredicate]];
             self.showReturnGoodsArray = [self.returnGoodsArray filteredArrayUsingPredicate:predicate].mutableCopy;
         } else {
-            NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"status == 5 || status == 6 || status == 7"];
+            NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"status == 5 || status == 6"];
             NSPredicate *predicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[searchPredicate]];
             self.showReturnGoodsArray = [self.returnGoodsArray filteredArrayUsingPredicate:predicate].mutableCopy;
         }
@@ -68,7 +69,7 @@
     [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
     [[HttpRequestManager shareManager] addPOSTURL:@"/Order/showAllOrder" person:RequestPersonWeiMing parameters:@{@"userId": userId,@"status": @0} success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
-//        NSLog(@"可退货列表-----%@", successResponse);
+        NSLog(@"可退货列表-----%@", successResponse);
         if ([successResponse isSuccess]) {
             NSArray *orderArray = successResponse[@"data"];
             self.returnGoodsArray = [NSMutableArray array];
@@ -77,7 +78,7 @@
                 [model setValuesForKeysWithDictionary:dic];
                 [_returnGoodsArray addObject:model];
             }
-            NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"status == 3 || status == 4"];
+            NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"status == 4 || status == 5 || status == 6"];
             NSPredicate *predicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[searchPredicate]];
             self.showReturnGoodsArray = [self.returnGoodsArray filteredArrayUsingPredicate:predicate].mutableCopy;
             [_myTableView reloadData];
@@ -115,16 +116,26 @@
     if (cell == nil) {
         cell = [[ReturnGoodsTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identififer];
     }
-    if (self.segmentIndex == 2) {
-        cell.shouHouBtn.hidden = YES;
-    } else {
+//    if (self.segmentIndex == 2) {
+//        cell.shouHouBtn.hidden = YES;
+//    } else {
         if (_showReturnGoodsArray.count != 0) {
-            cell.shouHouBtn.hidden = NO;
+            cell.shouHouBtn.hidden = YES;
+//            cell.shouHouBtn.tag = indexPath.section;
             cell.cellModel = (ShoppingCarModel *)_showReturnGoodsArray[indexPath.section];
+//            [cell.shouHouBtn addTarget:self action:@selector(actionList:) forControlEvents:(UIControlEventTouchUpInside)];
         }
-    }
+//    }
     cell.selectionStyle = NO;
     return cell;
+}
+#pragma mark - 退货订单列表详情
+- (void)actionList:(UIButton *)btn
+{
+    ReturnGoodsListViewController *returnListVC = [[ReturnGoodsListViewController alloc] init];
+    ShoppingCarModel *model = (ShoppingCarModel *)_showReturnGoodsArray[btn.tag];
+    returnListVC.model = model;
+    [self.navigationController pushViewController:returnListVC animated:YES];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -154,11 +165,11 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (self.segmentIndex == 1) {
-        return rateHeight(60);
-    } else {
+//    if (self.segmentIndex == 1) {
+//        return rateHeight(60);
+//    } else {
         return rateHeight(80);
-    }
+//    }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
@@ -174,7 +185,33 @@
             make.top.equalTo(footerView).offset(rateHeight(15));
             make.centerX.equalTo(footerView);
         }];
-        if (self.segmentIndex == 1) {
+        UIButton *btn1 = [UIButton buttonWithTitle:@"进度查询" fontSize:12 titleColor:UIColorFromRGB(0x4fd2c2) background:[UIColor clearColor] cornerRadius:4];
+        btn1.layer.masksToBounds = YES;
+        btn1.layer.borderColor = UIColorFromRGB(0x4fd2c2).CGColor;
+        btn1.layer.borderWidth = 1;
+        [footerView addSubview:btn1];
+        [btn1 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(footerView).offset(-rateWidth(20));
+            make.bottom.equalTo(footerView).offset(-rateHeight(10));
+            make.size.mas_offset(CGSizeMake(rateWidth(70), rateHeight(24)));
+        }];
+        btn1.tag = section;
+        [btn1 addTarget:self action:@selector(actionList:) forControlEvents:(UIControlEventTouchUpInside)];
+        
+        UIButton *btn2 = [UIButton buttonWithTitle:@"申请售后" fontSize:12 titleColor:UIColorFromRGB(0x4fd2c2) background:[UIColor clearColor] cornerRadius:4];
+        btn2.layer.masksToBounds = YES;
+        btn2.layer.borderColor = UIColorFromRGB(0x4fd2c2).CGColor;
+        btn2.layer.borderWidth = 1;
+        [footerView addSubview:btn2];
+        [btn2 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(btn1.mas_left).offset(-rateWidth(10));
+            make.bottom.equalTo(footerView).offset(-rateHeight(10));
+            make.size.mas_offset(CGSizeMake(rateWidth(70), rateHeight(24)));
+        }];
+        btn2.tag = section;
+        [btn2 addTarget:self action:@selector(shenQingShouHou:) forControlEvents:(UIControlEventTouchUpInside)];
+
+//        if (self.segmentIndex == 1) {
             UIView *line = [UIView new];
             line.backgroundColor = UIColorFromRGB(0xf2f2f2);
             [footerView addSubview:line];
@@ -183,46 +220,53 @@
                 make.left.equalTo(footerView);
                 make.size.mas_offset(CGSizeMake(kScreenWidth, rateHeight(5)));
             }];
-        } else {
-            UIImageView *segmentImg = [UIImageView new];
-            if ([model.status intValue] == 7) {
-                segmentImg.image = [UIImage imageNamed:@"已完成"];
-            } else {
-                segmentImg.image = [UIImage imageNamed:@"审核中"];
-            }
-            [segmentImg sizeToFit];
-            [footerView addSubview:segmentImg];
-            [segmentImg mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(footerView).offset(-rateWidth(20));
-                make.bottom.equalTo(footerView).offset(-rateHeight(10));
-            }];
-            UIView *line = [UIView new];
-            line.backgroundColor = UIColorFromRGB(0xf2f2f2);
-            [footerView addSubview:line];
-            [line mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.bottom.equalTo(footerView);
-                make.left.equalTo(footerView);
-                make.size.mas_offset(CGSizeMake(kScreenWidth, rateHeight(5)));
-            }];
-        }
+//        } else {
+//            UIImageView *segmentImg = [UIImageView new];
+//            if ([model.status intValue] == 7) {
+//                segmentImg.image = [UIImage imageNamed:@"已完成"];
+//            } else {
+//                segmentImg.image = [UIImage imageNamed:@"审核中"];
+//            }
+//            [segmentImg sizeToFit];
+//            [footerView addSubview:segmentImg];
+//            [segmentImg mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.right.equalTo(footerView).offset(-rateWidth(20));
+//                make.bottom.equalTo(footerView).offset(-rateHeight(10));
+//            }];
+//            UIView *line = [UIView new];
+//            line.backgroundColor = UIColorFromRGB(0xf2f2f2);
+//            [footerView addSubview:line];
+//            [line mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.bottom.equalTo(footerView);
+//                make.left.equalTo(footerView);
+//                make.size.mas_offset(CGSizeMake(kScreenWidth, rateHeight(5)));
+//            }];
+//        }
         return footerView;
     } else {
         return nil;
     }
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)shenQingShouHou:(UIButton *)btn
 {
-    if (self.segmentIndex == 1) {
-        ReturnGoodsDetaildsViewController *detailsVC = [[ReturnGoodsDetaildsViewController alloc] init];
-        ShoppingCarModel *model = (ShoppingCarModel *)_showReturnGoodsArray[indexPath.section];
-        detailsVC.model = model;
-        [self.navigationController pushViewController:detailsVC animated:YES];
-    }
+    ReturnGoodsDetaildsViewController *detailsVC = [[ReturnGoodsDetaildsViewController alloc] init];
+    ShoppingCarModel *model = (ShoppingCarModel *)_showReturnGoodsArray[btn.tag];
+    detailsVC.model = model;
+    [self.navigationController pushViewController:detailsVC animated:YES];
 }
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+////    if (self.segmentIndex == 1) {
+//        ReturnGoodsDetaildsViewController *detailsVC = [[ReturnGoodsDetaildsViewController alloc] init];
+//        ShoppingCarModel *model = (ShoppingCarModel *)_showReturnGoodsArray[indexPath.section];
+//        detailsVC.model = model;
+//        [self.navigationController pushViewController:detailsVC animated:YES];
+////    }
+//}
 - (UITableView *)myTableView
 {
     if (!_myTableView) {
-        _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, kScreenWidth, kScreenHeight-110) style:(UITableViewStyleGrouped)];
+        _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) style:(UITableViewStyleGrouped)];
         _myTableView.delegate = self;
         _myTableView.dataSource = self;
         _myTableView.separatorStyle = NO;
