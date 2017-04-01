@@ -224,8 +224,10 @@
         AddressCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
         newCell.border.highlighted = YES;
         self.selectIndexPath = indexPath;
-        self.selectAddress(self.addresses[indexPath.section]);
-        [self popViewController];
+        if (self.selectAddress) {
+            self.selectAddress(self.addresses[indexPath.section]);
+            [self popViewController];
+        }
     }
 }
 

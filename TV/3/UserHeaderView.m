@@ -79,6 +79,22 @@
         UILabel *line4 = [[UILabel alloc] initWithFrame:CGRectMake(shopcar.right, 22, 1, 27)];
         line4.backgroundColor = RGB(230, 230, 230);
         [view addSubview:line4];
+        
+        UILabel *grade = [UILabel labelWithText:@"铜牌会员" textColor:RGB(168, 168, 168) fontSize:14];
+        [grade sizeToFit];
+        grade.centerY = avatar.centerY;
+        grade.right = kScreenWidth-rateWidth(30);
+        [self addSubview:grade];
+        
+        UIImageView *gradeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 25)];
+        gradeImageView.image = UIImageNamed(@"jinpai");
+        gradeImageView.right = grade.left-15;
+        gradeImageView.centerY = grade.centerY;
+        [self addSubview:gradeImageView];
+        
+        UILabel *score = [UILabel labelWithText:@"2100分" textColor:RGB(168, 168, 168) fontSize:14];
+        score.frame = CGRectMake(grade.left, gradeImageView.bottom, kScreenWidth-grade.left, 14);
+        [self addSubview:score];
     }
     return self;
 }

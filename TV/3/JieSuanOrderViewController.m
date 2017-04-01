@@ -28,7 +28,7 @@
 @property (nonatomic, weak) UILabel *dizhiLabel;///<<#注释#>
 @property (nonatomic, weak) JieSuanView *contactPerson;///<<#注释#>
 @property (nonatomic, weak) JieSuanView *contactPhone;///<<#注释#>
-@property (nonatomic, strong) AddressModel *selectAddressModel;///<<#注释#>
+
 @property (nonatomic, strong) NSTimer *timer;///<<#注释#>
 @property (nonatomic, weak) UILabel *successLabel;///<<#注释#>
 @property (nonatomic, assign) int timeCount;///< <#注释#>
@@ -45,11 +45,14 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (void)aliPaySuccess:(NSNotification *)notification {
-    [self loadSuccessView];
+    NSLog(@"%@", notification.userInfo);
+    NSDictionary *result = notification.userInfo[@"resultDic"];
+    if ([result[@"resultStatus"] intValue] == 9000) {
+        [self loadSuccessView];
+    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.navigationItem.title = @"结算";
     self.view.backgroundColor = RGB(242, 242, 242);
     [self.view addSubview:self.myTableView];
@@ -68,21 +71,7 @@
         make.size.mas_offset(CGSizeMake(rateWidth(230), rateHeight(50)));
     }];
 }
-- (NSString *)generateTradeNO
-{
-    static int kNumber = 15;
-    
-    NSString *sourceStr = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    NSMutableString *resultStr = [[NSMutableString alloc] init];
-    srand((unsigned)time(0));
-    for (int i = 0; i < kNumber; i++)
-    {
-        unsigned index = rand() % [sourceStr length];
-        NSString *oneStr = [sourceStr substringWithRange:NSMakeRange(index, 1)];
-        [resultStr appendString:oneStr];
-    }
-    return resultStr;
-}
+
 - (void)doAlipayPay {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     float total_amount = 0.0f;
@@ -108,34 +97,26 @@
         parameters[style] = model.style;
         parameters[colour] = model.colour;
     }
+    parameters[@"receiverId"] = self.selectAddressModel.receiverId;
     parameters[@"total_amount"] = @(0.01);
     parameters[@"userId"] = [[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"];
     parameters[@"post_fee"] = @(0.06);
-    parameters[@"receiverName"] = self.selectAddressModel.receiverName;
-    parameters[@"receiverMobile"] = self.selectAddressModel.receiverMobile;
-    parameters[@"receiverState"] = self.selectAddressModel.receiverState;
-    parameters[@"receiverCity"] = self.selectAddressModel.receiverCity;
-    parameters[@"receiverDistrict"] = self.selectAddressModel.receiverDistrict;
-    parameters[@"receiverAddress"] = self.selectAddressModel.receiverAddress;
+    //parameters[@"receiverName"] = self.selectAddressModel.receiverName;
+    //parameters[@"receiverMobile"] = self.selectAddressModel.receiverMobile;
+    //parameters[@"receiverState"] = self.selectAddressModel.receiverState;
+   // parameters[@"receiverCity"] = self.selectAddressModel.receiverCity;
+   // parameters[@"receiverDistrict"] = self.selectAddressModel.receiverDistrict;
+   // parameters[@"receiverAddress"] = self.selectAddressModel.receiverAddress;
 //    [MBProgressHUD showMessage:nil];
-//    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/OrderBuy" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
-//        [MBProgressHUD hideHUD];
-//        NSLog(@"%@", successResponse);
-//        [[AlipaySDK defaultService] payOrder:successResponse[@"data"] fromScheme:@"fuyangjiaju" callback:^(NSDictionary *resultDic) {
-//            NSLog(@"%@", resultDic);
-//        }];
-//    } fail:^(NSError *error) {
-//        [MBProgressHUD hideHUD];
-//        NSLog(@"%@", error);
-//    }];
+
     [MBProgressHUD showMessage:nil];
-    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/Order/OrderBuy" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/OrderBuy" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
         [MBProgressHUD hideHUD];
-        NSLog(@"%@", responseObject);
-        [[AlipaySDK defaultService] payOrder:responseObject[@"data"] fromScheme:@"fuyangjiaju" callback:^(NSDictionary *resultDic) {
+        NSLog(@"%@", successResponse);
+        [[AlipaySDK defaultService] payOrder:successResponse[@"data"] fromScheme:@"fuyangjiaju" callback:^(NSDictionary *resultDic) {
             NSLog(@"%@", resultDic);
         }];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    } fail:^(NSError *error) {
         NSLog(@"%@", error);
         [MBProgressHUD hideHUD];
     }];
@@ -170,7 +151,7 @@
         [self.view addSubview:view1];
         
         NSArray *array = @[@"联系方式：",@"收货人："];
-        NSArray *array1 = @[@"022-213124234",@"李先生"];
+        NSArray *array1 = @[self.selectAddressModel.receiverMobile, self.selectAddressModel.receiverName];
         for (int i = 0; i < 2; i++) {
             JieSuanView *view = [JieSuanView new];
             [img addSubview:view];
@@ -196,7 +177,8 @@
             make.top.equalTo(img).offset(rateHeight(20));
             make.left.equalTo(img).offset(rateWidth(20));
         }];
-        UILabel *dizhi1 = [UILabel labelWithText:@"天津市河西区富力中心大厦B座21层2101" textColor:RGB(156, 156, 156) fontSize:15];
+        UILabel *dizhi1 = [UILabel labelWithText:@"" textColor:RGB(156, 156, 156) fontSize:15];
+        dizhi1.text = self.selectAddressModel.receiverAddress;
         self.dizhiLabel = dizhi1;
         dizhi1.numberOfLines = 0;
         [view1 addSubview:dizhi1];

@@ -73,12 +73,16 @@
                                  @"parentComment.commentId": @0,
                                  @"commentContent": content
                                  };
-    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/comments/add" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"%@", responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@", error);
+    [[HttpRequestManager shareManager] addPOSTURL:@"/comments/add" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
+        if ([successResponse isSuccess]) {
+            [self popViewController];
+            [MBProgressHUD showSuccess:@"评论成功"];
+        } else {
+            [MBProgressHUD showResponseMessage:successResponse];
+        }
+    } fail:^(NSError *error) {
+        [MBProgressHUD showError:@"网络错误"];
     }];
-    
 }
 #pragma mark - tableView dataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

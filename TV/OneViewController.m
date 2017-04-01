@@ -10,6 +10,7 @@
 #import "OneTableViewCell.h"
 #import "MagazineModel.h"
 #import <ShareSDKUI/ShareSDKUI.h>
+#import "HPPhotoBrowser.h"
 //#import "JHChartHeader.h"
 @interface OneViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -112,14 +113,13 @@
     }];
 }
 
-
-
 #pragma mark  UITableViewDataSource
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OneDetailViewController *controller = [[OneDetailViewController alloc] init];
     controller.model = self.dataSource[indexPath.row];
     [self.navigationController pushViewController:controller animated:YES];
+    
 }
 #pragma mark cellForRowAtIndexPath
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -129,6 +129,7 @@
         cell= [[OneTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"OneCell"];
     }
     cell.model = self.dataSource[indexPath.row];
+    
     [cell.share addActionHandler:^{
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
         [shareParams SSDKSetupShareParamsByText:@"分享内容"

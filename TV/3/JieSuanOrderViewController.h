@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "ShoppingCarModel.h"
+#import "AddressModel.h"
 
 @interface JieSuanOrderViewController : BaseViewController
-
+@property (nonatomic, strong) AddressModel *selectAddressModel;///<<#注释#>
 @property (nonatomic, strong) NSArray<ShoppingCarModel *> *listArray;
 
 @end

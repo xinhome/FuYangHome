@@ -12,6 +12,7 @@
 #import "BottomDeleteView.h"
 #import "JieSuanOrderViewController.h"
 #import "ShoppingCarModel.h"
+#import "AddressModel.h"
 
 @interface ShoppingCartViewController ()<ChangeGoodsNumDelegate>
 
@@ -301,11 +302,19 @@
         NSString *userId = [userDefaults valueForKey:@"myUserId"];
         parameters[@"userId"] = userId;
         NSLog(@"-------%@", parameters);
-            [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
-            [[HttpRequestManager shareManager] addPOSTURL:@"/Order/showCarById" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
+//        [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/Order/showCarById" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//            
+//        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//            NSLog(@"%@", error);
+//        }];
+        
+        [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
+        [[HttpRequestManager shareManager] addPOSTURL:@"/Order/showCarById" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
+            [MBProgressHUD hideHUDForView:self.view];
+            if ([successResponse isSuccess]) {
                 [MBProgressHUD hideHUDForView:self.view];
                 if ([successResponse isSuccess]) {
-                    NSLog(@"结算：%@", successResponse);
+                    
                     self.listArray = [NSMutableArray array];
                     NSArray *listArr = successResponse[@"data"][@"list"];
                     for (NSDictionary *dic in listArr) {
@@ -314,13 +323,24 @@
                         [_listArray addObject:model];
                     }
                     JieSuanOrderViewController *jieSuanVC = [[JieSuanOrderViewController alloc] init];
+                    AddressModel *addressModel = [[AddressModel alloc] init];
+                    addressModel.receiverAddress = successResponse[@"data"][@"receiverAddress"];
+                    addressModel.receiverId = successResponse[@"data"][@"receiverId"];
+                    addressModel.receiverCity = successResponse[@"data"][@"receiverCity"];
+                    addressModel.receiverDistrict = successResponse[@"data"][@"receiverDistrict"];
+                    addressModel.receiverMobile = successResponse[@"data"][@"receiverMobile"];
+                    addressModel.receiverName = successResponse[@"data"][@"receiverName"];
+                    addressModel.receiverState = successResponse[@"data"][@"receiverState"];
+                    jieSuanVC.selectAddressModel = addressModel;
                     jieSuanVC.listArray = _listArray;
                     [self.navigationController pushViewController:jieSuanVC animated:YES];
                 }
-            } fail:^(NSError *error) {
-                [MBProgressHUD hideHUDForView:self.view];
-                [MBProgressHUD showError:@"网络异常"];
-            }];
+            }
+        } fail:^(NSError *error) {
+            [MBProgressHUD hideHUDForView:self.view];
+            [MBProgressHUD showError:@"网络异常"];
+        }];
+        
     }
 }
 #pragma mark - tableViewDelegate

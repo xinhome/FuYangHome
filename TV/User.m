@@ -24,6 +24,7 @@
     if (self = [super init]) {
         _ID = [aDecoder decodeObjectForKey:@"userId"];
         _tel = [aDecoder decodeObjectForKey:@"tel"];
+        _avatar = [aDecoder decodeObjectForKey:@"avatar"];
     }
     return self;
 }
@@ -31,5 +32,6 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:_ID forKey:@"userId"];
     [aCoder encodeObject:_tel forKey:@"tel"];
+    [aCoder encodeObject:_avatar forKey:@"avatar"];
 }
 @end

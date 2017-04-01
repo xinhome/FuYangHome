@@ -114,7 +114,7 @@
             self.timeCount = 60;
             self.sendSMS.userInteractionEnabled = NO;
         } else {
-            [MBProgressHUD showError:@"发送失败"];
+            [MBProgressHUD showResponseMessage:successResponse];
         }
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view];

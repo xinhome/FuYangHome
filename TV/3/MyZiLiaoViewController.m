@@ -14,7 +14,7 @@
 #import "phoneChangeViewController.h"
 #import "DPPhotoGroupViewController.h"
 
-@interface MyZiLiaoViewController ()<UITableViewDelegate, UITableViewDataSource, DPPhotoGroupViewControllerDelegate>
+@interface MyZiLiaoViewController ()<UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UITableView *myTableView;
 @property (nonatomic, strong) UIImage *photoImg;
@@ -49,7 +49,7 @@
             make.right.equalTo(cell.contentView).offset(-rateWidth(20));
         }];
         UIImageView *headImg = [UIImageView new];
-        headImg.image = self.photoImg;
+        [headImg sd_setImageWithURL:[NSURL URLWithString:self.user.avatar]];
         headImg.backgroundColor = RGB(102, 212, 194);
         headImg.layer.masksToBounds = YES;
         headImg.layer.cornerRadius = rateWidth(20);
@@ -106,10 +106,66 @@
 }
 #pragma mark - 选择图片
 - (void)selectImages {
-    DPPhotoGroupViewController *controller = [[DPPhotoGroupViewController alloc] init];
-    controller.maxSelectionCount = 1;
-    controller.delegate = self;
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:controller] animated:YES completion:nil];
+//    DPPhotoGroupViewController *controller = [[DPPhotoGroupViewController alloc] init];
+//    controller.maxSelectionCount = 1;
+//    controller.delegate = self;
+//    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:controller] animated:YES completion:nil];
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alertC addAction:[UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIImagePickerController *pickerC = [[UIImagePickerController alloc] init];
+        pickerC.delegate = self;
+        pickerC.allowsEditing = YES;
+        pickerC.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self presentViewController:pickerC animated:YES completion:nil];
+    }]];
+    [alertC addAction:[UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIImagePickerController *pickerC = [[UIImagePickerController alloc] init];
+        pickerC.delegate = self;
+        pickerC.allowsEditing = YES;
+        pickerC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:pickerC animated:YES completion:nil];
+    }]];
+    [alertC addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alertC animated:YES completion:nil];
+}
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    UIImage *image = info[UIImagePickerControllerEditedImage];
+    self.photoImg = image;
+    [picker dismissViewControllerAnimated:YES completion:^{
+        [MBProgressHUD showMessage:@"正在上传"];
+        
+        NSString *imageStr = [UIImageJPEGRepresentation(image, 1.0) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+        NSString *url = [@{@"url": imageStr} mj_JSONString];
+        [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/FyjjController/head" parameters:@{@"id": self.user.ID, @"url": url} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSLog(@"%@", responseObject);
+            [MBProgressHUD hideHUD];
+            if ([responseObject isSuccess]) {
+                [MBProgressHUD showSuccess:@"修改成功"];
+                [[UserUtil shareInstance] saveAvatar:[NSString stringWithFormat:@"%@%@", @"http://xwmasd.ngrok.cc/FyHome/", responseObject[@"data"]]];
+                [self.myTableView reloadData];
+            } else {
+                [MBProgressHUD showResponseMessage:responseObject];
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"%@", error);
+        }];
+//        [[HttpRequestManager shareManager] addPOSTURL:@"/FyjjController/head" person:RequestPersonYuChuan parameters:@{@"id": self.user.ID, @"url": url} success:^(id successResponse) {
+//            [MBProgressHUD hideHUD];
+//            if ([successResponse isSuccess]) {
+//                [MBProgressHUD showSuccess:@"修改成功"];
+//                NSLog(@"%@", self.user.avatar);
+//                [[UserUtil shareInstance] saveAvatar:[NSString stringWithFormat:@"%@%@", WEIMING, successResponse[@"data"]]];
+//                [self.myTableView reloadData];
+//            } else {
+//                [MBProgressHUD showResponseMessage:successResponse];
+//            }
+//        } fail:^(NSError *error) {
+//            NSLog(@"%@", error);
+//            [MBProgressHUD hideHUD];
+//            [MBProgressHUD showError:@"上传失败"];
+//        }];
+    }];
 }
 #pragma mark - DPPhotoGroupViewControllerDelegate
 - (void)didSelectPhotos:(NSMutableArray *)photos {

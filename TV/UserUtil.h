@@ -12,4 +12,5 @@
 + (instancetype)shareInstance;
 - (void)saveUser:(User *)user;
 - (User *)takeoutUser;
+- (void)saveAvatar:(NSString *)avatar;
 @end

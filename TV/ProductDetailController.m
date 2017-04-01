@@ -11,6 +11,7 @@
 #import "ProductDetailCell.h"
 #import "ProductDetailModel.h"
 #import "ParamDataModel.h"
+#import "ProductCommentController.h"
 
 @interface ProductDetailController ()
 @property (nonatomic, weak) UILabel *count;///<<#注释#>
@@ -158,11 +159,6 @@
                                  @"style": self.headerView.selectedSize
                                  };
     [MBProgressHUD showMessage:@"正在添加购物车" toView:self.view];
-//    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/Order/addCar" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        NSLog(@"%@", responseObject);
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSLog(@"%@", error);
-//    }];
     [[HttpRequestManager shareManager] addPOSTURL:@"/Order/addCar" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
         if ([successResponse isSuccess]) {
@@ -198,13 +194,19 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section == 0) {
+        return 0;
+    }
     return self.productShow.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return nil;
+    }
     ProductDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     NSLog(@"%@", [NSString stringWithFormat:@"%@%@", WEIMING, self.productShow[indexPath.row]]);
     [cell.iv sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, self.productShow[indexPath.row]]]];
@@ -216,6 +218,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return 0.0;
+    }
     return 57+rateHeight(440);
 }
 
@@ -225,7 +230,16 @@
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 2, 30)];
     line.backgroundColor = RGB(83, 204, 185);
     [view addSubview:line];
-    UILabel *label = [UILabel labelWithText:@"产品展示" textColor:RGB(132, 132, 132) fontSize:13];
+    UILabel *label = [UILabel labelWithText:@"" textColor:RGB(132, 132, 132) fontSize:13];
+    if (section == 0) {
+        label.text = @"产品评论";
+        [view whenTapped:^{
+            ProductCommentController *controller = [[ProductCommentController alloc] init];
+            [self pushViewController:controller animation:YES];
+        }];
+    } else {
+        label.text = @"产品展示";
+    }
     [label sizeToFit];
     label.left = line.right+20;
     label.centerY = view.centerY;
