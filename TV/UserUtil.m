@@ -29,4 +29,9 @@
     }
     return nil;
 }
+- (void)saveAvatar:(NSString *)avatar {
+    User *user = [self takeoutUser];
+    user.avatar = avatar;
+    [self saveUser:user];
+}
 @end

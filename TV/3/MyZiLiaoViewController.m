@@ -49,7 +49,7 @@
             make.right.equalTo(cell.contentView).offset(-rateWidth(20));
         }];
         UIImageView *headImg = [UIImageView new];
-        headImg.image = self.photoImg;
+        [headImg sd_setImageWithURL:[NSURL URLWithString:self.user.avatar]];
         headImg.backgroundColor = RGB(102, 212, 194);
         headImg.layer.masksToBounds = YES;
         headImg.layer.cornerRadius = rateWidth(20);
@@ -137,24 +137,34 @@
         
         NSString *imageStr = [UIImageJPEGRepresentation(image, 1.0) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
         NSString *url = [@{@"url": imageStr} mj_JSONString];
-//        [[AFHTTPSessionManager manager] POST:@"http://myc.ngrok.cc/FyHome/FyjjController/head" parameters:@{@"id": self.user.ID, @"url": url} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//            NSLog(@"%@", responseObject);
-//        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//            NSLog(@"%@", error);
-//        }];
-        [[HttpRequestManager shareManager] addPOSTURL:@"/FyjjController/head" person:RequestPersonYuChuan parameters:@{@"id": self.user.ID, @"url": url} success:^(id successResponse) {
+        [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/FyjjController/head" parameters:@{@"id": self.user.ID, @"url": url} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSLog(@"%@", responseObject);
             [MBProgressHUD hideHUD];
-            if ([successResponse isSuccess]) {
+            if ([responseObject isSuccess]) {
                 [MBProgressHUD showSuccess:@"修改成功"];
+                [[UserUtil shareInstance] saveAvatar:[NSString stringWithFormat:@"%@%@", @"http://xwmasd.ngrok.cc/FyHome/", responseObject[@"data"]]];
                 [self.myTableView reloadData];
             } else {
-                [MBProgressHUD showResponseMessage:successResponse];
+                [MBProgressHUD showResponseMessage:responseObject];
             }
-        } fail:^(NSError *error) {
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"%@", error);
-            [MBProgressHUD hideHUD];
-            [MBProgressHUD showError:@"上传失败"];
         }];
+//        [[HttpRequestManager shareManager] addPOSTURL:@"/FyjjController/head" person:RequestPersonYuChuan parameters:@{@"id": self.user.ID, @"url": url} success:^(id successResponse) {
+//            [MBProgressHUD hideHUD];
+//            if ([successResponse isSuccess]) {
+//                [MBProgressHUD showSuccess:@"修改成功"];
+//                NSLog(@"%@", self.user.avatar);
+//                [[UserUtil shareInstance] saveAvatar:[NSString stringWithFormat:@"%@%@", WEIMING, successResponse[@"data"]]];
+//                [self.myTableView reloadData];
+//            } else {
+//                [MBProgressHUD showResponseMessage:successResponse];
+//            }
+//        } fail:^(NSError *error) {
+//            NSLog(@"%@", error);
+//            [MBProgressHUD hideHUD];
+//            [MBProgressHUD showError:@"上传失败"];
+//        }];
     }];
 }
 #pragma mark - DPPhotoGroupViewControllerDelegate

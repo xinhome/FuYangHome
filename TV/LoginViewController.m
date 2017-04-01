@@ -101,6 +101,11 @@
     }
     [MBProgressHUD showMessage:@"正在登录..." toView:self.view];
     NSDictionary *parameters = @{@"pone": self.tel.text, @"password": self.password.text};
+//    [[AFHTTPSessionManager manager] GET:@"http://myc.ngrok.cc/FyHome/FyjjController/yy" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        NSLog(@"%@", responseObject);
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        NSLog(@"%@", error);
+//    }];
     [[HttpRequestManager shareManager] addPOSTURL:@"/FyjjController/yy" person:RequestPersonYuChuan parameters:parameters success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
 //        NSLog(@"登录%@", successResponse);
