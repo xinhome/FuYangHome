@@ -45,6 +45,9 @@
             CGFloat x = [[coordinate.coordinate componentsSeparatedByString:@","].firstObject floatValue];
             CGFloat y = [[coordinate.coordinate componentsSeparatedByString:@","].lastObject floatValue];
             WPWaveRippleView *dotView = [[WPWaveRippleView alloc] initWithTintColor:RGB(80, 197, 176) minRadius:3 waveCount:5 timeInterval:1 duration:4];
+            [dotView whenTapped:^{
+                
+            }];
             dotView.frame = CGRectMake(rateWidth(x), rateHeight(y), 50, 50);
             [self.contentView addSubview:dotView];
             [dotView startAnimating];

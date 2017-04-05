@@ -8,6 +8,13 @@
 
 #import "CommunityDetailCell.h"
 
+@interface CommunityDetailCell ()
+@property (nonatomic, weak) UIImageView *avatar;///<<#注释#>
+@property (nonatomic, weak) UILabel *nickname;///<<#注释#>
+@property (nonatomic, weak) UILabel *commentLabel;///<<#注释#>
+@property (nonatomic, weak) UILabel *timeLabel;///<<#注释#>
+@end
+
 @implementation CommunityDetailCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -48,8 +55,19 @@
             make.right.equalTo(@(-17));
             make.bottom.equalTo(@(-5));
         }];
+        _avatar = avatar;
+        _nickname = nickname;
+        _commentLabel = content;
+        _timeLabel = date;
     }
     return self;
+}
+- (void)setModel:(SocietyCommentModel *)model {
+    _model = model;
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:model.avatar]];
+    self.nickname.text = model.nickname;
+    self.commentLabel.text = model.commentContent;
+    self.timeLabel.text = model.commentTime;
 }
 
 @end

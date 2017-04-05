@@ -11,9 +11,10 @@
 #import "CommunityDetailCell.h"
 #import "CommunityDetailView.h"
 #import "CommentView.h"
+#import "SocietyCommentModel.h"
 
 @interface ThereDetailViewController ()<CommentViewDelegate>
-
+@property (nonatomic, strong) NSMutableArray<SocietyCommentModel *> *dataSource;///<<#注释#>
 @end
 
 @implementation ThereDetailViewController
@@ -25,11 +26,37 @@
     [self loadData];
 }
 - (void)loadData {
-    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getone" person:RequestPersonKaiKang parameters:@{@"id": self.model.magazineId} success:^(id successResponse) {
-        NSLog(@"%@", successResponse);
-    } fail:^(NSError *error) {
+    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/magazines/getone" parameters:@{@"id": self.model.magazineId} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"%@", responseObject);
+        NSArray *comments = responseObject[@"data"][@"comments"];
+        for (NSDictionary *comment in comments) {
+            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+            dict[@"avatar"] = comment[@""];
+            dict[@"nickname"] = comment[@""];
+            dict[@"commentContent"] = comment[@"commentContent"];
+            dict[@"commentTime"] = comment[@"generateTime"];
+            [self.dataSource addObject:[SocietyCommentModel mj_objectWithKeyValues:dict]];
+        }
+        [self.tableView reloadData];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@", error);
     }];
+//    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getone" person:RequestPersonKaiKang parameters:@{@"id": self.model.magazineId} success:^(id successResponse) {
+////        NSLog(@"%@", successResponse);
+//        NSArray *comments = successResponse[@"data"][@"comments"];
+//        for (NSDictionary *comment in comments) {
+//            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+//            dict[@"avatar"] = comment[@""];
+//            dict[@"nickname"] = comment[@""];
+//            dict[@"commentContent"] = comment[@"commentContent"];
+//            dict[@"commentTime"] = comment[@"generateTime"];
+//            [self.dataSource addObject:[SocietyCommentModel mj_objectWithKeyValues:dict]];
+//        }
+//        [self.tableView reloadData];
+////        NSLog(@"%@",comments);
+//    } fail:^(NSError *error) {
+//        NSLog(@"%@", error);
+//    }];
 }
 - (void)setupUI {
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
@@ -56,7 +83,7 @@
 - (void)praise {
 
     NSDictionary *parameters = @{
-                                 @"user.id": [[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"],
+                                 @"user.id": self.user.ID,
                                  @"magazine.magazineId": self.model.magazineId
                                  };
     [[HttpRequestManager shareManager] addPOSTURL:@"/thumbs/add" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
@@ -86,10 +113,11 @@
 }
 #pragma mark - tableView dataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return self.dataSource.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CommunityDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.model = self.dataSource[indexPath.row];
     return cell;
 }
 #pragma mark - tableView delegate
@@ -115,4 +143,10 @@
     return 0.01;
 }
 
+- (NSMutableArray<SocietyCommentModel *> *)dataSource {
+    if (!_dataSource) {
+        _dataSource = [NSMutableArray array];
+    }
+    return _dataSource;
+}
 @end

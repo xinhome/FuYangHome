@@ -13,4 +13,6 @@
 - (void)saveUser:(User *)user;
 - (User *)takeoutUser;
 - (void)saveAvatar:(NSString *)avatar;
+- (void)saveNickname:(NSString *)nickname;
+- (void)saveTelephone:(NSString *)telephone;
 @end

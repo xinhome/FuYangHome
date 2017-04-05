@@ -28,6 +28,7 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:RGB(68, 202, 181)] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     [self.headerView.avatar sd_setImageWithURL:[NSURL URLWithString:self.user.avatar]];
+    self.headerView.nickname.text = self.user.nickname;
 }
 
 - (void)viewDidLoad {

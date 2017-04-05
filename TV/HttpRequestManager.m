@@ -34,7 +34,7 @@ static HttpRequestManager *requestManager = nil;
 }
 - (void)addPOSTURL:(NSString *)URL person:(RequestPerson)person parameters:(NSDictionary *)parameters success:(void (^)(id))success fail:(void (^)(NSError *))fail {
     NSString *baseURL = nil;
-    //   http://xwmasd.ngrok.cc 测试地址
+    //   http://xwmasd.ngrok.cc/FyHome 测试地址
     switch (person) {
         case RequestPersonWeiMing:
             baseURL = @"http://59.110.8.72/FyHome";

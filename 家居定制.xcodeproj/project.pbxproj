@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8F062A1B1E83743E00E5F6F5 /* MyTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F062A1A1E83743E00E5F6F5 /* MyTabBarViewController.m */; };
+		8F0772341E947E9C00A33355 /* CustomMadeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0772331E947E9C00A33355 /* CustomMadeViewController.m */; };
+		8F0772371E9495A400A33355 /* SocietyCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0772361E9495A400A33355 /* SocietyCommentModel.m */; };
 		8F0CF43C1E866FE9008E95DE /* MyZiLiaoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF4391E866FE9008E95DE /* MyZiLiaoViewController.m */; };
 		8F0CF43D1E866FE9008E95DE /* MyZiLiaoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF43B1E866FE9008E95DE /* MyZiLiaoTableViewCell.m */; };
 		8F0CF4411E867014008E95DE /* myTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF43F1E867014008E95DE /* myTableViewCell.m */; };
@@ -417,6 +419,10 @@
 /* Begin PBXFileReference section */
 		8F062A191E83743E00E5F6F5 /* MyTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyTabBarViewController.h; path = TV/MyTabBarViewController.h; sourceTree = SOURCE_ROOT; };
 		8F062A1A1E83743E00E5F6F5 /* MyTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyTabBarViewController.m; path = TV/MyTabBarViewController.m; sourceTree = SOURCE_ROOT; };
+		8F0772321E947E9C00A33355 /* CustomMadeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMadeViewController.h; sourceTree = "<group>"; };
+		8F0772331E947E9C00A33355 /* CustomMadeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMadeViewController.m; sourceTree = "<group>"; };
+		8F0772351E9495A400A33355 /* SocietyCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocietyCommentModel.h; sourceTree = "<group>"; };
+		8F0772361E9495A400A33355 /* SocietyCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocietyCommentModel.m; sourceTree = "<group>"; };
 		8F0CF4381E866FE9008E95DE /* MyZiLiaoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyZiLiaoViewController.h; sourceTree = "<group>"; };
 		8F0CF4391E866FE9008E95DE /* MyZiLiaoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyZiLiaoViewController.m; sourceTree = "<group>"; };
 		8F0CF43A1E866FE9008E95DE /* MyZiLiaoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyZiLiaoTableViewCell.h; sourceTree = "<group>"; };
@@ -1206,6 +1212,8 @@
 				F4F22DCC1DCDEBA9007C83F8 /* OneViewController.xib */,
 				8FF632991E835EA200ED8751 /* CommentViewController.h */,
 				8FF6329A1E835EA200ED8751 /* CommentViewController.m */,
+				8F0772321E947E9C00A33355 /* CustomMadeViewController.h */,
+				8F0772331E947E9C00A33355 /* CustomMadeViewController.m */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -1540,6 +1548,8 @@
 			children = (
 				8FA0917D1E8A636F00B9ACD1 /* ThereModel.h */,
 				8FA0917E1E8A636F00B9ACD1 /* ThereModel.m */,
+				8F0772351E9495A400A33355 /* SocietyCommentModel.h */,
+				8F0772361E9495A400A33355 /* SocietyCommentModel.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -2816,6 +2826,7 @@
 				8FF338611E8F43B400CF2393 /* HPPhotoBrowserCell.m in Sources */,
 				8F5DB9301E83B63E00D834F8 /* CommunityDetailView.m in Sources */,
 				8FEF6B6B1E810D4D000FB1DE /* ProductDetailController.m in Sources */,
+				8F0772341E947E9C00A33355 /* CustomMadeViewController.m in Sources */,
 				8FF632CB1E8369D500ED8751 /* UIView+Layout.m in Sources */,
 				8F0CF4531E867045008E95DE /* BottomDeleteView.m in Sources */,
 				8F0F16BD1E827D0D00D7D308 /* MJRefreshNormalHeader.m in Sources */,
@@ -2939,6 +2950,7 @@
 				8FE660681E7BC94C0047DF58 /* ButtonInPost.m in Sources */,
 				8FE660A71E7BE05E0047DF58 /* MJExtensionConst.m in Sources */,
 				F4F22F1C1DCDEBAA007C83F8 /* TWSelectCityView.m in Sources */,
+				8F0772371E9495A400A33355 /* SocietyCommentModel.m in Sources */,
 				8FE660AC1E7BE05E0047DF58 /* NSObject+MJClass.m in Sources */,
 				8FE660AA1E7BE05E0047DF58 /* MJPropertyKey.m in Sources */,
 				8FE660D31E7BE34B0047DF58 /* LoginViewController.m in Sources */,
