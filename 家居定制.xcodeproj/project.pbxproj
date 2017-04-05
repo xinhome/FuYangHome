@@ -27,10 +27,6 @@
 		8F0CF4741E8670CA008E95DE /* LiuXSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF4631E8670CA008E95DE /* LiuXSegmentView.m */; };
 		8F0CF4751E8670CA008E95DE /* OrderDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF4651E8670CA008E95DE /* OrderDetailsViewController.m */; };
 		8F0CF4761E8670CA008E95DE /* JieSuanOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF4671E8670CA008E95DE /* JieSuanOrderViewController.m */; };
-		8F0CF4771E8670CA008E95DE /* JieSuanListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF4691E8670CA008E95DE /* JieSuanListTableViewCell.m */; };
-		8F0CF4781E8670CA008E95DE /* OrderFirstView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF46B1E8670CA008E95DE /* OrderFirstView.m */; };
-		8F0CF4791E8670CA008E95DE /* OrderSecondView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF46D1E8670CA008E95DE /* OrderSecondView.m */; };
-		8F0CF47A1E8670CA008E95DE /* JieSuanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF46F1E8670CA008E95DE /* JieSuanView.m */; };
 		8F0CF47B1E8670CA008E95DE /* OrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF4711E8670CA008E95DE /* OrderModel.m */; };
 		8F0CF47F1E86716E008E95DE /* ReturnGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF47E1E86716E008E95DE /* ReturnGoodsViewController.m */; };
 		8F0F16791E825FE200D7D308 /* AllProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0F16781E825FE200D7D308 /* AllProductModel.m */; };
@@ -459,14 +455,6 @@
 		8F0CF4651E8670CA008E95DE /* OrderDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailsViewController.m; sourceTree = "<group>"; };
 		8F0CF4661E8670CA008E95DE /* JieSuanOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JieSuanOrderViewController.h; sourceTree = "<group>"; };
 		8F0CF4671E8670CA008E95DE /* JieSuanOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JieSuanOrderViewController.m; sourceTree = "<group>"; };
-		8F0CF4681E8670CA008E95DE /* JieSuanListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JieSuanListTableViewCell.h; sourceTree = "<group>"; };
-		8F0CF4691E8670CA008E95DE /* JieSuanListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JieSuanListTableViewCell.m; sourceTree = "<group>"; };
-		8F0CF46A1E8670CA008E95DE /* OrderFirstView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderFirstView.h; sourceTree = "<group>"; };
-		8F0CF46B1E8670CA008E95DE /* OrderFirstView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderFirstView.m; sourceTree = "<group>"; };
-		8F0CF46C1E8670CA008E95DE /* OrderSecondView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderSecondView.h; sourceTree = "<group>"; };
-		8F0CF46D1E8670CA008E95DE /* OrderSecondView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderSecondView.m; sourceTree = "<group>"; };
-		8F0CF46E1E8670CA008E95DE /* JieSuanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JieSuanView.h; sourceTree = "<group>"; };
-		8F0CF46F1E8670CA008E95DE /* JieSuanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JieSuanView.m; sourceTree = "<group>"; };
 		8F0CF4701E8670CA008E95DE /* OrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderModel.h; sourceTree = "<group>"; };
 		8F0CF4711E8670CA008E95DE /* OrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderModel.m; sourceTree = "<group>"; };
 		8F0CF47D1E86716E008E95DE /* ReturnGoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReturnGoodsViewController.h; sourceTree = "<group>"; };
@@ -2212,14 +2200,6 @@
 				8F0CF4651E8670CA008E95DE /* OrderDetailsViewController.m */,
 				8F0CF4661E8670CA008E95DE /* JieSuanOrderViewController.h */,
 				8F0CF4671E8670CA008E95DE /* JieSuanOrderViewController.m */,
-				8F0CF4681E8670CA008E95DE /* JieSuanListTableViewCell.h */,
-				8F0CF4691E8670CA008E95DE /* JieSuanListTableViewCell.m */,
-				8F0CF46A1E8670CA008E95DE /* OrderFirstView.h */,
-				8F0CF46B1E8670CA008E95DE /* OrderFirstView.m */,
-				8F0CF46C1E8670CA008E95DE /* OrderSecondView.h */,
-				8F0CF46D1E8670CA008E95DE /* OrderSecondView.m */,
-				8F0CF46E1E8670CA008E95DE /* JieSuanView.h */,
-				8F0CF46F1E8670CA008E95DE /* JieSuanView.m */,
 				8F0CF4701E8670CA008E95DE /* OrderModel.h */,
 				8F0CF4711E8670CA008E95DE /* OrderModel.m */,
 				8FF543541E8E4BA2007609D7 /* PingJiaViewController.h */,
@@ -2887,7 +2867,6 @@
 				F4F22F4B1DCDEBAA007C83F8 /* ZQTColorSwitch.m in Sources */,
 				8FE660AD1E7BE05E0047DF58 /* NSObject+MJCoding.m in Sources */,
 				F4F22EDA1DCDEBAA007C83F8 /* MainViewController.m in Sources */,
-				8F0CF47A1E8670CA008E95DE /* JieSuanView.m in Sources */,
 				8F0F16BB1E827D0D00D7D308 /* MJRefreshBackStateFooter.m in Sources */,
 				8F5F68F51E8E53E6006C7CD5 /* ChangJingCell.m in Sources */,
 				8FE660D71E7BE9710047DF58 /* RegisterViewController.m in Sources */,
@@ -2911,7 +2890,6 @@
 				8F0CF4761E8670CA008E95DE /* JieSuanOrderViewController.m in Sources */,
 				8F0F16BA1E827D0D00D7D308 /* MJRefreshBackNormalFooter.m in Sources */,
 				8FE388AC1E7FC14B006CD8EA /* SDWebImageManager.m in Sources */,
-				8F0CF4781E8670CA008E95DE /* OrderFirstView.m in Sources */,
 				8F0F16B91E827D0D00D7D308 /* MJRefreshBackGifFooter.m in Sources */,
 				8FF632C21E8369D500ED8751 /* TZImageManager.m in Sources */,
 				8F5F68F81E8E5401006C7CD5 /* GoodsCommentCell.m in Sources */,
@@ -2922,8 +2900,6 @@
 				8FF632C71E8369D500ED8751 /* TZPhotoPreviewController.m in Sources */,
 				8FE6608E1E7BCE8A0047DF58 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				8FE3887B1E7FC0F2006CD8EA /* TAAbstractDotView.m in Sources */,
-				8F0CF4771E8670CA008E95DE /* JieSuanListTableViewCell.m in Sources */,
-				8F0CF4791E8670CA008E95DE /* OrderSecondView.m in Sources */,
 				8FE3887C1E7FC0F2006CD8EA /* TAAnimatedDotView.m in Sources */,
 				8F195D461E7CDE3D00E8770D /* SearchViewController.m in Sources */,
 				8F0F16B11E827D0D00D7D308 /* MJRefreshAutoFooter.m in Sources */,

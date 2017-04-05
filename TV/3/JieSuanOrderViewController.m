@@ -8,9 +8,6 @@
 //
 
 #import "JieSuanOrderViewController.h"
-#import "OrderFirstView.h"
-#import "JieSuanView.h"
-#import "JieSuanListTableViewCell.h"
 #import "ReturnGoodsTableViewCell.h"
 #import "ShoppingCarModel.h"
 #import "changeAddressViewController.h"
@@ -26,8 +23,6 @@
 
 @property (nonatomic, strong) UITableView *myTableView;
 @property (nonatomic, weak) UILabel *dizhiLabel;///<<#注释#>
-@property (nonatomic, weak) JieSuanView *contactPerson;///<<#注释#>
-@property (nonatomic, weak) JieSuanView *contactPhone;///<<#注释#>
 
 @property (nonatomic, strong) NSTimer *timer;///<<#注释#>
 @property (nonatomic, weak) UILabel *successLabel;///<<#注释#>
@@ -45,7 +40,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (void)aliPaySuccess:(NSNotification *)notification {
-    NSLog(@"%@", notification.userInfo);
     NSDictionary *result = notification.userInfo[@"resultDic"];
     if ([result[@"resultStatus"] intValue] == 9000) {
         [self loadSuccessView];
@@ -101,13 +95,6 @@
     parameters[@"total_amount"] = @(0.01);
     parameters[@"userId"] = [[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"];
     parameters[@"post_fee"] = @(0.06);
-    //parameters[@"receiverName"] = self.selectAddressModel.receiverName;
-    //parameters[@"receiverMobile"] = self.selectAddressModel.receiverMobile;
-    //parameters[@"receiverState"] = self.selectAddressModel.receiverState;
-   // parameters[@"receiverCity"] = self.selectAddressModel.receiverCity;
-   // parameters[@"receiverDistrict"] = self.selectAddressModel.receiverDistrict;
-   // parameters[@"receiverAddress"] = self.selectAddressModel.receiverAddress;
-//    [MBProgressHUD showMessage:nil];
 
     [MBProgressHUD showMessage:nil];
     [[HttpRequestManager shareManager] addPOSTURL:@"/Order/OrderBuy" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
@@ -153,21 +140,7 @@
         NSArray *array = @[@"联系方式：",@"收货人："];
         NSArray *array1 = @[self.selectAddressModel.receiverMobile, self.selectAddressModel.receiverName];
         for (int i = 0; i < 2; i++) {
-            JieSuanView *view = [JieSuanView new];
-            [img addSubview:view];
-            [view mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(img);
-                make.right.equalTo(img);
-                make.bottom.equalTo(img).offset(-rateHeight(50)*i);
-                make.height.equalTo(@(rateHeight(50)));
-            }];
-            view.firstLB.text = array[i];
-            view.secondLB.text = array1[i];
-            if (i == 0) {
-                self.contactPerson = view;
-            } else {
-                self.contactPhone = view;
-            }
+            
         }
         
         UILabel *dizhi = [UILabel labelWithText:@"收货地址：" textColor:RGB(156, 156, 156) fontSize:15];
@@ -286,8 +259,7 @@
     [changeAddressVC setSelectAddress:^(AddressModel *model){
         self.selectAddressModel = model;
         self.dizhiLabel.text = model.receiverAddress;
-        self.contactPerson.secondLB.text = model.receiverName;
-        self.contactPhone.secondLB.text = model.receiverMobile;
+       
         [self.tableView reloadData];
     }];
     [self.navigationController pushViewController:changeAddressVC animated:YES];

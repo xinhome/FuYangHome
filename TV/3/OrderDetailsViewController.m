@@ -67,11 +67,7 @@
             array2 = @[@"", @"", str];
         }
         for (int i = 0; i < 3; i++) {
-            OrderSecondView *item = [[OrderSecondView alloc] initWithFrame:cell.contentView.frame];
-            item.backgroundColor = [UIColor whiteColor];
-            item.firstLB.text = array1[indexPath.section-1];
-            item.secondLB.text = array2[indexPath.section-1];
-            [cell.contentView addSubview:item];
+            
         }
         cell.selectionStyle = NO;
         return cell;
