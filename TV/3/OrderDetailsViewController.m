@@ -10,6 +10,7 @@
 #import "ReturnGoodsTableViewCell.h"
 #import "PingJiaViewController.h"
 #import "PingJiaDisplayViewController.h"
+#import "OrderSecondView.h"
 
 @interface OrderDetailsViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -49,6 +50,9 @@
         return cell;
     } else {
         UITableViewCell *cell = [[UITableViewCell alloc] init];
+        OrderSecondView *orderSecondView = [[OrderSecondView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(48))];
+        orderSecondView.backgroundColor = [UIColor whiteColor];
+        [cell.contentView addSubview:orderSecondView];
         NSArray *array1 = @[@"快递公司：", @"快递单号：", @"状态："];
         NSString *str;
         if ([_model.status intValue] == 1) {
@@ -66,9 +70,8 @@
         } else {
             array2 = @[@"", @"", str];
         }
-        for (int i = 0; i < 3; i++) {
-            
-        }
+        orderSecondView.firstLB.text = array1[indexPath.row];
+        orderSecondView.secondLB.text = array2[indexPath.row];
         cell.selectionStyle = NO;
         return cell;
     }

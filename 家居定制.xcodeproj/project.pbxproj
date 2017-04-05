@@ -239,6 +239,7 @@
 		8FF632C91E8369D500ED8751 /* TZTestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF632B81E8369D400ED8751 /* TZTestCell.m */; };
 		8FF632CA1E8369D500ED8751 /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF632BA1E8369D400ED8751 /* TZVideoPlayerController.m */; };
 		8FF632CB1E8369D500ED8751 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF632BC1E8369D400ED8751 /* UIView+Layout.m */; };
+		8FF7C7E61E94F98500BC8EEC /* OrderSecondView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF7C7E51E94F98500BC8EEC /* OrderSecondView.m */; };
 		8FFD41951E88DA6500544045 /* ReturnGoodsDetaildsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFD41921E88DA6500544045 /* ReturnGoodsDetaildsViewController.m */; };
 		8FFD41961E88DA6500544045 /* ReturnGoodsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFD41941E88DA6500544045 /* ReturnGoodsTableViewCell.m */; };
 		F4636D111E35D305001102EF /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = F4636D0E1E35D305001102EF /* iTunesArtwork.png */; };
@@ -921,6 +922,8 @@
 		8FF632BA1E8369D400ED8751 /* TZVideoPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZVideoPlayerController.m; sourceTree = "<group>"; };
 		8FF632BB1E8369D400ED8751 /* UIView+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Layout.h"; sourceTree = "<group>"; };
 		8FF632BC1E8369D400ED8751 /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
+		8FF7C7E41E94F98500BC8EEC /* OrderSecondView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderSecondView.h; sourceTree = "<group>"; };
+		8FF7C7E51E94F98500BC8EEC /* OrderSecondView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderSecondView.m; sourceTree = "<group>"; };
 		8FFD41911E88DA6500544045 /* ReturnGoodsDetaildsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReturnGoodsDetaildsViewController.h; sourceTree = "<group>"; };
 		8FFD41921E88DA6500544045 /* ReturnGoodsDetaildsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReturnGoodsDetaildsViewController.m; sourceTree = "<group>"; };
 		8FFD41931E88DA6500544045 /* ReturnGoodsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReturnGoodsTableViewCell.h; sourceTree = "<group>"; };
@@ -2221,6 +2224,8 @@
 				8FF543551E8E4BA2007609D7 /* PingJiaViewController.m */,
 				8F14D4831E947D4E009A9D15 /* PingJiaDisplayViewController.h */,
 				8F14D4841E947D4E009A9D15 /* PingJiaDisplayViewController.m */,
+				8FF7C7E41E94F98500BC8EEC /* OrderSecondView.h */,
+				8FF7C7E51E94F98500BC8EEC /* OrderSecondView.m */,
 			);
 			name = "订单";
 			sourceTree = "<group>";
@@ -3015,6 +3020,7 @@
 				8F0F16C01E827D0D00D7D308 /* MJRefreshConst.m in Sources */,
 				8F0CF4741E8670CA008E95DE /* LiuXSegmentView.m in Sources */,
 				8FE388671E7FABFB006CD8EA /* SceneShowView.m in Sources */,
+				8FF7C7E61E94F98500BC8EEC /* OrderSecondView.m in Sources */,
 				8F0CF43D1E866FE9008E95DE /* MyZiLiaoTableViewCell.m in Sources */,
 				8FA6F7551E5FD52E006CC20B /* Main5TableViewCell.m in Sources */,
 				8FE660C81E7BE1050047DF58 /* AFURLSessionManager.m in Sources */,

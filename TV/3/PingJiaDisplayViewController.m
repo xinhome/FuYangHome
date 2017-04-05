@@ -105,6 +105,8 @@
         }
         for (int i = 0; i < imgArray.count; i ++) {
             UIImageView *img = [UIImageView new];
+            NSURL *imgUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WeiMingURL,imgArray[i]]];
+            [img sd_setImageWithURL:imgUrl];
             img.backgroundColor = [UIColor lightGrayColor];
             img.tag = i + 100;
             [self.view addSubview:img];
@@ -118,15 +120,17 @@
         
     }
     
-    
-    UIImageView *img = (UIImageView *)[self.view viewWithTag:100];
     UIView *line1 = [UIView new];
     line1.backgroundColor = UIColorFromRGB(0xdfdce6);
     [self.view addSubview:line1];
     [line1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
-        make.top.equalTo(img.mas_bottom).offset(rateHeight(10));
+        if (imgArray.count != 0) {
+            make.top.equalTo(textLB.mas_bottom).offset(rateHeight(10)+rateHeight(60));
+        } else {
+            make.top.equalTo(textLB.mas_bottom).offset(rateHeight(10));
+        }
         make.height.equalTo(@(0.5));
     }];
     
