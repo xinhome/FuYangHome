@@ -29,7 +29,8 @@
 }
 - (void)setupUI {
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-    scrollView.backgroundColor = huiseColor;
+    scrollView.backgroundColor = RGB(240, 240, 240);
+    [self.view addSubview:scrollView];
     UILabel *label1 = [UILabel labelWithText:@"姓名" textColor:UIColorBlack fontSize:16];
     [label1 sizeToFit];
     label1.origin = (CGPoint){17, 17};
@@ -46,14 +47,17 @@
     [scrollView addSubview:label3];
     
     UITextField *name = [[UITextField alloc] initWithFrame:CGRectMake(label1.right+10, 0, rateWidth(220), 40)];
+    name.backgroundColor = UIColorWhite;
     name.centerY = label1.centerY;
     [scrollView addSubview:name];
     
     UITextField *telephone = [[UITextField alloc] initWithFrame:CGRectMake(label2.right+10, 0, rateWidth(220), 40)];
+    telephone.backgroundColor = UIColorWhite;
     telephone.centerY = label2.centerY;
     [scrollView addSubview:telephone];
     
     UITextField *address = [[UITextField alloc] initWithFrame:CGRectMake(label3.right+10, 0, rateWidth(220), 40)];
+    address.backgroundColor = UIColorWhite;
     address.centerY = label3.centerY;
     [scrollView addSubview:address];
     

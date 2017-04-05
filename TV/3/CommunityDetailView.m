@@ -7,6 +7,7 @@
 //
 
 #import "CommunityDetailView.h"
+#import "HPPhotoBrowser.h"
 
 @interface CommunityDetailView ()
 
@@ -99,6 +100,9 @@
     NSArray *images = [model.image componentsSeparatedByString:@","];
     for (int i = 0; i < images.count; i ++) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(13+(rateWidth(125))*(i%3), _desc.bottom+5+(rateWidth(125))*(i/3), rateWidth(115), rateWidth(115))];
+        [imageView whenTapped:^{
+            [HPPhotoBrowser showFromImageView:imageView inView:[UIApplication sharedApplication].keyWindow withURLStrings:images atIndex:i];
+        }];
         imageView.backgroundColor = [UIColor blueColor];
         [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, images[i]]]];
         [self addSubview:imageView];

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ScenceCommentModel.h"
 
 @interface CommonCell : UITableViewCell
-@property (nonatomic, copy) NSString *common;
-+ (CGFloat)heightForCell:(NSString *)common;
+@property (nonatomic, strong) ScenceCommentModel *cellModel;///<<#注释#>
+
 @end

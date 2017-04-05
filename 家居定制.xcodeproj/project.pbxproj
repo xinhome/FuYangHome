@@ -10,6 +10,8 @@
 		8F062A1B1E83743E00E5F6F5 /* MyTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F062A1A1E83743E00E5F6F5 /* MyTabBarViewController.m */; };
 		8F0772341E947E9C00A33355 /* CustomMadeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0772331E947E9C00A33355 /* CustomMadeViewController.m */; };
 		8F0772371E9495A400A33355 /* SocietyCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0772361E9495A400A33355 /* SocietyCommentModel.m */; };
+		8F0772391E94C0B700A33355 /* 优惠券@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0772381E94C0B700A33355 /* 优惠券@2x.png */; };
+		8F07723C1E94DC1100A33355 /* ScenceCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F07723B1E94DC1100A33355 /* ScenceCommentModel.m */; };
 		8F0CF43C1E866FE9008E95DE /* MyZiLiaoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF4391E866FE9008E95DE /* MyZiLiaoViewController.m */; };
 		8F0CF43D1E866FE9008E95DE /* MyZiLiaoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF43B1E866FE9008E95DE /* MyZiLiaoTableViewCell.m */; };
 		8F0CF4411E867014008E95DE /* myTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CF43F1E867014008E95DE /* myTableViewCell.m */; };
@@ -419,6 +421,9 @@
 		8F0772331E947E9C00A33355 /* CustomMadeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMadeViewController.m; sourceTree = "<group>"; };
 		8F0772351E9495A400A33355 /* SocietyCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocietyCommentModel.h; sourceTree = "<group>"; };
 		8F0772361E9495A400A33355 /* SocietyCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocietyCommentModel.m; sourceTree = "<group>"; };
+		8F0772381E94C0B700A33355 /* 优惠券@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "优惠券@2x.png"; sourceTree = "<group>"; };
+		8F07723A1E94DC1100A33355 /* ScenceCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScenceCommentModel.h; sourceTree = "<group>"; };
+		8F07723B1E94DC1100A33355 /* ScenceCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScenceCommentModel.m; sourceTree = "<group>"; };
 		8F0CF4381E866FE9008E95DE /* MyZiLiaoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyZiLiaoViewController.h; sourceTree = "<group>"; };
 		8F0CF4391E866FE9008E95DE /* MyZiLiaoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyZiLiaoViewController.m; sourceTree = "<group>"; };
 		8F0CF43A1E866FE9008E95DE /* MyZiLiaoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyZiLiaoTableViewCell.h; sourceTree = "<group>"; };
@@ -1687,6 +1692,8 @@
 				8F5DB8651E83A78E00D834F8 /* ParamDataModel.m */,
 				8FB15A0B1E8A376700313726 /* ChangJingModel.h */,
 				8FB15A0C1E8A376700313726 /* ChangJingModel.m */,
+				8F07723A1E94DC1100A33355 /* ScenceCommentModel.h */,
+				8F07723B1E94DC1100A33355 /* ScenceCommentModel.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -2071,6 +2078,7 @@
 		F4CFBD6B1DD01D16003503DD /* image */ = {
 			isa = PBXGroup;
 			children = (
+				8F0772381E94C0B700A33355 /* 优惠券@2x.png */,
 				8F5F68EE1E8E34B0006C7CD5 /* 圆角矩形 2@2x.png */,
 				8F5F68EC1E8E328D006C7CD5 /* duihao@2x.png */,
 				F4F22DA01DCDEBA9007C83F8 /* jiahao.png */,
@@ -2699,6 +2707,7 @@
 				F4F22EC91DCDEBAA007C83F8 /* jiantou.png in Resources */,
 				F4F22F131DCDEBAA007C83F8 /* thereTableViewCell.xib in Resources */,
 				8FE3884F1E7F6AFC006CD8EA /* selected.png in Resources */,
+				8F0772391E94C0B700A33355 /* 优惠券@2x.png in Resources */,
 				F4F22EF51DCDEBAA007C83F8 /* qq1.png in Resources */,
 				F4F22ED61DCDEBAA007C83F8 /* main1TableViewCell.xib in Resources */,
 				F4F22EFA1DCDEBAA007C83F8 /* shanchu .png in Resources */,
@@ -2986,6 +2995,7 @@
 				8FE660C81E7BE1050047DF58 /* AFURLSessionManager.m in Sources */,
 				8FE660C61E7BE1050047DF58 /* AFURLRequestSerialization.m in Sources */,
 				8FE660611E7BBD070047DF58 /* UIView+customerView.m in Sources */,
+				8F07723C1E94DC1100A33355 /* ScenceCommentModel.m in Sources */,
 				F4F22ED21DCDEBAA007C83F8 /* main.m in Sources */,
 				8F195D4C1E7D138E00E8770D /* SystemMsgCell.m in Sources */,
 				F4F22EE61DCDEBAA007C83F8 /* OneTableViewCell.m in Sources */,

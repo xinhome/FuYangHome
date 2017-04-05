@@ -27,4 +27,6 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *updated;
 @property (nonatomic, strong) NSArray<Coordinate *> *coordinates;///<坐标
+@property (nonatomic, copy) NSString *likes;
+
 @end

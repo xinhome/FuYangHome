@@ -42,8 +42,8 @@
     [self creatTableView];
     self.tableView.separatorStyle = 0;
     
-    _titleArray = [[NSArray alloc]initWithObjects:@"我的资料",@"系统消息",@"关于我们",@"意见反馈",nil];
-    _titleImageArray = [[NSArray alloc]initWithObjects:@"1",@"2222",@"3",@"4",@"7",@"8",nil];
+    _titleArray = [[NSArray alloc]initWithObjects:@"我的资料", @"我的优惠券" ,@"系统消息",@"关于我们",@"意见反馈",nil];
+    _titleImageArray = [[NSArray alloc]initWithObjects:@"1",@"优惠券",@"2222",@"3",@"4",@"7",@"8",nil];
     //    self.tableView.scrollEnabled = NO;
     [self configHeaderView];
 }

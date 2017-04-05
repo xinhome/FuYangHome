@@ -13,7 +13,6 @@
 
 @property (nonatomic, weak) UIImageView *imageView;///<<#注释#>
 
-@property (nonatomic, strong) NSMutableArray<WPWaveRippleView *> *dots;///<<#注释#>
 @end
 
 @implementation ChangJingCell
@@ -46,7 +45,7 @@
             CGFloat y = [[coordinate.coordinate componentsSeparatedByString:@","].lastObject floatValue];
             WPWaveRippleView *dotView = [[WPWaveRippleView alloc] initWithTintColor:RGB(80, 197, 176) minRadius:3 waveCount:5 timeInterval:1 duration:4];
             [dotView whenTapped:^{
-                
+                NSLog(@"********");
             }];
             dotView.frame = CGRectMake(rateWidth(x), rateHeight(y), 50, 50);
             [self.contentView addSubview:dotView];
