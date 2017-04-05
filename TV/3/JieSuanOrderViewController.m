@@ -18,6 +18,9 @@
 #import "MyOrderViewController.h"
 #import "AppDelegate.h"
 #import "MyTabBarViewController.h"
+#import "ConfirmOrderTableViewCell.h"
+#import "ItemTableViewCell.h"
+#import "JiFenDuiHuanViewController.h"
 
 @interface JieSuanOrderViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -47,22 +50,45 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"结算";
+    self.navigationItem.title = @"确认订单";
     self.view.backgroundColor = RGB(242, 242, 242);
     [self.view addSubview:self.myTableView];
     [self setUpUI];
 }
 - (void)setUpUI
 {
-    UIButton *tiJiaoBtn = [UIButton buttonWithTitle:@"提交订单" fontSize:16 titleColor:[UIColor whiteColor] background:RGB(102, 209, 191) cornerRadius:6];
-    [tiJiaoBtn addActionHandler:^{
-        [self doAlipayPay];
+    UIView *bottomView = [UIView new];
+    bottomView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:bottomView];
+    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view);
+        make.bottom.equalTo(self.view);
+        make.size.mas_offset(CGSizeMake(kScreenWidth, rateHeight(50)));
     }];
-    [self.view addSubview:tiJiaoBtn];
-    [tiJiaoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view).offset(-rateHeight(30));
-        make.centerX.equalTo(self.view);
-        make.size.mas_offset(CGSizeMake(rateWidth(230), rateHeight(50)));
+    
+    CGFloat sumPrice = 0.0;
+    NSString *str;
+    for (ShoppingCarModel *model in _listArray) {
+        sumPrice = sumPrice + [model.price floatValue]*[model.num intValue];
+        str = [NSString stringWithFormat:@"共计：%.2f元（含0元运费）", sumPrice];
+    }
+    UILabel *gongJiLB = [UILabel labelWithText:str textColor:RGB(131, 131, 131) fontSize:14];
+    [gongJiLB sizeToFit];
+    [bottomView addSubview:gongJiLB];
+    [gongJiLB mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(bottomView).mas_offset(rateWidth(25));
+        make.centerY.equalTo(bottomView);
+    }];
+    
+    UIButton *confirmOrderBtn = [UIButton buttonWithTitle:@"确认订单" fontSize:16 titleColor:[UIColor whiteColor] background:RGB(226, 44, 50) cornerRadius:0];
+    [bottomView addSubview:confirmOrderBtn];
+    [confirmOrderBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(bottomView);
+        make.right.equalTo(bottomView);
+        make.size.mas_offset(CGSizeMake(rateWidth(110), rateHeight(50)));
+    }];
+    [confirmOrderBtn addActionHandler:^{
+        [self doAlipayPay];
     }];
 }
 
@@ -111,159 +137,190 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 3;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
         return 1;
-    } else {
+    } else if (section == 1) {
         return _listArray.count;
+    } else {
+        return 4;
     }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
         UITableViewCell *cell = [[UITableViewCell alloc] init];
-        UIView *view1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(260))];
-        view1.backgroundColor = [UIColor whiteColor];
-        UIImageView *img = [UIImageView new];
-        img.image = [UIImage imageNamed:@"矩形 7"];
-        [view1 addSubview:img];
-        [img mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(view1);
-            make.top.equalTo(view1).offset(rateHeight(15));
-            make.size.mas_offset(CGSizeMake(kScreenWidth-rateWidth(30), rateHeight(180)));
+        cell.contentView.backgroundColor = RGB(242, 242, 242);
+        UIImageView *line1 = [UIImageView new];
+        line1.image = [UIImage imageNamed:@"line0"];
+        [cell.contentView addSubview:line1];
+        [line1 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(cell.contentView);
+            make.left.equalTo(cell.contentView);
+            make.right.equalTo(cell.contentView);
+            make.height.equalTo(@(1));
         }];
-        [self.view addSubview:view1];
+        UIImageView *line2 = [UIImageView new];
+        line2.image = [UIImage imageNamed:@"line0"];
+        [cell.contentView addSubview:line2];
+        [line2 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(cell.contentView);
+            make.left.equalTo(cell.contentView);
+            make.right.equalTo(cell.contentView);
+            make.height.equalTo(@(1));
+        }];
+        UIImageView *arrowImg = [UIImageView new];
+        arrowImg.image = [UIImage imageNamed:@"jiantou"];
+        [cell.contentView addSubview:arrowImg];
+        [arrowImg mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(cell.contentView);
+            make.right.equalTo(cell.contentView).offset(-rateWidth(20));
+            make.size.mas_offset(CGSizeMake(rateWidth(8), rateWidth(13)));
+        }];
         
-        NSArray *array = @[@"联系方式：",@"收货人："];
-        NSArray *array1 = @[self.selectAddressModel.receiverMobile, self.selectAddressModel.receiverName];
-        for (int i = 0; i < 2; i++) {
-            
-        }
+        // 没有默认收货地址
+//        UIImageView *editDiZhi = [UIImageView new];
+//        editDiZhi.image = [UIImage imageNamed:@"dizhi"];
+//        [cell.contentView addSubview:editDiZhi];
+//        [editDiZhi mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerY.equalTo(cell.contentView);
+//            make.left.equalTo(cell.contentView).offset(rateWidth(20));
+//            make.size.mas_offset(CGSizeMake(rateWidth(25), rateWidth(25)));
+//            
+//        }];
+//        
+//        UILabel *diZhiLB = [UILabel labelWithText:@"填写收货地址" textColor:RGB(72, 72, 72) fontSize:15];
+//        [diZhiLB sizeToFit];
+//        [cell.contentView addSubview:diZhiLB];
+//        [diZhiLB mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerY.equalTo(cell.contentView);
+//            make.left.equalTo(editDiZhi.mas_right).offset(rateWidth(15));
+//        }];
         
-        UILabel *dizhi = [UILabel labelWithText:@"收货地址：" textColor:RGB(156, 156, 156) fontSize:15];
-        [dizhi sizeToFit];
-        [view1 addSubview:dizhi];
-        [dizhi mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(img).offset(rateHeight(20));
-            make.left.equalTo(img).offset(rateWidth(20));
+        // 有默认地址
+        UILabel *label1 = [UILabel labelWithText:@"收货人：" textColor:RGB(0, 0, 0) fontSize:15];
+        [label1 sizeToFit];
+        [cell.contentView addSubview:label1];
+        [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(cell.contentView).offset(rateWidth(20));
+            make.top.equalTo(cell.contentView).offset(rateHeight(20));
         }];
-        UILabel *dizhi1 = [UILabel labelWithText:@"" textColor:RGB(156, 156, 156) fontSize:15];
-        dizhi1.text = self.selectAddressModel.receiverAddress;
-        self.dizhiLabel = dizhi1;
-        dizhi1.numberOfLines = 0;
-        [view1 addSubview:dizhi1];
-        [dizhi1 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(img).offset(rateHeight(20));
-            make.left.equalTo(dizhi.mas_right);
-            make.width.equalTo(@(rateWidth(225)));
+        
+        UILabel *label2 = [UILabel labelWithText:@"地址：" textColor:RGB(163, 162, 163) fontSize:14];
+        [label2 sizeToFit];
+        [cell.contentView addSubview:label2];
+        [label2 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(cell.contentView).offset(rateWidth(20));
+            make.top.equalTo(label1.mas_bottom).offset(rateHeight(10));
         }];
-        UIButton *xiuGaiBtn = [UIButton buttonWithTitle:@"修改" fontSize:15 titleColor:RGB(79, 79, 79) background:[UIColor whiteColor] cornerRadius:4];
-        xiuGaiBtn.layer.borderWidth = 1;
-        xiuGaiBtn.layer.borderColor = RGB(117, 223, 214).CGColor;
-        [view1 addSubview:xiuGaiBtn];
-        [xiuGaiBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(img);
-            make.bottom.equalTo(view1).offset(-rateHeight(10));
-            make.size.mas_offset(CGSizeMake(rateWidth(75), rateHeight(37)));
+        
+        UILabel *label3 = [UILabel labelWithText:@"电话：" textColor:RGB(163, 162, 163) fontSize:14];
+        [label3 sizeToFit];
+        [cell.contentView addSubview:label3];
+        [label3 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(cell.contentView).offset(rateWidth(20));
+            make.top.equalTo(label2.mas_bottom).offset(rateHeight(5));
         }];
-        [xiuGaiBtn addTarget:self action:@selector(changeAddress:) forControlEvents:(UIControlEventTouchUpInside)];
-        [cell.contentView addSubview:view1];
+
         cell.selectionStyle = NO;
         return cell;
-    } else {
-        static NSString *identifier = @"cellone";
-        ReturnGoodsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        if (cell == nil) {
-            cell = [[ReturnGoodsTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier];
-        }
+    } else if (indexPath.section == 1){
+        ConfirmOrderTableViewCell *cell = [[ConfirmOrderTableViewCell alloc] init];
         cell.selectionStyle = NO;
-        cell.shouHouBtn.hidden = YES;
         cell.cellModel = (ShoppingCarModel *)_listArray[indexPath.row];
+        return cell;
+    } else {
+        ItemTableViewCell *cell = [[ItemTableViewCell alloc] init];
+        cell.selectionStyle = NO;
+        NSArray *array = @[@"快递运费：",@"使用优惠券：",@"积分抵现：",@"价格合计："];
+        cell.firstLB.text = array[indexPath.row];
+        if (indexPath.row == 0 || indexPath.row == 3) {
+            cell.arrow.hidden = YES;
+        }
+        if (indexPath.row == 0) {
+            cell.arrow.hidden = YES;
+        } else if (indexPath.row == 1) {
+            cell.secondLB.text = @"无可用";
+        } else if (indexPath.row == 2) {
+            cell.secondLB.text = @"100积分抵10元";
+            cell.secondLB.textColor = RGB(140, 140, 140);
+        } else {
+            CGFloat sumPrice = 0.0;
+            NSString *str;
+            for (ShoppingCarModel *model in _listArray) {
+                sumPrice = sumPrice + [model.price floatValue]*[model.num intValue];
+                str = [NSString stringWithFormat:@"%.2f", sumPrice];
+            }
+            cell.arrow.hidden = YES;
+            cell.secondLB.text = [NSString stringWithFormat:@"￥%@", str];
+        }
+        
         return cell;
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return rateHeight(260);
-    } else {
+        // 没有默认收货地址
+//        return rateHeight(60);
+        // 有默认收货地址
+        return rateHeight(100);
+    } else if (indexPath.section == 1) {
         return rateHeight(95);
+    } else {
+        return rateHeight(45);
+    }
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        // 修改地址
+        changeAddressViewController *changeAddressVC = [[changeAddressViewController alloc] init];
+        [changeAddressVC setSelectAddress:^(AddressModel *model){
+            self.selectAddressModel = model;
+            self.dizhiLabel.text = model.receiverAddress;
+            
+            [self.tableView reloadData];
+        }];
+        [self.navigationController pushViewController:changeAddressVC animated:YES];
+    } else if (indexPath.section == 2 && indexPath.row == 2) {
+        JiFenDuiHuanViewController *jiFenVC = [[JiFenDuiHuanViewController alloc] init];
+        [self.navigationController pushViewController:jiFenVC animated:YES];
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 0.01;
-    } else {
-        return rateHeight(40);
-    }
-}
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    if (section == 1) {
-        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(40))];
-        headerView.backgroundColor = [UIColor whiteColor];
-        ShoppingCarModel *model = (ShoppingCarModel *)_listArray[0];
-        UILabel *orderNumLB = [UILabel labelWithText:[NSString stringWithFormat:@"订单编号：%@", model.orderId] textColor:UIColorFromRGB(0x666666) fontSize:14];
-        [orderNumLB sizeToFit];
-        [headerView addSubview:orderNumLB];
-        [orderNumLB mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(headerView).offset(rateWidth(20));
-            make.centerY.equalTo(headerView);
-        }];
-        return headerView;
-    } else {
-        return nil;
-    }
+    return 0.01;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section == 1) {
-        return rateHeight(80);
-    } else {
+    if (section == 0) {
         return rateHeight(10);
+    } else {
+        return 0.01;
     }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if (section == 1) {
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(80))];
-        footerView.backgroundColor = [UIColor whiteColor];
-        CGFloat sumPrice = 0.0;
-        NSString *str;
-        for (ShoppingCarModel *model in _listArray) {
-            sumPrice = sumPrice + [model.price floatValue]*[model.num intValue];
-            str = [NSString stringWithFormat:@"共计：%.2f元（含0元运费）", sumPrice];
-        }
-        UILabel *priceLB = [UILabel labelWithText:str textColor:UIColorFromRGB(0x666666) fontSize:15];
-        [priceLB sizeToFit];
-        [footerView addSubview:priceLB];
-        [priceLB mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(footerView).offset(rateHeight(15));
-            make.centerX.equalTo(footerView);
-        }];
-        return footerView;
-    } else {
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(10))];
-        footerView.backgroundColor = RGB(242, 242, 242);
-        return footerView;
-    }
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(10))];
+    footerView.backgroundColor = RGB(242, 242, 242);
+    return footerView;
 }
 #pragma mark - 修改地址
-- (void)changeAddress:(UIButton *)btn
-{
-    changeAddressViewController *changeAddressVC = [[changeAddressViewController alloc] init];
-    [changeAddressVC setSelectAddress:^(AddressModel *model){
-        self.selectAddressModel = model;
-        self.dizhiLabel.text = model.receiverAddress;
-       
-        [self.tableView reloadData];
-    }];
-    [self.navigationController pushViewController:changeAddressVC animated:YES];
-}
+//- (void)changeAddress:(UIButton *)btn
+//{
+//    changeAddressViewController *changeAddressVC = [[changeAddressViewController alloc] init];
+//    [changeAddressVC setSelectAddress:^(AddressModel *model){
+//        self.selectAddressModel = model;
+//        self.dizhiLabel.text = model.receiverAddress;
+//       
+//        [self.tableView reloadData];
+//    }];
+//    [self.navigationController pushViewController:changeAddressVC animated:YES];
+//}
 - (UITableView *)myTableView
 {
     if (!_myTableView) {
