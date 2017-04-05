@@ -7,13 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OrderFirstView.h"
-#import "OrderSecondView.h"
 #import "ShoppingCarModel.h"
 
 @interface OrderDetailsViewController :BaseViewController
-
-@property (nonatomic, strong) OrderFirstView *orderFirstV;
 
 @property (nonatomic, strong) ShoppingCarModel *model;
 

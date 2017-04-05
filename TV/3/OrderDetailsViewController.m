@@ -50,11 +50,7 @@
         NSArray *array1 = @[@"快递公司：", @"快递单号：", @"状态："];
         NSArray *array2 = @[@"顺丰快递", @"111111111", @"已发货"];
         for (int i = 0; i < 3; i++) {
-            OrderSecondView *item = [[OrderSecondView alloc] initWithFrame:cell.contentView.frame];
-            item.backgroundColor = [UIColor whiteColor];
-            item.firstLB.text = array1[indexPath.section-1];
-            item.secondLB.text = array2[indexPath.section-1];
-            [cell.contentView addSubview:item];
+            
         }
         cell.selectionStyle = NO;
         return cell;
