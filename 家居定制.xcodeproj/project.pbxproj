@@ -54,6 +54,8 @@
 		8F0F16C21E827D0D00D7D308 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0F16AC1E827D0D00D7D308 /* UIScrollView+MJExtension.m */; };
 		8F0F16C31E827D0D00D7D308 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0F16AE1E827D0D00D7D308 /* UIScrollView+MJRefresh.m */; };
 		8F0F16C41E827D0D00D7D308 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0F16B01E827D0D00D7D308 /* UIView+MJExtension.m */; };
+		8F14D4851E947D4E009A9D15 /* PingJiaDisplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F14D4841E947D4E009A9D15 /* PingJiaDisplayViewController.m */; };
+		8F14D4871E94A97C009A9D15 /* NullSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F14D4861E94A97C009A9D15 /* NullSafe.m */; };
 		8F195D421E7CD96300E8770D /* UIView+WhenTappendBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F195D411E7CD96300E8770D /* UIView+WhenTappendBlocks.m */; };
 		8F195D461E7CDE3D00E8770D /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F195D451E7CDE3D00E8770D /* SearchViewController.m */; };
 		8F195D491E7D136B00E8770D /* SystemMsgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F195D481E7D136B00E8770D /* SystemMsgViewController.m */; };
@@ -509,6 +511,9 @@
 		8F0F16AE1E827D0D00D7D308 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		8F0F16AF1E827D0D00D7D308 /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		8F0F16B01E827D0D00D7D308 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		8F14D4831E947D4E009A9D15 /* PingJiaDisplayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingJiaDisplayViewController.h; sourceTree = "<group>"; };
+		8F14D4841E947D4E009A9D15 /* PingJiaDisplayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingJiaDisplayViewController.m; sourceTree = "<group>"; };
+		8F14D4861E94A97C009A9D15 /* NullSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullSafe.m; sourceTree = "<group>"; };
 		8F195D401E7CD96300E8770D /* UIView+WhenTappendBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WhenTappendBlocks.h"; sourceTree = "<group>"; };
 		8F195D411E7CD96300E8770D /* UIView+WhenTappendBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WhenTappendBlocks.m"; sourceTree = "<group>"; };
 		8F195D441E7CDE3D00E8770D /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
@@ -2209,6 +2214,8 @@
 				8F0CF4711E8670CA008E95DE /* OrderModel.m */,
 				8FF543541E8E4BA2007609D7 /* PingJiaViewController.h */,
 				8FF543551E8E4BA2007609D7 /* PingJiaViewController.m */,
+				8F14D4831E947D4E009A9D15 /* PingJiaDisplayViewController.h */,
+				8F14D4841E947D4E009A9D15 /* PingJiaDisplayViewController.m */,
 			);
 			name = "订单";
 			sourceTree = "<group>";
@@ -2497,6 +2504,7 @@
 		F4F22E691DCDEBAA007C83F8 /* 第三方库 */ = {
 			isa = PBXGroup;
 			children = (
+				8F14D4861E94A97C009A9D15 /* NullSafe.m */,
 				8FAFFF8E1E84B7B200B17671 /* Alipay */,
 				8F5DB8EF1E83B2BA00D834F8 /* ShareSDK */,
 				8FF6329F1E8369D400ED8751 /* TZImagePickerController */,
@@ -2856,6 +2864,7 @@
 				8F5DB8661E83A78E00D834F8 /* ParamDataModel.m in Sources */,
 				8F0F16C21E827D0D00D7D308 /* UIScrollView+MJExtension.m in Sources */,
 				F4F22ED71DCDEBAA007C83F8 /* main2TableViewCell.m in Sources */,
+				8F14D4871E94A97C009A9D15 /* NullSafe.m in Sources */,
 				8FE388B01E7FC14B006CD8EA /* UIImage+MultiFormat.m in Sources */,
 				8FE3887E1E7FC0F2006CD8EA /* TAPageControl.m in Sources */,
 				8FE660A81E7BE05E0047DF58 /* MJFoundation.m in Sources */,
@@ -2996,6 +3005,7 @@
 				F4F22E8B1DCDEBAA007C83F8 /* changeNikeNameViewController.m in Sources */,
 				8F0F16C41E827D0D00D7D308 /* UIView+MJExtension.m in Sources */,
 				8F5DB8631E83A62500D834F8 /* ProductDetailModel.m in Sources */,
+				8F14D4851E947D4E009A9D15 /* PingJiaDisplayViewController.m in Sources */,
 				8F0F16C01E827D0D00D7D308 /* MJRefreshConst.m in Sources */,
 				8F0CF4741E8670CA008E95DE /* LiuXSegmentView.m in Sources */,
 				8FE388671E7FABFB006CD8EA /* SceneShowView.m in Sources */,

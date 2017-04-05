@@ -211,11 +211,25 @@
         }];
         
         NSString *btnTitle;
-        if (self.segmentIndex == 4) {
+//        if (self.segmentIndex == 4) {
+//            btnTitle = @"评价";
+//        } else {
+//            btnTitle = @"删除";
+//        }
+        if ([model.status intValue] == 1) {
+            // 提醒发货
+            btnTitle = @"提醒发货";
+        } else if ([model.status intValue] == 2) {
+            // 确认收货
+            btnTitle = @"确认收货";
+        } else if ([model.status intValue] == 3) {
+            // 评价
             btnTitle = @"评价";
-        } else {
-            btnTitle = @"删除";
+        } else if ([model.status intValue] == 4) {
+            // 查看评价
+            btnTitle = @"查看评价";
         }
+
         UIButton *shouhuoBtn = [UIButton buttonWithTitle:btnTitle fontSize:12 titleColor:RGB(105, 105, 105) background:[UIColor whiteColor] cornerRadius:4];
         shouhuoBtn.layer.borderWidth = 1;
         shouhuoBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -226,11 +240,25 @@
             make.bottom.equalTo(footerView).offset(-rateHeight(30));
             make.size.mas_offset(CGSizeMake(rateWidth(60), rateHeight(20)));
         }];
-        if (self.segmentIndex == 4) {
+        if ([model.status intValue] == 1) {
+            // 提醒发货
+
+        } else if ([model.status intValue] == 2) {
+            // 确认收货
+
+        } else if ([model.status intValue] == 3) {
+            // 评价
             [shouhuoBtn addTarget:self action:@selector(pingJia:) forControlEvents:(UIControlEventTouchUpInside)];
-        } else {
-//            [shouhuoBtn addTarget:self action:@selector(pingJia:) forControlEvents:(UIControlEventTouchUpInside)];
+        } else if ([model.status intValue] == 4) {
+            // 查看评价
+
         }
+
+//        if (self.segmentIndex == 4) {
+//            [shouhuoBtn addTarget:self action:@selector(pingJia:) forControlEvents:(UIControlEventTouchUpInside)];
+//        } else {
+//            
+//        }
         
         UIView *line = [UIView new];
         line.backgroundColor = UIColorFromRGB(0xf7f7f7);
