@@ -34,4 +34,14 @@
     user.avatar = avatar;
     [self saveUser:user];
 }
+- (void)saveNickname:(NSString *)nickname {
+    User *user = [self takeoutUser];
+    user.nickname = nickname;
+    [self saveUser:user];
+}
+- (void)saveTelephone:(NSString *)telephone {
+    User *user = [self takeoutUser];
+    user.tel = telephone;
+    [self saveUser:user];
+}
 @end

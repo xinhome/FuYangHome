@@ -12,6 +12,7 @@
 #import <ShareSDKUI/ShareSDKUI.h>
 #import "HPPhotoBrowser.h"
 //#import "JHChartHeader.h"
+#import "CustomMadeViewController.h"
 @interface OneViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     CGPoint _panLocation;
@@ -44,6 +45,7 @@
         [self.tableView.mj_header endRefreshing];
     }];
 }
+
 - (void)loadMoreData {
     self.currentPage ++;
     NSDictionary *parameters = @{
@@ -111,6 +113,12 @@
         
         //        _dingzhiBtn.frame = CGRectMake(kScreenWidth-65, kScreenHeight-130, 50, 50);
     }];
+}
+
+#pragma mark - 订制
+- (IBAction)CustomMade:(UIButton *)sender {
+    CustomMadeViewController *controller = [[CustomMadeViewController alloc] init];
+    [self pushViewController:controller animation:YES];
 }
 
 #pragma mark  UITableViewDataSource

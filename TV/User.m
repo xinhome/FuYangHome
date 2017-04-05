@@ -25,6 +25,7 @@
         _ID = [aDecoder decodeObjectForKey:@"userId"];
         _tel = [aDecoder decodeObjectForKey:@"tel"];
         _avatar = [aDecoder decodeObjectForKey:@"avatar"];
+        _nickname = [aDecoder decodeObjectForKey:@"nickname"];
     }
     return self;
 }
@@ -33,5 +34,6 @@
     [aCoder encodeObject:_ID forKey:@"userId"];
     [aCoder encodeObject:_tel forKey:@"tel"];
     [aCoder encodeObject:_avatar forKey:@"avatar"];
+    [aCoder encodeObject:_nickname forKey:@"nickname"];
 }
 @end

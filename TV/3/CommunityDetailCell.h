@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SocietyCommentModel.h"
 
 @interface CommunityDetailCell : UITableViewCell
-
+@property (nonatomic, strong) SocietyCommentModel *model;///<<#注释#>
 @end

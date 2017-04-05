@@ -42,7 +42,7 @@
         return;
     }
     NSDictionary *parameters = @{
-                                 @"pone": [[NSUserDefaults standardUserDefaults] stringForKey:K_USER_NAME],
+                                 @"pone": self.user.tel,
                                  @"newPone": self.pwd1.text,
                                  @"ma": self.pwd2.text
                                  };
@@ -51,6 +51,7 @@
         [MBProgressHUD hideHUDForView:self.view];
         if ([successResponse isSuccess]) {
             [MBProgressHUD showSuccess:@"修改成功"];
+            [[UserUtil shareInstance] saveTelephone:self.pwd2.text];
             [self popViewController];
         } else {
             [MBProgressHUD showResponseMessage:successResponse];

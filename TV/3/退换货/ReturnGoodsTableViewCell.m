@@ -25,9 +25,9 @@
     image.backgroundColor = [UIColor whiteColor];
     [self addSubview:image];
     [image mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(rateWidth(25));
-        make.top.equalTo(self).offset(rateHeight(5));
-        make.size.mas_offset(CGSizeMake(rateHeight(80), rateHeight(80)));
+        make.left.equalTo(self).offset(rateWidth(12));
+        make.top.equalTo(self).offset(rateHeight(12));
+        make.size.mas_offset(CGSizeMake(rateHeight(65), rateHeight(65)));
     }];
     self.goodsImg = image;
     
