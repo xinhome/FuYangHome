@@ -24,6 +24,8 @@
 @property (nonatomic, strong) NSString *postFee; // 邮费
 @property (nonatomic, strong) NSNumber *outRate; // 0:退货 1:退货中 2:退货完成
 @property (nonatomic, strong) NSNumber *buyerRate; // 0:待评价 1:已评价
+@property (nonatomic, strong) NSString *shippingName; // 物流名称
+@property (nonatomic, strong) NSString *shippingCode; // 物流单号
 
 
 @end

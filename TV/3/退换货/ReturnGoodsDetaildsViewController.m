@@ -50,13 +50,16 @@
     
     [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
     NSDictionary *parameters = @{
-                                 @"orderId": _model.orderId,
+                                 @"id": @([_model.goodsId intValue]),
                                  @"reason": self.textView.text,
                                  @"num": @(self.num),
                                  @"image": jsonStr
                                  };
+//    NSLog(@"%@", parameters);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain",@"text/json",@"application/json",@"text/javascript",@"text/html", @"application/javascript", @"text/js", nil];
+//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain",@"text/json",@"application/json",@"text/javascript",@"text/html", @"application/javascript", @"text/js", nil];
     [manager POST:[NSString stringWithFormat:@"%@Order/saveReturn", WeiMingURL] parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [MBProgressHUD hideHUDForView:self.view];
         NSLog(@"退货：%@", responseObject);

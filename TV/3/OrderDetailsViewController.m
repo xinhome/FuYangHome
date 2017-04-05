@@ -8,6 +8,8 @@
 
 #import "OrderDetailsViewController.h"
 #import "ReturnGoodsTableViewCell.h"
+#import "PingJiaViewController.h"
+#import "PingJiaDisplayViewController.h"
 
 @interface OrderDetailsViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -48,7 +50,22 @@
     } else {
         UITableViewCell *cell = [[UITableViewCell alloc] init];
         NSArray *array1 = @[@"快递公司：", @"快递单号：", @"状态："];
-        NSArray *array2 = @[@"顺丰快递", @"111111111", @"已发货"];
+        NSString *str;
+        if ([_model.status intValue] == 1) {
+            str = @"待发货";
+        } else if ([_model.status intValue] == 2) {
+            str = @"待收货";
+        } else if ([_model.status intValue] == 3) {
+            str = @"待评价";
+        } else if ([_model.status intValue] == 4) {
+            str = @"已完成";
+        }
+        NSArray *array2;
+        if (_model.shippingCode.length != 0 && _model.shippingName.length != 0) {
+            array2 = @[_model.shippingName, _model.shippingCode, str];
+        } else {
+            array2 = @[@"", @"", str];
+        }
         for (int i = 0; i < 3; i++) {
             
         }
@@ -91,6 +108,8 @@
             str = @"待收货";
         } else if ([_model.status intValue] == 3) {
             str = @"待评价";
+        } else if ([_model.status intValue] == 4) {
+            str = @"已完成";
         }
         UILabel *stateLB = [UILabel labelWithText:str textColor:RGB(242, 0, 0) fontSize:13];
         [headerView addSubview:stateLB];
@@ -128,7 +147,17 @@
             make.centerX.equalTo(footerView);
         }];
         
-        UIButton *shouhuoBtn = [UIButton buttonWithTitle:@"确认收货" fontSize:12 titleColor:RGB(105, 105, 105) background:[UIColor whiteColor] cornerRadius:4];
+        NSString *btnStr;
+        if ([_model.status intValue] == 1) {
+            btnStr = @"提醒发货";
+        } else if ([_model.status intValue] == 2) {
+            btnStr = @"确认收货";
+        } else if ([_model.status intValue] == 3) {
+            btnStr = @"评价";
+        } else if ([_model.status intValue] == 4) {
+            btnStr = @"查看评价";
+        }
+        UIButton *shouhuoBtn = [UIButton buttonWithTitle:btnStr fontSize:12 titleColor:RGB(105, 105, 105) background:[UIColor whiteColor] cornerRadius:4];
         shouhuoBtn.layer.borderWidth = 1;
         shouhuoBtn.layer.borderColor = RGB(183, 233, 225).CGColor;
         [footerView addSubview:shouhuoBtn];
@@ -137,6 +166,19 @@
             make.bottom.equalTo(footerView).offset(-rateHeight(30));
             make.size.mas_offset(CGSizeMake(rateWidth(65), rateHeight(25)));
         }];
+        if ([_model.status intValue] == 1) {
+            // 提醒发货
+            [shouhuoBtn addTarget:self action:@selector(tiXingFaHuo:) forControlEvents:(UIControlEventTouchUpInside)];
+        } else if ([_model.status intValue] == 2) {
+            // 确认收货
+            [shouhuoBtn addTarget:self action:@selector(queRenShouHuo:) forControlEvents:(UIControlEventTouchUpInside)];
+        } else if ([_model.status intValue] == 3) {
+            // 评价
+            [shouhuoBtn addTarget:self action:@selector(pingJia:) forControlEvents:(UIControlEventTouchUpInside)];
+        } else if ([_model.status intValue] == 4) {
+            // 查看评价
+            [shouhuoBtn addTarget:self action:@selector(chaKanPingJia:) forControlEvents:(UIControlEventTouchUpInside)];
+        }
         
         UIView *line = [UIView new];
         line.backgroundColor = UIColorFromRGB(0xf7f7f7);
@@ -151,7 +193,20 @@
         return nil;
     }
 }
-
+// 评价
+- (void)pingJia:(UIButton *)btn
+{
+    PingJiaViewController *pingJiaVC = [[PingJiaViewController alloc] init];
+    pingJiaVC.model = _model;
+    [self.navigationController pushViewController:pingJiaVC animated:YES];
+}
+// 查看评价
+- (void)chaKanPingJia:(UIButton *)btn
+{
+    PingJiaDisplayViewController *pingJiaDisplayVC = [[PingJiaDisplayViewController alloc] init];
+    pingJiaDisplayVC.model = self.model;
+    [self.navigationController pushViewController:pingJiaDisplayVC animated:YES];
+}
 
 - (UITableView *)myTableView
 {

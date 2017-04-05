@@ -18,6 +18,7 @@
 @property (nonatomic, strong) UITableView *myTableView;
 @property (nonatomic, assign) NSInteger segmentIndex;
 @property (nonatomic, strong) NSMutableArray *orderArray;
+@property (nonatomic, strong) NSMutableArray *orderArray00;
 
 @end
 
@@ -46,13 +47,26 @@
          self.segmentIndex = index;
          [_myTableView reloadData];
         if (index == 1) {
+            [_orderArray removeAllObjects];
             [self setUpDataWithState:@"0" url:@"/Order/showAllOrder"];
         } else if (index == 2) {
-            [self setUpDataWithState:@"1" url:@"/Order/showCar"];
+            [_orderArray removeAllObjects];
+            NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"status == 1"];
+            NSPredicate *predicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[searchPredicate]];
+            self.orderArray = [self.orderArray00 filteredArrayUsingPredicate:predicate].mutableCopy;
+            [_myTableView reloadData];
         } else if (index == 3) {
-            [self setUpDataWithState:@"2" url:@"/Order/showCar"];
+            [_orderArray removeAllObjects];
+            NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"status == 2"];
+            NSPredicate *predicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[searchPredicate]];
+            self.orderArray = [self.orderArray00 filteredArrayUsingPredicate:predicate].mutableCopy;
+            [_myTableView reloadData];
         } else {
-            [self setUpDataWithState:@"3" url:@"/Order/showCar"];
+            [_orderArray removeAllObjects];
+            NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"status == 3"];
+            NSPredicate *predicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[searchPredicate]];
+            self.orderArray = [self.orderArray00 filteredArrayUsingPredicate:predicate].mutableCopy;
+            [_myTableView reloadData];
         }
     }];
     //以下属性可以根据需求修改
@@ -74,12 +88,15 @@
         NSLog(@"订单-----%@", successResponse);
         if ([successResponse isSuccess]) {
             NSArray *orderArray = successResponse[@"data"];
-            self.orderArray = [NSMutableArray array];
+            self.orderArray00 = [NSMutableArray array];
             for (NSDictionary *dic in orderArray) {
                 ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
                 [model setValuesForKeysWithDictionary:dic];
-                [_orderArray addObject:model];
+                [_orderArray00 addObject:model];
             }
+            NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"status == 3 || status == 2 || status == 1 || status == 4"];
+            NSPredicate *predicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[searchPredicate]];
+            self.orderArray = [self.orderArray00 filteredArrayUsingPredicate:predicate].mutableCopy;
             [_myTableView reloadData];
             
         } else {
@@ -194,11 +211,25 @@
         }];
         
         NSString *btnTitle;
-        if (self.segmentIndex == 4) {
+//        if (self.segmentIndex == 4) {
+//            btnTitle = @"评价";
+//        } else {
+//            btnTitle = @"删除";
+//        }
+        if ([model.status intValue] == 1) {
+            // 提醒发货
+            btnTitle = @"提醒发货";
+        } else if ([model.status intValue] == 2) {
+            // 确认收货
+            btnTitle = @"确认收货";
+        } else if ([model.status intValue] == 3) {
+            // 评价
             btnTitle = @"评价";
-        } else {
-            btnTitle = @"删除";
+        } else if ([model.status intValue] == 4) {
+            // 查看评价
+            btnTitle = @"查看评价";
         }
+
         UIButton *shouhuoBtn = [UIButton buttonWithTitle:btnTitle fontSize:12 titleColor:RGB(105, 105, 105) background:[UIColor whiteColor] cornerRadius:4];
         shouhuoBtn.layer.borderWidth = 1;
         shouhuoBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -209,11 +240,25 @@
             make.bottom.equalTo(footerView).offset(-rateHeight(30));
             make.size.mas_offset(CGSizeMake(rateWidth(60), rateHeight(20)));
         }];
-        if (self.segmentIndex == 4) {
+        if ([model.status intValue] == 1) {
+            // 提醒发货
+
+        } else if ([model.status intValue] == 2) {
+            // 确认收货
+
+        } else if ([model.status intValue] == 3) {
+            // 评价
             [shouhuoBtn addTarget:self action:@selector(pingJia:) forControlEvents:(UIControlEventTouchUpInside)];
-        } else {
-//            [shouhuoBtn addTarget:self action:@selector(pingJia:) forControlEvents:(UIControlEventTouchUpInside)];
+        } else if ([model.status intValue] == 4) {
+            // 查看评价
+
         }
+
+//        if (self.segmentIndex == 4) {
+//            [shouhuoBtn addTarget:self action:@selector(pingJia:) forControlEvents:(UIControlEventTouchUpInside)];
+//        } else {
+//            
+//        }
         
         UIView *line = [UIView new];
         line.backgroundColor = UIColorFromRGB(0xf7f7f7);
