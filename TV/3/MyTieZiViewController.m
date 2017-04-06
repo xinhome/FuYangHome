@@ -10,6 +10,7 @@
 #import "MyTieZiTableViewCell.h"
 #import "BottomDeleteView.h"
 #import "ThereDetailViewController.h"
+#import "ThereModel.h"
 
 @interface MyTieZiViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -18,6 +19,7 @@
 @property (nonatomic, assign) BOOL isSelect;
 @property (nonatomic, assign) BOOL selectIsShow;
 @property (nonatomic, strong) NSMutableArray *btnStatusArr;
+@property (nonatomic, strong) NSMutableArray *tieZiArray;
 
 @end
 
@@ -45,19 +47,21 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDefaults valueForKey:@"myUserId"];
     [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
-    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonKaiKang parameters:@{@"user.id": userId} success:^(id successResponse) {
+    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonKaiKang parameters:@{@"user.id": userId, @"page": @(1)} success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
-        NSLog(@"帖子列表-----%@", successResponse);
+//        NSLog(@"帖子列表-----%@", successResponse);
         if ([successResponse isSuccess]) {
-//            NSArray *orderArray = successResponse[@"data"];
-//            self.returnGoodsArray = [NSMutableArray array];
-//            for (NSDictionary *dic in orderArray) {
-//                ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
-//                [model setValuesForKeysWithDictionary:dic];
-//                [_returnGoodsArray addObject:model];
-//            }
-//            [_myTableView reloadData];
-            
+            NSArray *data = successResponse[@"data"];
+            self.tieZiArray = [NSMutableArray array];
+            for (NSDictionary *dict in data) {
+                if ([dict valueForKey:@"comments"] == nil) {
+                    continue;
+                }
+                [self.tieZiArray addObject:[[ThereModel alloc] initWithDictionary:dict]];
+            }
+            NSLog(@"帖子：%@", _tieZiArray);
+            [_myTableView reloadData];
+
         } else {
             [MBProgressHUD showResponseMessage:successResponse];
         }
@@ -119,7 +123,7 @@
 #pragma mark - tableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return _tieZiArray.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -141,6 +145,9 @@
         [cell.selectBtn setImage:[UIImage imageNamed:@"选中"] forState:(UIControlStateNormal)];
     }
     [cell.selectBtn addTarget:self action:@selector(actionDanXuan:) forControlEvents:(UIControlEventTouchUpInside)];
+    if (_tieZiArray.count != 0) {
+        cell.model = _tieZiArray[indexPath.row];
+    }
     return cell;
 }
 #pragma mark - 单选按钮
@@ -160,8 +167,11 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ThereDetailViewController *detailVC = [[ThereDetailViewController alloc] init];
-    [self.navigationController pushViewController:detailVC animated:YES];
+    if (_tieZiArray.count != 0) {
+        ThereDetailViewController *detail = [[ThereDetailViewController alloc]init];
+        detail.model = self.tieZiArray[indexPath.row];
+        [self.navigationController pushViewController:detail animated:YES];
+    }
 }
 
 - (UITableView *)myTableView

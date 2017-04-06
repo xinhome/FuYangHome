@@ -11,4 +11,10 @@
 /// 优惠券cell
 @interface CouponCell : UITableViewCell
 
+@property (nonatomic, strong) UIImageView *bgImg;
+@property (nonatomic, strong) UILabel *label;
+@property (nonatomic, strong) UILabel *moneyLB;
+@property (nonatomic, strong) UILabel *conditionLB;
+@property (nonatomic, strong) UILabel *timeLB;
+
 @end

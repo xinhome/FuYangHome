@@ -53,24 +53,56 @@
     UserHeaderView *headerView = [[UserHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 190)];
     self.headerView = headerView;
     [headerView.avatar whenTapped:^{
-        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]] animated:YES completion:nil];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *userId = [userDefaults valueForKey:@"myUserId"];
+        if (userId.length == 0) {
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]] animated:YES completion:nil];
+        } else {
+            MyZiLiaoViewController*zi = [[MyZiLiaoViewController alloc]init];
+            [self.navigationController pushViewController:zi animated:YES];
+        }
+        
     }];
     // 我的帖子
     headerView.postAction = ^{
-        [self tiezi];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *userId = [userDefaults valueForKey:@"myUserId"];
+        if (userId.length == 0) {
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]] animated:YES completion:nil];
+        } else {
+            [self tiezi];
+        }
     };
     // 我的订单
     headerView.orderAction = ^{
-        [self dingdan];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *userId = [userDefaults valueForKey:@"myUserId"];
+        if (userId.length == 0) {
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]] animated:YES completion:nil];
+        } else {
+            [self dingdan];
+        }
     };
     // 购物车
     headerView.shopCarAction = ^{
-        [self gouwuche];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *userId = [userDefaults valueForKey:@"myUserId"];
+        if (userId.length == 0) {
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]] animated:YES completion:nil];
+        } else {
+            [self gouwuche];
+        }
     };
     // 退换物
     headerView.goodsAction = ^{
-        ReturnGoodsViewController *returnGoods = [[ReturnGoodsViewController alloc] init];
-        [self.navigationController pushViewController:returnGoods animated:YES];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *userId = [userDefaults valueForKey:@"myUserId"];
+        if (userId.length == 0) {
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]] animated:YES completion:nil];
+        } else {
+            ReturnGoodsViewController *returnGoods = [[ReturnGoodsViewController alloc] init];
+            [self.navigationController pushViewController:returnGoods animated:YES];
+        }
     };
     self.tableView.tableHeaderView = headerView;
 }
@@ -99,11 +131,25 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
         case 0: {
-            MyZiLiaoViewController*zi = [[MyZiLiaoViewController alloc]init];
-            [self.navigationController pushViewController:zi animated:YES];
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSString *userId = [userDefaults valueForKey:@"myUserId"];
+            if (userId.length == 0) {
+                [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]] animated:YES completion:nil];
+            } else {
+                MyZiLiaoViewController*zi = [[MyZiLiaoViewController alloc]init];
+                [self.navigationController pushViewController:zi animated:YES];
+            }
         }
             break;
-        case 1: [self pushViewController:[[CouponViewController alloc] init] animation:YES];
+        case 1:{
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSString *userId = [userDefaults valueForKey:@"myUserId"];
+            if (userId.length == 0) {
+                [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]] animated:YES completion:nil];
+            } else {
+                [self pushViewController:[[CouponViewController alloc] init] animation:YES];
+            }
+        }
             break;
         case 2: {
             

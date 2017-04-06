@@ -13,6 +13,7 @@
 #import "JieSuanOrderViewController.h"
 #import "ShoppingCarModel.h"
 #import "AddressModel.h"
+#import "ProductDetailController.h"
 
 @interface ShoppingCartViewController ()<ChangeGoodsNumDelegate>
 
@@ -385,7 +386,12 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (_shoppingArray.count != 0) {
+        ShoppingCarModel *model = (ShoppingCarModel *)_shoppingArray[indexPath.section];
+        ProductDetailController *detail = [[ProductDetailController alloc]init];
+        detail.itemID = model.itemId;
+        [self pushViewController:detail animation:YES];
+    }
 }
 - (void)changeGoodsNum:(ShoppingCarModel *)model
 {
