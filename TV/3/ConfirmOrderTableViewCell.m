@@ -105,6 +105,7 @@
     self.numLB.text = [NSString stringWithFormat:@"×%d", [cellModel.num intValue]];
     NSURL *imgUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WeiMingURL,cellModel.picPath]];
     [self.goodsImg sd_setImageWithURL:imgUrl];
+    self.colorLB.text = [NSString stringWithFormat:@"颜色:%@;尺寸:%@",cellModel.colour, cellModel.style];
 }
 
 

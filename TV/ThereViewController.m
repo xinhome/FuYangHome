@@ -21,17 +21,20 @@ typedef NS_ENUM(NSInteger, CommunityType) {
 #import "thereTableViewCell.h"
 #import "ThereDetailViewController.h"
 #import "ThereModel.h"
-@interface ThereViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ThereViewController ()<UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate>
 @property (nonatomic, strong) NSMutableArray<ThereModel *> *dataSource;///<<#注释#>
 @property (nonatomic, assign) CommunityType communityType;///< 选择的类型
 @property (nonatomic, assign) int currentPage;///< <#注释#>
 @end
 
 @implementation ThereViewController
-
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:UIColorWhite] forBarMetrics:UIBarMetricsDefault];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"社区";
+    [self configSearchBar];
     [self initUI];
     [self loadChooseBtn];
     [self loadNewData:CommunityTypeAll];
@@ -102,6 +105,36 @@ typedef NS_ENUM(NSInteger, CommunityType) {
     }];
 }
 
+- (void)configSearchBar {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, rateWidth(200), 40)];
+    UITextField *searchBar = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, rateWidth(200), 40)];
+    searchBar.delegate = self;
+    searchBar.returnKeyType = UIReturnKeySearch;
+    searchBar.rightViewMode = UITextFieldViewModeAlways;
+    searchBar.rightView = [self leftView];
+    searchBar.placeholder = @"在此输入关键字";
+    [view addSubview:searchBar];
+    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, rateWidth(200), 1)];
+    line.backgroundColor = RGB(215, 215, 215);
+    line.bottom = view.height;
+    [view addSubview:line];
+    self.navigationItem.titleView = view;
+}
+#pragma mark - textField delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [[HttpRequestManager shareManager] addPOSTURL:@"/Item/search" person:RequestPersonWeiMing parameters:@{@"magazineName": textField.text} success:^(id successResponse) {
+        NSLog(@"%@", successResponse);
+    } fail:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
+    [textField resignFirstResponder];
+    return YES;
+}
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    NSLog(@"*********");
+    return YES;
+}
+
 - (void)loadChooseBtn
 {
      [self.zuixinBtn setTitleColor:RGB(100, 216, 170) forState:UIControlStateNormal];
@@ -119,10 +152,10 @@ typedef NS_ENUM(NSInteger, CommunityType) {
             [self loadNewData:i];
         }];
         if (i==0) {
-            btn.frame = CGRectMake(0, 120, wight+10, 30);
+            btn.frame = CGRectMake(0, 60, wight+10, 30);
         }else
         {
-            btn.frame = CGRectMake(10+wight*i, 120, wight, 30);
+            btn.frame = CGRectMake(10+wight*i, 60, wight, 30);
         }
         
         [btn setBackgroundColor:colorArr[i]];
@@ -140,7 +173,8 @@ typedef NS_ENUM(NSInteger, CommunityType) {
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [self loadMoreData:self.communityType];
     }];
-    self.tableView.frame = CGRectMake(0, 150, kScreenWidth, kScreenHeight-150-kTabBarHeight);
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    self.tableView.frame = CGRectMake(0, 90, kScreenWidth, kScreenHeight-90-kTabBarHeight);
 }
 
 #pragma mark cellForRowAtIndexPath
@@ -204,6 +238,13 @@ typedef NS_ENUM(NSInteger, CommunityType) {
         return [praise1 compare:praise2];
     }];
     [self.tableView reloadData];
+}
+- (UIView *)leftView {
+    UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 35)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 35)];
+    imageView.image = UIImageNamed(@"sousuo");
+    [leftView addSubview:imageView];
+    return leftView;
 }
 - (NSMutableArray<ThereModel *> *)dataSource {
     if (!_dataSource) {

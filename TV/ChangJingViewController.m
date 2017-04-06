@@ -92,7 +92,6 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"%f", scrollView.contentOffset.x/kScreenWidth);
     int index = (int)scrollView.contentOffset.x/kScreenWidth;
     self.scenceId = self.dataSource[index].scenesId;
     self.praiseLabel.text = self.dataSource[index].likes;
