@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *commentLable;
 @property (weak, nonatomic) IBOutlet UIButton *dianzanBtn;
 @property (weak, nonatomic) IBOutlet UILabel *dianzanLable;
-@property (weak, nonatomic) IBOutlet UIButton *image;
+@property (weak, nonatomic) IBOutlet UIImageView *image;
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
 @property (nonatomic, strong) ThereModel *model;///<<#注释#>
 @end

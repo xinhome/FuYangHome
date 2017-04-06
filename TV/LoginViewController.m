@@ -113,6 +113,7 @@
             NSDictionary *data = successResponse[@"data"];
             User *user = [User shareInstance];
             user.ID = data[@"id"];
+            user.nickname = data[@"name"];
             user.tel = data[@"pone"];
             user.avatar = [NSString stringWithFormat:@"%@%@", WEIMING, data[@"url"]];
             [[UserUtil shareInstance] saveUser:user];

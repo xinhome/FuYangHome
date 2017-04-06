@@ -119,7 +119,7 @@
     }
     parameters[@"receiverId"] = self.selectAddressModel.receiverId;
     parameters[@"total_amount"] = @(0.01);
-    parameters[@"userId"] = [[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"];
+    parameters[@"userId"] = self.user.ID;
     parameters[@"post_fee"] = @(0.06);
 
     [MBProgressHUD showMessage:nil];

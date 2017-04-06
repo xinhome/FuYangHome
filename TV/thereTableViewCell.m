@@ -7,6 +7,7 @@
 //
 
 #import "thereTableViewCell.h"
+#import "HPPhotoBrowser.h"
 
 @implementation thereTableViewCell
 
@@ -24,7 +25,10 @@
 //    NSLog(@"%@", [NSString stringWithFormat:@"%@%@", KAIKANG, model.user.url]);
     self.titleLable.text = model.title;
     self.contentLable.text = model.desc;
-    [self.image sd_setBackgroundImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", KAIKANG, [model.image componentsSeparatedByString:@","].firstObject]] forState:UIControlStateNormal];
+    [self.image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", KAIKANG, [model.image componentsSeparatedByString:@","].firstObject]]];
+    [self.image whenTapped:^{
+        [HPPhotoBrowser showFromImageView:self.image inView:[UIApplication sharedApplication].keyWindow withURLStrings:@[[model.image componentsSeparatedByString:@","].firstObject] atIndex:0];
+    }];
     self.commentLable.text = model.comment;
     self.dianzanLable.text = model.praise;
 }

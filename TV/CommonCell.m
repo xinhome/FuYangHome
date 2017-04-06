@@ -13,6 +13,7 @@
 @property (nonatomic, weak) UIImageView *avatar;///<<#注释#>
 @property (nonatomic, weak) UILabel *nickname;///<<#注释#>
 @property (nonatomic, weak) UILabel *commonLabel;///<<#注释#>
+@property (nonatomic, weak) UILabel *timeLabel;///<<#注释#>
 @end
 
 @implementation CommonCell
@@ -21,36 +22,60 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        UIImageView *avatar = [[UIImageView alloc] initWithFrame:CGRectMake(14, 14, 40, 40)];
+        UIImageView *avatar = [[UIImageView alloc] init];
         self.avatar = avatar;
-        avatar.backgroundColor = [UIColor redColor];
         avatar.layer.cornerRadius = 20;
         avatar.layer.masksToBounds = YES;
         [self.contentView addSubview:avatar];
+        [avatar mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(@14);
+            make.top.equalTo(@14);
+            make.width.height.equalTo(@40);
+        }];
         
-        UILabel *nickname = [UILabel labelWithText:@"用户名12345" textColor:UIColorBlack fontSize:16];
+        UILabel *nickname = [UILabel labelWithText:@"" textColor:UIColorBlack fontSize:16];
         self.nickname = nickname;
-        nickname.frame = CGRectMake(avatar.right+15, 0, kScreenWidth-avatar.right-15, 16);
         nickname.centerY = avatar.centerY;
         [self.contentView addSubview:nickname];
+        [nickname mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(avatar.mas_right).offset(15);
+            make.centerY.equalTo(avatar);
+            make.right.equalTo(@(-15));
+        }];
         
-        UILabel *common = [UILabel labelWithText:@"评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容" textColor:RGB(107, 107, 107) fontSize:14];
+        UILabel *common = [UILabel labelWithText:@"" textColor:RGB(107, 107, 107) fontSize:14];
         common.frame = CGRectMake(self.nickname.left, self.avatar.bottom, 0, 0);
         self.commonLabel = common;
         common.numberOfLines = 0;
         [self.contentView addSubview:common];
+        [common mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(nickname);
+            make.top.equalTo(avatar.mas_bottom);
+            make.right.equalTo(@(-15));
+        }];
+        
+        UILabel *time = [UILabel labelWithText:@"" textColor:RGB(107, 107, 107) fontSize:14];
+        [self.contentView addSubview:time];
+        [time mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(common.mas_bottom).offset(10);
+            make.right.equalTo(@(-15));
+            make.bottom.equalTo(@(-10));
+        }];
+        _timeLabel = time;
     }
     return self;
 }
-
-- (void)setCommon:(NSString *)common {
-    _common = common;
-    self.commonLabel.size = [common getSizeWithMaxSize:CGSizeMake(kScreenWidth-80, CGFLOAT_MAX) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]}];
+- (void)setCellModel:(ScenceCommentModel *)cellModel {
+    _cellModel = cellModel;
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, cellModel.url]]];
+    self.nickname.text = cellModel.name;
+    self.commonLabel.text = cellModel.discussContent;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    NSDate *time = [formatter dateFromString:cellModel.created];
+    formatter.dateFormat = @"yyyy-MM-dd";
+    self.timeLabel.text = [formatter stringFromDate:time];;
 }
 
-+ (CGFloat)heightForCell:(NSString *)common {
-    CGSize strSize = [common getSizeWithMaxSize:CGSizeMake(kScreenWidth-80, CGFLOAT_MAX) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]}];
-    return strSize.height+64;
-}
 
 @end

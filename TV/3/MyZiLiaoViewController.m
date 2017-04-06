@@ -49,7 +49,8 @@
             make.right.equalTo(cell.contentView).offset(-rateWidth(20));
         }];
         UIImageView *headImg = [UIImageView new];
-        [headImg sd_setImageWithURL:[NSURL URLWithString:self.user.avatar]];
+        [headImg sd_setImageWithURL:[NSURL URLWithString:[[UserUtil shareInstance] takeoutUser].avatar]];
+       
         headImg.backgroundColor = RGB(102, 212, 194);
         headImg.layer.masksToBounds = YES;
         headImg.layer.cornerRadius = rateWidth(20);

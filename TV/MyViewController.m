@@ -15,6 +15,7 @@
 #import "MyTieZiViewController.h"
 #import "MyZiLiaoViewController.h"
 #import "ReturnGoodsViewController.h"
+#import "CouponViewController.h"
 
 @interface MyViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)NSArray *titleArray,*titleImageArray;
@@ -42,8 +43,8 @@
     [self creatTableView];
     self.tableView.separatorStyle = 0;
     
-    _titleArray = [[NSArray alloc]initWithObjects:@"我的资料",@"系统消息",@"关于我们",@"意见反馈",nil];
-    _titleImageArray = [[NSArray alloc]initWithObjects:@"1",@"2222",@"3",@"4",@"7",@"8",nil];
+    _titleArray = [[NSArray alloc]initWithObjects:@"我的资料", @"我的优惠券" ,@"系统消息",@"关于我们",@"意见反馈",nil];
+    _titleImageArray = [[NSArray alloc]initWithObjects:@"1",@"优惠券",@"2222",@"3",@"4",@"7",@"8",nil];
     //    self.tableView.scrollEnabled = NO;
     [self configHeaderView];
 }
@@ -98,18 +99,18 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
         case 0: {
-            //我的资料
-            //            ziliaoViewController*zi = [[ziliaoViewController alloc]init];
             MyZiLiaoViewController*zi = [[MyZiLiaoViewController alloc]init];
             [self.navigationController pushViewController:zi animated:YES];
         }
             break;
-        case 1: {
+        case 1: [self pushViewController:[[CouponViewController alloc] init] animation:YES];
+            break;
+        case 2: {
             
             [self.navigationController pushViewController:[[SystemMsgViewController alloc] init] animated:YES];
         }
             break;
-        case 2: {
+        case 3: {
             AboutViewController *zi = [[AboutViewController alloc]init];
             [self.navigationController pushViewController:zi animated:YES];
         }
@@ -140,9 +141,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    //    if (section == 0) {
-    //        return 0.01;
-    //    }
     return 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -151,19 +149,8 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    if (indexPath.section == 0) {
-    //        return 180;
-    //    }
     return kScreenHeight*0.08;
 }
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    //    if (section == 0) {
-    //        return nil;
-    //    }
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 90)];
-    view.backgroundColor = RGB(224, 224, 224);
-    return view;
-}
+
 
 @end

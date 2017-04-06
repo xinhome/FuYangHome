@@ -7,8 +7,10 @@
 //
 
 #import "BaseViewController.h"
+#import "HomeContentModel.h"
 
 /// 评论controller
 @interface CommonViewController : BaseViewController
-
+@property (nonatomic, copy) NSString *scenceId;///<<#注释#>
+@property (nonatomic, copy) MYAction commentSuccess;
 @end

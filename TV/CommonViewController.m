@@ -8,41 +8,32 @@
 
 #import "CommonViewController.h"
 #import "CommonCell.h"
-#import "EaseTextView.h"
+#import "CommentView.h"
+#import "ScenceCommentModel.h"
 
-@interface CommonViewController ()<EaseTextViewDelegate>
-@property (nonatomic, assign) CGFloat keyboardHeight;///< <#注释#>
-@property (nonatomic, weak) UIView *sendView;///<<#注释#>
-@property (nonatomic, weak) UIButton *send;///<<#注释#>
-@property (nonatomic, weak) EaseTextView *textView;///<<#注释#>
-@property (nonatomic, weak) UIView *coverView;///<<#注释#>
+@interface CommonViewController ()<CommentViewDelegate>
+
+@property (nonatomic, strong) NSMutableArray<ScenceCommentModel *> *dataSource;///<<#注释#>
+
 @end
 
 @implementation CommonViewController
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboareWillShow:) name:UIKeyboardWillChangeFrameNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHidden) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)keyboareWillShow:(NSNotification *)aNotification {
-    //获取键盘的高度
-    NSDictionary *userInfo = [aNotification userInfo];
-    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    CGRect keyboardRect = [aValue CGRectValue];
-    self.keyboardHeight = keyboardRect.size.height;
-    self.sendView.bottom = kScreenHeight-self.keyboardHeight-64;
-}
-
-- (void)keyboardWillHidden {
-    self.sendView.bottom = kScreenHeight-64;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"场景评论";
     [self setupView];
+    [self loadData];
+}
+
+- (void)loadData {
+    [[HttpRequestManager shareManager] addPOSTURL:@"/ScenesComments/list" person:RequestPersonWeiMing parameters:@{@"scenesId": self.scenceId} success:^(id successResponse) {
+        NSLog(@"%@", successResponse[@"data"]);
+        self.dataSource = [ScenceCommentModel mj_objectArrayWithKeyValuesArray:successResponse[@"data"]];
+        [self.tableView reloadData];
+    } fail:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 
 - (void)setupView {
@@ -56,73 +47,57 @@
 }
 
 - (void)setupSendView {
-    UIView *sendView = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.bottom, kScreenWidth, 40)];
-    self.sendView = sendView;
-    sendView.backgroundColor = RGB(224, 224, 224);
-    [self.view addSubview:sendView];
-    
-//    UIButton *send = [UIButton buttonWithTitle:@"发送" fontSize:16 titleColor:UIColorWhite background:RGB(68, 202, 181) cornerRadius:0];
-//    send.frame = CGRectMake(0, 0, 85, 40);
-////    send.bottom = sendView.bo
-//    send.right = kScreenWidth;
-//    [sendView addSubview:send];
-    
-    EaseTextView *textView = [[EaseTextView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
-    textView.returnKeyType = UIReturnKeySend;
-    textView.delegate = self;
-    textView.placeHolder = @"说点什么吧...";
-    [sendView addSubview:textView];
-    
-//    [send addActionHandler:^{
-//        [textView endEditing:YES];
-//    }];
+    UILabel *label = [UILabel labelWithText:@"说点什么吧..." textColor:RGB(157, 157, 157) fontSize:14];
+    label.frame = CGRectMake(0, self.tableView.bottom, kScreenWidth, 40);
+    [self.view addSubview:label];
+    [label whenTapped:^{
+        CommentView *commentView = [[CommentView alloc] init];
+        commentView.delegate = self;
+        [commentView show];
+    }];
+}
+
+#pragma mark - CommentViewDelegate
+- (void)sendContent:(CommentView *)commentView content:(NSString *)content {
+    NSDictionary *parameters = @{
+                                 @"discussContent": content,
+                                 @"scenesId": self.scenceId,
+                                 @"userId": self.user.ID
+                                 };
+    [[HttpRequestManager shareManager] addPOSTURL:@"/ScenesComments/save" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
+        if ([successResponse isSuccess]) {
+            ScenceCommentModel *model = [[ScenceCommentModel alloc] init];
+            model.name = self.user.nickname;
+            model.url = [self.user.avatar substringFromIndex:WEIMING.length];
+            model.discussContent = content;
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+            model.created = [formatter stringFromDate:[NSDate date]];
+            [self.dataSource addObject:model];
+            [self.tableView reloadData];
+            self.commentSuccess();
+        } else {
+            [MBProgressHUD showResponseMessage:successResponse];
+        }
+    } fail:^(NSError *error) {
+        [MBProgressHUD showError:@"网络错误"];
+        NSLog(@"%@", error);
+    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.dataSource.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CommonCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.common = @"评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容";
+    cell.cellModel = self.dataSource[indexPath.row];
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [CommonCell heightForCell:@"评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容"];
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100;
 }
 
-#pragma mark - easeview delegate
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if ([text isEqualToString:@"\n"]) {
-        
-        [textView resignFirstResponder];
-        return NO;
-    }
-    
-    float height = [self heightForTextView:textView WithText:textView.text];
-    if (height >= 130) {
-        height = 130;
-    }
-    [UIView animateWithDuration:0.5 animations:^{
-        textView.height = height;
-        textView.top = self.sendView.height-height;
-//        self.tableView.height = kScreenHeight-64-height-self.keyboardHeight;
-//        self.sendView.top = self.tableView.bottom;
-    } completion:nil];
-    
-    return YES;
-}
-
-#pragma mark - EaseTextView
-- (float) heightForTextView: (UITextView *)textView WithText: (NSString *) strText{
-    CGSize constraint = CGSizeMake(textView.contentSize.width , CGFLOAT_MAX);
-    CGRect size = [strText boundingRectWithSize:constraint
-                                        options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
-                                     attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]}
-                                        context:nil];
-    float textHeight = size.size.height+22.0;
-    return textHeight;
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
