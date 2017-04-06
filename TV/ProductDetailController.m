@@ -35,36 +35,60 @@
 
 - (void)loadData {
     
-//    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/Item/ById" parameters:@{@"itemId": self.itemID} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        NSLog(@"%@", responseObject);
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSLog(@"%@", error);
-//    }];
-    [[HttpRequestManager shareManager] addPOSTURL:@"/Item/ById" person:RequestPersonWeiMing parameters:@{@"itemId": self.itemID} success:^(id successResponse) {
-        if ([successResponse isSuccess]) {
-            ProductDetailModel *model = [ProductDetailModel mj_objectWithKeyValues:successResponse[@"data"]];
-            self.model1 = model;
-            NSString *paramData = successResponse[@"data"][@"paramData"];
-            NSDictionary *dict = [paramData mj_JSONObject];
-            NSArray<ParamDataModel *> *model2 = [ParamDataModel mj_objectArrayWithKeyValuesArray:dict];
-            NSMutableArray *arrM = [NSMutableArray array];
-            for (NSString *imageStr in [model.image componentsSeparatedByString:@","]) {
-                [arrM addObject:[NSString stringWithFormat:@"%@%@", WEIMING, imageStr]];
+    if (self.itemID != nil) {
+        NSLog(@"%@", self.itemID);
+        [[HttpRequestManager shareManager] addPOSTURL:@"/Item/ById" person:RequestPersonWeiMing parameters:@{@"id": self.itemID} success:^(id successResponse) {
+            if ([successResponse isSuccess]) {
+                ProductDetailModel *model = [ProductDetailModel mj_objectWithKeyValues:successResponse[@"data"]];
+                self.model1 = model;
+                NSString *paramData = successResponse[@"data"][@"paramData"];
+                NSDictionary *dict = [paramData mj_JSONObject];
+                NSArray<ParamDataModel *> *model2 = [ParamDataModel mj_objectArrayWithKeyValuesArray:dict];
+                NSMutableArray *arrM = [NSMutableArray array];
+                for (NSString *imageStr in [model.image componentsSeparatedByString:@","]) {
+                    [arrM addObject:[NSString stringWithFormat:@"%@%@", WEIMING, imageStr]];
+                }
+                self.headerView.cycleView.imageURLStringsGroup = arrM;
+                self.headerView.nameLabel.text = model.title;
+                self.headerView.priceLabel.text = [NSString stringWithFormat:@"￥ %@", model.price];
+                self.headerView.model = model2.firstObject;
+                self.productShow = [successResponse[@"data"][@"itemDesc"] filterImageUrl];
+                [self.tableView reloadData];
+            } else {
+                [MBProgressHUD showResponseMessage:successResponse];
             }
-            self.headerView.cycleView.imageURLStringsGroup = arrM;
-            self.headerView.nameLabel.text = model.title;
-            self.headerView.priceLabel.text = [NSString stringWithFormat:@"￥ %@", model.price];
-            self.headerView.model = model2.firstObject;
-            self.productShow = [successResponse[@"data"][@"itemDesc"] filterImageUrl];
-            [self.tableView reloadData];
-        } else {
-            [MBProgressHUD showResponseMessage:successResponse];
-        }
-    } fail:^(NSError *error) {
-        NSLog(@"%@", error);
-        [MBProgressHUD showError:@"网络错误"];
-    }];
+        } fail:^(NSError *error) {
+            NSLog(@"%@", error);
+            [MBProgressHUD showError:@"网络错误"];
+        }];
+    }
     
+    if (self.coordinateId != nil) {
+        [[HttpRequestManager shareManager] addPOSTURL:@"/coordinate/ById" person:RequestPersonWeiMing parameters:@{@"coordinateId": self.coordinateId} success:^(id successResponse) {
+            if ([successResponse isSuccess]) {
+                ProductDetailModel *model = [ProductDetailModel mj_objectWithKeyValues:successResponse[@"data"]];
+                self.model1 = model;
+                NSString *paramData = successResponse[@"data"][@"paramData"];
+                NSDictionary *dict = [paramData mj_JSONObject];
+                NSArray<ParamDataModel *> *model2 = [ParamDataModel mj_objectArrayWithKeyValuesArray:dict];
+                NSMutableArray *arrM = [NSMutableArray array];
+                for (NSString *imageStr in [model.image componentsSeparatedByString:@","]) {
+                    [arrM addObject:[NSString stringWithFormat:@"%@%@", WEIMING, imageStr]];
+                }
+                self.headerView.cycleView.imageURLStringsGroup = arrM;
+                self.headerView.nameLabel.text = model.title;
+                self.headerView.priceLabel.text = [NSString stringWithFormat:@"￥ %@", model.price];
+                self.headerView.model = model2.firstObject;
+                self.productShow = [successResponse[@"data"][@"itemDesc"] filterImageUrl];
+                [self.tableView reloadData];
+            } else {
+                [MBProgressHUD showResponseMessage:successResponse];
+            }
+        } fail:^(NSError *error) {
+            NSLog(@"%@", error);
+            [MBProgressHUD showError:@"网络错误"];
+        }];
+    }
 }
 
 - (void)setupUI {

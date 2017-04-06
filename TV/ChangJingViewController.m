@@ -103,6 +103,9 @@
         DotDetailView *view = [[DotDetailView alloc] initWithFrame:CGRectMake(0, 0, 95, 70)];
         [view whenTapped:^{
             NSLog(@"************");
+            ProductDetailController *controller = [[ProductDetailController alloc] init];
+            controller.coordinateId = coordinates[i].coordinateId;
+            [self pushViewController:controller animation:YES];
         }];
         view.bottom = cell.dots[i].top;
         view.centerX = cell.dots[i].centerX;

@@ -12,4 +12,5 @@
 /// 产品详情controller
 @interface ProductDetailController : BaseViewController
 @property (nonatomic, copy) NSString *itemID;///<<#注释#>
+@property (nonatomic, copy) NSString *coordinateId;
 @end

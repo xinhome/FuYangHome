@@ -30,6 +30,7 @@
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     [self.headerView.avatar sd_setImageWithURL:[NSURL URLWithString:self.user.avatar]];
     self.headerView.nickname.text = self.user.nickname;
+    [self loadData];
 }
 
 - (void)viewDidLoad {
@@ -37,7 +38,15 @@
     self.navigationItem.title = @"我的";
     [self initUI];
 }
-
+- (void)loadData {
+    NSArray *status = @[@"0",@"123456",@"456"];
+    NSLog(@"%@",@{@"userId": self.user.ID,@"status":[status mj_JSONString]});
+    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/OrderNum" person:RequestPersonWeiMing parameters:@{@"userId": self.user.ID, @"status":status} success:^(id successResponse) {
+        NSLog(@"%@", successResponse);
+    } fail:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
+}
 - (void)initUI
 {
     [self creatTableView];

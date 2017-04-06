@@ -304,7 +304,7 @@
     }
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     for (UIImage *image in _selectedPhotos) {
-        NSString *string = [UIImageJPEGRepresentation(image, 1.0) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+        NSString *string = [UIImageJPEGRepresentation(image, 0.3) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
         dict[[NSString stringWithFormat:@"image%lu", (unsigned long)[_selectedPhotos indexOfObject:image]]] = string;
     }
     NSString *jsonStr = [dict mj_JSONString];

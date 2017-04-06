@@ -165,7 +165,7 @@ typedef NS_ENUM(NSInteger, CommunityType) {
         [self loadMoreData:self.communityType];
     }];
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    self.tableView.frame = CGRectMake(0, 90, kScreenWidth, kScreenHeight-90-kTabBarHeight);
+    self.tableView.frame = CGRectMake(0, 90, kScreenWidth, kScreenHeight-154-kTabBarHeight);
 }
 
 #pragma mark cellForRowAtIndexPath

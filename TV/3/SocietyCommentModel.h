@@ -14,5 +14,5 @@
 @property (nonatomic, copy) NSString *nickname;
 @property (nonatomic, copy) NSString *commentContent;
 @property (nonatomic, copy) NSString *commentTime;
-
+- (instancetype)initWithDictionary:(NSDictionary *)dict;
 @end

@@ -46,8 +46,8 @@
         NSArray *comments = successResponse[@"data"][@"comments"];
         for (NSDictionary *comment in comments) {
             NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-            dict[@"avatar"] = comment[@""];
-            dict[@"nickname"] = comment[@""];
+            dict[@"avatar"] = comment[@"reviewer"][@"url"];
+            dict[@"nickname"] = comment[@"reviewer"][@"name"];
             dict[@"commentContent"] = comment[@"commentContent"];
             dict[@"commentTime"] = comment[@"generateTime"];
             [self.dataSource addObject:[SocietyCommentModel mj_objectWithKeyValues:dict]];
@@ -59,7 +59,7 @@
     }];
 }
 - (void)setupUI {
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[CommunityDetailCell class] forCellReuseIdentifier:@"cell"];
