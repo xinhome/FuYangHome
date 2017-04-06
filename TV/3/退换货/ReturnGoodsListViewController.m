@@ -23,7 +23,6 @@
     
     self.navigationItem.title = @"退货详情";
     [self.view addSubview:self.myTableView];
-    NSLog(@"=======%@", _model.goodsId);
     [self setUpData];
 }
 - (void)setUpData
@@ -39,9 +38,12 @@
         if ([responseObject[@"msg"] isEqualToString:@"OK"]) {
             self.showReturnGoodsArray = [NSMutableArray array];
             _showReturnGoodsArray = responseObject[@"data"];
+            if (_showReturnGoodsArray.count == 0) {
+                [MBProgressHUD showMessage:@"暂无退货申请" toView:self.view];
+            }
             [_myTableView reloadData];
         } else {
-            [MBProgressHUD showError:@"暂无退货申请"];
+            [MBProgressHUD showMessage:@"暂无退货申请" toView:self.view];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@", error);
