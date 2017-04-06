@@ -143,6 +143,7 @@
 		8FB805301E95CFD600B7BA30 /* DotDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8052F1E95CFD600B7BA30 /* DotDetailView.m */; };
 		8FB805341E95E80700B7BA30 /* CouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB805331E95E80700B7BA30 /* CouponViewController.m */; };
 		8FB805371E95E8D200B7BA30 /* CouponCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB805361E95E8D200B7BA30 /* CouponCell.m */; };
+		8FB8053A1E95EFDF00B7BA30 /* OrderSecondView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB805391E95EFDF00B7BA30 /* OrderSecondView.m */; };
 		8FE3884D1E7F6A0B006CD8EA /* unselect.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE3884C1E7F6A0B006CD8EA /* unselect.png */; };
 		8FE3884F1E7F6AFC006CD8EA /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE3884E1E7F6AFC006CD8EA /* selected.png */; };
 		8FE388511E7F6B77006CD8EA /* 灰框.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE388501E7F6B77006CD8EA /* 灰框.png */; };
@@ -734,6 +735,8 @@
 		8FB805331E95E80700B7BA30 /* CouponViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponViewController.m; sourceTree = "<group>"; };
 		8FB805351E95E8D200B7BA30 /* CouponCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponCell.h; sourceTree = "<group>"; };
 		8FB805361E95E8D200B7BA30 /* CouponCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponCell.m; sourceTree = "<group>"; };
+		8FB805381E95EFDF00B7BA30 /* OrderSecondView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderSecondView.h; sourceTree = "<group>"; };
+		8FB805391E95EFDF00B7BA30 /* OrderSecondView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderSecondView.m; sourceTree = "<group>"; };
 		8FE3884C1E7F6A0B006CD8EA /* unselect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselect.png; sourceTree = "<group>"; };
 		8FE3884E1E7F6AFC006CD8EA /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		8FE388501E7F6B77006CD8EA /* 灰框.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "灰框.png"; sourceTree = "<group>"; };
@@ -2236,6 +2239,8 @@
 		F4CFBD6C1DD01DED003503DD /* 订单 */ = {
 			isa = PBXGroup;
 			children = (
+				8FB805381E95EFDF00B7BA30 /* OrderSecondView.h */,
+				8FB805391E95EFDF00B7BA30 /* OrderSecondView.m */,
 				8F0CF45E1E8670CA008E95DE /* MyOrderViewController.h */,
 				8F0CF45F1E8670CA008E95DE /* MyOrderViewController.m */,
 				8F0CF4621E8670CA008E95DE /* LiuXSegmentView.h */,
@@ -2256,8 +2261,6 @@
 				8FF543551E8E4BA2007609D7 /* PingJiaViewController.m */,
 				8F14D4831E947D4E009A9D15 /* PingJiaDisplayViewController.h */,
 				8F14D4841E947D4E009A9D15 /* PingJiaDisplayViewController.m */,
-				8FF7C7E41E94F98500BC8EEC /* OrderSecondView.h */,
-				8FF7C7E51E94F98500BC8EEC /* OrderSecondView.m */,
 			);
 			name = "订单";
 			sourceTree = "<group>";
@@ -2864,6 +2867,7 @@
 				8F0CF4541E867045008E95DE /* ShoppingCarModel.m in Sources */,
 				8FF632BE1E8369D400ED8751 /* TZAssetCell.m in Sources */,
 				8F195D421E7CD96300E8770D /* UIView+WhenTappendBlocks.m in Sources */,
+				8FB8053A1E95EFDF00B7BA30 /* OrderSecondView.m in Sources */,
 				8F5F68FB1E8E58C1006C7CD5 /* GoodsCommentView.m in Sources */,
 				8FE660DA1E7BEE310047DF58 /* SetPasswordViewController.m in Sources */,
 				8FB805341E95E80700B7BA30 /* CouponViewController.m in Sources */,
@@ -3057,7 +3061,6 @@
 				8F0F16C01E827D0D00D7D308 /* MJRefreshConst.m in Sources */,
 				8F0CF4741E8670CA008E95DE /* LiuXSegmentView.m in Sources */,
 				8FE388671E7FABFB006CD8EA /* SceneShowView.m in Sources */,
-				8FF7C7E61E94F98500BC8EEC /* OrderSecondView.m in Sources */,
 				8F0CF43D1E866FE9008E95DE /* MyZiLiaoTableViewCell.m in Sources */,
 				8FA6F7551E5FD52E006CC20B /* Main5TableViewCell.m in Sources */,
 				8FE660C81E7BE1050047DF58 /* AFURLSessionManager.m in Sources */,

@@ -294,7 +294,7 @@
     [_collectionView reloadData];
 }
 - (void)publish {
-    if (self.textField.text.length == 0 || self.textView.text) {
+    if (self.textField.text.length == 0 || self.textView.text == 0) {
         [MBProgressHUD showError:@"信息不完全"];
         return;
     }
