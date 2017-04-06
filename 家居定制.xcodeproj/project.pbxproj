@@ -2256,6 +2256,8 @@
 				8FF543551E8E4BA2007609D7 /* PingJiaViewController.m */,
 				8F14D4831E947D4E009A9D15 /* PingJiaDisplayViewController.h */,
 				8F14D4841E947D4E009A9D15 /* PingJiaDisplayViewController.m */,
+				8FF7C7E41E94F98500BC8EEC /* OrderSecondView.h */,
+				8FF7C7E51E94F98500BC8EEC /* OrderSecondView.m */,
 			);
 			name = "订单";
 			sourceTree = "<group>";
@@ -3055,6 +3057,7 @@
 				8F0F16C01E827D0D00D7D308 /* MJRefreshConst.m in Sources */,
 				8F0CF4741E8670CA008E95DE /* LiuXSegmentView.m in Sources */,
 				8FE388671E7FABFB006CD8EA /* SceneShowView.m in Sources */,
+				8FF7C7E61E94F98500BC8EEC /* OrderSecondView.m in Sources */,
 				8F0CF43D1E866FE9008E95DE /* MyZiLiaoTableViewCell.m in Sources */,
 				8FA6F7551E5FD52E006CC20B /* Main5TableViewCell.m in Sources */,
 				8FE660C81E7BE1050047DF58 /* AFURLSessionManager.m in Sources */,

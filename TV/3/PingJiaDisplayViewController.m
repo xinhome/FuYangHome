@@ -92,18 +92,33 @@
         make.width.equalTo(@(kScreenWidth-rateWidth(40)));
     }];
     
-    for (int i = 0; i < 4; i ++) {
-        UIImageView *img = [UIImageView new];
-        img.backgroundColor = [UIColor lightGrayColor];
-        img.tag = i + 100;
-        [self.view addSubview:img];
-        [img mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_offset(CGSizeMake(rateWidth(80), rateHeight(50)));
-            make.left.equalTo(self.view).offset(rateWidth(20)+rateWidth(85)*i);
-            make.top.equalTo(textLB.mas_bottom).offset(rateHeight(10));
-        }];
+    NSArray *imgArray;
+    if (_dataDic[@"buyerPic"] != nil) {
+        
+        if ([_dataDic[@"buyerPic"] rangeOfString:@","].location != NSNotFound) {
+            NSLog(@"yes");
+            imgArray = [_dataDic[@"buyerPic"] componentsSeparatedByString:@","];
+            
+        } else {
+            imgArray = @[_dataDic[@"buyerPic"]];
+            NSLog(@"no");
+        }
+        for (int i = 0; i < imgArray.count; i ++) {
+            UIImageView *img = [UIImageView new];
+            NSURL *imgUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WeiMingURL,imgArray[i]]];
+            [img sd_setImageWithURL:imgUrl];
+            img.backgroundColor = [UIColor lightGrayColor];
+            img.tag = i + 100;
+            [self.view addSubview:img];
+            [img mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.size.mas_offset(CGSizeMake(rateWidth(60), rateHeight(50)));
+                make.left.equalTo(self.view).offset(rateWidth(20)+rateWidth(65)*i);
+                make.top.equalTo(textLB.mas_bottom).offset(rateHeight(10));
+            }];
+        }
+    } else {
+        
     }
-    UIImageView *img = (UIImageView *)[self.view viewWithTag:100];
     
     UIView *line1 = [UIView new];
     line1.backgroundColor = UIColorFromRGB(0xdfdce6);
@@ -111,7 +126,11 @@
     [line1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
-        make.top.equalTo(img.mas_bottom).offset(rateHeight(10));
+        if (imgArray.count != 0) {
+            make.top.equalTo(textLB.mas_bottom).offset(rateHeight(10)+rateHeight(60));
+        } else {
+            make.top.equalTo(textLB.mas_bottom).offset(rateHeight(10));
+        }
         make.height.equalTo(@(0.5));
     }];
     

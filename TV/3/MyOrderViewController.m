@@ -12,6 +12,7 @@
 #import "JieSuanOrderViewController.h"
 #import "ReturnGoodsTableViewCell.h"
 #import "PingJiaViewController.h"
+#import "PingJiaDisplayViewController.h"
 #define redColor  RGB(255, 56, 65)
 @interface MyOrderViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -38,7 +39,7 @@
 - (void)setNavigationBar
 {
     self.navigationItem.title = @"我的订单";
-    [self addRightItemWithImage:@"shanchu " action:nil];
+//    [self addRightItemWithImage:@"shanchu " action:nil];
 }
 #pragma mark - 分段选择
 - (void)addSegment
@@ -211,14 +212,9 @@
         }];
         
         NSString *btnTitle;
-//        if (self.segmentIndex == 4) {
-//            btnTitle = @"评价";
-//        } else {
-//            btnTitle = @"删除";
-//        }
         if ([model.status intValue] == 1) {
             // 提醒发货
-            btnTitle = @"提醒发货";
+            btnTitle = @"待发货";
         } else if ([model.status intValue] == 2) {
             // 确认收货
             btnTitle = @"确认收货";
@@ -242,23 +238,17 @@
         }];
         if ([model.status intValue] == 1) {
             // 提醒发货
-
+            shouhuoBtn.enabled = NO;
         } else if ([model.status intValue] == 2) {
             // 确认收货
-
+            [shouhuoBtn addTarget:self action:@selector(shouHuo:) forControlEvents:(UIControlEventTouchUpInside)];
         } else if ([model.status intValue] == 3) {
             // 评价
             [shouhuoBtn addTarget:self action:@selector(pingJia:) forControlEvents:(UIControlEventTouchUpInside)];
         } else if ([model.status intValue] == 4) {
             // 查看评价
-
+            [shouhuoBtn addTarget:self action:@selector(chaKanPingJia:) forControlEvents:(UIControlEventTouchUpInside)];
         }
-
-//        if (self.segmentIndex == 4) {
-//            [shouhuoBtn addTarget:self action:@selector(pingJia:) forControlEvents:(UIControlEventTouchUpInside)];
-//        } else {
-//            
-//        }
         
         UIView *line = [UIView new];
         line.backgroundColor = UIColorFromRGB(0xf7f7f7);
@@ -280,11 +270,6 @@
     orderDetailVC.model = model;
     [self.navigationController pushViewController:orderDetailVC animated:YES];
 }
-#pragma mark - deleteOrder
-- (void)deleteOrder:(UIButton *)btn
-{
-    NSLog(@"删除订单");
-}
 // 评价
 - (void)pingJia:(UIButton *)btn
 {
@@ -293,6 +278,35 @@
     pingJiaVC.model = model;
     [self.navigationController pushViewController:pingJiaVC animated:YES];
 }
+// 查看评价
+- (void)chaKanPingJia:(UIButton *)btn
+{
+    PingJiaDisplayViewController *pingJiaDisplayVC = [[PingJiaDisplayViewController alloc] init];
+    ShoppingCarModel *model = (ShoppingCarModel *)_orderArray[btn.tag];
+    pingJiaDisplayVC.model = model;
+    [self.navigationController pushViewController:pingJiaDisplayVC animated:YES];
+}
+// 确认收货
+- (void)shouHuo:(UIButton *)btn
+{
+    [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
+    ShoppingCarModel *model = (ShoppingCarModel *)_orderArray[btn.tag];
+    [[AFHTTPSessionManager manager] GET:[NSString stringWithFormat:@"%@Order/doTransfer?id=%@", WeiMingURL,model.goodsId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"确认收货：%@", responseObject);
+        if ([responseObject[@"msg"] isEqualToString:@"OK"]) {
+            [MBProgressHUD hideHUDForView:self.view];
+            [MBProgressHUD showMessage:@"确认收货成功" toView:self.view];
+        } else {
+            [MBProgressHUD hideHUDForView:self.view];
+            [MBProgressHUD showError:@"提交失败"];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [MBProgressHUD hideHUDForView:self.view];
+        [MBProgressHUD showError:@"网络异常"];
+    }];
+}
+
 - (UITableView *)myTableView
 {
     if (!_myTableView) {
