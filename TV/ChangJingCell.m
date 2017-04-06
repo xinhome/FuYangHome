@@ -40,7 +40,6 @@
 - (void)setModel:(ChangJingModel *)model {
     _model = model;
     //[self.imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, model.pic]]];
-    NSLog(@"%@", model.pic);
     [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, model.pic]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
         self.imageView.image = image;
         for (Coordinate *coordinate in model.coordinates) {
