@@ -145,6 +145,7 @@
 		8FB805371E95E8D200B7BA30 /* CouponCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB805361E95E8D200B7BA30 /* CouponCell.m */; };
 		8FB8053A1E95EFDF00B7BA30 /* OrderSecondView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB805391E95EFDF00B7BA30 /* OrderSecondView.m */; };
 		8FB8053C1E95F4E400B7BA30 /* 立即使用.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FB8053B1E95F4E400B7BA30 /* 立即使用.png */; };
+		8FB8053F1E961F1F00B7BA30 /* SearchMagazineController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8053E1E961F1F00B7BA30 /* SearchMagazineController.m */; };
 		8FE3884D1E7F6A0B006CD8EA /* unselect.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE3884C1E7F6A0B006CD8EA /* unselect.png */; };
 		8FE3884F1E7F6AFC006CD8EA /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE3884E1E7F6AFC006CD8EA /* selected.png */; };
 		8FE388511E7F6B77006CD8EA /* 灰框.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE388501E7F6B77006CD8EA /* 灰框.png */; };
@@ -740,6 +741,8 @@
 		8FB805381E95EFDF00B7BA30 /* OrderSecondView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderSecondView.h; sourceTree = "<group>"; };
 		8FB805391E95EFDF00B7BA30 /* OrderSecondView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderSecondView.m; sourceTree = "<group>"; };
 		8FB8053B1E95F4E400B7BA30 /* 立即使用.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "立即使用.png"; sourceTree = "<group>"; };
+		8FB8053D1E961F1F00B7BA30 /* SearchMagazineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchMagazineController.h; sourceTree = "<group>"; };
+		8FB8053E1E961F1F00B7BA30 /* SearchMagazineController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchMagazineController.m; sourceTree = "<group>"; };
 		8FE3884C1E7F6A0B006CD8EA /* unselect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselect.png; sourceTree = "<group>"; };
 		8FE3884E1E7F6AFC006CD8EA /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		8FE388501E7F6B77006CD8EA /* 灰框.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "灰框.png"; sourceTree = "<group>"; };
@@ -1536,6 +1539,8 @@
 				F4F22E101DCDEBA9007C83F8 /* ThereViewController.xib */,
 				F4F22E081DCDEBA9007C83F8 /* ThereDetailViewController.h */,
 				F4F22E091DCDEBA9007C83F8 /* ThereDetailViewController.m */,
+				8FB8053D1E961F1F00B7BA30 /* SearchMagazineController.h */,
+				8FB8053E1E961F1F00B7BA30 /* SearchMagazineController.m */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -2947,6 +2952,7 @@
 				8FF632C41E8369D500ED8751 /* TZImagePickerController.m in Sources */,
 				8FE388631E7FAA71006CD8EA /* HomeContentModel.m in Sources */,
 				8F0CF45B1E86706F008E95DE /* MyTieZiViewController.m in Sources */,
+				8FB8053F1E961F1F00B7BA30 /* SearchMagazineController.m in Sources */,
 				8FE3885B1E7F8814006CD8EA /* User.m in Sources */,
 				8F0CF47F1E86716E008E95DE /* ReturnGoodsViewController.m in Sources */,
 				8FE660C71E7BE1050047DF58 /* AFURLResponseSerialization.m in Sources */,

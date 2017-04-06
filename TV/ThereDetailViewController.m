@@ -26,24 +26,9 @@
     [self loadData];
 }
 - (void)loadData {
-    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/magazines/getone" parameters:@{@"id": self.model.magazineId} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"%@", responseObject);
-        NSArray *comments = responseObject[@"data"][@"comments"];
-        for (NSDictionary *comment in comments) {
-            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-            dict[@"avatar"] = comment[@""];
-            dict[@"nickname"] = comment[@""];
-            dict[@"commentContent"] = comment[@"commentContent"];
-            dict[@"commentTime"] = comment[@"generateTime"];
-            [self.dataSource addObject:[SocietyCommentModel mj_objectWithKeyValues:dict]];
-        }
-        [self.tableView reloadData];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@", error);
-    }];
-//    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getone" person:RequestPersonKaiKang parameters:@{@"id": self.model.magazineId} success:^(id successResponse) {
-////        NSLog(@"%@", successResponse);
-//        NSArray *comments = successResponse[@"data"][@"comments"];
+//    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/magazines/getone" parameters:@{@"id": self.model.magazineId} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        NSLog(@"%@", responseObject);
+//        NSArray *comments = responseObject[@"data"][@"comments"];
 //        for (NSDictionary *comment in comments) {
 //            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 //            dict[@"avatar"] = comment[@""];
@@ -53,10 +38,25 @@
 //            [self.dataSource addObject:[SocietyCommentModel mj_objectWithKeyValues:dict]];
 //        }
 //        [self.tableView reloadData];
-////        NSLog(@"%@",comments);
-//    } fail:^(NSError *error) {
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 //        NSLog(@"%@", error);
 //    }];
+    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getone" person:RequestPersonKaiKang parameters:@{@"id": self.model.magazineId} success:^(id successResponse) {
+//        NSLog(@"%@", successResponse);
+        NSArray *comments = successResponse[@"data"][@"comments"];
+        for (NSDictionary *comment in comments) {
+            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+            dict[@"avatar"] = comment[@""];
+            dict[@"nickname"] = comment[@""];
+            dict[@"commentContent"] = comment[@"commentContent"];
+            dict[@"commentTime"] = comment[@"generateTime"];
+            [self.dataSource addObject:[SocietyCommentModel mj_objectWithKeyValues:dict]];
+        }
+        [self.tableView reloadData];
+//        NSLog(@"%@",comments);
+    } fail:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 - (void)setupUI {
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];

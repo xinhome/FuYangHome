@@ -12,7 +12,8 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
     self = [super init];
     if (self) {
-//        self.avatar = dict[@"user"];
+        self.avatar = dict[@"user"][@"url"];
+        self.nickname = dict[@"user"][@"name"];
         self.title = dict[@"magazineName"];
         self.desc = dict[@"magazineTextContent"];
         self.image = dict[@"magazineUrlContent"];

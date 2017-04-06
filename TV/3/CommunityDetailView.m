@@ -36,16 +36,16 @@
         avatar.layer.masksToBounds = YES;
         [self addSubview:avatar];
         
-        UILabel *nickname = [UILabel labelWithText:@"用户名12345" textColor:RGB(130, 130, 130) fontSize:15];
+        UILabel *nickname = [UILabel labelWithText:@"" textColor:RGB(130, 130, 130) fontSize:15];
         nickname.frame = CGRectMake(avatar.right+10, 0, kScreenWidth-avatar.right-10-20, 15);
         nickname.centerY = avatar.centerY;
         [self addSubview:nickname];
         
-        UILabel *title = [UILabel labelWithText:@"求支招；怎么利用客厅更加合理" textColor:UIColorBlack fontSize:16];
+        UILabel *title = [UILabel labelWithText:@"" textColor:UIColorBlack fontSize:16];
         title.frame = CGRectMake(13, avatar.bottom+20, kScreenWidth-23, 16);
         [self addSubview:title];
         
-        UILabel *content = [UILabel labelWithText:@"求支招；怎么利用" textColor:RGB(88, 88, 88) fontSize:14];
+        UILabel *content = [UILabel labelWithText:@"" textColor:RGB(88, 88, 88) fontSize:14];
         content.origin = CGPointMake(title.left, title.bottom+15);
         content.numberOfLines = 0;
         [self addSubview:content];
@@ -93,6 +93,8 @@
 
 - (void)setModel:(ThereModel *)model {
     _model = model;
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, model.avatar]]];
+    self.nickname.text = model.nickname;
     self.title.text = model.title;
     CGSize strSize = [model.desc getSizeWithMaxSize:CGSizeMake(kScreenWidth-26, CGFLOAT_MAX) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]}];
     self.desc.text = model.desc;

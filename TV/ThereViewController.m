@@ -21,6 +21,8 @@ typedef NS_ENUM(NSInteger, CommunityType) {
 #import "thereTableViewCell.h"
 #import "ThereDetailViewController.h"
 #import "ThereModel.h"
+#import "SearchMagazineController.h"
+
 @interface ThereViewController ()<UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate>
 @property (nonatomic, strong) NSMutableArray<ThereModel *> *dataSource;///<<#注释#>
 @property (nonatomic, assign) CommunityType communityType;///< 选择的类型
@@ -120,18 +122,10 @@ typedef NS_ENUM(NSInteger, CommunityType) {
     [view addSubview:line];
     self.navigationItem.titleView = view;
 }
-#pragma mark - textField delegate
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [[HttpRequestManager shareManager] addPOSTURL:@"/Item/search" person:RequestPersonWeiMing parameters:@{@"magazineName": textField.text} success:^(id successResponse) {
-        NSLog(@"%@", successResponse);
-    } fail:^(NSError *error) {
-        NSLog(@"%@", error);
-    }];
-    [textField resignFirstResponder];
-    return YES;
-}
+
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    NSLog(@"*********");
+    [textField resignFirstResponder];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[SearchMagazineController alloc] init]] animated:YES completion:nil];
     return YES;
 }
 

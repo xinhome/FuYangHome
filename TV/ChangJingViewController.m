@@ -12,9 +12,10 @@
 #import "ChangJingCell.h"
 #import "ChangJingModel.h"
 #import <ShareSDKUI/ShareSDKUI.h>
+#import "DotDetailView.h"
 @interface ChangJingViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
-
+@property (nonatomic, strong) NSMutableArray<DotDetailView *> *dotDetailViews;///<<#注释#>
 @property (strong, nonatomic) IBOutlet UILabel *praiseLabel;
 @property (nonatomic, strong)NSMutableArray<ChangJingModel *> *dataSource;
 @property (nonatomic, weak) UICollectionView *collectionView;
@@ -91,6 +92,30 @@
     return cell;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    ChangJingCell *cell = (ChangJingCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    for (DotDetailView *view in self.dotDetailViews) {
+        [view removeFromSuperview];
+    }
+    [self.dotDetailViews removeAllObjects];
+    NSArray <Coordinate *> *coordinates = self.dataSource[indexPath.row].coordinates;
+    for (int i = 0; i < cell.dots.count; i ++) {
+        DotDetailView *view = [[DotDetailView alloc] initWithFrame:CGRectMake(0, 0, 95, 70)];
+        [view whenTapped:^{
+            NSLog(@"************");
+        }];
+        view.bottom = cell.dots[i].top;
+        view.centerX = cell.dots[i].centerX;
+        view.name.text = coordinates[i].title;
+        view.price.text = coordinates[i].price;
+        [cell addSubview:view];
+    }
+//    for (WPWaveRippleView *dot in cell.dots) {
+//
+//        view.name.text =
+//    }
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     int index = (int)scrollView.contentOffset.x/kScreenWidth;
     self.scenceId = self.dataSource[index].scenesId;
@@ -162,5 +187,11 @@
         _dataSource = [NSMutableArray array];
     }
     return _dataSource;
+}
+- (NSMutableArray<DotDetailView *> *)dotDetailViews {
+    if (!_dotDetailViews) {
+        _dotDetailViews = [NSMutableArray array];
+    }
+    return _dotDetailViews;
 }
 @end

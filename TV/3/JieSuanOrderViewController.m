@@ -21,6 +21,7 @@
 #import "ConfirmOrderTableViewCell.h"
 #import "ItemTableViewCell.h"
 #import "JiFenDuiHuanViewController.h"
+#import "CouponViewController.h"
 
 @interface JieSuanOrderViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -201,7 +202,7 @@
 //        }];
         
         // 有默认地址
-        UILabel *label1 = [UILabel labelWithText:@"收货人：" textColor:RGB(0, 0, 0) fontSize:15];
+        UILabel *label1 = [UILabel labelWithText:[NSString stringWithFormat:@"收货人:%@", self.selectAddressModel.receiverName] textColor:RGB(0, 0, 0) fontSize:15];
         [label1 sizeToFit];
         [cell.contentView addSubview:label1];
         [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -209,7 +210,7 @@
             make.top.equalTo(cell.contentView).offset(rateHeight(20));
         }];
         
-        UILabel *label2 = [UILabel labelWithText:@"地址：" textColor:RGB(163, 162, 163) fontSize:14];
+        UILabel *label2 = [UILabel labelWithText:[NSString stringWithFormat:@"地址:%@", self.selectAddressModel.receiverAddress] textColor:RGB(163, 162, 163) fontSize:14];
         [label2 sizeToFit];
         [cell.contentView addSubview:label2];
         [label2 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -217,7 +218,7 @@
             make.top.equalTo(label1.mas_bottom).offset(rateHeight(10));
         }];
         
-        UILabel *label3 = [UILabel labelWithText:@"电话：" textColor:RGB(163, 162, 163) fontSize:14];
+        UILabel *label3 = [UILabel labelWithText:[NSString stringWithFormat:@"电话:%@", self.selectAddressModel.receiverMobile] textColor:RGB(163, 162, 163) fontSize:14];
         [label3 sizeToFit];
         [cell.contentView addSubview:label3];
         [label3 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -227,7 +228,7 @@
 
         cell.selectionStyle = NO;
         return cell;
-    } else if (indexPath.section == 1){
+    } else if (indexPath.section == 1) {
         ConfirmOrderTableViewCell *cell = [[ConfirmOrderTableViewCell alloc] init];
         cell.selectionStyle = NO;
         cell.cellModel = (ShoppingCarModel *)_listArray[indexPath.row];
@@ -289,6 +290,8 @@
     } else if (indexPath.section == 2 && indexPath.row == 2) {
         JiFenDuiHuanViewController *jiFenVC = [[JiFenDuiHuanViewController alloc] init];
         [self.navigationController pushViewController:jiFenVC animated:YES];
+    } else if (indexPath.section == 2 && indexPath.row == 1) {
+        [self pushViewController:[[CouponViewController alloc] init] animation:YES];
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

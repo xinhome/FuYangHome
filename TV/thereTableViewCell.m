@@ -23,6 +23,8 @@
 - (void)setModel:(ThereModel *)model {
     _model = model;
 //    NSLog(@"%@", [NSString stringWithFormat:@"%@%@", KAIKANG, model.user.url]);
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, model.avatar]]];
+    self.nikeNameLable.text = model.nickname;
     self.titleLable.text = model.title;
     self.contentLable.text = model.desc;
     [self.image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", KAIKANG, [model.image componentsSeparatedByString:@","].firstObject]]];
