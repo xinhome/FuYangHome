@@ -35,7 +35,6 @@
     [self.view addSubview:self.myTableView];
     [self setUpDataWithState:@"0" url:@"/Order/showAllOrder"];
 }
-
 - (void)setNavigationBar
 {
     self.navigationItem.title = @"我的订单";
@@ -48,25 +47,15 @@
          self.segmentIndex = index;
          [_myTableView reloadData];
         if (index == 1) {
-            [_orderArray removeAllObjects];
             [self setUpDataWithState:@"0" url:@"/Order/showAllOrder"];
         } else if (index == 2) {
-            [_orderArray removeAllObjects];
-            NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"status == 1"];
-            NSPredicate *predicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[searchPredicate]];
-            self.orderArray = [self.orderArray00 filteredArrayUsingPredicate:predicate].mutableCopy;
+            [self setUpDataWithState:@"1" url:@"/Order/showCar"];
             [_myTableView reloadData];
         } else if (index == 3) {
-            [_orderArray removeAllObjects];
-            NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"status == 2"];
-            NSPredicate *predicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[searchPredicate]];
-            self.orderArray = [self.orderArray00 filteredArrayUsingPredicate:predicate].mutableCopy;
+            [self setUpDataWithState:@"2" url:@"/Order/showCar"];
             [_myTableView reloadData];
         } else {
-            [_orderArray removeAllObjects];
-            NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"status == 3"];
-            NSPredicate *predicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[searchPredicate]];
-            self.orderArray = [self.orderArray00 filteredArrayUsingPredicate:predicate].mutableCopy;
+            [self setUpDataWithState:@"3" url:@"/Order/showCar"];
             [_myTableView reloadData];
         }
     }];
@@ -89,15 +78,12 @@
         NSLog(@"订单-----%@", successResponse);
         if ([successResponse isSuccess]) {
             NSArray *orderArray = successResponse[@"data"];
-            self.orderArray00 = [NSMutableArray array];
+            self.orderArray = [NSMutableArray array];
             for (NSDictionary *dic in orderArray) {
                 ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
                 [model setValuesForKeysWithDictionary:dic];
-                [_orderArray00 addObject:model];
+                [_orderArray addObject:model];
             }
-            NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"status == 3 || status == 2 || status == 1 || status == 4"];
-            NSPredicate *predicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[searchPredicate]];
-            self.orderArray = [self.orderArray00 filteredArrayUsingPredicate:predicate].mutableCopy;
             [_myTableView reloadData];
             
         } else {
@@ -221,7 +207,7 @@
         } else if ([model.status intValue] == 3) {
             // 评价
             btnTitle = @"评价";
-        } else if ([model.status intValue] == 4) {
+        } else {
             // 查看评价
             btnTitle = @"查看评价";
         }
@@ -245,7 +231,7 @@
         } else if ([model.status intValue] == 3) {
             // 评价
             [shouhuoBtn addTarget:self action:@selector(pingJia:) forControlEvents:(UIControlEventTouchUpInside)];
-        } else if ([model.status intValue] == 4) {
+        } else {
             // 查看评价
             [shouhuoBtn addTarget:self action:@selector(chaKanPingJia:) forControlEvents:(UIControlEventTouchUpInside)];
         }

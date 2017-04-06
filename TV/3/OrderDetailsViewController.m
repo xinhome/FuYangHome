@@ -158,7 +158,7 @@
             btnStr = @"确认收货";
         } else if ([_model.status intValue] == 3) {
             btnStr = @"评价";
-        } else if ([_model.status intValue] == 4) {
+        } else {
             btnStr = @"查看评价";
         }
         UIButton *shouhuoBtn = [UIButton buttonWithTitle:btnStr fontSize:12 titleColor:RGB(105, 105, 105) background:[UIColor whiteColor] cornerRadius:4];
@@ -179,7 +179,7 @@
         } else if ([_model.status intValue] == 3) {
             // 评价
             [shouhuoBtn addTarget:self action:@selector(pingJia:) forControlEvents:(UIControlEventTouchUpInside)];
-        } else if ([_model.status intValue] == 4) {
+        } else {
             // 查看评价
             [shouhuoBtn addTarget:self action:@selector(chaKanPingJia:) forControlEvents:(UIControlEventTouchUpInside)];
         }

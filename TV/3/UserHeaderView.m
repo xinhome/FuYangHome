@@ -64,7 +64,7 @@
         label3.textAlignment = NSTextAlignmentCenter;
         label3.frame = CGRectMake(order.right, label1.top, kScreenWidth/4, 16);
         [view addSubview:label3];
-        UILabel *label4 = [UILabel labelWithText:@"退换物" textColor:RGB(140, 139, 140) fontSize:16];
+        UILabel *label4 = [UILabel labelWithText:@"退换货" textColor:RGB(140, 139, 140) fontSize:16];
         label4.textAlignment = NSTextAlignmentCenter;
         label4.frame = CGRectMake(shopcar.right, label1.top, kScreenWidth/4, 16);
         [view addSubview:label4];

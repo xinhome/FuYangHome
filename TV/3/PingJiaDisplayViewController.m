@@ -30,13 +30,17 @@
     [[HttpRequestManager shareManager] addPOSTURL:@"/Order/showMsg" person:RequestPersonWeiMing parameters:@{@"id": @([_model.goodsId intValue])} success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
         if ([successResponse isSuccess]) {
-            self.dataDic = successResponse[@"data"][0];
-            NSLog(@"评价详情%@", _dataDic);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self setUpUI];
-            });
-            [self setUpUI];
-            
+
+            NSArray *data = successResponse[@"data"];
+            if (data.count != 0) {
+                self.dataDic = successResponse[@"data"][0];
+                NSLog(@"评价详情%@", _dataDic);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self setUpUI];
+                });
+            } else {
+                [MBProgressHUD showMessage:@"暂无评价" toView:self.view];
+            }
         } else {
             [MBProgressHUD showResponseMessage:successResponse];
         }
