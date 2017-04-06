@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, CommunityType) {
 #import "ThereModel.h"
 #import "SearchMagazineController.h"
 
-@interface ThereViewController ()<UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate>
+@interface ThereViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray<ThereModel *> *dataSource;///<<#注释#>
 @property (nonatomic, assign) CommunityType communityType;///< 选择的类型
 @property (nonatomic, assign) int currentPage;///< <#注释#>
@@ -109,8 +109,11 @@ typedef NS_ENUM(NSInteger, CommunityType) {
 
 - (void)configSearchBar {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, rateWidth(200), 40)];
+    [view whenTapped:^{
+        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[SearchMagazineController alloc] init]] animated:YES completion:nil];
+    }];
     UITextField *searchBar = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, rateWidth(200), 40)];
-    searchBar.delegate = self;
+    searchBar.enabled = NO;
     searchBar.returnKeyType = UIReturnKeySearch;
     searchBar.rightViewMode = UITextFieldViewModeAlways;
     searchBar.rightView = [self leftView];
@@ -121,12 +124,6 @@ typedef NS_ENUM(NSInteger, CommunityType) {
     line.bottom = view.height;
     [view addSubview:line];
     self.navigationItem.titleView = view;
-}
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    [textField resignFirstResponder];
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[SearchMagazineController alloc] init]] animated:YES completion:nil];
-    return YES;
 }
 
 - (void)loadChooseBtn
