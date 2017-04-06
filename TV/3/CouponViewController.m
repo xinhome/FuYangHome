@@ -26,6 +26,34 @@
     self.title = @"优惠券";
     [self setupUI];
     self.index = 1;
+//    [self setUpData];
+}
+- (void)setUpData
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [userDefaults valueForKey:@"myUserId"];
+    [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
+    [[HttpRequestManager shareManager] addPOSTURL:@"/FyHome/coupons/ById" person:RequestPersonWeiMing parameters:@{@"userId": userId} success:^(id successResponse) {
+        [MBProgressHUD hideHUDForView:self.view];
+        NSLog(@"优惠券-----%@", successResponse);
+        if ([successResponse isSuccess]) {
+//            NSArray *orderArray = successResponse[@"data"];
+//            self.orderArray = [NSMutableArray array];
+//            for (NSDictionary *dic in orderArray) {
+//                ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
+//                [model setValuesForKeysWithDictionary:dic];
+//                [_orderArray addObject:model];
+//            }
+//            [self.tableView reloadData];
+            
+        } else {
+            [MBProgressHUD showResponseMessage:successResponse];
+        }
+    } fail:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view];
+        [MBProgressHUD showError:@"网络异常"];
+    }];
+
 }
 - (void)setupUI {
     LiuXSegmentView *segmentView = [[LiuXSegmentView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50) titles:@[@"未使用", @"已过期"] bgColor:UIColorFromRGB(0xf7f7f7) clickBlick:^(NSInteger index) {
