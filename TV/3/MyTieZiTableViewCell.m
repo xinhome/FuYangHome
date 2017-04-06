@@ -92,8 +92,16 @@
         make.bottom.equalTo(self);
         make.height.equalTo(@(1));
     }];
-    
 }
+- (void)setModel:(ThereModel *)model
+{
+    self.label1.text = model.title;
+    self.label2.text = model.desc;
+    [self.img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", KAIKANG, [model.image componentsSeparatedByString:@","].firstObject]]];
+    self.pingLunBtn.numLB.text = model.comment;
+    self.dianZanBtn.numLB.text = model.praise;
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

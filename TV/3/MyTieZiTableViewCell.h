@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TieZiButtonViw.h"
+#import "ThereModel.h"
 
 @interface MyTieZiTableViewCell : UITableViewCell
 
@@ -17,5 +18,6 @@
 @property (nonatomic, strong) UIImageView *img;
 @property (nonatomic, strong) TieZiButtonViw *pingLunBtn;
 @property (nonatomic, strong) TieZiButtonViw *dianZanBtn;
+@property (nonatomic, strong) ThereModel *model;
 
 @end

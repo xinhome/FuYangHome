@@ -246,6 +246,7 @@
 		8FF632C91E8369D500ED8751 /* TZTestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF632B81E8369D400ED8751 /* TZTestCell.m */; };
 		8FF632CA1E8369D500ED8751 /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF632BA1E8369D400ED8751 /* TZVideoPlayerController.m */; };
 		8FF632CB1E8369D500ED8751 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF632BC1E8369D400ED8751 /* UIView+Layout.m */; };
+		8FF7C7E81E95F7BD00BC8EEC /* youhuiquanguoqi.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FF7C7E71E95F7BD00BC8EEC /* youhuiquanguoqi.png */; };
 		8FF99C291E94F84000BF47F3 /* SearchResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF99C281E94F84000BF47F3 /* SearchResultModel.m */; };
 		8FFD41951E88DA6500544045 /* ReturnGoodsDetaildsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFD41921E88DA6500544045 /* ReturnGoodsDetaildsViewController.m */; };
 		8FFD41961E88DA6500544045 /* ReturnGoodsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFD41941E88DA6500544045 /* ReturnGoodsTableViewCell.m */; };
@@ -941,6 +942,7 @@
 		8FF632BA1E8369D400ED8751 /* TZVideoPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZVideoPlayerController.m; sourceTree = "<group>"; };
 		8FF632BB1E8369D400ED8751 /* UIView+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Layout.h"; sourceTree = "<group>"; };
 		8FF632BC1E8369D400ED8751 /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
+		8FF7C7E71E95F7BD00BC8EEC /* youhuiquanguoqi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = youhuiquanguoqi.png; sourceTree = "<group>"; };
 		8FF99C271E94F84000BF47F3 /* SearchResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultModel.h; sourceTree = "<group>"; };
 		8FF99C281E94F84000BF47F3 /* SearchResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultModel.m; sourceTree = "<group>"; };
 		8FFD41911E88DA6500544045 /* ReturnGoodsDetaildsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReturnGoodsDetaildsViewController.h; sourceTree = "<group>"; };
@@ -2129,6 +2131,7 @@
 		F4CFBD6B1DD01D16003503DD /* image */ = {
 			isa = PBXGroup;
 			children = (
+				8FF7C7E71E95F7BD00BC8EEC /* youhuiquanguoqi.png */,
 				8FB8053B1E95F4E400B7BA30 /* 立即使用.png */,
 				8F0772381E94C0B700A33355 /* 优惠券@2x.png */,
 				8F5F68EE1E8E34B0006C7CD5 /* 圆角矩形 2@2x.png */,
@@ -2834,6 +2837,7 @@
 				F4F22E761DCDEBAA007C83F8 /* AddAddressViewController.xib in Resources */,
 				F4F22ECA1DCDEBAA007C83F8 /* jinpai.png in Resources */,
 				8F5F68EF1E8E34B0006C7CD5 /* 圆角矩形 2@2x.png in Resources */,
+				8FF7C7E81E95F7BD00BC8EEC /* youhuiquanguoqi.png in Resources */,
 				8FE3884D1E7F6A0B006CD8EA /* unselect.png in Resources */,
 				8F3909AE1E5C2C3C0011E366 /* MBProgressHUD.bundle in Resources */,
 				8FA6F75B1E601F24006CC20B /* pic3.png in Resources */,

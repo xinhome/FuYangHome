@@ -10,7 +10,12 @@
 #import "LiuXSegmentView.h"
 #import "CouponCell.h"
 
+#define kOrangeColor UIColorFromRGB(0xffc332)
+#define kGrayColor RGB(204, 204, 204)
+
 @interface CouponViewController ()
+
+@property (nonatomic, assign) NSInteger index;
 
 @end
 
@@ -20,10 +25,12 @@
     [super viewDidLoad];
     self.title = @"优惠券";
     [self setupUI];
+    self.index = 1;
 }
 - (void)setupUI {
     LiuXSegmentView *segmentView = [[LiuXSegmentView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50) titles:@[@"未使用", @"已过期"] bgColor:UIColorFromRGB(0xf7f7f7) clickBlick:^(NSInteger index) {
-        
+        self.index = index;
+        [self.tableView reloadData];
     }];
     segmentView.titleNomalColor = UIColorFromRGB(0x666666);
     segmentView.titleSelectColor = UIColorFromRGB(0x4fd2c2);
@@ -32,6 +39,7 @@
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, segmentView.bottom, kScreenWidth, kScreenHeight-50-64) style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.separatorStyle = NO;
     [self.tableView registerClass:[CouponCell class] forCellReuseIdentifier:@"cell"];
     [self.view addSubview:self.tableView];
 }
@@ -43,26 +51,39 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CouponCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    if (self.index == 1) {
+        cell.bgImg.image = [UIImage imageNamed:@"立即使用"];
+        cell.label.textColor = kOrangeColor;
+        cell.moneyLB.textColor = kOrangeColor;
+        cell.conditionLB.textColor = kOrangeColor;
+    } else {
+        cell.bgImg.image = [UIImage imageNamed:@"youhuiquanguoqi"];
+        cell.label.textColor = kGrayColor;
+        cell.moneyLB.textColor = kGrayColor;
+        cell.conditionLB.textColor = kGrayColor;
+    }
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 100.0f;
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return 100.0f;
+//}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return rateHeight(95);
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return rateHeight(18);
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.01f;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
