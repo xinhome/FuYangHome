@@ -144,6 +144,7 @@
 		8FB805341E95E80700B7BA30 /* CouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB805331E95E80700B7BA30 /* CouponViewController.m */; };
 		8FB805371E95E8D200B7BA30 /* CouponCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB805361E95E8D200B7BA30 /* CouponCell.m */; };
 		8FB8053A1E95EFDF00B7BA30 /* OrderSecondView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB805391E95EFDF00B7BA30 /* OrderSecondView.m */; };
+		8FB8053C1E95F4E400B7BA30 /* 立即使用.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FB8053B1E95F4E400B7BA30 /* 立即使用.png */; };
 		8FE3884D1E7F6A0B006CD8EA /* unselect.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE3884C1E7F6A0B006CD8EA /* unselect.png */; };
 		8FE3884F1E7F6AFC006CD8EA /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE3884E1E7F6AFC006CD8EA /* selected.png */; };
 		8FE388511E7F6B77006CD8EA /* 灰框.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE388501E7F6B77006CD8EA /* 灰框.png */; };
@@ -737,6 +738,7 @@
 		8FB805361E95E8D200B7BA30 /* CouponCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponCell.m; sourceTree = "<group>"; };
 		8FB805381E95EFDF00B7BA30 /* OrderSecondView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderSecondView.h; sourceTree = "<group>"; };
 		8FB805391E95EFDF00B7BA30 /* OrderSecondView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderSecondView.m; sourceTree = "<group>"; };
+		8FB8053B1E95F4E400B7BA30 /* 立即使用.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "立即使用.png"; sourceTree = "<group>"; };
 		8FE3884C1E7F6A0B006CD8EA /* unselect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselect.png; sourceTree = "<group>"; };
 		8FE3884E1E7F6AFC006CD8EA /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		8FE388501E7F6B77006CD8EA /* 灰框.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "灰框.png"; sourceTree = "<group>"; };
@@ -2127,6 +2129,7 @@
 		F4CFBD6B1DD01D16003503DD /* image */ = {
 			isa = PBXGroup;
 			children = (
+				8FB8053B1E95F4E400B7BA30 /* 立即使用.png */,
 				8F0772381E94C0B700A33355 /* 优惠券@2x.png */,
 				8F5F68EE1E8E34B0006C7CD5 /* 圆角矩形 2@2x.png */,
 				8F5F68EC1E8E328D006C7CD5 /* duihao@2x.png */,
@@ -2777,6 +2780,7 @@
 				F4F22EB01DCDEBAA007C83F8 /* fengexian.png in Resources */,
 				F4F22E801DCDEBAA007C83F8 /* button_back@2x.png in Resources */,
 				F4F22EE91DCDEBAA007C83F8 /* OneViewController.xib in Resources */,
+				8FB8053C1E95F4E400B7BA30 /* 立即使用.png in Resources */,
 				F4F22EB51DCDEBAA007C83F8 /* gallery_chs_normal@2x.png in Resources */,
 				F4F22F211DCDEBAA007C83F8 /* userTableViewCell.xib in Resources */,
 				F4F22ED31DCDEBAA007C83F8 /* main.png in Resources */,
