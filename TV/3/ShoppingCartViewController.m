@@ -128,9 +128,10 @@
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDefaults valueForKey:@"myUserId"];
+    
     if (userId != nil && _deleteGoodsArray.count != 0) {
         [MBProgressHUD showMessage:@"正在删除数据..." toView:self.view];
-        [[HttpRequestManager shareManager] addPOSTURL:@"/Order/deleteOrder" person:RequestPersonWeiMing parameters:@{@"userId": userId,@"id": _deleteGoodsArray[0]} success:^(id successResponse) {
+        [[HttpRequestManager shareManager] addPOSTURL:@"/Order/deleteOrder" person:RequestPersonWeiMing parameters:@{@"userId": userId,@"id": [_deleteGoodsArray componentsJoinedByString:@","]} success:^(id successResponse) {
             [MBProgressHUD hideHUDForView:self.view];
             if ([successResponse isSuccess]) {
                 NSArray *data = successResponse[@"data"];
@@ -199,9 +200,6 @@
         } else {
             [_jieSuanGoodsArray removeAllObjects];
             self.sumPrice = 0.0;
-//            for (ShoppingCarModel *model in _jieSuanGoodsArray) {
-//                _sumPrice = _sumPrice + [model.num intValue]*[model.price floatValue];
-//            }
             self.bottomJieSuanV.gongJiLB.text = [NSString stringWithFormat:@"共计：%.2f元（含0元运费）", _sumPrice];
         }
         [self.bottomJieSuanV.selectAllBtn setImage:[UIImage imageNamed:@"椭圆 4"] forState:(UIControlStateNormal)];
@@ -340,7 +338,6 @@
             [MBProgressHUD hideHUDForView:self.view];
             [MBProgressHUD showError:@"网络异常"];
         }];
-        
     }
 }
 #pragma mark - tableViewDelegate

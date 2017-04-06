@@ -33,12 +33,39 @@
     [self setNavigationBar];
     [self.view addSubview:self.myTableView];
     [self setUpUI];
-    
+    [self setUpData];
 }
 - (void)setNavigationBar
 {
     self.navigationItem.title = @"我的帖子";
     [self addRightItemWithImage:@"shanchu " action:@selector(deleteTieZi:)];
+}
+- (void)setUpData
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [userDefaults valueForKey:@"myUserId"];
+    [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
+    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonKaiKang parameters:@{@"user.id": userId} success:^(id successResponse) {
+        [MBProgressHUD hideHUDForView:self.view];
+        NSLog(@"帖子列表-----%@", successResponse);
+        if ([successResponse isSuccess]) {
+//            NSArray *orderArray = successResponse[@"data"];
+//            self.returnGoodsArray = [NSMutableArray array];
+//            for (NSDictionary *dic in orderArray) {
+//                ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
+//                [model setValuesForKeysWithDictionary:dic];
+//                [_returnGoodsArray addObject:model];
+//            }
+//            [_myTableView reloadData];
+            
+        } else {
+            [MBProgressHUD showResponseMessage:successResponse];
+        }
+    } fail:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view];
+        [MBProgressHUD showError:@"网络异常"];
+    }];
+
 }
 - (void)setUpUI
 {

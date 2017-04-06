@@ -53,25 +53,26 @@
         OrderSecondView *orderSecondView = [[OrderSecondView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(48))];
         orderSecondView.backgroundColor = [UIColor whiteColor];
         [cell.contentView addSubview:orderSecondView];
-        NSArray *array1 = @[@"快递公司：", @"快递单号：", @"状态："];
         NSString *str;
         if ([_model.status intValue] == 1) {
             str = @"待发货";
         } else if ([_model.status intValue] == 2) {
             str = @"待收货";
         } else if ([_model.status intValue] == 3) {
-            str = @"待评价";
+            str = @"已收货";
         } else if ([_model.status intValue] == 4) {
-            str = @"已完成";
+            str = @"已收货";
         }
-        NSArray *array2;
-        if (_model.shippingCode.length != 0 && _model.shippingName.length != 0) {
-            array2 = @[_model.shippingName, _model.shippingCode, str];
-        } else {
-            array2 = @[@"", @"", str];
+        if (indexPath.section == 1) {
+            orderSecondView.firstLB.text = @"快递公司：";
+            orderSecondView.secondLB.text = _model.shippingName;
+        } else if (indexPath.section == 2) {
+            orderSecondView.firstLB.text = @"快递单号：";
+            orderSecondView.secondLB.text = _model.shippingCode;
+        } else if (indexPath.section == 3) {
+            orderSecondView.firstLB.text = @"状态：";
+            orderSecondView.secondLB.text = str;
         }
-        orderSecondView.firstLB.text = array1[indexPath.row];
-        orderSecondView.secondLB.text = array2[indexPath.row];
         cell.selectionStyle = NO;
         return cell;
     }
@@ -152,7 +153,7 @@
         
         NSString *btnStr;
         if ([_model.status intValue] == 1) {
-            btnStr = @"提醒发货";
+            btnStr = @"待发货";
         } else if ([_model.status intValue] == 2) {
             btnStr = @"确认收货";
         } else if ([_model.status intValue] == 3) {
@@ -171,10 +172,10 @@
         }];
         if ([_model.status intValue] == 1) {
             // 提醒发货
-            [shouhuoBtn addTarget:self action:@selector(tiXingFaHuo:) forControlEvents:(UIControlEventTouchUpInside)];
+            shouhuoBtn.enabled = NO;
         } else if ([_model.status intValue] == 2) {
             // 确认收货
-            [shouhuoBtn addTarget:self action:@selector(queRenShouHuo:) forControlEvents:(UIControlEventTouchUpInside)];
+            [shouhuoBtn addTarget:self action:@selector(shouHuo:) forControlEvents:(UIControlEventTouchUpInside)];
         } else if ([_model.status intValue] == 3) {
             // 评价
             [shouhuoBtn addTarget:self action:@selector(pingJia:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -210,6 +211,26 @@
     pingJiaDisplayVC.model = self.model;
     [self.navigationController pushViewController:pingJiaDisplayVC animated:YES];
 }
+// 确认收货
+- (void)shouHuo:(UIButton *)btn
+{
+    [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
+    [[AFHTTPSessionManager manager] GET:[NSString stringWithFormat:@"%@Order/doTransfer?id=%@", WeiMingURL,_model.goodsId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"确认收货：%@", responseObject);
+        if ([responseObject[@"msg"] isEqualToString:@"OK"]) {
+            [MBProgressHUD hideHUDForView:self.view];
+            [MBProgressHUD showMessage:@"确认收货成功" toView:self.view];
+        } else {
+            [MBProgressHUD hideHUDForView:self.view];
+            [MBProgressHUD showError:@"提交失败"];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [MBProgressHUD hideHUDForView:self.view];
+        [MBProgressHUD showError:@"网络异常"];
+    }];
+}
+
 
 - (UITableView *)myTableView
 {
