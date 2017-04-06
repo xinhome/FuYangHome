@@ -45,7 +45,7 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDefaults valueForKey:@"myUserId"];
     [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
-    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonKaiKang parameters:@{@"user.id": userId} success:^(id successResponse) {
+    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonKaiKang parameters:@{@"user.id": userId, @"page": @(1)} success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
         NSLog(@"帖子列表-----%@", successResponse);
         if ([successResponse isSuccess]) {
