@@ -52,13 +52,7 @@
 //        NSLog(@"帖子列表-----%@", successResponse);
         if ([successResponse isSuccess]) {
             NSArray *data = successResponse[@"data"];
-            self.tieZiArray = [NSMutableArray array];
-            for (NSDictionary *dict in data) {
-                if ([dict valueForKey:@"comments"] == nil) {
-                    continue;
-                }
-//                self.tieZiArray
-            }
+            self.tieZiArray = [ThereModel mj_objectArrayWithKeyValuesArray:data];
             NSLog(@"帖子：%@", _tieZiArray);
             [_myTableView reloadData];
 

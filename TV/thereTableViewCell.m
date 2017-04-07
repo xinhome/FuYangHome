@@ -27,9 +27,9 @@
     self.nikeNameLable.text = model.name;
     self.titleLable.text = model.magazineName;
     self.contentLable.text = model.magazineTextContent;
-    [self.image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", KAIKANG, [model.image componentsSeparatedByString:@","].firstObject]]];
+    [self.image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", KAIKANG, [model.magazineUrlContent componentsSeparatedByString:@","].firstObject]]];
     [self.image whenTapped:^{
-        [HPPhotoBrowser showFromImageView:self.image inView:[UIApplication sharedApplication].keyWindow withURLStrings:@[[model.image componentsSeparatedByString:@","].firstObject] atIndex:0];
+        [HPPhotoBrowser showFromImageView:self.image inView:[UIApplication sharedApplication].keyWindow withURLStrings:@[[model.magazineUrlContent componentsSeparatedByString:@","].firstObject] atIndex:0];
     }];
 //    self.commentLable.text = model.comment;
     self.dianzanLable.text = model.praise;

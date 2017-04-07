@@ -99,7 +99,7 @@
     CGSize strSize = [model.magazineTextContent getSizeWithMaxSize:CGSizeMake(kScreenWidth-26, CGFLOAT_MAX) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]}];
     self.desc.text = model.magazineTextContent;
     self.desc.size = strSize;
-    NSArray *images = [model.image componentsSeparatedByString:@","];
+    NSArray *images = [model.magazineUrlContent componentsSeparatedByString:@","];
     for (int i = 0; i < images.count; i ++) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(13+(rateWidth(125))*(i%3), _desc.bottom+5+(rateWidth(125))*(i/3), rateWidth(115), rateWidth(115))];
         [imageView whenTapped:^{

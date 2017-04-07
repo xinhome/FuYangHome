@@ -85,7 +85,7 @@ typedef NS_ENUM(NSInteger, CommunityType) {
         [self.tableView.mj_footer endRefreshing];
         if ([successResponse isSuccess]) {
             NSArray *data = successResponse[@"data"];
-            self.dataSource = [ThereModel mj_objectArrayWithKeyValuesArray:data];
+            [self.dataSource addObjectsFromArray:[ThereModel mj_objectArrayWithKeyValuesArray:data]];
             
             [self.tableView reloadData];
         } else {
