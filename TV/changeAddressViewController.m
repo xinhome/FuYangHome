@@ -142,13 +142,41 @@
         }
     } else {
         if (self.selectedAll) {
-            [self.addresses removeAllObjects];
+            NSMutableString *parameters = [NSMutableString stringWithString:@"http://59.110.8.72/FyHome/OrderShopping/delete?"];
+            for (int i = 0; i < self.addresses.count-1; i ++) {
+                [parameters appendFormat:@"id=%@&", self.addresses[i].ID];
+            }
+            [parameters appendFormat:@"id=%@", self.addresses.lastObject.ID];
+            [[AFHTTPSessionManager manager] GET:parameters parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                if ([responseObject isSuccess]) {
+                   [self.addresses removeAllObjects];
+                    [self.tableView reloadData];
+                } else {
+                    [MBProgressHUD showError:@"删除失败"];
+                }
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                [MBProgressHUD showError:@"网络异常"];
+            }];
         }
         if (self.deleteArray.count > 0) {
-            [self.addresses removeObjectsInArray:self.deleteArray];
-            [self.deleteArray removeAllObjects];
+            NSMutableString *parameters = [NSMutableString stringWithString:@"http://59.110.8.72/FyHome/OrderShopping/delete?"];
+            for (int i = 0; i < self.deleteArray.count-1; i ++) {
+                [parameters appendFormat:@"id=%@&", self.deleteArray[i].ID];
+            }
+            [parameters appendFormat:@"id=%@", self.deleteArray.lastObject.ID];
+            [[AFHTTPSessionManager manager] GET:parameters parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                if ([responseObject isSuccess]) {
+                    [self.addresses removeObjectsInArray:self.deleteArray];
+                    [self.deleteArray removeAllObjects];
+                    [self.tableView reloadData];
+                } else {
+                    [MBProgressHUD showError:@"删除失败"];
+                }
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                [MBProgressHUD showError:@"网络异常"];
+            }];
         }
-        [self.tableView reloadData];
+        
     }
 }
 

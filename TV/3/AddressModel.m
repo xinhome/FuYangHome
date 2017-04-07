@@ -9,5 +9,7 @@
 #import "AddressModel.h"
 
 @implementation AddressModel
-
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"ID": @"id"};
+}
 @end

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface AddressModel : NSObject
-
+@property (nonatomic, copy) NSString *ID;
 @property (nonatomic, copy) NSString *created;
 @property (nonatomic, copy) NSString *receiverAddress;
 @property (nonatomic, copy) NSString *receiverCity;

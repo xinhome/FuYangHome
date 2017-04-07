@@ -122,18 +122,30 @@
     parameters[@"total_amount"] = @(0.01);
     parameters[@"userId"] = self.user.ID;
     parameters[@"post_fee"] = @(0.06);
+    parameters[@"couponsId"] = @"";
+    parameters[@"credit"] = @"";
 
     [MBProgressHUD showMessage:nil];
-    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/OrderBuy" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
+    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/Order/OrderBuy" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [MBProgressHUD hideHUD];
-        NSLog(@"%@", successResponse);
-        [[AlipaySDK defaultService] payOrder:successResponse[@"data"] fromScheme:@"fuyangjiaju" callback:^(NSDictionary *resultDic) {
+        NSLog(@"%@", responseObject);
+        [[AlipaySDK defaultService] payOrder:responseObject[@"data"] fromScheme:@"fuyangjiaju" callback:^(NSDictionary *resultDic) {
             NSLog(@"%@", resultDic);
         }];
-    } fail:^(NSError *error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@", error);
         [MBProgressHUD hideHUD];
     }];
+//    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/OrderBuy" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
+//        [MBProgressHUD hideHUD];
+//        NSLog(@"%@", successResponse);
+//        [[AlipaySDK defaultService] payOrder:successResponse[@"data"] fromScheme:@"fuyangjiaju" callback:^(NSDictionary *resultDic) {
+//            NSLog(@"%@", resultDic);
+//        }];
+//    } fail:^(NSError *error) {
+//        NSLog(@"%@", error);
+//        [MBProgressHUD hideHUD];
+//    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
