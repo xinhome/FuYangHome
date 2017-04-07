@@ -60,6 +60,7 @@
 		8F14D48D1E94DA3E009A9D15 /* ItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F14D48C1E94DA3E009A9D15 /* ItemTableViewCell.m */; };
 		8F14D4901E94E1BF009A9D15 /* JiFenDuiHuanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F14D48F1E94E1BF009A9D15 /* JiFenDuiHuanViewController.m */; };
 		8F178E641E9759830034915B /* MyOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F178E631E9759830034915B /* MyOrderModel.m */; };
+		8F178E671E97889B0034915B /* OrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F178E661E97889B0034915B /* OrderTableViewCell.m */; };
 		8F195D421E7CD96300E8770D /* UIView+WhenTappendBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F195D411E7CD96300E8770D /* UIView+WhenTappendBlocks.m */; };
 		8F195D461E7CDE3D00E8770D /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F195D451E7CDE3D00E8770D /* SearchViewController.m */; };
 		8F195D491E7D136B00E8770D /* SystemMsgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F195D481E7D136B00E8770D /* SystemMsgViewController.m */; };
@@ -534,6 +535,8 @@
 		8F14D48F1E94E1BF009A9D15 /* JiFenDuiHuanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JiFenDuiHuanViewController.m; sourceTree = "<group>"; };
 		8F178E621E9759830034915B /* MyOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderModel.h; sourceTree = "<group>"; };
 		8F178E631E9759830034915B /* MyOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderModel.m; sourceTree = "<group>"; };
+		8F178E651E97889B0034915B /* OrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderTableViewCell.h; sourceTree = "<group>"; };
+		8F178E661E97889B0034915B /* OrderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderTableViewCell.m; sourceTree = "<group>"; };
 		8F195D401E7CD96300E8770D /* UIView+WhenTappendBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WhenTappendBlocks.h"; sourceTree = "<group>"; };
 		8F195D411E7CD96300E8770D /* UIView+WhenTappendBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WhenTappendBlocks.m"; sourceTree = "<group>"; };
 		8F195D441E7CDE3D00E8770D /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
@@ -2262,6 +2265,8 @@
 				8FB805391E95EFDF00B7BA30 /* OrderSecondView.m */,
 				8F0CF45E1E8670CA008E95DE /* MyOrderViewController.h */,
 				8F0CF45F1E8670CA008E95DE /* MyOrderViewController.m */,
+				8F178E651E97889B0034915B /* OrderTableViewCell.h */,
+				8F178E661E97889B0034915B /* OrderTableViewCell.m */,
 				8F0CF4621E8670CA008E95DE /* LiuXSegmentView.h */,
 				8F0CF4631E8670CA008E95DE /* LiuXSegmentView.m */,
 				8F0CF4641E8670CA008E95DE /* OrderDetailsViewController.h */,
@@ -3044,6 +3049,7 @@
 				F4F22F141DCDEBAA007C83F8 /* ThereViewController.m in Sources */,
 				8FF632CA1E8369D500ED8751 /* TZVideoPlayerController.m in Sources */,
 				8FAFFFA91E84B8B300B17671 /* ViewController2.m in Sources */,
+				8F178E671E97889B0034915B /* OrderTableViewCell.m in Sources */,
 				8FE660AE1E7BE05E0047DF58 /* NSObject+MJKeyValue.m in Sources */,
 				8F178E641E9759830034915B /* MyOrderModel.m in Sources */,
 				8F3909AC1E5C2C3C0011E366 /* MBProgressHUD+Add.m in Sources */,

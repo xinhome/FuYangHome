@@ -10,7 +10,7 @@
 #import "LiuXSegmentView.h"
 #import "OrderDetailsViewController.h"
 #import "JieSuanOrderViewController.h"
-#import "ReturnGoodsTableViewCell.h"
+#import "OrderTableViewCell.h"
 #import "PingJiaViewController.h"
 #import "PingJiaDisplayViewController.h"
 #import "MyOrderModel.h"
@@ -40,25 +40,35 @@
 - (void)setNavigationBar
 {
     self.navigationItem.title = @"我的订单";
-//    [self addRightItemWithImage:@"shanchu " action:nil];
+    //    [self addRightItemWithImage:@"shanchu " action:nil];
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (_segmentIndex == 1) {
+        [self setUpDataWithState:@"0" url:@"/Order/showAllOrder"];
+    } else if (_segmentIndex == 2) {
+        [self setUpDataWithState:@"1" url:@"/Order/showCar"];
+    } else if (_segmentIndex == 3) {
+        [self setUpDataWithState:@"2" url:@"/Order/showCar"];
+    } else {
+        [self setUpDataWithState:@"3" url:@"/Order/showCar"];
+    }
 }
 #pragma mark - 分段选择
 - (void)addSegment
 {
     LiuXSegmentView *view=[[LiuXSegmentView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44) titles:@[@"全部",@"待发货",@"待收货",@"待评价"] bgColor:[UIColor whiteColor] clickBlick:^void(NSInteger index) {
-         self.segmentIndex = index;
-         [_myTableView reloadData];
+        self.segmentIndex = index;
+        [_myTableView reloadData];
         if (index == 1) {
             [self setUpDataWithState:@"0" url:@"/Order/showAllOrder"];
         } else if (index == 2) {
             [self setUpDataWithState:@"1" url:@"/Order/showCar"];
-            [_myTableView reloadData];
         } else if (index == 3) {
             [self setUpDataWithState:@"2" url:@"/Order/showCar"];
-            [_myTableView reloadData];
         } else {
             [self setUpDataWithState:@"3" url:@"/Order/showCar"];
-            [_myTableView reloadData];
         }
     }];
     //以下属性可以根据需求修改
@@ -80,12 +90,7 @@
         NSLog(@"订单-----%@", successResponse);
         if ([successResponse isSuccess]) {
             NSArray *orderArray = successResponse[@"data"];
-//            self.orderArray = [NSMutableArray array];
-//            for (NSDictionary *dic in orderArray) {
-//                ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
-//                [model setValuesForKeysWithDictionary:dic];
-//                [_orderArray addObject:model];
-//            }
+            
             self.orderArray = [MyOrderModel mj_objectArrayWithKeyValuesArray:orderArray];
             [_myTableView reloadData];
             
@@ -102,39 +107,39 @@
 #pragma mark - tableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    if (self.segmentIndex == 1) {
-//        return 1;
-//    } else if (self.segmentIndex == 2) {
-//        return 1;
-//    } else if (self.segmentIndex == 3) {
-//        return 1;
-//    } else {
-        return 1;
-//    }
+    //    if (self.segmentIndex == 1) {
+    //        return 1;
+    //    } else if (self.segmentIndex == 2) {
+    //        return 1;
+    //    } else if (self.segmentIndex == 3) {
+    //        return 1;
+    //    } else {
+    return 1;
+    //    }
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-//    if (self.segmentIndex == 1) {
-        return _orderArray.count;
-//    } else if (self.segmentIndex == 2) {
-//        return 1;
-//    } else if (self.segmentIndex == 3) {
-//        return 2;
-//    } else {
-//        return 4;
-//    }
+    //    if (self.segmentIndex == 1) {
+    return _orderArray.count;
+    //    } else if (self.segmentIndex == 2) {
+    //        return 1;
+    //    } else if (self.segmentIndex == 3) {
+    //        return 2;
+    //    } else {
+    //        return 4;
+    //    }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *identififer = @"ordersCell";
-    ReturnGoodsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identififer];
+    OrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identififer];
     if (cell == nil) {
-        cell = [[ReturnGoodsTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identififer];
+        cell = [[OrderTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identififer];
     }
     cell.shouHouBtn.hidden = YES;
     cell.selectionStyle = NO;
     if (_orderArray.count != 0) {
-        cell.cellModel = _orderArray[indexPath.section].order;
+        cell.cellModel = _orderArray[indexPath.section];
     }
     return cell;
 }
@@ -183,7 +188,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-        return rateHeight(100);
+    return rateHeight(100);
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
@@ -214,7 +219,7 @@
             // 查看评价
             btnTitle = @"查看评价";
         }
-
+        
         UIButton *shouhuoBtn = [UIButton buttonWithTitle:btnTitle fontSize:12 titleColor:RGB(105, 105, 105) background:[UIColor whiteColor] cornerRadius:4];
         shouhuoBtn.layer.borderWidth = 1;
         shouhuoBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -255,32 +260,38 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OrderDetailsViewController *orderDetailVC = [[OrderDetailsViewController alloc] init];
-    ShoppingCarModel *model = _orderArray[indexPath.section].order;
-    orderDetailVC.model = model;
+    MyOrderModel *model = (MyOrderModel *)_orderArray[indexPath.section];
+    ShoppingCarModel *model1 = model.order;
+    orderDetailVC.model = model1;
     [self.navigationController pushViewController:orderDetailVC animated:YES];
 }
 // 评价
 - (void)pingJia:(UIButton *)btn
 {
     PingJiaViewController *pingJiaVC = [[PingJiaViewController alloc] init];
-    ShoppingCarModel *model = (ShoppingCarModel *)_orderArray[btn.tag];
-    pingJiaVC.model = model;
+    MyOrderModel *model = (MyOrderModel *)_orderArray[btn.tag];
+    ShoppingCarModel *model1 = model.order;
+    pingJiaVC.model = model1;
     [self.navigationController pushViewController:pingJiaVC animated:YES];
 }
 // 查看评价
 - (void)chaKanPingJia:(UIButton *)btn
 {
     PingJiaDisplayViewController *pingJiaDisplayVC = [[PingJiaDisplayViewController alloc] init];
-    ShoppingCarModel *model = (ShoppingCarModel *)_orderArray[btn.tag];
-    pingJiaDisplayVC.model = model;
+    MyOrderModel *model = (MyOrderModel *)_orderArray[btn.tag];
+    ShoppingCarModel *model1 = model.order;
+    pingJiaDisplayVC.model = model1;
     [self.navigationController pushViewController:pingJiaDisplayVC animated:YES];
 }
 // 确认收货
 - (void)shouHuo:(UIButton *)btn
 {
     [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
-    ShoppingCarModel *model = (ShoppingCarModel *)_orderArray[btn.tag];
-    [[AFHTTPSessionManager manager] GET:[NSString stringWithFormat:@"%@Order/doTransfer?id=%@", WeiMingURL,model.goodsId] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    MyOrderModel *model = _orderArray[btn.tag];
+    ShoppingCarModel *model1 = model.order;
+    NSString *url = [NSString stringWithFormat:@"%@Order/doTransfer?id=%@", WeiMingURL,model1.goodsId];
+    NSLog(@"url:%@", url);
+    [[AFHTTPSessionManager manager] GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"确认收货：%@", responseObject);
         if ([responseObject[@"msg"] isEqualToString:@"OK"]) {

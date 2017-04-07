@@ -40,7 +40,7 @@
     [self setNavigationBar];
     [self.view addSubview:self.myTableView];
     [self addJieSuanView];
-//    [self setUpData];
+    //    [self setUpData];
     self.deleteGoodsArray = [NSMutableArray array];
     self.jieSuanGoodsArray = [NSMutableArray array];
 }
@@ -71,13 +71,13 @@
                 NSArray *data = successResponse[@"data"];
                 NSLog(@"购物车：%@", data);
                 if (data.count != 0) {
-                    self.shoppingArray = [NSMutableArray array];
-                    for (NSDictionary *dic in data) {
-                        ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
-                        [model setValuesForKeysWithDictionary:dic];
-                        [_shoppingArray addObject:model];
-                    }
-                    
+                    //                    self.shoppingArray = [NSMutableArray array];
+                    //                    for (NSDictionary *dic in data) {
+                    //                        ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
+                    //                        [model setValuesForKeysWithDictionary:dic];
+                    //                        [_shoppingArray addObject:model];
+                    //                    }
+                    self.shoppingArray = [ShoppingCarModel mj_objectArrayWithKeyValuesArray:data];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         self.btnStatusArr = [NSMutableArray array];
                         for (int i = 0; i < _shoppingArray.count; i++) {
@@ -256,11 +256,11 @@
         if (_isRightItemSelect) {
             ShoppingCarModel *model = _shoppingArray[btn.tag];
             [_deleteGoodsArray removeObject:model.goodsId];
-//            for (NSString *str in _deleteGoodsArray) {
-//                if ([str isEqualToString:[NSString stringWithFormat:@"%@", model.goodsId]]) {
-//                    [_deleteGoodsArray removeObject:str];
-//                }
-//            }
+            //            for (NSString *str in _deleteGoodsArray) {
+            //                if ([str isEqualToString:[NSString stringWithFormat:@"%@", model.goodsId]]) {
+            //                    [_deleteGoodsArray removeObject:str];
+            //                }
+            //            }
         } else {
             ShoppingCarModel *model = _shoppingArray[btn.tag];
             [_jieSuanGoodsArray removeObject:model];
@@ -301,11 +301,6 @@
         NSString *userId = [userDefaults valueForKey:@"myUserId"];
         parameters[@"userId"] = userId;
         NSLog(@"-------%@", parameters);
-//        [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/Order/showCarById" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//            
-//        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//            NSLog(@"%@", error);
-//        }];
         
         [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
         [[HttpRequestManager shareManager] addPOSTURL:@"/Order/showCarById" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
@@ -313,14 +308,10 @@
             if ([successResponse isSuccess]) {
                 [MBProgressHUD hideHUDForView:self.view];
                 if ([successResponse isSuccess]) {
-                    
+                    //                    NSLog(@"结算返回：%@", successResponse);
                     self.listArray = [NSMutableArray array];
                     NSArray *listArr = successResponse[@"data"][@"list"];
-                    for (NSDictionary *dic in listArr) {
-                        ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
-                        [model setValuesForKeysWithDictionary:dic];
-                        [_listArray addObject:model];
-                    }
+                    self.listArray = [ShoppingCarModel mj_objectArrayWithKeyValuesArray:listArr];
                     JieSuanOrderViewController *jieSuanVC = [[JieSuanOrderViewController alloc] init];
                     AddressModel *addressModel = [[AddressModel alloc] init];
                     addressModel.receiverAddress = successResponse[@"data"][@"receiverAddress"];
