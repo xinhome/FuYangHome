@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CouponModel.h"
 
 /// 优惠券cell
 @interface CouponCell : UITableViewCell
@@ -16,5 +17,6 @@
 @property (nonatomic, strong) UILabel *moneyLB;
 @property (nonatomic, strong) UILabel *conditionLB;
 @property (nonatomic, strong) UILabel *timeLB;
+@property (nonatomic, strong) CouponModel *cellModel;
 
 @end

@@ -49,13 +49,14 @@
         make.left.equalTo(label.mas_right);
     }];
     
-    self.conditionLB = [UILabel labelWithText:@"满200使用" textColor:UIColorFromRGB(0xffc332) fontSize:10];
+    self.conditionLB = [UILabel labelWithText:@"满200使用"textColor:UIColorFromRGB(0xffc332) fontSize:10];
     [_conditionLB sizeToFit];
     [self.contentView addSubview:_conditionLB];
     [_conditionLB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(label);
         make.right.equalTo(_bgImg).offset(-rateWidth(100));
     }];
+    self.conditionLB.hidden = YES;
     
     self.timeLB = [UILabel labelWithText:@"有效期：2011-09-08日至2017-08-08" textColor:UIColorFromRGB(0xadadad) fontSize:8];
     [_timeLB sizeToFit];
@@ -64,7 +65,13 @@
         make.bottom.equalTo(_bgImg).offset(-rateHeight(5));
         make.left.equalTo(label);
     }];
-    
-    
 }
+- (void)setCellModel:(CouponModel *)cellModel
+{
+    self.moneyLB.text = cellModel.amount;
+    NSString *str1 = [cellModel.startTime substringToIndex:10];
+    NSString *str2 = [cellModel.stopTime substringToIndex:10];
+    self.timeLB.text = [NSString stringWithFormat:@"有效期：%@日至%@日", str1,str2];
+}
+
 @end
