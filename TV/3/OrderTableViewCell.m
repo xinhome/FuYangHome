@@ -79,13 +79,12 @@
         make.height.equalTo(@(rateHeight(3)));
     }];
 }
-- (void)setCellModel:(MyOrderModel *)cellModel
+- (void)setCellModel:(ShoppingCarModel *)cellModel
 {
-    ShoppingCarModel *model = cellModel.order;
-    self.nameLB.text = model.title;
-    self.priceLB.text = [NSString stringWithFormat:@"￥%.2f", [model.price floatValue]];
-    self.numLB.text = [NSString stringWithFormat:@"数量：%d", [model.num intValue]];
-    NSURL *imgUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WeiMingURL,model.picPath]];
+    self.nameLB.text = cellModel.title;
+    self.priceLB.text = [NSString stringWithFormat:@"￥%.2f", [cellModel.price floatValue]];
+    self.numLB.text = [NSString stringWithFormat:@"数量：%d", [cellModel.num intValue]];
+    NSURL *imgUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WeiMingURL,cellModel.picPath]];
     [self.goodsImg sd_setImageWithURL:imgUrl];
 }
 

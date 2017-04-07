@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "ShoppingCarModel.h"
-#import "MyOrderModel.h"
 
 @interface OrderTableViewCell : UITableViewCell
 
@@ -17,6 +16,6 @@
 @property (nonatomic, strong) UILabel *priceLB;
 @property (nonatomic, strong) UIImageView *goodsImg;
 @property (nonatomic, strong) UIButton *shouHouBtn;
-@property (nonatomic, strong) MyOrderModel *cellModel;
+@property (nonatomic, strong) ShoppingCarModel *cellModel;
 
 @end
