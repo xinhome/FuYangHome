@@ -60,14 +60,10 @@ typedef NS_ENUM(NSInteger, CommunityType) {
             self.currentPage = 0;
             NSArray *data = successResponse[@"data"];
             [self.dataSource removeAllObjects];
-            for (NSDictionary *dict in data) {
-                if ([dict valueForKey:@"comments"] == nil) {
-                    continue;
-                }
-//                [self.dataSource addObject:[[ThereModel alloc] initWithDictionary:dict]];
-            }
+            self.dataSource = [ThereModel mj_objectArrayWithKeyValuesArray:data];
             
             [self.tableView reloadData];
+            
         } else {
             [MBProgressHUD showResponseMessage:successResponse];
         }
@@ -89,12 +85,7 @@ typedef NS_ENUM(NSInteger, CommunityType) {
         [self.tableView.mj_footer endRefreshing];
         if ([successResponse isSuccess]) {
             NSArray *data = successResponse[@"data"];
-            for (NSDictionary *dict in data) {
-                if ([dict valueForKey:@"comments"] == nil) {
-                    continue;
-                }
-//                [self.dataSource addObject:[[ThereModel alloc] initWithDictionary:dict]];
-            }
+            self.dataSource = [ThereModel mj_objectArrayWithKeyValuesArray:data];
             
             [self.tableView reloadData];
         } else {
