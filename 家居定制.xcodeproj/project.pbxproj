@@ -118,6 +118,7 @@
 		8FA6F75A1E601F24006CC20B /* pic1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA6F7571E601F24006CC20B /* pic1.png */; };
 		8FA6F75B1E601F24006CC20B /* pic3.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA6F7581E601F24006CC20B /* pic3.png */; };
 		8FA6F75C1E601F24006CC20B /* pic4.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA6F7591E601F24006CC20B /* pic4.png */; };
+		8FA8AE1B1E973121009FD5D2 /* CouponModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA8AE1A1E973121009FD5D2 /* CouponModel.m */; };
 		8FAC928B1E88C11500021D71 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAC928A1E88C11500021D71 /* Order.m */; };
 		8FAC928F1E88C19F00021D71 /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAC928E1E88C19F00021D71 /* RSADataSigner.m */; };
 		8FAC92921E88C1BC00021D71 /* openssl_wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAC92911E88C1BC00021D71 /* openssl_wrapper.m */; };
@@ -628,6 +629,8 @@
 		8FA6F7571E601F24006CC20B /* pic1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pic1.png; sourceTree = "<group>"; };
 		8FA6F7581E601F24006CC20B /* pic3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pic3.png; sourceTree = "<group>"; };
 		8FA6F7591E601F24006CC20B /* pic4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pic4.png; sourceTree = "<group>"; };
+		8FA8AE191E973121009FD5D2 /* CouponModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponModel.h; sourceTree = "<group>"; };
+		8FA8AE1A1E973121009FD5D2 /* CouponModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponModel.m; sourceTree = "<group>"; };
 		8FAC92891E88C11500021D71 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		8FAC928A1E88C11500021D71 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		8FAC928D1E88C19F00021D71 /* RSADataSigner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSADataSigner.h; sourceTree = "<group>"; };
@@ -1705,6 +1708,8 @@
 				8FB805331E95E80700B7BA30 /* CouponViewController.m */,
 				8FB805351E95E8D200B7BA30 /* CouponCell.h */,
 				8FB805361E95E8D200B7BA30 /* CouponCell.m */,
+				8FA8AE191E973121009FD5D2 /* CouponModel.h */,
+				8FA8AE1A1E973121009FD5D2 /* CouponModel.m */,
 			);
 			name = "优惠券";
 			sourceTree = "<group>";
@@ -3072,6 +3077,7 @@
 				8F0F16C41E827D0D00D7D308 /* UIView+MJExtension.m in Sources */,
 				8F5DB8631E83A62500D834F8 /* ProductDetailModel.m in Sources */,
 				8F14D4851E947D4E009A9D15 /* PingJiaDisplayViewController.m in Sources */,
+				8FA8AE1B1E973121009FD5D2 /* CouponModel.m in Sources */,
 				8F0F16C01E827D0D00D7D308 /* MJRefreshConst.m in Sources */,
 				8F0CF4741E8670CA008E95DE /* LiuXSegmentView.m in Sources */,
 				8FE388671E7FABFB006CD8EA /* SceneShowView.m in Sources */,
