@@ -325,6 +325,10 @@
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/addp" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
         if ([successResponse isSuccess]) {
+            self.textField.text = nil;
+            self.textView.text = nil;
+            [self.selectedPhotos removeAllObjects];
+            [self.collectionView reloadData];
             [MBProgressHUD showSuccess:@"发布成功"];
         } else {
             [MBProgressHUD showResponseMessage:successResponse];

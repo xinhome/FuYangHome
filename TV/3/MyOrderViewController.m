@@ -35,7 +35,7 @@
     [self addSegment];
     self.tableView.hidden = YES;
     [self.view addSubview:self.myTableView];
-    [self setUpDataWithState:@"0" url:@"/Order/showAllOrder"];
+//    [self setUpDataWithState:@"0" url:@"/Order/showAllOrder"];
 }
 - (void)setNavigationBar
 {
@@ -85,7 +85,7 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDefaults valueForKey:@"myUserId"];
     [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
-    [[HttpRequestManager shareManager] addPOSTURL:url person:RequestPersonWeiMing parameters:@{@"userId": userId,@"status": state,@"buyerRate":@0} success:^(id successResponse) {
+    [[HttpRequestManager shareManager] addPOSTURL:url person:RequestPersonWeiMing parameters:@{@"userId": userId,@"status": state} success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
         NSLog(@"订单-----%@", successResponse);
         if ([successResponse isSuccess]) {
