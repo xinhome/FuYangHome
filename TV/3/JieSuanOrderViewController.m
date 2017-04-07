@@ -135,26 +135,26 @@
     parameters[@"credit"] = @"";
 
     [MBProgressHUD showMessage:nil];
-    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/Order/OrderBuy" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [MBProgressHUD hideHUD];
-        NSLog(@"%@", responseObject);
-        [[AlipaySDK defaultService] payOrder:responseObject[@"data"] fromScheme:@"fuyangjiaju" callback:^(NSDictionary *resultDic) {
-            NSLog(@"%@", resultDic);
-        }];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@", error);
-        [MBProgressHUD hideHUD];
-    }];
-//    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/OrderBuy" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
+//    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/Order/OrderBuy" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 //        [MBProgressHUD hideHUD];
-//        NSLog(@"%@", successResponse);
-//        [[AlipaySDK defaultService] payOrder:successResponse[@"data"] fromScheme:@"fuyangjiaju" callback:^(NSDictionary *resultDic) {
+//        NSLog(@"%@", responseObject);
+//        [[AlipaySDK defaultService] payOrder:responseObject[@"data"] fromScheme:@"fuyangjiaju" callback:^(NSDictionary *resultDic) {
 //            NSLog(@"%@", resultDic);
 //        }];
-//    } fail:^(NSError *error) {
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 //        NSLog(@"%@", error);
 //        [MBProgressHUD hideHUD];
 //    }];
+    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/OrderBuy" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
+        [MBProgressHUD hideHUD];
+        NSLog(@"%@", successResponse);
+        [[AlipaySDK defaultService] payOrder:successResponse[@"data"] fromScheme:@"fuyangjiaju" callback:^(NSDictionary *resultDic) {
+            NSLog(@"%@", resultDic);
+        }];
+    } fail:^(NSError *error) {
+        NSLog(@"%@", error);
+        [MBProgressHUD hideHUD];
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -204,49 +204,50 @@
         }];
         
         // 没有默认收货地址
-//        UIImageView *editDiZhi = [UIImageView new];
-//        editDiZhi.image = [UIImage imageNamed:@"dizhi"];
-//        [cell.contentView addSubview:editDiZhi];
-//        [editDiZhi mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.centerY.equalTo(cell.contentView);
-//            make.left.equalTo(cell.contentView).offset(rateWidth(20));
-//            make.size.mas_offset(CGSizeMake(rateWidth(25), rateWidth(25)));
-//            
-//        }];
-//        
-//        UILabel *diZhiLB = [UILabel labelWithText:@"填写收货地址" textColor:RGB(72, 72, 72) fontSize:15];
-//        [diZhiLB sizeToFit];
-//        [cell.contentView addSubview:diZhiLB];
-//        [diZhiLB mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.centerY.equalTo(cell.contentView);
-//            make.left.equalTo(editDiZhi.mas_right).offset(rateWidth(15));
-//        }];
-        
-        // 有默认地址
-        UILabel *label1 = [UILabel labelWithText:[NSString stringWithFormat:@"收货人:%@", self.selectAddressModel.receiverName] textColor:RGB(0, 0, 0) fontSize:15];
-        [label1 sizeToFit];
-        [cell.contentView addSubview:label1];
-        [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(cell.contentView).offset(rateWidth(20));
-            make.top.equalTo(cell.contentView).offset(rateHeight(20));
-        }];
-        
-        UILabel *label2 = [UILabel labelWithText:[NSString stringWithFormat:@"地址:%@", self.selectAddressModel.receiverAddress] textColor:RGB(163, 162, 163) fontSize:14];
-        [label2 sizeToFit];
-        [cell.contentView addSubview:label2];
-        [label2 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(cell.contentView).offset(rateWidth(20));
-            make.top.equalTo(label1.mas_bottom).offset(rateHeight(10));
-        }];
-        
-        UILabel *label3 = [UILabel labelWithText:[NSString stringWithFormat:@"电话:%@", self.selectAddressModel.receiverMobile] textColor:RGB(163, 162, 163) fontSize:14];
-        [label3 sizeToFit];
-        [cell.contentView addSubview:label3];
-        [label3 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(cell.contentView).offset(rateWidth(20));
-            make.top.equalTo(label2.mas_bottom).offset(rateHeight(5));
-        }];
-
+        if (self.selectAddressModel.receiverName == nil) {
+            UIImageView *editDiZhi = [UIImageView new];
+            editDiZhi.image = [UIImage imageNamed:@"dizhi"];
+            [cell.contentView addSubview:editDiZhi];
+            [editDiZhi mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(cell.contentView);
+                make.left.equalTo(cell.contentView).offset(rateWidth(20));
+                make.size.mas_offset(CGSizeMake(rateWidth(25), rateWidth(25)));
+                
+            }];
+            
+            UILabel *diZhiLB = [UILabel labelWithText:@"填写收货地址" textColor:RGB(72, 72, 72) fontSize:15];
+            [diZhiLB sizeToFit];
+            [cell.contentView addSubview:diZhiLB];
+            [diZhiLB mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(cell.contentView);
+                make.left.equalTo(editDiZhi.mas_right).offset(rateWidth(15));
+            }];
+        } else {
+            // 有默认地址
+            UILabel *label1 = [UILabel labelWithText:[NSString stringWithFormat:@"收货人:%@", self.selectAddressModel.receiverName] textColor:RGB(0, 0, 0) fontSize:15];
+            [label1 sizeToFit];
+            [cell.contentView addSubview:label1];
+            [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(cell.contentView).offset(rateWidth(20));
+                make.top.equalTo(cell.contentView).offset(rateHeight(20));
+            }];
+            
+            UILabel *label2 = [UILabel labelWithText:[NSString stringWithFormat:@"地址:%@", self.selectAddressModel.receiverAddress] textColor:RGB(163, 162, 163) fontSize:14];
+            [label2 sizeToFit];
+            [cell.contentView addSubview:label2];
+            [label2 mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(cell.contentView).offset(rateWidth(20));
+                make.top.equalTo(label1.mas_bottom).offset(rateHeight(10));
+            }];
+            
+            UILabel *label3 = [UILabel labelWithText:[NSString stringWithFormat:@"电话:%@", self.selectAddressModel.receiverMobile] textColor:RGB(163, 162, 163) fontSize:14];
+            [label3 sizeToFit];
+            [cell.contentView addSubview:label3];
+            [label3 mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(cell.contentView).offset(rateWidth(20));
+                make.top.equalTo(label2.mas_bottom).offset(rateHeight(5));
+            }];
+        }
         cell.selectionStyle = NO;
         return cell;
     } else if (indexPath.section == 1) {
@@ -312,7 +313,7 @@
             self.selectAddressModel = model;
             self.dizhiLabel.text = model.receiverAddress;
             
-            [self.tableView reloadData];
+            [self.myTableView reloadData];
         }];
         [self.navigationController pushViewController:changeAddressVC animated:YES];
     } else if (indexPath.section == 2 && indexPath.row == 2) {

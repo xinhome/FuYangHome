@@ -317,22 +317,22 @@
                                  @"user.id": self.user.ID,
                                  @"magazineUrlContent": jsonStr
                                  };
-    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/magazines/addp" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"%@", responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@", error);
-    }];
-//    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/addp" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
-//        [MBProgressHUD hideHUDForView:self.view];
-//        if ([successResponse isSuccess]) {
-//            [MBProgressHUD showSuccess:@"发布成功"];
-//        } else {
-//            [MBProgressHUD showResponseMessage:successResponse];
-//        }
-//    } fail:^(NSError *error) {
+//    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/magazines/addp" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        NSLog(@"%@", responseObject);
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 //        NSLog(@"%@", error);
-//        [MBProgressHUD showError:@"网络异常"];
 //    }];
+    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/addp" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
+        [MBProgressHUD hideHUDForView:self.view];
+        if ([successResponse isSuccess]) {
+            [MBProgressHUD showSuccess:@"发布成功"];
+        } else {
+            [MBProgressHUD showResponseMessage:successResponse];
+        }
+    } fail:^(NSError *error) {
+        NSLog(@"%@", error);
+        [MBProgressHUD showError:@"网络异常"];
+    }];
 }
 
 - (void)shareTo:(UIButton *)sender {

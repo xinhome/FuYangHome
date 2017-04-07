@@ -93,11 +93,11 @@
 
 - (void)setModel:(ThereModel *)model {
     _model = model;
-    [self.avatar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, model.avatar]]];
-    self.nickname.text = model.nickname;
-    self.title.text = model.title;
-    CGSize strSize = [model.desc getSizeWithMaxSize:CGSizeMake(kScreenWidth-26, CGFLOAT_MAX) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]}];
-    self.desc.text = model.desc;
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, model.url]]];
+    self.nickname.text = model.name;
+    self.title.text = model.magazineName;
+    CGSize strSize = [model.magazineTextContent getSizeWithMaxSize:CGSizeMake(kScreenWidth-26, CGFLOAT_MAX) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]}];
+    self.desc.text = model.magazineTextContent;
     self.desc.size = strSize;
     NSArray *images = [model.image componentsSeparatedByString:@","];
     for (int i = 0; i < images.count; i ++) {
@@ -112,7 +112,7 @@
         self.comment.top = self.line1.bottom+10;
         self.height = self.comment.bottom+10;
     }
-    self.commentLabel.text = model.comment;
+//    self.commentLabel.text = model.comment;
     [self.commentLabel sizeToFit];
     self.commentLabel.centerY = self.comment.centerY;
     self.commentLabel.left = self.comment.right+15;

@@ -27,12 +27,12 @@
 }
 
 - (IBAction)tijiao:(id)sender {
-//    if (self.pwd1.text.length == 0) {
-//        [MBProgressHUD showError:@"请输入原始密码"];
-//        return;
-//    }
+    if (self.pwd1.text.length == 0) {
+        [MBProgressHUD showError:@"请输入原始密码"];
+        return;
+    }
     NSDictionary *parameters = @{
-                                 @"pone": [[NSUserDefaults standardUserDefaults] stringForKey:K_USER_NAME],
+                                 @"pone": self.user.tel,
                                  @"password": self.pwd1.text,
                                  @"password1": self.pwd2.text
                                  };

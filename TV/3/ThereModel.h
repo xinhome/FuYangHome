@@ -12,12 +12,12 @@
 @interface ThereModel : NSObject
 @property (nonatomic, copy) NSString *generateTime;
 @property (nonatomic, copy) NSString *magazineId;
-@property (nonatomic, copy) NSString *avatar;
-@property (nonatomic, copy) NSString *nickname;
-@property (nonatomic, copy) NSString *desc;
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *comment;
+@property (nonatomic, copy) NSString *magazineName;
+@property (nonatomic, copy) NSString *magazineTextContent;
+@property (nonatomic, copy) NSString *magazineUrlContent;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *url;
 @property (nonatomic, copy) NSString *praise;
 @property (nonatomic, copy) NSString *image;
-- (instancetype)initWithDictionary:(NSDictionary *)dict;
+//- (instancetype)initWithDictionary:(NSDictionary *)dict;
 @end

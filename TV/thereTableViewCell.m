@@ -23,15 +23,15 @@
 - (void)setModel:(ThereModel *)model {
     _model = model;
 //    NSLog(@"%@", [NSString stringWithFormat:@"%@%@", KAIKANG, model.user.url]);
-    [self.avatar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, model.avatar]]];
-    self.nikeNameLable.text = model.nickname;
-    self.titleLable.text = model.title;
-    self.contentLable.text = model.desc;
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, model.url]]];
+    self.nikeNameLable.text = model.name;
+    self.titleLable.text = model.magazineName;
+    self.contentLable.text = model.magazineTextContent;
     [self.image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", KAIKANG, [model.image componentsSeparatedByString:@","].firstObject]]];
     [self.image whenTapped:^{
         [HPPhotoBrowser showFromImageView:self.image inView:[UIApplication sharedApplication].keyWindow withURLStrings:@[[model.image componentsSeparatedByString:@","].firstObject] atIndex:0];
     }];
-    self.commentLable.text = model.comment;
+//    self.commentLable.text = model.comment;
     self.dianzanLable.text = model.praise;
 }
 

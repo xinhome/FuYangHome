@@ -55,6 +55,7 @@
         [self.collectionView reloadData];
     } fail:^(NSError *error) {
         NSLog(@"%@", error);
+        [MBProgressHUD showError:@"网络错误"];
     }];
 }
 
@@ -111,6 +112,9 @@
         view.centerX = cell.dots[i].centerX;
         view.name.text = coordinates[i].title;
         view.price.text = coordinates[i].price;
+        if (view.top <= 20) {
+            view.top = cell.dots[i].bottom;
+        }
         [cell addSubview:view];
     }
 //    for (WPWaveRippleView *dot in cell.dots) {

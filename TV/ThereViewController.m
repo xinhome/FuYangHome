@@ -64,7 +64,7 @@ typedef NS_ENUM(NSInteger, CommunityType) {
                 if ([dict valueForKey:@"comments"] == nil) {
                     continue;
                 }
-                [self.dataSource addObject:[[ThereModel alloc] initWithDictionary:dict]];
+//                [self.dataSource addObject:[[ThereModel alloc] initWithDictionary:dict]];
             }
             
             [self.tableView reloadData];
@@ -93,7 +93,7 @@ typedef NS_ENUM(NSInteger, CommunityType) {
                 if ([dict valueForKey:@"comments"] == nil) {
                     continue;
                 }
-                [self.dataSource addObject:[[ThereModel alloc] initWithDictionary:dict]];
+//                [self.dataSource addObject:[[ThereModel alloc] initWithDictionary:dict]];
             }
             
             [self.tableView reloadData];
@@ -129,7 +129,7 @@ typedef NS_ENUM(NSInteger, CommunityType) {
 - (void)loadChooseBtn
 {
      [self.zuixinBtn setTitleColor:RGB(100, 216, 170) forState:UIControlStateNormal];
-    NSArray *titleArr = [[NSArray alloc]initWithObjects:@"全部",@"卧室",@"厨房",@"客厅",@"书房",@"阳台",@"卫浴",@"DIY", nil];
+    NSArray *titleArr = [[NSArray alloc]initWithObjects:@"全部",@"卧室",@"卫浴",@"厨房",@"客厅",@"厨房",@"阳台",@"DIY", nil];
     NSArray *colorArr = [NSArray arrayWithObjects:RGB(247, 174, 170),RGB(218, 234, 181),RGB(223, 223, 221),RGB(173, 196, 233),RGB(180, 221, 201),RGB(246, 173, 185),RGB(186, 180, 212),RGB(168, 242, 225), nil];
     
     float wight = (kScreenWidth-10)/titleArr.count;

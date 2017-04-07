@@ -57,7 +57,7 @@
                 if ([dict valueForKey:@"comments"] == nil) {
                     continue;
                 }
-                [self.tieZiArray addObject:[[ThereModel alloc] initWithDictionary:dict]];
+//                self.tieZiArray
             }
             NSLog(@"帖子：%@", _tieZiArray);
             [_myTableView reloadData];

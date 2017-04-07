@@ -43,6 +43,9 @@
     [self addRightItemWithImage:@"sousuo2" action:@selector(rightRight)];
     self.navigationItem.title = @"富阳家具";
     [self.tableView registerClass:[HomeCell class] forCellReuseIdentifier:@"cell"];
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self loadData];
+    }];
     [self configHeaderView];
     [self loadData];
 }
@@ -52,6 +55,7 @@
     [[HttpRequestManager shareManager] addPOSTURL:@"/Content/list" person:RequestPersonYuChuan parameters:nil success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
 //        NSLog(@"%@", successResponse);
+        [self.tableView.mj_header endRefreshing];
         if ([successResponse isSuccess]) {
             NSArray *data = successResponse[@"data"];
             self.dataSource = [HomeContentModel mj_objectArrayWithKeyValuesArray:data];
@@ -60,11 +64,13 @@
             [MBProgressHUD showResponseMessage:successResponse];
         }
     } fail:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
         [MBProgressHUD hideHUDForView:self.view];
         [MBProgressHUD showError:@"网络异常"];
     }];
     
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonWeiMing parameters:@{@"page":@0,@"type":@0} success:^(id successResponse) {
+        [self.tableView.mj_header endRefreshing];
         NSArray *data = successResponse[@"data"];
         NSDictionary *dict = data.firstObject;
         MagazineModel *model = [MagazineModel mj_objectWithKeyValues:dict];
@@ -74,6 +80,7 @@
         }
         self.cycleView.imageURLStringsGroup = array;
     } fail:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
         NSLog(@"%@", error);
     }];
 }

@@ -19,7 +19,7 @@
     [super viewDidLoad];
     _bgt.layer.cornerRadius =5;
     _bgt.layer.masksToBounds =YES;
-    self.title = @"用户123";
+    self.title = @"意见反馈";
 //    [self addBackForUser];
     _textview.delegate = self;
 }

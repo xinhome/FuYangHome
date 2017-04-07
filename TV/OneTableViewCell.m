@@ -117,14 +117,16 @@
         case 1:
             self.ivs.firstObject.hidden = NO;
             break;
-        case 2:
+        case 2: {
             self.ivs.firstObject.hidden = NO;
             self.ivs[1].hidden = NO;
             break;
-        default:
+        }
+        default: {
             self.ivs.firstObject.hidden = NO;
             self.ivs[1].hidden = NO;
             self.ivs.lastObject.hidden = NO;
+        }
             break;
     }
     

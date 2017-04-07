@@ -119,7 +119,7 @@
     }
     for (int i = 0; i < count; i ++) {
         NSString *url = [model.items[i].image componentsSeparatedByString:@","].firstObject;
-        self.btns[i].title.text = model.items.firstObject.title;
+        self.btns[i].title.text = model.items[i].title;
         self.btns[i].price.text = [NSString stringWithFormat:@"%@￥", model.items.firstObject.price];
         [self.btns[i].imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, url]]];
     }

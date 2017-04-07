@@ -35,20 +35,20 @@
                                  @"page": @0,
                                  @"type": @0
                                  };
-    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/magazines/getall" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"%@", responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@", error);
-    }];
-//    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
-//        NSArray *data = successResponse[@"data"];
-//        self.currentPage = 0;
-//        self.dataSource = [MagazineModel mj_objectArrayWithKeyValuesArray:data];
-//        [self.tableView.mj_header endRefreshing];
-//        [self.tableView reloadData];
-//    } fail:^(NSError *error) {
-//        [self.tableView.mj_header endRefreshing];
+//    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/magazines/getall" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        NSLog(@"%@", responseObject);
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        NSLog(@"%@", error);
 //    }];
+    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
+        NSArray *data = successResponse[@"data"];
+        self.currentPage = 0;
+        self.dataSource = [MagazineModel mj_objectArrayWithKeyValuesArray:data];
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView reloadData];
+    } fail:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+    }];
 }
 
 - (void)loadMoreData {

@@ -9,21 +9,21 @@
 #import "ThereModel.h"
 
 @implementation ThereModel
-- (instancetype)initWithDictionary:(NSDictionary *)dict {
-    self = [super init];
-    if (self) {
-        self.avatar = dict[@"user"][@"url"];
-        self.nickname = dict[@"user"][@"name"];
-        self.title = dict[@"magazineName"];
-        self.desc = dict[@"magazineTextContent"];
-        self.image = dict[@"magazineUrlContent"];
-        NSArray *praise = dict[@"thums"];
-        self.praise = [NSString stringWithFormat:@"%ld", praise.count];
-        NSArray *comments = dict[@"comments"];
-        self.comment = [NSString stringWithFormat:@"%ld", comments.count];
-        self.magazineId = dict[@"magazineId"];
-        self.generateTime = dict[@"generateTime"];
-    }
-    return self;
-}
+//- (instancetype)initWithDictionary:(NSDictionary *)dict {
+//    self = [super init];
+//    if (self) {
+//        self.avatar = dict[@"user"][@"url"];
+//        self.nickname = dict[@"user"][@"name"];
+//        self.title = dict[@"magazineName"];
+//        self.desc = dict[@"magazineTextContent"];
+//        self.image = dict[@"magazineUrlContent"];
+//        NSArray *praise = dict[@"thums"];
+//        self.praise = [NSString stringWithFormat:@"%ld", praise.count];
+//        NSArray *comments = dict[@"comments"];
+//        self.comment = [NSString stringWithFormat:@"%ld", comments.count];
+//        self.magazineId = dict[@"magazineId"];
+//        self.generateTime = dict[@"generateTime"];
+//    }
+//    return self;
+//}
 @end
