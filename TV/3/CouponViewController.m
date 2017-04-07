@@ -16,7 +16,7 @@
 @interface CouponViewController ()
 
 @property (nonatomic, assign) NSInteger index;
-@property (nonatomic, strong) NSMutableArray *couponArray; // 未过期
+@property (nonatomic, strong) NSMutableArray<CouponModel *> *couponArray; // 未过期
 @property (nonatomic, strong) NSMutableArray *outTimeArray; // 过期
 
 @end
@@ -108,6 +108,10 @@
             if (_couponArray.count != 0) {
                 cell.cellModel = (CouponModel *)_couponArray[indexPath.section];
             }
+            [cell.bgImg whenTapped:^{
+                self.couponMoney(self.couponArray[indexPath.section]);
+                [self popViewController];
+            }];
         } else {
             cell.bgImg.image = [UIImage imageNamed:@"youhuiquanguoqi"];
             cell.label.textColor = kGrayColor;

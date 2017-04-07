@@ -13,12 +13,14 @@
 #import "ReturnGoodsTableViewCell.h"
 #import "PingJiaViewController.h"
 #import "PingJiaDisplayViewController.h"
+#import "MyOrderModel.h"
+
 #define redColor  RGB(255, 56, 65)
 @interface MyOrderViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *myTableView;
 @property (nonatomic, assign) NSInteger segmentIndex;
-@property (nonatomic, strong) NSMutableArray *orderArray;
+@property (nonatomic, strong) NSMutableArray<MyOrderModel *> *orderArray;
 @property (nonatomic, strong) NSMutableArray *orderArray00;
 
 @end
@@ -78,12 +80,13 @@
         NSLog(@"订单-----%@", successResponse);
         if ([successResponse isSuccess]) {
             NSArray *orderArray = successResponse[@"data"];
-            self.orderArray = [NSMutableArray array];
-            for (NSDictionary *dic in orderArray) {
-                ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
-                [model setValuesForKeysWithDictionary:dic];
-                [_orderArray addObject:model];
-            }
+//            self.orderArray = [NSMutableArray array];
+//            for (NSDictionary *dic in orderArray) {
+//                ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
+//                [model setValuesForKeysWithDictionary:dic];
+//                [_orderArray addObject:model];
+//            }
+            self.orderArray = [MyOrderModel mj_objectArrayWithKeyValuesArray:orderArray];
             [_myTableView reloadData];
             
         } else {
@@ -131,7 +134,7 @@
     cell.shouHouBtn.hidden = YES;
     cell.selectionStyle = NO;
     if (_orderArray.count != 0) {
-        cell.cellModel = (ShoppingCarModel *)_orderArray[indexPath.section];
+        cell.cellModel = _orderArray[indexPath.section].order;
     }
     return cell;
 }
@@ -148,7 +151,7 @@
     if (_orderArray.count != 0) {
         UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(40))];
         headerView.backgroundColor = [UIColor whiteColor];
-        ShoppingCarModel *model = (ShoppingCarModel *)_orderArray[section];
+        ShoppingCarModel *model = _orderArray[section].order;
         UILabel *orderNumLB = [UILabel labelWithText:[NSString stringWithFormat:@"订单编号：%@", model.orderId] textColor:UIColorFromRGB(0x666666) fontSize:14];
         [orderNumLB sizeToFit];
         [headerView addSubview:orderNumLB];
@@ -187,8 +190,8 @@
     if (_orderArray.count != 0) {
         UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(80))];
         footerView.backgroundColor = [UIColor whiteColor];
-        ShoppingCarModel *model = (ShoppingCarModel *)_orderArray[section];
-        CGFloat sumPrice = [model.num intValue]*[model.price floatValue];
+        ShoppingCarModel *model = _orderArray[section].order;
+        CGFloat sumPrice = [model.num intValue]*[model.price floatValue]-[self.orderArray[section].amount floatValue];
         UILabel *priceLB = [UILabel labelWithText:[NSString stringWithFormat:@"共计：%.2f元（含0元运费）", sumPrice] textColor:UIColorFromRGB(0x666666) fontSize:15];
         [priceLB sizeToFit];
         [footerView addSubview:priceLB];

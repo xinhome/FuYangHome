@@ -22,16 +22,19 @@
 #import "ItemTableViewCell.h"
 #import "JiFenDuiHuanViewController.h"
 #import "CouponViewController.h"
+#import "CouponModel.h"
 
 @interface JieSuanOrderViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *myTableView;
 @property (nonatomic, weak) UILabel *dizhiLabel;///<<#注释#>
-
+@property (nonatomic, weak) UILabel *gongJiLB;///<<#注释#>
+@property (nonatomic, assign) float sumPrice;///< <#注释#>
 @property (nonatomic, strong) NSTimer *timer;///<<#注释#>
 @property (nonatomic, weak) UILabel *successLabel;///<<#注释#>
 @property (nonatomic, assign) int timeCount;///< <#注释#>
 @property (nonatomic, weak) UIView *cover;///<<#注释#>
+@property (nonatomic, strong) CouponModel *couponModel;///<<#注释#>
 @end
 
 @implementation JieSuanOrderViewController
@@ -71,9 +74,11 @@
     NSString *str;
     for (ShoppingCarModel *model in _listArray) {
         sumPrice = sumPrice + [model.price floatValue]*[model.num intValue];
+        self.sumPrice = sumPrice;
         str = [NSString stringWithFormat:@"共计：%.2f元（含0元运费）", sumPrice];
     }
     UILabel *gongJiLB = [UILabel labelWithText:str textColor:RGB(131, 131, 131) fontSize:14];
+    self.gongJiLB = gongJiLB;
     [gongJiLB sizeToFit];
     [bottomView addSubview:gongJiLB];
     [gongJiLB mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -122,7 +127,11 @@
     parameters[@"total_amount"] = @(0.01);
     parameters[@"userId"] = self.user.ID;
     parameters[@"post_fee"] = @(0.06);
-    parameters[@"couponsId"] = @"";
+    if (self.couponModel == nil) {
+        parameters[@"couponsId"] = @"";
+    } else {
+        parameters[@"couponsId"] = self.couponModel.couponId;
+    }
     parameters[@"credit"] = @"";
 
     [MBProgressHUD showMessage:nil];
@@ -256,7 +265,11 @@
         if (indexPath.row == 0) {
             cell.arrow.hidden = YES;
         } else if (indexPath.row == 1) {
-            cell.secondLB.text = @"无可用";
+            if (self.couponModel) {
+                cell.secondLB.text = @"已使用";
+            } else {
+                cell.secondLB.text = @"无可用";
+            }
         } else if (indexPath.row == 2) {
             cell.secondLB.text = @"100积分抵10元";
             cell.secondLB.textColor = RGB(140, 140, 140);
@@ -265,6 +278,9 @@
             NSString *str;
             for (ShoppingCarModel *model in _listArray) {
                 sumPrice = sumPrice + [model.price floatValue]*[model.num intValue];
+                if (self.couponModel) {
+                    sumPrice = sumPrice - [self.couponModel.amount floatValue];
+                }
                 str = [NSString stringWithFormat:@"%.2f", sumPrice];
             }
             cell.arrow.hidden = YES;
@@ -303,7 +319,13 @@
         JiFenDuiHuanViewController *jiFenVC = [[JiFenDuiHuanViewController alloc] init];
         [self.navigationController pushViewController:jiFenVC animated:YES];
     } else if (indexPath.section == 2 && indexPath.row == 1) {
-        [self pushViewController:[[CouponViewController alloc] init] animation:YES];
+        CouponViewController *controller = [[CouponViewController alloc] init];
+        controller.couponMoney = ^(id arguments) {
+            self.couponModel = arguments;
+            self.gongJiLB.text = [NSString stringWithFormat:@"共计：%.2f元（含0元运费）", self.sumPrice-[self.couponModel.amount floatValue]];
+            [self.myTableView reloadData];
+        };
+        [self pushViewController:controller animation:YES];
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

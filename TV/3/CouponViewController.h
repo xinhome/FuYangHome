@@ -10,5 +10,5 @@
 
 /// 优惠券controller
 @interface CouponViewController : BaseViewController
-
+@property (nonatomic, copy) MYActionArgu couponMoney; ///<优惠券金额
 @end

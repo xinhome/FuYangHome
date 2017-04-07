@@ -59,6 +59,7 @@
 		8F14D48A1E94C3DE009A9D15 /* ConfirmOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F14D4891E94C3DE009A9D15 /* ConfirmOrderTableViewCell.m */; };
 		8F14D48D1E94DA3E009A9D15 /* ItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F14D48C1E94DA3E009A9D15 /* ItemTableViewCell.m */; };
 		8F14D4901E94E1BF009A9D15 /* JiFenDuiHuanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F14D48F1E94E1BF009A9D15 /* JiFenDuiHuanViewController.m */; };
+		8F178E641E9759830034915B /* MyOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F178E631E9759830034915B /* MyOrderModel.m */; };
 		8F195D421E7CD96300E8770D /* UIView+WhenTappendBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F195D411E7CD96300E8770D /* UIView+WhenTappendBlocks.m */; };
 		8F195D461E7CDE3D00E8770D /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F195D451E7CDE3D00E8770D /* SearchViewController.m */; };
 		8F195D491E7D136B00E8770D /* SystemMsgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F195D481E7D136B00E8770D /* SystemMsgViewController.m */; };
@@ -531,6 +532,8 @@
 		8F14D48C1E94DA3E009A9D15 /* ItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemTableViewCell.m; sourceTree = "<group>"; };
 		8F14D48E1E94E1BF009A9D15 /* JiFenDuiHuanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JiFenDuiHuanViewController.h; sourceTree = "<group>"; };
 		8F14D48F1E94E1BF009A9D15 /* JiFenDuiHuanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JiFenDuiHuanViewController.m; sourceTree = "<group>"; };
+		8F178E621E9759830034915B /* MyOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderModel.h; sourceTree = "<group>"; };
+		8F178E631E9759830034915B /* MyOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderModel.m; sourceTree = "<group>"; };
 		8F195D401E7CD96300E8770D /* UIView+WhenTappendBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WhenTappendBlocks.h"; sourceTree = "<group>"; };
 		8F195D411E7CD96300E8770D /* UIView+WhenTappendBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WhenTappendBlocks.m"; sourceTree = "<group>"; };
 		8F195D441E7CDE3D00E8770D /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
@@ -2431,6 +2434,8 @@
 				8F0CF44C1E867045008E95DE /* BottomDeleteView.m */,
 				8F0CF44D1E867045008E95DE /* ShoppingCarModel.h */,
 				8F0CF44E1E867045008E95DE /* ShoppingCarModel.m */,
+				8F178E621E9759830034915B /* MyOrderModel.h */,
+				8F178E631E9759830034915B /* MyOrderModel.m */,
 			);
 			name = "购物";
 			sourceTree = "<group>";
@@ -3040,6 +3045,7 @@
 				8FF632CA1E8369D500ED8751 /* TZVideoPlayerController.m in Sources */,
 				8FAFFFA91E84B8B300B17671 /* ViewController2.m in Sources */,
 				8FE660AE1E7BE05E0047DF58 /* NSObject+MJKeyValue.m in Sources */,
+				8F178E641E9759830034915B /* MyOrderModel.m in Sources */,
 				8F3909AC1E5C2C3C0011E366 /* MBProgressHUD+Add.m in Sources */,
 				F4F22EAB1DCDEBAA007C83F8 /* fankuiChenggong.m in Sources */,
 				8F9F21101E865B7E002A8052 /* SearchResultCell.m in Sources */,

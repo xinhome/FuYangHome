@@ -40,12 +40,12 @@
 }
 - (void)loadData {
     NSArray *status = @[@"0",@"123456",@"456"];
-    NSLog(@"%@",@{@"userId": self.user.ID,@"status":[status mj_JSONString]});
-    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/OrderNum" person:RequestPersonWeiMing parameters:@{@"userId": self.user.ID, @"status":status} success:^(id successResponse) {
-        NSLog(@"%@", successResponse);
-    } fail:^(NSError *error) {
-        NSLog(@"%@", error);
-    }];
+//    NSLog(@"%@",@{@"userId": self.user.ID,@"status":[status mj_JSONString]});
+//    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/OrderNum" person:RequestPersonWeiMing parameters:@{@"userId": self.user.ID, @"status":status} success:^(id successResponse) {
+//        NSLog(@"%@", successResponse);
+//    } fail:^(NSError *error) {
+//        NSLog(@"%@", error);
+//    }];
 }
 - (void)initUI
 {
