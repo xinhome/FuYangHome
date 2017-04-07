@@ -9,13 +9,13 @@
 #import "ShoppingCarModel.h"
 
 @implementation ShoppingCarModel
-//+ (NSDictionary *)mj_replacedKeyFromPropertyName {
-//    return @{@"goodsId": @"id"};
-//}
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key
-{
-    if ([key isEqualToString:@"id"]) {
-        _goodsId = value;
-    }
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"goodsId": @"id"};
 }
+//- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+//{
+//    if ([key isEqualToString:@"id"]) {
+//        _goodsId = value;
+//    }
+//}
 @end

@@ -20,6 +20,7 @@
 @property (nonatomic, assign) BOOL selectIsShow;
 @property (nonatomic, strong) NSMutableArray *btnStatusArr;
 @property (nonatomic, strong) NSMutableArray *tieZiArray;
+@property (nonatomic, strong) NSMutableArray *deleteSelectArray;
 
 @end
 
@@ -36,6 +37,7 @@
     [self.view addSubview:self.myTableView];
     [self setUpUI];
     [self setUpData];
+    self.deleteSelectArray = [NSMutableArray array];
 }
 - (void)setNavigationBar
 {
@@ -46,16 +48,16 @@
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDefaults valueForKey:@"myUserId"];
+    NSLog(@"%@", userId);
     [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
-    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonKaiKang parameters:@{@"user.id": userId, @"page": @(1)} success:^(id successResponse) {
+    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonWeiMing parameters:@{@"user.id": userId, @"page": @(2)} success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
-//        NSLog(@"帖子列表-----%@", successResponse);
+        NSLog(@"帖子列表-----%@", successResponse);
         if ([successResponse isSuccess]) {
             NSArray *data = successResponse[@"data"];
             self.tieZiArray = [ThereModel mj_objectArrayWithKeyValuesArray:data];
-            NSLog(@"帖子：%@", _tieZiArray);
             [_myTableView reloadData];
-
+            
         } else {
             [MBProgressHUD showResponseMessage:successResponse];
         }
@@ -63,7 +65,6 @@
         [MBProgressHUD hideHUDForView:self.view];
         [MBProgressHUD showError:@"网络异常"];
     }];
-
 }
 - (void)setUpUI
 {
@@ -76,6 +77,7 @@
         make.size.mas_offset(CGSizeMake(kScreenWidth, rateHeight(50)));
     }];
     [self.bottomDeleteV.selectAllBtn addTarget:self action:@selector(actionSelectAll:) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.bottomDeleteV.deleteBtn addTarget:self action:@selector(deleteSelectTieZi) forControlEvents:(UIControlEventTouchUpInside)];
     self.bottomDeleteV.hidden = YES;
 }
 #pragma mark - 删除帖子
@@ -94,6 +96,38 @@
     }
     [_myTableView reloadData];
 }
+#pragma mark - 帖子删除
+- (void)deleteSelectTieZi
+{
+    if (_deleteSelectArray.count != 0) {
+        [MBProgressHUD showMessage:@"正在删除数据..." toView:self.view];
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSString *str in _deleteSelectArray) {
+            NSString *newStr = [NSString stringWithFormat:@"id=%@", str];
+            [array addObject:newStr];
+        }
+        NSString *idStr = [array componentsJoinedByString:@"&"];
+        NSString *url = [NSString stringWithFormat:@"%@magazines/deletemany?%@", WeiMingURL,idStr];
+        NSLog(@"url:%@", url);
+        [[AFHTTPSessionManager manager] GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            [MBProgressHUD hideHUDForView:self.view];
+            if ([responseObject[@"result"] intValue] == 0) {
+                [MBProgressHUD showMessage:responseObject[@"msg"] toView:self.view];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tableView reloadData];
+                });
+                
+            } else {
+                [MBProgressHUD showMessage:@"删除失败" toView:self.view];
+            }
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            [MBProgressHUD hideHUDForView:self.view];
+            [MBProgressHUD showError:@"网络异常"];
+        }];
+    }
+}
 #pragma mark - 全选
 - (void)actionSelectAll:(UIButton *)btn
 {
@@ -103,6 +137,10 @@
         for (int i = 0; i < 10; i++) {
             [self.btnStatusArr addObject:[NSString stringWithFormat:@"1"]];
         }
+        [_deleteSelectArray removeAllObjects];
+        for (ThereModel *model in _tieZiArray) {
+            [_deleteSelectArray addObject:[NSString stringWithFormat:@"%@", model.magazineId]];
+        }
         [self.bottomDeleteV.selectAllBtn setImage:[UIImage imageNamed:@"全选选中"] forState:(UIControlStateNormal)];
         [_myTableView reloadData];
     } else {
@@ -110,6 +148,7 @@
         for (int i = 0; i < 10; i++) {
             [self.btnStatusArr addObject:[NSString stringWithFormat:@"0"]];
         }
+        [_deleteSelectArray removeAllObjects];
         [self.bottomDeleteV.selectAllBtn setImage:[UIImage imageNamed:@"全选"] forState:(UIControlStateNormal)];
         [_myTableView reloadData];
     }
@@ -149,8 +188,12 @@
 {
     if ([_btnStatusArr[btn.tag] intValue] == 0) {
         _btnStatusArr[btn.tag] = @"1";
+        ThereModel *model = _tieZiArray[btn.tag];
+        [_deleteSelectArray addObject:[NSString stringWithFormat:@"%@", model.magazineId]];
     } else if ([_btnStatusArr[btn.tag] intValue] == 1) {
         _btnStatusArr[btn.tag] = @"0";
+        ThereModel *model = _tieZiArray[btn.tag];
+        [_deleteSelectArray removeObject:model.magazineId];
     }
     [_myTableView reloadData];
 }

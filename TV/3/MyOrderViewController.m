@@ -13,14 +13,14 @@
 #import "OrderTableViewCell.h"
 #import "PingJiaViewController.h"
 #import "PingJiaDisplayViewController.h"
-#import "MyOrderModel.h"
+#import "ShoppingCarModel.h"
 
 #define redColor  RGB(255, 56, 65)
 @interface MyOrderViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *myTableView;
 @property (nonatomic, assign) NSInteger segmentIndex;
-@property (nonatomic, strong) NSMutableArray<MyOrderModel *> *orderArray;
+@property (nonatomic, strong) NSMutableArray *orderArray;
 @property (nonatomic, strong) NSMutableArray *orderArray00;
 
 @end
@@ -84,6 +84,7 @@
     [_orderArray removeAllObjects];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDefaults valueForKey:@"myUserId"];
+    NSLog(@"userId:%@", userId);
     [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
     [[HttpRequestManager shareManager] addPOSTURL:url person:RequestPersonWeiMing parameters:@{@"userId": userId,@"status": state} success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
@@ -91,7 +92,7 @@
         if ([successResponse isSuccess]) {
             NSArray *orderArray = successResponse[@"data"];
             
-            self.orderArray = [MyOrderModel mj_objectArrayWithKeyValuesArray:orderArray];
+            self.orderArray = [ShoppingCarModel mj_objectArrayWithKeyValuesArray:orderArray];
             [_myTableView reloadData];
             
         } else {
@@ -139,7 +140,7 @@
     cell.shouHouBtn.hidden = YES;
     cell.selectionStyle = NO;
     if (_orderArray.count != 0) {
-        cell.cellModel = _orderArray[indexPath.section];
+        cell.cellModel = (ShoppingCarModel *)_orderArray[indexPath.section];
     }
     return cell;
 }
@@ -156,7 +157,7 @@
     if (_orderArray.count != 0) {
         UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(40))];
         headerView.backgroundColor = [UIColor whiteColor];
-        ShoppingCarModel *model = _orderArray[section].order;
+        ShoppingCarModel *model = _orderArray[section];
         UILabel *orderNumLB = [UILabel labelWithText:[NSString stringWithFormat:@"订单编号：%@", model.orderId] textColor:UIColorFromRGB(0x666666) fontSize:14];
         [orderNumLB sizeToFit];
         [headerView addSubview:orderNumLB];
@@ -195,8 +196,8 @@
     if (_orderArray.count != 0) {
         UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(80))];
         footerView.backgroundColor = [UIColor whiteColor];
-        ShoppingCarModel *model = _orderArray[section].order;
-        CGFloat sumPrice = [model.num intValue]*[model.price floatValue]-[self.orderArray[section].amount floatValue];
+        ShoppingCarModel *model = _orderArray[section];
+        CGFloat sumPrice = [model.num intValue]*[model.price floatValue]-[model.amount floatValue];
         UILabel *priceLB = [UILabel labelWithText:[NSString stringWithFormat:@"共计：%.2f元（含0元运费）", sumPrice] textColor:UIColorFromRGB(0x666666) fontSize:15];
         [priceLB sizeToFit];
         [footerView addSubview:priceLB];
@@ -260,36 +261,32 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OrderDetailsViewController *orderDetailVC = [[OrderDetailsViewController alloc] init];
-    MyOrderModel *model = (MyOrderModel *)_orderArray[indexPath.section];
-    ShoppingCarModel *model1 = model.order;
-    orderDetailVC.model = model1;
+    ShoppingCarModel *model = (ShoppingCarModel *)_orderArray[indexPath.section];
+    orderDetailVC.model = model;
     [self.navigationController pushViewController:orderDetailVC animated:YES];
 }
 // 评价
 - (void)pingJia:(UIButton *)btn
 {
     PingJiaViewController *pingJiaVC = [[PingJiaViewController alloc] init];
-    MyOrderModel *model = (MyOrderModel *)_orderArray[btn.tag];
-    ShoppingCarModel *model1 = model.order;
-    pingJiaVC.model = model1;
+    ShoppingCarModel *model = (ShoppingCarModel *)_orderArray[btn.tag];
+    pingJiaVC.model = model;
     [self.navigationController pushViewController:pingJiaVC animated:YES];
 }
 // 查看评价
 - (void)chaKanPingJia:(UIButton *)btn
 {
     PingJiaDisplayViewController *pingJiaDisplayVC = [[PingJiaDisplayViewController alloc] init];
-    MyOrderModel *model = (MyOrderModel *)_orderArray[btn.tag];
-    ShoppingCarModel *model1 = model.order;
-    pingJiaDisplayVC.model = model1;
+    ShoppingCarModel *model = (ShoppingCarModel *)_orderArray[btn.tag];
+    pingJiaDisplayVC.model = model;
     [self.navigationController pushViewController:pingJiaDisplayVC animated:YES];
 }
 // 确认收货
 - (void)shouHuo:(UIButton *)btn
 {
     [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
-    MyOrderModel *model = _orderArray[btn.tag];
-    ShoppingCarModel *model1 = model.order;
-    NSString *url = [NSString stringWithFormat:@"%@Order/doTransfer?id=%@", WeiMingURL,model1.goodsId];
+    ShoppingCarModel *model = (ShoppingCarModel *)_orderArray[btn.tag];
+    NSString *url = [NSString stringWithFormat:@"%@Order/doTransfer?id=%@", WeiMingURL,model.goodsId];
     NSLog(@"url:%@", url);
     [[AFHTTPSessionManager manager] GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

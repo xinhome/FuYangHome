@@ -141,11 +141,12 @@
                     [orderArr removeObjectAtIndex:0];
                     [self.shoppingArray removeAllObjects];
                     [self.btnStatusArr removeAllObjects];
-                    for (NSDictionary *dic in orderArr) {
-                        ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
-                        [model setValuesForKeysWithDictionary:dic];
-                        [_shoppingArray addObject:model];
-                    }
+//                    for (NSDictionary *dic in orderArr) {
+//                        ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
+//                        [model setValuesForKeysWithDictionary:dic];
+//                        [_shoppingArray addObject:model];
+//                    }
+                    self.shoppingArray = [ShoppingCarModel mj_objectArrayWithKeyValuesArray:orderArr];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         for (int i = 0; i < _shoppingArray.count; i++) {
                             [self.btnStatusArr addObject:[NSString stringWithFormat:@"0"]];

@@ -10,4 +10,8 @@
 
 @implementation MyOrderModel
 
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"goodsId": @"id"};
+}
+
 @end

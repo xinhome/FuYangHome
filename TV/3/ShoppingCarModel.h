@@ -10,6 +10,8 @@
 
 @interface ShoppingCarModel : NSObject
 
+@property (nonatomic, copy) NSString *amount;
+@property (nonatomic, copy) NSString *credit;
 @property (nonatomic, strong) NSString *picPath; // 商品图片地址
 @property (nonatomic, strong) NSString *totalFee; // 商品总金额
 @property (nonatomic, strong) NSString *price; // 商品单价
