@@ -35,7 +35,7 @@
     [super viewDidLoad];
     self.title = @"收货地址";
     [self addRightItemWithImage:@"shanchu " action:@selector(deleteAddress)];
-    [self addBackForUser];
+//    [self addBackForUser];
     [self setupUI];
     self.selectIndexPath = [NSIndexPath indexPathForRow:CGFLOAT_MAX inSection:CGFLOAT_MAX];
     [self configToolView];

@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"关于我们";
-    [self addBackForUser];
+//    [self addBackForUser];
 }
 
 - (void)didReceiveMemoryWarning {

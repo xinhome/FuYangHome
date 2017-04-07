@@ -20,7 +20,7 @@
     [super viewDidLoad];
     self.title = @"编辑";
     [self loadUI];
-    [self addBackForUser];
+//    [self addBackForUser];
     NSLog(@"%@", self.user);
 }
 - (void)loadUI
@@ -56,8 +56,12 @@
     model.receiverAddress = [NSString stringWithFormat:@"%@%@%@", self.tf1.text, self.tf2.text, self.tf3.text];
     model.receiverName = self.tf4.text;
     model.receiverMobile = self.tf5.text;
+    if (self.provience == nil || self.city == nil || self.distr == nil) {
+        [MBProgressHUD showError:@"请选择地区"];
+        return;
+    }
     NSDictionary *parameters = @{
-                                 @"userId": [[NSUserDefaults standardUserDefaults] objectForKey:@"myUserId"],
+                                 @"userId": self.user.ID,
                                  @"receiverName": self.tf4.text,
                                  @"receiverMobile": self.tf5.text,
                                  @"receiverState": self.provience,

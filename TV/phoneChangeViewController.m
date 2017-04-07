@@ -25,7 +25,7 @@
     self.title = @"修改手机号";
     _fasong.layer.cornerRadius = 5;
     _fasong.layer.masksToBounds = YES;
-    [self addBackForUser];
+//    [self addBackForUser];
     self.sendSmsBtn.layer.cornerRadius = 8;
     self.sendSmsBtn.layer.masksToBounds = YES;
     self.sendSmsBtn.layer.borderColor = [RGB(162, 224, 212) CGColor];

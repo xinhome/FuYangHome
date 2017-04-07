@@ -109,8 +109,10 @@
                 cell.cellModel = (CouponModel *)_couponArray[indexPath.section];
             }
             [cell.bgImg whenTapped:^{
-                self.couponMoney(self.couponArray[indexPath.section]);
-                [self popViewController];
+                if (self.couponMoney) {
+                    self.couponMoney(self.couponArray[indexPath.section]);
+                    [self popViewController];
+                }
             }];
         } else {
             cell.bgImg.image = [UIImage imageNamed:@"youhuiquanguoqi"];

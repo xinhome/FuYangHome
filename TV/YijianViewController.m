@@ -20,7 +20,7 @@
     _bgt.layer.cornerRadius =5;
     _bgt.layer.masksToBounds =YES;
     self.title = @"用户123";
-    [self addBackForUser];
+//    [self addBackForUser];
     _textview.delegate = self;
 }
 //提交按钮
