@@ -28,7 +28,7 @@
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:RGB(68, 202, 181)] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
-    [self.headerView.avatar sd_setImageWithURL:[NSURL URLWithString:self.user.avatar]];
+    [self.headerView.avatar sd_setImageWithURL:[NSURL URLWithString:self.user.avatar] placeholderImage:UIImageNamed(@"Icon2")];
     self.headerView.nickname.text = self.user.nickname;
     [self loadData];
 }

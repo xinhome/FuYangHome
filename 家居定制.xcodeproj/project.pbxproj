@@ -61,6 +61,8 @@
 		8F14D4901E94E1BF009A9D15 /* JiFenDuiHuanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F14D48F1E94E1BF009A9D15 /* JiFenDuiHuanViewController.m */; };
 		8F178E641E9759830034915B /* MyOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F178E631E9759830034915B /* MyOrderModel.m */; };
 		8F178E671E97889B0034915B /* OrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F178E661E97889B0034915B /* OrderTableViewCell.m */; };
+		8F178E6A1E9793AD0034915B /* ForgetPwdController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F178E691E9793AD0034915B /* ForgetPwdController.m */; };
+		8F178E6D1E9797A80034915B /* ForgetPwd2Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F178E6C1E9797A80034915B /* ForgetPwd2Controller.m */; };
 		8F195D421E7CD96300E8770D /* UIView+WhenTappendBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F195D411E7CD96300E8770D /* UIView+WhenTappendBlocks.m */; };
 		8F195D461E7CDE3D00E8770D /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F195D451E7CDE3D00E8770D /* SearchViewController.m */; };
 		8F195D491E7D136B00E8770D /* SystemMsgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F195D481E7D136B00E8770D /* SystemMsgViewController.m */; };
@@ -537,6 +539,10 @@
 		8F178E631E9759830034915B /* MyOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderModel.m; sourceTree = "<group>"; };
 		8F178E651E97889B0034915B /* OrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderTableViewCell.h; sourceTree = "<group>"; };
 		8F178E661E97889B0034915B /* OrderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderTableViewCell.m; sourceTree = "<group>"; };
+		8F178E681E9793AD0034915B /* ForgetPwdController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPwdController.h; sourceTree = "<group>"; };
+		8F178E691E9793AD0034915B /* ForgetPwdController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPwdController.m; sourceTree = "<group>"; };
+		8F178E6B1E9797A80034915B /* ForgetPwd2Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPwd2Controller.h; sourceTree = "<group>"; };
+		8F178E6C1E9797A80034915B /* ForgetPwd2Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPwd2Controller.m; sourceTree = "<group>"; };
 		8F195D401E7CD96300E8770D /* UIView+WhenTappendBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WhenTappendBlocks.h"; sourceTree = "<group>"; };
 		8F195D411E7CD96300E8770D /* UIView+WhenTappendBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WhenTappendBlocks.m"; sourceTree = "<group>"; };
 		8F195D441E7CDE3D00E8770D /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
@@ -2387,6 +2393,10 @@
 			children = (
 				8FE660D11E7BE34B0047DF58 /* LoginViewController.h */,
 				8FE660D21E7BE34B0047DF58 /* LoginViewController.m */,
+				8F178E681E9793AD0034915B /* ForgetPwdController.h */,
+				8F178E691E9793AD0034915B /* ForgetPwdController.m */,
+				8F178E6B1E9797A80034915B /* ForgetPwd2Controller.h */,
+				8F178E6C1E9797A80034915B /* ForgetPwd2Controller.m */,
 			);
 			name = "登录";
 			sourceTree = "<group>";
@@ -2938,6 +2948,7 @@
 				F4F22F1E1DCDEBAA007C83F8 /* UIView+Extesion.m in Sources */,
 				8FE660C31E7BE1050047DF58 /* AFHTTPSessionManager.m in Sources */,
 				8FE388B21E7FC14B006CD8EA /* UIImageView+HighlightedWebCache.m in Sources */,
+				8F178E6A1E9793AD0034915B /* ForgetPwdController.m in Sources */,
 				8F0F167D1E82627A00D7D308 /* AllProductCell.m in Sources */,
 				8FA0917F1E8A636F00B9ACD1 /* ThereModel.m in Sources */,
 				8F5DB8661E83A78E00D834F8 /* ParamDataModel.m in Sources */,
@@ -3025,6 +3036,7 @@
 				F4F22EBF1DCDEBAA007C83F8 /* iCarousel.m in Sources */,
 				8F0CF4411E867014008E95DE /* myTableViewCell.m in Sources */,
 				8FE388AE1E7FC14B006CD8EA /* UIButton+WebCache.m in Sources */,
+				8F178E6D1E9797A80034915B /* ForgetPwd2Controller.m in Sources */,
 				8FB805371E95E8D200B7BA30 /* CouponCell.m in Sources */,
 				8FE6608B1E7BCE8A0047DF58 /* MASViewAttribute.m in Sources */,
 				8FE660681E7BC94C0047DF58 /* ButtonInPost.m in Sources */,

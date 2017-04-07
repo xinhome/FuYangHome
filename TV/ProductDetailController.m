@@ -157,6 +157,11 @@
 
 - (void)addToShopCar {
     
+    if (self.user == nil) {
+        [MBProgressHUD showError:@"请登录"];
+        return;
+    }
+    
     if (self.model1 == nil) {
         [MBProgressHUD showError:@"网络异常"];
         return;
@@ -204,7 +209,7 @@
 }
 
 - (void)jianhao {
-    if (_num == 0) {
+    if (_num == 1) {
         return;
     }
     _num--;

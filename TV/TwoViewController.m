@@ -294,6 +294,10 @@
     [_collectionView reloadData];
 }
 - (void)publish {
+    if (self.user == nil) {
+        [MBProgressHUD showError:@"请登录"];
+        return;
+    }
     if (self.textField.text.length == 0 || self.textView.text == 0) {
         [MBProgressHUD showError:@"信息不完全"];
         return;
