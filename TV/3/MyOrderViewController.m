@@ -255,7 +255,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OrderDetailsViewController *orderDetailVC = [[OrderDetailsViewController alloc] init];
-    ShoppingCarModel *model = (ShoppingCarModel *)_orderArray[indexPath.section];
+    ShoppingCarModel *model = _orderArray[indexPath.section].order;
     orderDetailVC.model = model;
     [self.navigationController pushViewController:orderDetailVC animated:YES];
 }
