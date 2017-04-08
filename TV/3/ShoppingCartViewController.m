@@ -48,6 +48,12 @@
 {
     [super viewWillAppear:animated];
     [_jieSuanGoodsArray removeAllObjects];
+    [_btnStatusArr removeAllObjects];
+    if (_shoppingArray.count != 0) {
+        for (int i = 0; i < _shoppingArray.count; i++) {
+            [self.btnStatusArr addObject:[NSString stringWithFormat:@"0"]];
+        }
+    }
     [self.bottomJieSuanV.selectAllBtn setImage:[UIImage imageNamed:@"椭圆 4"] forState:(UIControlStateNormal)];
     self.sumPrice = 0.0;
     self.bottomJieSuanV.gongJiLB.text = [NSString stringWithFormat:@"共计：%.2f元（含0元运费）", _sumPrice];
@@ -75,17 +81,16 @@
                 NSLog(@"购物车：%@", data);
                 if (data.count != 0) {
                     self.shoppingArray = [ShoppingCarModel mj_objectArrayWithKeyValuesArray:data];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        self.btnStatusArr = [NSMutableArray array];
-                        for (int i = 0; i < _shoppingArray.count; i++) {
-                            [self.btnStatusArr addObject:[NSString stringWithFormat:@"0"]];
-                        }
-                        if (_shoppingArray.count == 0) {
-                            _bottomJieSuanV.hidden = YES;
-                        }
-                        [_myTableView reloadData];
-                    });
+                    self.btnStatusArr = [NSMutableArray array];
+                    [_btnStatusArr removeAllObjects];
+                    for (int i = 0; i < _shoppingArray.count; i++) {
+                        [self.btnStatusArr addObject:[NSString stringWithFormat:@"0"]];
+                    }
+                    if (_shoppingArray.count == 0) {
+                        _bottomJieSuanV.hidden = YES;
+                    }
                 }
+                [_myTableView reloadData];
             } else {
                 [MBProgressHUD showResponseMessage:successResponse];
             }
@@ -137,19 +142,18 @@
         [MBProgressHUD showMessage:@"正在删除数据..." toView:self.view];
         [[HttpRequestManager shareManager] addPOSTURL:@"/Order/deleteOrder" person:RequestPersonWeiMing parameters:@{@"userId": userId,@"id": [deleteArray componentsJoinedByString:@","]} success:^(id successResponse) {
             [MBProgressHUD hideHUDForView:self.view];
-//            NSLog(@"删除购物车返回数据：%@", successResponse);
+
             if ([successResponse isSuccess]) {
                 [self setUpData];
-//                NSArray *data = successResponse[@"data"];
-//                [self.shoppingArray removeAllObjects];
-//                [self.btnStatusArr removeAllObjects];
-//                self.shoppingArray = [ShoppingCarModel mj_objectArrayWithKeyValuesArray:data];
-//                dispatch_async(dispatch_get_main_queue(), ^{
+                [_deleteGoodsArray removeAllObjects];
+//                [_btnStatusArr removeAllObjects];
+//                if (_shoppingArray.count != 0) {
 //                    for (int i = 0; i < _shoppingArray.count; i++) {
 //                        [self.btnStatusArr addObject:[NSString stringWithFormat:@"0"]];
 //                    }
 //                    [_myTableView reloadData];
-//                });
+//                }
+                
             } else {
                 [MBProgressHUD showResponseMessage:successResponse];
             }
@@ -214,6 +218,7 @@
     [self.bottomDeleteV.selectAllBtn setImage:[UIImage imageNamed:@"全选"] forState:(UIControlStateNormal)];
     [self.btnStatusArr removeAllObjects];
     [_jieSuanGoodsArray removeAllObjects];
+    [_deleteGoodsArray removeAllObjects];
     for (int i = 0; i < _shoppingArray.count; i++) {
         [self.btnStatusArr addObject:[NSString stringWithFormat:@"0"]];
     }
