@@ -8,9 +8,11 @@
 
 #import "SearchMagazineController.h"
 #import "SearchResultCell.h"
+#import "ThereModel.h"
+#import "ThereDetailViewController.h"
 
 @interface SearchMagazineController ()<UITextFieldDelegate>
-
+@property (nonatomic, strong) NSMutableArray<ThereModel *> *dataSource;///<<#注释#>
 @end
 
 @implementation SearchMagazineController
@@ -26,6 +28,7 @@
 }
 - (void)setupUI {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) style:UITableViewStylePlain];
+    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     [self.tableView registerClass:[SearchResultCell class] forCellReuseIdentifier:@"cell"];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -33,14 +36,21 @@
 }
 #pragma mark - tableView dataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.dataSource.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SearchResultCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.cellModel = self.dataSource[indexPath.row];
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 100.0;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    ThereDetailViewController *controller = [[ThereDetailViewController alloc] init];
+    controller.model = self.dataSource[indexPath.row];
+    [self pushViewController:controller animation:YES];
 }
 - (void)configSearchBar {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, rateWidth(260), 35)];
@@ -68,8 +78,15 @@
 - (void)searchWithKey:(NSString *)key {
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/search" person:RequestPersonWeiMing parameters:@{@"magazineName": key} success:^(id successResponse) {
         NSLog(@"%@", successResponse);
+        if ([successResponse isSuccess]) {
+            self.dataSource = [ThereModel mj_objectArrayWithKeyValuesArray:successResponse[@"data"]];
+            [self.tableView reloadData];
+        } else {
+            [MBProgressHUD showResponseMessage:successResponse];
+        }
     } fail:^(NSError *error) {
         NSLog(@"%@", error);
+        [MBProgressHUD showError:@"网络异常"];
     }];
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

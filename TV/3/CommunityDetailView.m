@@ -18,10 +18,10 @@
 @property (nonatomic, weak) UILabel *title;///<<#注释#>
 @property (nonatomic, weak) UILabel *desc;///<<#注释#>
 @property (nonatomic, weak) UILabel *line1;///<<#注释#>
-@property (nonatomic, weak) UILabel *commentLabel;///<<#注释#>
+
 @property (nonatomic, weak) UILabel *line2;///<<#注释#>
 
-@property (nonatomic, weak) UILabel *praiseLabel;///<<#注释#>
+
 @end
 
 @implementation CommunityDetailView
@@ -58,7 +58,7 @@
 //        [comment setImage:UIImageNamed(@"comment1") forState:UIControlStateNormal];
 //        comment.frame = CGRectMake(32, line1.bottom+10, 230, 20);
 //        [self addSubview:comment];
-        UIImageView *comment = [[UIImageView alloc] initWithFrame:CGRectMake(32, line1.bottom+10, 22, 20)];
+        UIImageView *comment = [[UIImageView alloc] initWithFrame:CGRectMake(32, line1.bottom+10, 30, 20)];
         comment.image = UIImageNamed(@"comment1");
         [self addSubview:comment];
         
@@ -112,7 +112,7 @@
         self.comment.top = self.line1.bottom+10;
         self.height = self.comment.bottom+10;
     }
-//    self.commentLabel.text = model.comment;
+    self.commentLabel.text = model.count;
     [self.commentLabel sizeToFit];
     self.commentLabel.centerY = self.comment.centerY;
     self.commentLabel.left = self.comment.right+15;

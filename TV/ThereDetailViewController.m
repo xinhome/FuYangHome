@@ -15,6 +15,7 @@
 
 @interface ThereDetailViewController ()<CommentViewDelegate>
 @property (nonatomic, strong) NSMutableArray<SocietyCommentModel *> *dataSource;///<<#注释#>
+@property (nonatomic, strong) CommunityDetailView *headerView;///<<#注释#>
 @end
 
 @implementation ThereDetailViewController
@@ -45,15 +46,8 @@
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getone" person:RequestPersonKaiKang parameters:@{@"id": self.model.magazineId} success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
 //        NSLog(@"%@", successResponse);
-        NSArray *comments = successResponse[@"data"][@"comments"];
-        for (NSDictionary *comment in comments) {
-            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-            dict[@"avatar"] = comment[@"reviewer"][@"url"];
-            dict[@"nickname"] = comment[@"reviewer"][@"name"];
-            dict[@"commentContent"] = comment[@"commentContent"];
-            dict[@"commentTime"] = comment[@"generateTime"];
-            [self.dataSource addObject:[SocietyCommentModel mj_objectWithKeyValues:dict]];
-        }
+        NSArray *comments = successResponse[@"data"];
+        self.dataSource = [SocietyCommentModel mj_objectArrayWithKeyValuesArray:comments];
         [self.tableView reloadData];
 //        NSLog(@"%@",comments);
     } fail:^(NSError *error) {
@@ -72,6 +66,7 @@
 }
 - (void)setupHeaderView {
     CommunityDetailView *headerView = [[CommunityDetailView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
+    self.headerView = headerView;
     [headerView.comment whenTapped:^{
         CommentView *commentView = [[CommentView alloc] init];
         commentView.delegate = self;
@@ -87,7 +82,6 @@
 - (void)praise {
 
     NSDictionary *parameters = @{
-//                                 @"user.id": self.user.ID,
                                  @"magazineId": self.model.magazineId
                                  };
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/like" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
@@ -106,7 +100,18 @@
                                  };
     [[HttpRequestManager shareManager] addPOSTURL:@"/comments/add" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
         if ([successResponse isSuccess]) {
-            [self popViewController];
+            SocietyCommentModel *model = [[SocietyCommentModel alloc] init];
+            model.url = [self.user.avatar substringFromIndex:WEIMING.length];
+            model.name = self.user.nickname;
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+            model.generateTime = [formatter stringFromDate:[NSDate date]];
+            model.commentContent = content;
+            [self.dataSource addObject:model];
+            
+            [self.tableView reloadData];
+            int commentCount = [self.headerView.commentLabel.text intValue];
+            self.headerView.commentLabel.text = [NSString stringWithFormat:@"%d", ++commentCount];
             [MBProgressHUD showSuccess:@"评论成功"];
         } else {
             [MBProgressHUD showResponseMessage:successResponse];

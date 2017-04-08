@@ -8,6 +8,13 @@
 
 #import "SearchResultCell.h"
 
+@interface SearchResultCell ()
+
+@property (nonatomic, weak) UIImageView *avatarIV;///<<#注释#>
+@property (nonatomic, weak) UILabel *nicknameLabel;///<<#注释#>
+@property (nonatomic, weak) UILabel *contentLabel;///<<#注释#>
+@end
+
 @implementation SearchResultCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -39,8 +46,26 @@
             make.top.equalTo(avatar.mas_bottom);
             make.bottom.equalTo(@(-15));
         }];
+        UILabel *line = [[UILabel alloc] init];
+        line.backgroundColor = RGB(208, 208, 208);
+        [self.contentView addSubview:line];
+        [line mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(@0);
+            make.height.equalTo(@0.5);
+        }];
+        _avatarIV = avatar;
+        _nicknameLabel = nickname;
+        _contentLabel = content;
+        
     }
     return self;
+}
+
+- (void)setCellModel:(ThereModel *)cellModel {
+    _cellModel = cellModel;
+    [self.avatarIV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, cellModel.url]] placeholderImage:UIImageNamed(@"Icon2")];
+    self.nicknameLabel.text = cellModel.name;
+    self.contentLabel.text = cellModel.magazineTextContent;
 }
 
 @end

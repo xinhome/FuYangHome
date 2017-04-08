@@ -18,5 +18,6 @@
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *url;
 @property (nonatomic, copy) NSString *likes;
+@property (nonatomic, copy) NSString *count;
 //- (instancetype)initWithDictionary:(NSDictionary *)dict;
 @end
