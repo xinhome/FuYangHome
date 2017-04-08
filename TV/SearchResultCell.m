@@ -65,7 +65,7 @@
     _cellModel = cellModel;
     [self.avatarIV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, cellModel.url]] placeholderImage:UIImageNamed(@"Icon2")];
     self.nicknameLabel.text = cellModel.name;
-    self.contentLabel.text = cellModel.magazineTextContent;
+    self.contentLabel.text = cellModel.magazineName;
 }
 
 @end

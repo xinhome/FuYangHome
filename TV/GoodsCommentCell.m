@@ -76,8 +76,13 @@
 - (void)setCellModel:(ProductCommentModel *)cellModel {
     _cellModel = cellModel;
     [self.avatar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, cellModel.url]] placeholderImage:UIImageNamed(@"Icon2")];
-    self.nicknameLabel.text = cellModel.name;
     
+    if (cellModel.name) {
+        self.nicknameLabel.text = cellModel.name;
+    } else {
+        self.nicknameLabel.text = @"用户昵称";
+    }
+    self.commentLabel.text = cellModel.orderMsg.buyerMsg;
 }
 
 @end

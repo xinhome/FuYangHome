@@ -14,6 +14,7 @@
 #import "TZTestCell.h"
 #import "TZImagePickerController.h"
 #import <ShareSDK/ShareSDK.h>
+#import <TencentOpenAPI/QQApiInterface.h>
 
 typedef NS_ENUM(NSInteger, ShareType) {
     ShareTypeTencent,
@@ -158,6 +159,7 @@ typedef NS_ENUM(NSInteger, ShareType) {
     [self.btns addObject:wechat];
     
     UIButton *tencent = [UIButton buttonWithType:UIButtonTypeCustom];
+    tencent.hidden = ![QQApiInterface isQQInstalled];
     tencent.selected = YES;
     [tencent addActionHandler:^{
         self.shareType = ShareTypeTencent;
@@ -329,14 +331,26 @@ typedef NS_ENUM(NSInteger, ShareType) {
                                  @"magazineName": self.textField.text,
                                  @"magazineTextContent": self.textView.text,
                                  @"user.id": self.user.ID,
-                                 @"magazineUrlContent": jsonStr
                                  };
-//    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/magazines/addp" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        NSLog(@"%@", responseObject);
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSLog(@"%@", error);
-//    }];
-    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/addp" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
+
+    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/magazines/addp" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        for (UIImage *image in self.selectedPhotos) {
+            NSLog(@"%d", arc4random());
+            NSString *fileName = [NSString stringWithFormat:@"%d", arc4random()];
+            [formData appendPartWithFileData:UIImageJPEGRepresentation(image, 0.3) name:@"uploadFile" fileName:[NSString stringWithFormat:@"%@.jpg", fileName]  mimeType:@"image/jpeg"];
+        }
+    } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"%@", responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@", error);
+    }];
+    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/addp" parameters:parameters constructingBody:^(id<AFMultipartFormData> formData) {
+        for (UIImage *image in self.selectedPhotos) {
+            NSLog(@"%d", arc4random());
+            NSString *fileName = [NSString stringWithFormat:@"%d", arc4random()];
+            [formData appendPartWithFileData:UIImageJPEGRepresentation(image, 0.3) name:@"uploadFile" fileName:[NSString stringWithFormat:@"%@.jpg", fileName]  mimeType:@"image/jpeg"];
+        }
+    } success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
         if ([successResponse isSuccess]) {
             self.textField.text = nil;
@@ -378,6 +392,11 @@ typedef NS_ENUM(NSInteger, ShareType) {
         [MBProgressHUD hideHUDForView:self.view];
         [MBProgressHUD showError:@"网络异常"];
     }];
+//    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/addp" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
+//
+//    } fail:^(NSError *error) {
+
+//    }];
 }
 
 - (void)shareTo:(UIButton *)sender {

@@ -117,7 +117,7 @@
             view.right = cell.dots[i].right+5;
         }
         if (view.bottom>kScreenHeight) {
-            view.bottom = cell.dots[i].bottom-5;
+            view.bottom = cell.dots[i].bottom+5;
         }
         [self.dotDetailViews addObject:view];
         [cell.contentView addSubview:view];

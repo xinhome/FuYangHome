@@ -58,7 +58,7 @@
 //        [comment setImage:UIImageNamed(@"comment1") forState:UIControlStateNormal];
 //        comment.frame = CGRectMake(32, line1.bottom+10, 230, 20);
 //        [self addSubview:comment];
-        UIImageView *comment = [[UIImageView alloc] initWithFrame:CGRectMake(32, line1.bottom+10, 30, 20)];
+        UIImageView *comment = [[UIImageView alloc] initWithFrame:CGRectMake(32, line1.bottom+10, 20, 20)];
         comment.image = UIImageNamed(@"comment1");
         [self addSubview:comment];
         

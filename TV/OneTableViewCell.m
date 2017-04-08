@@ -106,7 +106,7 @@
     NSInteger month = [comps month];
     NSInteger day = [comps day];
     _day.text = [NSString stringWithFormat:@"%ld", day];
-    _month.text = [NSString stringWithFormat:@"%ld", month];
+    _month.text = [self monthWithNumber:month];
     
     _title.text = model.magazineName;
     
@@ -137,9 +137,6 @@
     for (int i = 0; i < count; i ++) {
         UIImageView *iv = self.ivs[i];
         [self.ivs[i] sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", KAIKANG, urls[i]]] placeholderImage:UIImageNamed(@"Icon2")];
-        [iv whenTapped:^{
-            [HPPhotoBrowser showFromImageView:iv inView:[UIApplication sharedApplication].keyWindow withURLStrings:urls atIndex:i];
-        }];
     }
     
     [self.commonBtn setTitle:model.count forState:UIControlStateNormal];
@@ -147,16 +144,23 @@
 //    self.desc.text = model.magazineTextContent;
 }
 
-//- (NSString *)monthWithNumber:(int)number {
-//    switch (number) {
-//        case 1:
-//            <#statements#>
-//            break;
-//            
-//        default:
-//            break;
-//    }
-//}
+- (NSString *)monthWithNumber:(int)number {
+    switch (number) {
+        case 1: return @"Jan";
+        case 2: return @"Feb";
+        case 3: return @"Mar";
+        case 4: return @"Apr";
+        case 5: return @"May";
+        case 6: return @"June";
+        case 7: return @"July";
+        case 8: return @"Aug";
+        case 9: return @"Sept";
+        case 10: return @"Oct";
+        case 11: return @"Nov";
+        case 12: return @"Dec";
+        default: return @"";
+    }
+}
 
 - (NSMutableArray<UIImageView *> *)ivs {
     if (!_ivs) {

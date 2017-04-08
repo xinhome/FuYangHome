@@ -31,6 +31,18 @@
         [MBProgressHUD showError:@"请输入原始密码"];
         return;
     }
+    if (self.pwd2.text.length == 0) {
+        [MBProgressHUD showError:@"请输入新密码"];
+        return;
+    }
+    if (self.pwd3.text.length == 0) {
+        [MBProgressHUD showError:@"请再次确认密码"];
+        return;
+    }
+    if (![self.pwd2.text isEqualToString:self.pwd3.text]) {
+        [MBProgressHUD showError:@"两次密码不一致"];
+        return;
+    }
     NSDictionary *parameters = @{
                                  @"pone": self.user.tel,
                                  @"password": self.pwd1.text,

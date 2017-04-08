@@ -62,13 +62,24 @@
             make.bottom.equalTo(@(-10));
         }];
         _timeLabel = time;
+        UILabel *line = [[UILabel alloc] init];
+        line.backgroundColor = RGB(208, 208, 208);
+        [self.contentView addSubview:line];
+        [line mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(@0);
+            make.height.equalTo(@0.5);
+        }];
     }
     return self;
 }
 - (void)setCellModel:(ScenceCommentModel *)cellModel {
     _cellModel = cellModel;
     [self.avatar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, cellModel.url]]];
-    self.nickname.text = cellModel.name;
+    if (cellModel.name) {
+        self.nickname.text = cellModel.name;
+    } else {
+        self.nickname.text = @"用户昵称";
+    }
     self.commonLabel.text = cellModel.discussContent;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
