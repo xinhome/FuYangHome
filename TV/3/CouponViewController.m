@@ -28,8 +28,13 @@
     self.title = @"优惠券";
     [self setupUI];
     self.index = 1;
+//    [self setUpData];
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+//    self.index = 1;
     [self setUpData];
-    NSLog(@"--%@", [self getCurrentTime]);
 }
 - (void)setUpData
 {
@@ -44,6 +49,8 @@
             if (dataArray.count != 0) {
                 self.couponArray = [NSMutableArray array];
                 self.outTimeArray = [NSMutableArray array];
+                [_couponArray removeAllObjects];
+                [_outTimeArray removeAllObjects];
                 for (NSDictionary *dic in dataArray) {
                     CouponModel *model = [[CouponModel alloc] init];
                     [model setValuesForKeysWithDictionary:dic];
@@ -61,7 +68,6 @@
                 }
                 [self.tableView reloadData];
             }
-
         } else {
             [MBProgressHUD showResponseMessage:successResponse];
         }
@@ -73,7 +79,8 @@
 - (void)setupUI {
     LiuXSegmentView *segmentView = [[LiuXSegmentView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50) titles:@[@"未使用", @"已过期"] bgColor:UIColorFromRGB(0xf7f7f7) clickBlick:^(NSInteger index) {
         self.index = index;
-        [self.tableView reloadData];
+//        [self.tableView reloadData];
+        [self setUpData];
     }];
     segmentView.titleNomalColor = UIColorFromRGB(0x666666);
     segmentView.titleSelectColor = UIColorFromRGB(0x4fd2c2);
@@ -142,11 +149,13 @@
 // 获取当前时间
 - (NSDate *)getCurrentTime
 {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"YYYY-MM-dd"];
-    NSString *dateTime = [formatter stringFromDate:[NSDate date]];
-    NSDate *date = [formatter dateFromString:dateTime];
-    return date;
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    [formatter setDateFormat:@"YYYY-MM-dd"];
+//    NSString *dateTime = [formatter stringFromDate:[NSDate date]];
+//    NSDate *date = [formatter dateFromString:dateTime];
+//    return date;
+    NSDate *nowDate = [[NSDate alloc] initWithTimeIntervalSinceNow:8*60*60];
+    return nowDate;
 }
 // 比较日期大小
 - (NSComparisonResult)compareOneDay:(NSDate *)oneDay withAnotherDay:(NSDate *)anotherDay

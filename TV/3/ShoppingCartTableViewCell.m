@@ -48,7 +48,8 @@
     [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(image.mas_right).offset(rateWidth(15));
         make.top.equalTo(image);
-        make.width.equalTo(@(rateWidth(160)));
+        make.width.equalTo(@(rateWidth(170)));
+        make.height.equalTo(@(30));
     }];
     self.nameLB = label1;
     

@@ -294,6 +294,15 @@
         if ([responseObject[@"msg"] isEqualToString:@"OK"]) {
             [MBProgressHUD hideHUDForView:self.view];
             [MBProgressHUD showMessage:@"确认收货成功" toView:self.view];
+            if (_segmentIndex == 1) {
+                [self setUpDataWithState:@"0" url:@"/Order/showAllOrder"];
+            } else if (_segmentIndex == 2) {
+                [self setUpDataWithState:@"1" url:@"/Order/showCar"];
+            } else if (_segmentIndex == 3) {
+                [self setUpDataWithState:@"2" url:@"/Order/showCar"];
+            } else {
+                [self setUpDataWithState:@"3" url:@"/Order/showCar"];
+            }
         } else {
             [MBProgressHUD hideHUDForView:self.view];
             [MBProgressHUD showError:@"提交失败"];

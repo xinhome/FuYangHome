@@ -73,11 +73,7 @@
         if ([successResponse isSuccess]) {
             NSArray *orderArray = successResponse[@"data"];
             self.returnGoodsArray = [NSMutableArray array];
-            for (NSDictionary *dic in orderArray) {
-                ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
-                [model setValuesForKeysWithDictionary:dic];
-                [_returnGoodsArray addObject:model];
-            }
+            self.returnGoodsArray = [ShoppingCarModel mj_objectArrayWithKeyValuesArray:orderArray];
             NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"status == 4 || status == 5 || status == 6"];
             NSPredicate *predicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[searchPredicate]];
             self.showReturnGoodsArray = [self.returnGoodsArray filteredArrayUsingPredicate:predicate].mutableCopy;

@@ -65,6 +65,7 @@
         [MBProgressHUD hideHUDForView:self.view];
         NSLog(@"评价：%@", responseObject);
         [MBProgressHUD showSuccess:@"提交成功"];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@", error);
         [MBProgressHUD showError:@"网络异常"];

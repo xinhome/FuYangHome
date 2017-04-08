@@ -221,6 +221,7 @@
         if ([responseObject[@"msg"] isEqualToString:@"OK"]) {
             [MBProgressHUD hideHUDForView:self.view];
             [MBProgressHUD showMessage:@"确认收货成功" toView:self.view];
+            [self.navigationController popToRootViewControllerAnimated:YES];
         } else {
             [MBProgressHUD hideHUDForView:self.view];
             [MBProgressHUD showError:@"提交失败"];
