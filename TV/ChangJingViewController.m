@@ -101,26 +101,28 @@
     [self.dotDetailViews removeAllObjects];
     NSArray <Coordinate *> *coordinates = self.dataSource[indexPath.row].coordinates;
     for (int i = 0; i < cell.dots.count; i ++) {
-        DotDetailView *view = [[DotDetailView alloc] initWithFrame:CGRectMake(0, 0, 95, 70)];
+        
+        DotDetailView *view = [[DotDetailView alloc] initWithFrame:CGRectMake(0, 0, 150, 70)];
         [view whenTapped:^{
             NSLog(@"************");
             ProductDetailController *controller = [[ProductDetailController alloc] init];
             controller.coordinateId = coordinates[i].coordinateId;
             [self pushViewController:controller animation:YES];
         }];
-        view.bottom = cell.dots[i].top;
-        view.centerX = cell.dots[i].centerX;
+        view.top = cell.dots[i].top-5;
+        view.left = cell.dots[i].left-5;
         view.name.text = coordinates[i].title;
-        view.price.text = coordinates[i].price;
-        if (view.top <= 20) {
-            view.top = cell.dots[i].bottom;
+        view.price.text = [NSString stringWithFormat:@"￥ %@", coordinates[i].price];
+        if (view.right>kScreenWidth) {
+            view.right = cell.dots[i].right+5;
         }
-        [cell addSubview:view];
+        if (view.bottom>kScreenHeight) {
+            view.bottom = cell.dots[i].bottom-5;
+        }
+        [self.dotDetailViews addObject:view];
+        [cell.contentView addSubview:view];
+        [cell.contentView bringSubviewToFront:cell.dots[i]];
     }
-//    for (WPWaveRippleView *dot in cell.dots) {
-//
-//        view.name.text =
-//    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

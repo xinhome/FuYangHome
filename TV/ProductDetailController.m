@@ -191,7 +191,7 @@
     [[HttpRequestManager shareManager] addPOSTURL:@"/Order/addCar" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
         if ([successResponse isSuccess]) {
-            [MBProgressHUD showSuccess:@"成功加入购车"];
+            [MBProgressHUD showSuccess:@"成功加入购物车"];
         } else {
             [MBProgressHUD showResponseMessage:successResponse];
         }
@@ -264,6 +264,7 @@
         label.text = @"产品评论";
         [view whenTapped:^{
             ProductCommentController *controller = [[ProductCommentController alloc] init];
+            controller.dataSource = self.model1.orderMsgs;
             [self pushViewController:controller animation:YES];
         }];
     } else {

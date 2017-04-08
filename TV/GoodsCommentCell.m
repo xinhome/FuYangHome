@@ -10,7 +10,10 @@
 
 @interface GoodsCommentCell ()
 
-
+@property (nonatomic, weak) UIImageView *avatar;///<<#注释#>
+@property (nonatomic, weak) UILabel *nicknameLabel;///<<#注释#>
+@property (nonatomic, copy) UILabel *commentLabel;
+@property (nonatomic, weak) UILabel *timeLabel;///<<#注释#>
 
 @end
 
@@ -20,7 +23,6 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         UIImageView *avatar = [[UIImageView alloc] init];
-        avatar.backgroundColor = [UIColor blueColor];
         avatar.layer.cornerRadius = 20;
         avatar.layer.masksToBounds = YES;
         [self.contentView addSubview:avatar];
@@ -37,7 +39,7 @@
             make.right.equalTo(@(-20));
         }];
         
-        UILabel *comment = [UILabel labelWithText:@"用户评论用户评论用户评论用户评论用户评论用户评论用户评论用户评论用户评论用户评论用户评论用户评论用户评论用户评论用户评论用户评论用户评论" textColor:UIColorFromRGB(0x808080) fontSize:15];
+        UILabel *comment = [UILabel labelWithText:@"" textColor:UIColorFromRGB(0x808080) fontSize:15];
         comment.numberOfLines = 0;
         [self.contentView addSubview:comment];
         [comment mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -46,7 +48,7 @@
             make.right.equalTo(@(-20));
         }];
         
-        UILabel *time = [UILabel labelWithText:@"2016-03-02 15:30" textColor:UIColorFromRGB(0xbfbfbf) fontSize:13];
+        UILabel *time = [UILabel labelWithText:@"" textColor:UIColorFromRGB(0xbfbfbf) fontSize:13];
         [self.contentView addSubview:time];
         [time mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(comment.mas_bottom).offset(15);
@@ -63,8 +65,19 @@
             make.right.equalTo(@(-13));
             make.bottom.equalTo(@0);
         }];
+        _avatar = avatar;
+        _nicknameLabel = nickname;
+        _commentLabel = comment;
+        _timeLabel = time;
     }
     return self;
+}
+
+- (void)setCellModel:(ProductCommentModel *)cellModel {
+    _cellModel = cellModel;
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, cellModel.url]] placeholderImage:UIImageNamed(@"Icon2")];
+    self.nicknameLabel.text = cellModel.name;
+    
 }
 
 @end

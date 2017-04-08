@@ -64,7 +64,7 @@
 }
 - (void)setModel:(SocietyCommentModel *)model {
     _model = model;
-    [self.avatar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, model.avatar]]];
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, model.avatar]] placeholderImage:UIImageNamed(@"Icon2")];
     self.nickname.text = model.nickname;
     self.commentLabel.text = model.commentContent;
     self.timeLabel.text = model.commentTime;

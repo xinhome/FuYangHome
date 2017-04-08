@@ -215,8 +215,8 @@ typedef NS_ENUM(NSInteger, CommunityType) {
     [self.tuijianBnt setTitleColor:RGB(100, 216, 170) forState:UIControlStateNormal];
     [self.zuixinBtn setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
     [self.dataSource sortUsingComparator:^NSComparisonResult(ThereModel *obj1, ThereModel *obj2) {
-        NSString *praise1 = obj1.praise;
-        NSString *praise2 = obj2.praise;
+        NSString *praise1 = obj1.likes;
+        NSString *praise2 = obj2.likes;
         return [praise1 compare:praise2];
     }];
     [self.tableView reloadData];

@@ -15,6 +15,12 @@
 #import "TZImagePickerController.h"
 #import <ShareSDK/ShareSDK.h>
 
+typedef NS_ENUM(NSInteger, ShareType) {
+    ShareTypeTencent,
+    ShareTypeWeiXin,
+    ShareTypeSina
+};
+
 @interface TwoViewController ()<UITextViewDelegate, DPPhotoGroupViewControllerDelegate, EaseTextViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, TZImagePickerControllerDelegate>
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, weak) UITextField *textField;///<标题
@@ -27,6 +33,7 @@
 @property (nonatomic, strong) UICollectionView *collectionView;///<<#注释#>
 @property (nonatomic, strong) NSMutableArray *selectedPhotos;///<<#注释#>
 @property (nonatomic, assign) int selectType;///< 选择的类型
+@property (nonatomic, assign) ShareType shareType;///< <#注释#>
 @end
 
 @implementation TwoViewController {
@@ -139,6 +146,9 @@
     [scrollView addSubview:label3];
     
     UIButton *wechat = [UIButton buttonWithType:UIButtonTypeCustom];
+    [wechat addActionHandler:^{
+        self.shareType = ShareTypeWeiXin;
+    }];
     [wechat addTarget:self action:@selector(shareTo:) forControlEvents:UIControlEventTouchUpInside];
     [wechat setImage:UIImageNamed(@"weixin1") forState:UIControlStateNormal];
     [wechat setImage:UIImageNamed(@"weixin2") forState:UIControlStateSelected];
@@ -148,12 +158,9 @@
     [self.btns addObject:wechat];
     
     UIButton *tencent = [UIButton buttonWithType:UIButtonTypeCustom];
+    tencent.selected = YES;
     [tencent addActionHandler:^{
-        NSMutableDictionary *params = [NSMutableDictionary dictionary];
-        [params SSDKSetupShareParamsByText:@"富阳家居" images:@"https://www.taobao.com" url:[NSURL URLWithString:@"https://www.baidu.com"] title:@"富阳家居" type:SSDKContentTypeAuto];
-        [ShareSDK share:SSDKPlatformTypeQQ parameters:params onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
-            NSLog(@"%d", state);
-        }];
+        self.shareType = ShareTypeTencent;
     }];
     [tencent addTarget:self action:@selector(shareTo:) forControlEvents:UIControlEventTouchUpInside];
     [tencent setImage:UIImageNamed(@"qq1") forState:UIControlStateNormal];
@@ -164,6 +171,9 @@
     [self.btns addObject:tencent];
     
     UIButton *sina = [UIButton buttonWithType:UIButtonTypeCustom];
+    [sina addActionHandler:^{
+        self.shareType = ShareTypeSina;
+    }];
     [sina addTarget:self action:@selector(shareTo:) forControlEvents:UIControlEventTouchUpInside];
     [sina setImage:UIImageNamed(@"xinlang2") forState:UIControlStateNormal];
     [sina setImage:UIImageNamed(@"xinlang1") forState:UIControlStateSelected];
@@ -334,11 +344,38 @@
             [self.selectedPhotos removeAllObjects];
             [self.collectionView reloadData];
             [MBProgressHUD showSuccess:@"发布成功"];
+            switch (self.shareType) {
+                case ShareTypeTencent: {
+                    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+                    [params SSDKSetupShareParamsByText:@"富阳家居" images:@"https://www.taobao.com" url:[NSURL URLWithString:@"https://www.baidu.com"] title:@"富阳家居" type:SSDKContentTypeAuto];
+                    [ShareSDK share:SSDKPlatformTypeQQ parameters:params onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                        NSLog(@"%d", state);
+                    }];
+                }
+                    break;
+                case ShareTypeWeiXin: {
+                    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+                    [params SSDKSetupShareParamsByText:@"富阳家居" images:@"https://www.taobao.com" url:[NSURL URLWithString:@"https://www.baidu.com"] title:@"富阳家居" type:SSDKContentTypeAuto];
+                    [ShareSDK share:SSDKPlatformTypeWechat parameters:params onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                        NSLog(@"%d", state);
+                    }];
+                }
+                    break;
+                default: {
+                    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+                    [params SSDKSetupShareParamsByText:@"富阳家居" images:@"https://www.taobao.com" url:[NSURL URLWithString:@"https://www.baidu.com"] title:@"富阳家居" type:SSDKContentTypeAuto];
+                    [ShareSDK share:SSDKPlatformTypeSinaWeibo parameters:params onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                        NSLog(@"%d", state);
+                    }];
+                }
+                    break;
+            }
         } else {
             [MBProgressHUD showResponseMessage:successResponse];
         }
     } fail:^(NSError *error) {
         NSLog(@"%@", error);
+        [MBProgressHUD hideHUDForView:self.view];
         [MBProgressHUD showError:@"网络异常"];
     }];
 }

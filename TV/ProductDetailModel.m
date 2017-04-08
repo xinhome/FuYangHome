@@ -9,5 +9,10 @@
 #import "ProductDetailModel.h"
 
 @implementation ProductDetailModel
-
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"ID": @"id"};
+}
++ (NSDictionary *)mj_objectClassInArray {
+    return @{@"orderMsgs": @"ProductCommentModel"};
+}
 @end

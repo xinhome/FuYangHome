@@ -111,6 +111,7 @@
 		8F5F68F51E8E53E6006C7CD5 /* ChangJingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5F68F41E8E53E6006C7CD5 /* ChangJingCell.m */; };
 		8F5F68F81E8E5401006C7CD5 /* GoodsCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5F68F71E8E5401006C7CD5 /* GoodsCommentCell.m */; };
 		8F5F68FB1E8E58C1006C7CD5 /* GoodsCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5F68FA1E8E58C1006C7CD5 /* GoodsCommentView.m */; };
+		8F7344421E987EA2000D3C19 /* ProductCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7344411E987EA2000D3C19 /* ProductCommentModel.m */; };
 		8F9F21101E865B7E002A8052 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F9F210F1E865B7E002A8052 /* SearchResultCell.m */; };
 		8FA0917F1E8A636F00B9ACD1 /* ThereModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA0917E1E8A636F00B9ACD1 /* ThereModel.m */; };
 		8FA6F74B1E5FD058006CC20B /* riqidata.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA6F74A1E5FD058006CC20B /* riqidata.png */; };
@@ -627,6 +628,8 @@
 		8F5F68F71E8E5401006C7CD5 /* GoodsCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsCommentCell.m; sourceTree = "<group>"; };
 		8F5F68F91E8E58C1006C7CD5 /* GoodsCommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsCommentView.h; sourceTree = "<group>"; };
 		8F5F68FA1E8E58C1006C7CD5 /* GoodsCommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsCommentView.m; sourceTree = "<group>"; };
+		8F7344401E987EA2000D3C19 /* ProductCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCommentModel.h; sourceTree = "<group>"; };
+		8F7344411E987EA2000D3C19 /* ProductCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCommentModel.m; sourceTree = "<group>"; };
 		8F9F210E1E865B7E002A8052 /* SearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultCell.h; sourceTree = "<group>"; };
 		8F9F210F1E865B7E002A8052 /* SearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultCell.m; sourceTree = "<group>"; };
 		8FA0917D1E8A636F00B9ACD1 /* ThereModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThereModel.h; sourceTree = "<group>"; };
@@ -1759,6 +1762,8 @@
 				8F0F16781E825FE200D7D308 /* AllProductModel.m */,
 				8F5DB8611E83A62500D834F8 /* ProductDetailModel.h */,
 				8F5DB8621E83A62500D834F8 /* ProductDetailModel.m */,
+				8F7344401E987EA2000D3C19 /* ProductCommentModel.h */,
+				8F7344411E987EA2000D3C19 /* ProductCommentModel.m */,
 				8F5DB8641E83A78E00D834F8 /* ParamDataModel.h */,
 				8F5DB8651E83A78E00D834F8 /* ParamDataModel.m */,
 				8FB15A0B1E8A376700313726 /* ChangJingModel.h */,
@@ -3113,6 +3118,7 @@
 				8FE660611E7BBD070047DF58 /* UIView+customerView.m in Sources */,
 				8F07723C1E94DC1100A33355 /* ScenceCommentModel.m in Sources */,
 				F4F22ED21DCDEBAA007C83F8 /* main.m in Sources */,
+				8F7344421E987EA2000D3C19 /* ProductCommentModel.m in Sources */,
 				8F195D4C1E7D138E00E8770D /* SystemMsgCell.m in Sources */,
 				F4F22EE61DCDEBAA007C83F8 /* OneTableViewCell.m in Sources */,
 				8FE6608D1E7BCE8A0047DF58 /* NSArray+MASAdditions.m in Sources */,

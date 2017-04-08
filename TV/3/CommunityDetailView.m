@@ -93,7 +93,7 @@
 
 - (void)setModel:(ThereModel *)model {
     _model = model;
-    [self.avatar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, model.url]]];
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, model.url]] placeholderImage:UIImageNamed(@"Icon2")];
     self.nickname.text = model.name;
     self.title.text = model.magazineName;
     CGSize strSize = [model.magazineTextContent getSizeWithMaxSize:CGSizeMake(kScreenWidth-26, CGFLOAT_MAX) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]}];
@@ -101,7 +101,7 @@
     self.desc.size = strSize;
     NSArray *images = [model.magazineUrlContent componentsSeparatedByString:@","];
     for (int i = 0; i < images.count; i ++) {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(13+(rateWidth(125))*(i%3), _desc.bottom+5+(rateWidth(125))*(i/3), rateWidth(115), rateWidth(115))];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(rateWidth(13)+(rateWidth(120))*(i%3), _desc.bottom+5+(rateWidth(120))*(i/3), rateWidth(105), rateWidth(105))];
         [imageView whenTapped:^{
             [HPPhotoBrowser showFromImageView:imageView inView:[UIApplication sharedApplication].keyWindow withURLStrings:images atIndex:i];
         }];
@@ -120,7 +120,7 @@
     self.line2.left = self.commentLabel.right+10;
     self.praise.centerY = self.line2.centerY;
     self.praise.left = self.line2.right+30;
-    self.praiseLabel.text = model.praise;
+    self.praiseLabel.text = model.likes;
     [self.praiseLabel sizeToFit];
     self.praiseLabel.centerY = self.line2.centerY;
     self.praiseLabel.left = self.praise.right+15;
