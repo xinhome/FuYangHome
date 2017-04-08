@@ -41,33 +41,57 @@
 #pragma mark - setUpData
 - (void)setUpData
 {
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    for (UIImage *image in _selectedPhotos) {
-        NSString *string = [UIImageJPEGRepresentation(image, 1.0) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-        dict[[NSString stringWithFormat:@"goodsImage%lu", (unsigned long)[_selectedPhotos indexOfObject:image]]] = string;
-    }
-    NSString *jsonStr = [dict mj_JSONString];
+//    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+//    for (UIImage *image in _selectedPhotos) {
+//        NSString *string = [UIImageJPEGRepresentation(image, 1.0) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+//        dict[[NSString stringWithFormat:@"goodsImage%lu", (unsigned long)[_selectedPhotos indexOfObject:image]]] = string;
+//    }
+//    NSString *jsonStr = [dict mj_JSONString];
+//    
+//    [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
+//    NSDictionary *parameters = @{
+//                                 @"id": @([_model.goodsId intValue]),
+//                                 @"reason": self.textView.text,
+//                                 @"num": @(self.num),
+//                                 @"image": jsonStr
+//                                 };
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//    [manager POST:[NSString stringWithFormat:@"%@Order/saveReturn", WeiMingURL] parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        [MBProgressHUD hideHUDForView:self.view];
+//        NSLog(@"退货：%@", responseObject);
+//        [MBProgressHUD showSuccess:@"提交成功"];
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        NSLog(@"%@", error);
+//        [MBProgressHUD showError:@"网络异常"];
+//    }];
     
     [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
     NSDictionary *parameters = @{
                                  @"id": @([_model.goodsId intValue]),
                                  @"reason": self.textView.text,
-                                 @"num": @(self.num),
-                                 @"image": jsonStr
+                                 @"num": @(self.num)
                                  };
-//    NSLog(@"%@", parameters);
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-//    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain",@"text/json",@"application/json",@"text/javascript",@"text/html", @"application/javascript", @"text/js", nil];
-    [manager POST:[NSString stringWithFormat:@"%@Order/saveReturn", WeiMingURL] parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/saveReturn" parameters:parameters constructingBody:^(id<AFMultipartFormData> formData) {
+        for (UIImage *image in self.selectedPhotos) {
+            NSLog(@"%d", arc4random());
+            NSString *fileName = [NSString stringWithFormat:@"%d", arc4random()];
+            [formData appendPartWithFileData:UIImageJPEGRepresentation(image, 0.3) name:@"uploadFile" fileName:[NSString stringWithFormat:@"%@.jpg", fileName]  mimeType:@"image/jpeg"];
+        }
+    } success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
-        NSLog(@"退货：%@", responseObject);
-        [MBProgressHUD showSuccess:@"提交成功"];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if ([successResponse isSuccess]) {
+            [MBProgressHUD hideHUDForView:self.view];
+            NSLog(@"退货：%@", successResponse);
+            [MBProgressHUD showSuccess:@"提交成功"];
+        } else {
+            [MBProgressHUD showResponseMessage:successResponse];
+        }
+    } fail:^(NSError *error) {
         NSLog(@"%@", error);
+        [MBProgressHUD hideHUDForView:self.view];
         [MBProgressHUD showError:@"网络异常"];
     }];
+
 }
 #pragma mark - tableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
