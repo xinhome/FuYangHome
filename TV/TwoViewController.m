@@ -333,17 +333,17 @@ typedef NS_ENUM(NSInteger, ShareType) {
                                  @"user.id": self.user.ID,
                                  };
 
-    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/magazines/addp" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        for (UIImage *image in self.selectedPhotos) {
-            NSLog(@"%d", arc4random());
-            NSString *fileName = [NSString stringWithFormat:@"%d", arc4random()];
-            [formData appendPartWithFileData:UIImageJPEGRepresentation(image, 0.3) name:@"uploadFile" fileName:[NSString stringWithFormat:@"%@.jpg", fileName]  mimeType:@"image/jpeg"];
-        }
-    } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"%@", responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@", error);
-    }];
+//    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/magazines/addp" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+//        for (UIImage *image in self.selectedPhotos) {
+//            NSLog(@"%d", arc4random());
+//            NSString *fileName = [NSString stringWithFormat:@"%d", arc4random()];
+//            [formData appendPartWithFileData:UIImageJPEGRepresentation(image, 0.3) name:@"uploadFile" fileName:[NSString stringWithFormat:@"%@.jpg", fileName]  mimeType:@"image/jpeg"];
+//        }
+//    } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        NSLog(@"%@", responseObject);
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        NSLog(@"%@", error);
+//    }];
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/addp" parameters:parameters constructingBody:^(id<AFMultipartFormData> formData) {
         for (UIImage *image in self.selectedPhotos) {
             NSLog(@"%d", arc4random());
