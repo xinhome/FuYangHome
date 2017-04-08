@@ -17,7 +17,6 @@
 @property (nonatomic, copy) NSString *magazineUrlContent;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *url;
-@property (nonatomic, copy) NSString *praise;
-@property (nonatomic, copy) NSString *image;
+@property (nonatomic, copy) NSString *likes;
 //- (instancetype)initWithDictionary:(NSDictionary *)dict;
 @end

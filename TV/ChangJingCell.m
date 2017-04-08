@@ -52,7 +52,7 @@
 //                self.view.bottom = dotView.top;
 //                self.view.centerX = dotView.centerX;
 //            }];
-            dotView.frame = CGRectMake(rateWidth(x), rateHeight(y), 50, 50);
+            dotView.frame = CGRectMake(rateWidth(x), rateHeight(y), 7, 7);
             [self.contentView addSubview:dotView];
             [dotView startAnimating];
             [self.dots addObject:dotView];

@@ -8,7 +8,7 @@
 
 #import "ProductDetailHeaderView.h"
 
-@interface ProductDetailHeaderView ()
+@interface ProductDetailHeaderView ()<SDCycleScrollViewDelegate>
 @property (nonatomic, strong) NSMutableArray<UIButton *> *btns1;///<<#注释#>
 @property (nonatomic, strong) NSMutableArray<UIButton *> *btns2;///<<#注释#>
 @property (nonatomic, weak) UILabel *color;///<<#注释#>
@@ -24,7 +24,7 @@
     if (self) {
         self.backgroundColor = UIColorWhite;
         
-        SDCycleScrollView *cycleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.width, rateHeight(425)) imageURLStringsGroup:nil];
+        SDCycleScrollView *cycleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.width, rateHeight(425)) delegate:self placeholderImage:UIImageNamed(@"Icon2")];
         
         self.cycleView = cycleView;
         [self addSubview:cycleView];

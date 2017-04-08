@@ -26,8 +26,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initUI];
-    [self loadNewData];
-    [self loadMoreData];
+//    [self loadNewData];
+//    [self loadMoreData];
 }
 
 - (void)loadNewData {

@@ -7,8 +7,9 @@
 //
 
 #import "BaseViewController.h"
+#import "ProductCommentModel.h"
 
 /// 商品评论
 @interface ProductCommentController : BaseViewController
-
+@property (nonatomic, strong) NSArray<ProductCommentModel *> *dataSource;///<<#注释#>
 @end

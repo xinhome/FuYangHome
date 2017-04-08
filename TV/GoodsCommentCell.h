@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProductCommentModel.h"
 
 /// 商品评论
 @interface GoodsCommentCell : UITableViewCell
-
+@property (nonatomic, strong) ProductCommentModel *cellModel;///<<#注释#>
 @end

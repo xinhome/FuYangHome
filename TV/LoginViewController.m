@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "registViewController.h"
 #import "RegisterViewController.h"
+#import "ForgetPwdController.h"
 
 @interface LoginViewController ()
 @property (nonatomic, weak) UITextField *tel;///
@@ -85,6 +86,9 @@
     [self.view addSubview:login];
     
     UIButton *forget = [UIButton buttonWithTitle:@"忘记密码" fontSize:13 titleColor:RGB(48, 210, 183) background:[UIColor clearColor] cornerRadius:0];
+    [forget addActionHandler:^{
+        [self pushViewController:[[ForgetPwdController alloc] init] animation:YES];
+    }];
     forget.frame = CGRectMake(0, login.bottom+10, 80, 15);
     forget.right = registerBtn.right;
     [self.view addSubview:forget];

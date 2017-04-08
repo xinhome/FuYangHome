@@ -21,6 +21,7 @@
     self.title = @"商品评论";
     [self setupUI];
 }
+
 - (void)setupUI {
     GoodsCommentView *commentView = [[GoodsCommentView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 60)];
     commentView.delegate = self;
@@ -39,7 +40,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return self.dataSource.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GoodsCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];

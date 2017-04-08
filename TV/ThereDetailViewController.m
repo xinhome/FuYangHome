@@ -41,7 +41,9 @@
 //    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 //        NSLog(@"%@", error);
 //    }];
+    [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getone" person:RequestPersonKaiKang parameters:@{@"id": self.model.magazineId} success:^(id successResponse) {
+        [MBProgressHUD hideHUDForView:self.view];
 //        NSLog(@"%@", successResponse);
         NSArray *comments = successResponse[@"data"][@"comments"];
         for (NSDictionary *comment in comments) {
@@ -55,6 +57,8 @@
         [self.tableView reloadData];
 //        NSLog(@"%@",comments);
     } fail:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view];
+        [MBProgressHUD showError:@"网络异常"];
         NSLog(@"%@", error);
     }];
 }
@@ -83,10 +87,10 @@
 - (void)praise {
 
     NSDictionary *parameters = @{
-                                 @"user.id": self.user.ID,
-                                 @"magazine.magazineId": self.model.magazineId
+//                                 @"user.id": self.user.ID,
+                                 @"magazineId": self.model.magazineId
                                  };
-    [[HttpRequestManager shareManager] addPOSTURL:@"/thumbs/add" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
+    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/like" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
         NSLog(@"%@", successResponse);
     } fail:^(NSError *error) {
         NSLog(@"%@", error);

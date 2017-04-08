@@ -45,6 +45,7 @@
 - (void)configSearchBar {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, rateWidth(260), 35)];
     UITextField *searchBar = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, rateWidth(230), 35)];
+    searchBar.delegate = self;
     searchBar.layer.cornerRadius = 7;
     searchBar.leftView = [self leftView];
     searchBar.leftViewMode = UITextFieldViewModeAlways;
@@ -70,6 +71,11 @@
     } fail:^(NSError *error) {
         NSLog(@"%@", error);
     }];
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    [self searchWithKey:textField.text];
+    return YES;
 }
 - (void)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];

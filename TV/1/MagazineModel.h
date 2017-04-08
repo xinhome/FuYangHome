@@ -61,14 +61,14 @@
  );
  type = 1;
  */
+@property (nonatomic, copy) NSString *count;
 @property (nonatomic, copy) NSString *generateTime;
+@property (nonatomic, copy) NSString *likes;
 @property (nonatomic, copy) NSString *magazineId;
 @property (nonatomic, copy) NSString *magazineName;
 @property (nonatomic, copy) NSString *magazineTextContent;
 @property (nonatomic, copy) NSString *magazineUrlContent;
-@property (nonatomic, strong) NSArray *thumbs;///<<#注释#>
-@property (nonatomic, strong) NSNumber *type;///<<#注释#>
-@property (nonatomic, strong) NSArray *comments;///<<#注释#>
-@property (nonatomic, strong) UserInfo *user;///<<#注释#>
-
+@property (nonatomic, copy) NSString *type;
+@property (nonatomic, copy) NSString *url;
+@property (nonatomic, copy) NSString *userId;
 @end

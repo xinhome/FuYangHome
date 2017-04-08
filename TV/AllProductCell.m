@@ -23,15 +23,14 @@
         self.backgroundColor = UIColorWhite;
         UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, rateWidth(165), rateWidth(165))];
         _iv = iv;
-        iv.backgroundColor = [UIColor blueColor];
         [self.contentView addSubview:iv];
         
-        UILabel *price = [UILabel labelWithText:@"￥ 99" textColor:[UIColor redColor] fontSize:14];
+        UILabel *price = [UILabel labelWithText:@"" textColor:[UIColor redColor] fontSize:14];
         _price = price;
         price.frame = CGRectMake(0, iv.bottom+5, rateWidth(165), 14);
         [self.contentView addSubview:price];
         
-        UILabel *name = [UILabel labelWithText:@"创意台灯" textColor:RGB(159, 159, 159) fontSize:14];
+        UILabel *name = [UILabel labelWithText:@"" textColor:RGB(159, 159, 159) fontSize:14];
         _name = name;
         name.frame = CGRectMake(0, price.bottom, rateWidth(165), 14);
         [self.contentView addSubview:name];
@@ -45,7 +44,7 @@
     _price.text = [NSString stringWithFormat:@"￥ %@", model.price];
     _name.text = model.title;
     NSString *str = [NSString stringWithFormat:@"%@%@", WEIMING, [model.image componentsSeparatedByString:@","].firstObject];
-    [_iv sd_setImageWithURL:[NSURL URLWithString:str]];
+    [_iv sd_setImageWithURL:[NSURL URLWithString:str] placeholderImage:UIImageNamed(@"Icon2")];
 }
 
 @end

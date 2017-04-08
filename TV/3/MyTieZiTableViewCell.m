@@ -99,7 +99,7 @@
 //    self.label2.text = model.desc;
     [self.img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", KAIKANG, [model.magazineUrlContent componentsSeparatedByString:@","].firstObject]]];
 //    self.pingLunBtn.numLB.text = model.comment;
-    self.dianZanBtn.numLB.text = model.praise;
+    self.dianZanBtn.numLB.text = model.likes;
 }
 
 - (void)awakeFromNib {

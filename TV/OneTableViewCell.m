@@ -111,9 +111,13 @@
     _title.text = model.magazineName;
     
     NSMutableArray *urls = [[model.magazineUrlContent componentsSeparatedByString:@","] mutableCopy];
+    NSUInteger count = urls.count;
+    if (urls.count > 3) {
+        count = 3;
+    }
 //    [urls removeObjectAtIndex:0];
     
-    switch (urls.count) {
+    switch (count) {
         case 1:
             self.ivs.firstObject.hidden = NO;
             break;
@@ -130,18 +134,29 @@
             break;
     }
     
-    for (int i = 0; i < urls.count; i ++) {
+    for (int i = 0; i < count; i ++) {
         UIImageView *iv = self.ivs[i];
-        [self.ivs[i] sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", KAIKANG, urls[i]]]];
+        [self.ivs[i] sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", KAIKANG, urls[i]]] placeholderImage:UIImageNamed(@"Icon2")];
         [iv whenTapped:^{
             [HPPhotoBrowser showFromImageView:iv inView:[UIApplication sharedApplication].keyWindow withURLStrings:urls atIndex:i];
         }];
     }
     
-    [self.commonBtn setTitle:[NSString stringWithFormat:@"%ld", model.comments.count] forState:UIControlStateNormal];
-    [self.pariseBtn setTitle:[NSString stringWithFormat:@"%ld", model.thumbs.count] forState:UIControlStateNormal];
+    [self.commonBtn setTitle:model.count forState:UIControlStateNormal];
+    [self.pariseBtn setTitle:model.likes forState:UIControlStateNormal];
 //    self.desc.text = model.magazineTextContent;
 }
+
+//- (NSString *)monthWithNumber:(int)number {
+//    switch (number) {
+//        case 1:
+//            <#statements#>
+//            break;
+//            
+//        default:
+//            break;
+//    }
+//}
 
 - (NSMutableArray<UIImageView *> *)ivs {
     if (!_ivs) {

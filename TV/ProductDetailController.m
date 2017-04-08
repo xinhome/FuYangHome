@@ -157,6 +157,11 @@
 
 - (void)addToShopCar {
     
+    if (self.user == nil) {
+        [MBProgressHUD showError:@"请登录"];
+        return;
+    }
+    
     if (self.model1 == nil) {
         [MBProgressHUD showError:@"网络异常"];
         return;
@@ -186,7 +191,7 @@
     [[HttpRequestManager shareManager] addPOSTURL:@"/Order/addCar" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
         if ([successResponse isSuccess]) {
-            [MBProgressHUD showSuccess:@"成功加入购车"];
+            [MBProgressHUD showSuccess:@"成功加入购物车"];
         } else {
             [MBProgressHUD showResponseMessage:successResponse];
         }
@@ -204,7 +209,7 @@
 }
 
 - (void)jianhao {
-    if (_num == 0) {
+    if (_num == 1) {
         return;
     }
     _num--;
@@ -259,6 +264,7 @@
         label.text = @"产品评论";
         [view whenTapped:^{
             ProductCommentController *controller = [[ProductCommentController alloc] init];
+            controller.dataSource = self.model1.orderMsgs;
             [self pushViewController:controller animation:YES];
         }];
     } else {
