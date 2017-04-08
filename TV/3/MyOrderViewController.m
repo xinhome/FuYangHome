@@ -35,40 +35,6 @@
     [self addSegment];
     self.tableView.hidden = YES;
     [self.view addSubview:self.myTableView];
-//    if (_segmentIndex == 1) {
-//        [self setUpDataWithState:@"0" url:@"/Order/showAllOrder"];
-//    } else if (_segmentIndex == 2) {
-//        [self setUpDataWithState:@"1" url:@"/Order/showCar"];
-//    } else if (_segmentIndex == 3) {
-//        [self setUpDataWithState:@"2" url:@"/Order/showCar"];
-//    } else {
-//        [self setUpDataWithState:@"3" url:@"/Order/showCar"];
-//    }
-
-}
-- (void)setNavigationBar
-{
-    self.navigationItem.title = @"我的订单";
-    //    [self addRightItemWithImage:@"shanchu " action:nil];
-}
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    // 注册通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:@"orderDetailPayResault" object:nil];
-//}
-//- (void)viewWillDisappear:(BOOL)animated
-//{
-//    // 注销通知
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"orderDetailPayResault" object:nil];
-//}
-//- (void)refresh:(NSNotification *)aNotification
-//{
-//    NSString *payResault = [aNotification object];
-//    NSLog(@"payResault%@", payResault);
-//}
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
     if (_segmentIndex == 1) {
         [self setUpDataWithState:@"0" url:@"/Order/showAllOrder"];
     } else if (_segmentIndex == 2) {
@@ -78,7 +44,26 @@
     } else {
         [self setUpDataWithState:@"3" url:@"/Order/showCar"];
     }
+
 }
+- (void)setNavigationBar
+{
+    self.navigationItem.title = @"我的订单";
+    //    [self addRightItemWithImage:@"shanchu " action:nil];
+}
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    if (_segmentIndex == 1) {
+//        [self setUpDataWithState:@"0" url:@"/Order/showAllOrder"];
+//    } else if (_segmentIndex == 2) {
+//        [self setUpDataWithState:@"1" url:@"/Order/showCar"];
+//    } else if (_segmentIndex == 3) {
+//        [self setUpDataWithState:@"2" url:@"/Order/showCar"];
+//    } else {
+//        [self setUpDataWithState:@"3" url:@"/Order/showCar"];
+//    }
+//}
 #pragma mark - 分段选择
 - (void)addSegment
 {
@@ -284,6 +269,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OrderDetailsViewController *orderDetailVC = [[OrderDetailsViewController alloc] init];
+    orderDetailVC.refreshAction = ^{
+        if (_segmentIndex == 1) {
+            [self setUpDataWithState:@"0" url:@"/Order/showAllOrder"];
+        } else if (_segmentIndex == 2) {
+            [self setUpDataWithState:@"1" url:@"/Order/showCar"];
+        } else if (_segmentIndex == 3) {
+            [self setUpDataWithState:@"2" url:@"/Order/showCar"];
+        } else {
+            [self setUpDataWithState:@"3" url:@"/Order/showCar"];
+        }
+    };
     ShoppingCarModel *model = (ShoppingCarModel *)_orderArray[indexPath.section];
     orderDetailVC.model = model;
     [self.navigationController pushViewController:orderDetailVC animated:YES];
@@ -294,6 +290,17 @@
     PingJiaViewController *pingJiaVC = [[PingJiaViewController alloc] init];
     ShoppingCarModel *model = (ShoppingCarModel *)_orderArray[btn.tag];
     pingJiaVC.model = model;
+    pingJiaVC.refreshAction = ^{
+        if (_segmentIndex == 1) {
+            [self setUpDataWithState:@"0" url:@"/Order/showAllOrder"];
+        } else if (_segmentIndex == 2) {
+            [self setUpDataWithState:@"1" url:@"/Order/showCar"];
+        } else if (_segmentIndex == 3) {
+            [self setUpDataWithState:@"2" url:@"/Order/showCar"];
+        } else {
+            [self setUpDataWithState:@"3" url:@"/Order/showCar"];
+        }
+    };
     [self.navigationController pushViewController:pingJiaVC animated:YES];
 }
 // 查看评价

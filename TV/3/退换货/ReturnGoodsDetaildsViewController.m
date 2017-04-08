@@ -91,7 +91,6 @@
         [MBProgressHUD hideHUDForView:self.view];
         [MBProgressHUD showError:@"网络异常"];
     }];
-
 }
 #pragma mark - tableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -139,6 +138,7 @@
             [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(image.mas_right).offset(rateWidth(15));
                 make.top.equalTo(image).offset(rateHeight(5));
+                make.width.equalTo(@(rateWidth(260)));
             }];
             
             UILabel *label2 = [UILabel labelWithText:[NSString stringWithFormat:@"数量：%@件", _model.num] textColor:UIColorFromRGB(0x333333) fontSize:15];

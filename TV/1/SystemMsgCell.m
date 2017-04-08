@@ -30,7 +30,7 @@
         SystemMsgLabel *content = [[SystemMsgLabel alloc] initWithFrame:CGRectMake(15, time.bottom, kScreenWidth-30, 100)];
         
         content.userInteractionEnabled = YES;
-        [content addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)]];
+//        [content addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)]];
         content.layer.cornerRadius = 5;
         content.layer.masksToBounds = YES;
         content.numberOfLines = 0;

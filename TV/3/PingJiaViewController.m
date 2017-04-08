@@ -93,12 +93,12 @@
             [MBProgressHUD hideHUDForView:self.view];
             NSLog(@"评价：%@", successResponse);
             [MBProgressHUD showSuccess:@"提交成功"];
-            
             for (UIViewController *controller in self.navigationController.viewControllers) {
                 if ([controller isKindOfClass:[MyOrderViewController class]]) {
                     [self.navigationController popToViewController:controller animated:YES];
                 }
             }
+            self.refreshAction();
         } else {
             [MBProgressHUD showResponseMessage:successResponse];
         }

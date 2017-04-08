@@ -32,7 +32,7 @@
 //    [self.view addSubview:btn];
 //    [btn addActionHandler:^{
 //        [self.navigationController popViewControllerAnimated:YES];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"orderDetailPayResault" object:@"123" userInfo:nil];
+//        self.refreshAction();
 //    }];
 }
 
@@ -209,6 +209,7 @@
 {
     PingJiaViewController *pingJiaVC = [[PingJiaViewController alloc] init];
     pingJiaVC.model = _model;
+    pingJiaVC.refreshAction = self.refreshAction;
     [self.navigationController pushViewController:pingJiaVC animated:YES];
 }
 // 查看评价
@@ -228,6 +229,7 @@
         if ([responseObject[@"msg"] isEqualToString:@"OK"]) {
             [MBProgressHUD hideHUDForView:self.view];
             [MBProgressHUD showMessage:@"确认收货成功" toView:self.view];
+            self.refreshAction();
             [self.navigationController popViewControllerAnimated:YES];
         } else {
             [MBProgressHUD hideHUDForView:self.view];

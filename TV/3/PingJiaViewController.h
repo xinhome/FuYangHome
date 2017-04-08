@@ -13,5 +13,6 @@
 @interface PingJiaViewController : BaseViewController
 
 @property (nonatomic, strong) ShoppingCarModel *model;
+@property (nonatomic, copy) MYAction refreshAction;
 
 @end
