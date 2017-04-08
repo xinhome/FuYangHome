@@ -50,7 +50,7 @@
     NSString *userId = [userDefaults valueForKey:@"myUserId"];
     NSLog(@"%@", userId);
     [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
-    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonWeiMing parameters:@{@"user.id": userId, @"page": @(2)} success:^(id successResponse) {
+    [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonWeiMing parameters:@{@"user.id": userId, @"page": @(1)} success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
         NSLog(@"帖子列表-----%@", successResponse);
         if ([successResponse isSuccess]) {
@@ -115,7 +115,7 @@
             if ([responseObject[@"result"] intValue] == 0) {
                 [MBProgressHUD showMessage:responseObject[@"msg"] toView:self.view];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.tableView reloadData];
+                    [self.myTableView reloadData];
                 });
                 
             } else {
