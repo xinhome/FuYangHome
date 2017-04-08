@@ -49,6 +49,7 @@
     [super viewWillAppear:animated];
     [_jieSuanGoodsArray removeAllObjects];
     [_btnStatusArr removeAllObjects];
+    [_deleteGoodsArray removeAllObjects];
     if (_shoppingArray.count != 0) {
         for (int i = 0; i < _shoppingArray.count; i++) {
             [self.btnStatusArr addObject:[NSString stringWithFormat:@"0"]];
@@ -146,13 +147,6 @@
             if ([successResponse isSuccess]) {
                 [self setUpData];
                 [_deleteGoodsArray removeAllObjects];
-//                [_btnStatusArr removeAllObjects];
-//                if (_shoppingArray.count != 0) {
-//                    for (int i = 0; i < _shoppingArray.count; i++) {
-//                        [self.btnStatusArr addObject:[NSString stringWithFormat:@"0"]];
-//                    }
-//                    [_myTableView reloadData];
-//                }
                 
             } else {
                 [MBProgressHUD showResponseMessage:successResponse];
@@ -251,6 +245,8 @@
             NSLog(@"删除选中：%@", _deleteGoodsArray);
             if (_deleteGoodsArray.count == _shoppingArray.count) {
                 [self.bottomDeleteV.selectAllBtn setImage:[UIImage imageNamed:@"全选选中"] forState:(UIControlStateNormal)];
+            } else {
+                [self.bottomDeleteV.selectAllBtn setImage:[UIImage imageNamed:@"全选"] forState:(UIControlStateNormal)];
             }
         } else {
             ShoppingCarModel *model = _shoppingArray[btn.tag];
@@ -262,6 +258,8 @@
             self.bottomJieSuanV.gongJiLB.text = [NSString stringWithFormat:@"共计：%.2f元（含0元运费）", _sumPrice];
             if (_jieSuanGoodsArray.count == _shoppingArray.count) {
                 [self.bottomJieSuanV.selectAllBtn setImage:[UIImage imageNamed:@"灰选中"] forState:(UIControlStateNormal)];
+            } else {
+                [self.bottomJieSuanV.selectAllBtn setImage:[UIImage imageNamed:@"椭圆 4"] forState:(UIControlStateNormal)];
             }
         }
     } else if ([_btnStatusArr[btn.tag] intValue] == 1) {
@@ -271,9 +269,7 @@
             NSLog(@"取消model：%@", model);
             [_deleteGoodsArray removeObject:model];
             NSLog(@"删除取消：%@", _deleteGoodsArray);
-            if (_deleteGoodsArray.count == 0) {
-                [self.bottomDeleteV.selectAllBtn setImage:[UIImage imageNamed:@"全选"] forState:(UIControlStateNormal)];
-            }
+            [self.bottomDeleteV.selectAllBtn setImage:[UIImage imageNamed:@"全选"] forState:(UIControlStateNormal)];
         } else {
             ShoppingCarModel *model = _shoppingArray[btn.tag];
             [_jieSuanGoodsArray removeObject:model];
@@ -282,9 +278,7 @@
                 _sumPrice = _sumPrice + [model.num intValue]*[model.price floatValue];
             }
             self.bottomJieSuanV.gongJiLB.text = [NSString stringWithFormat:@"共计：%.2f元（含0元运费）", _sumPrice];
-            if (_jieSuanGoodsArray.count == 0) {
-                [self.bottomJieSuanV.selectAllBtn setImage:[UIImage imageNamed:@"椭圆 4"] forState:(UIControlStateNormal)];
-            }
+            [self.bottomJieSuanV.selectAllBtn setImage:[UIImage imageNamed:@"椭圆 4"] forState:(UIControlStateNormal)];
         }
     }
     [_myTableView reloadData];

@@ -7,6 +7,7 @@
 //
 
 #import "PingJiaDisplayViewController.h"
+#import "HPPhotoBrowser.h"
 
 @interface PingJiaDisplayViewController ()
 
@@ -23,6 +24,7 @@
     
     [self setUpData];
 //    [self setUpUI];
+    
 }
 - (void)setUpData
 {
@@ -110,6 +112,9 @@
         for (int i = 0; i < imgArray.count; i ++) {
             UIImageView *img = [UIImageView new];
             NSURL *imgUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WeiMingURL,imgArray[i]]];
+            [img whenTapped:^{
+                [HPPhotoBrowser showFromImageView:img inView:[UIApplication sharedApplication].keyWindow withURLStrings:imgArray atIndex:i];
+            }];
             [img sd_setImageWithURL:imgUrl];
             img.backgroundColor = [UIColor lightGrayColor];
             img.tag = i + 100;

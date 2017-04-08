@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ShoppingCarModel.h"
+#import "MyOrderViewController.h"
 
 @interface PingJiaViewController : BaseViewController
 

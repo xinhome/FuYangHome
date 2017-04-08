@@ -26,7 +26,16 @@
     self.navigationItem.title = @"我的订单";
     self.view.backgroundColor = RGB(242, 242, 242);
     [self.view addSubview:self.myTableView];
+    
+//    UIButton *btn = [UIButton buttonWithTitle:@"" fontSize:13 titleColor:[UIColor blackColor] background:[UIColor yellowColor] cornerRadius:1];
+//    btn.frame = CGRectMake(100, 100, 100, 100);
+//    [self.view addSubview:btn];
+//    [btn addActionHandler:^{
+//        [self.navigationController popViewControllerAnimated:YES];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"orderDetailPayResault" object:@"123" userInfo:nil];
+//    }];
 }
+
 #pragma mark - tableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -58,9 +67,7 @@
             str = @"待发货";
         } else if ([_model.status intValue] == 2) {
             str = @"待收货";
-        } else if ([_model.status intValue] == 3) {
-            str = @"已收货";
-        } else if ([_model.status intValue] == 4) {
+        } else {
             str = @"已收货";
         }
         if (indexPath.section == 1) {
@@ -112,7 +119,7 @@
             str = @"待收货";
         } else if ([_model.status intValue] == 3) {
             str = @"待评价";
-        } else if ([_model.status intValue] == 4) {
+        } else {
             str = @"已完成";
         }
         UILabel *stateLB = [UILabel labelWithText:str textColor:RGB(242, 0, 0) fontSize:13];
@@ -221,7 +228,7 @@
         if ([responseObject[@"msg"] isEqualToString:@"OK"]) {
             [MBProgressHUD hideHUDForView:self.view];
             [MBProgressHUD showMessage:@"确认收货成功" toView:self.view];
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
         } else {
             [MBProgressHUD hideHUDForView:self.view];
             [MBProgressHUD showError:@"提交失败"];

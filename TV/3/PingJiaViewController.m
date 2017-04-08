@@ -10,6 +10,7 @@
 #import "DPPhotoGroupViewController.h"
 #import "TZTestCell.h"
 #import "TZImagePickerController.h"
+@class MyOrderViewController;
 
 @interface PingJiaViewController ()<UITextViewDelegate,DPPhotoGroupViewControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, TZImagePickerControllerDelegate>
 {
@@ -36,8 +37,8 @@
     self.navigationItem.title = @"提交评价";
     [self addRightItemWithTitle:@"提交" action:@selector(actionTiJiao)];
     [self setUpUI];
-    
 }
+
 #pragma mark - 提交评价
 - (void)actionTiJiao
 {
@@ -58,14 +59,17 @@
                                  };
         NSLog(@"%@", parameters);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    //    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain",@"text/json",@"application/json",@"text/javascript",@"text/html", @"application/javascript", @"text/js", nil];
     [manager POST:[NSString stringWithFormat:@"%@Order/saveMsg", WeiMingURL] parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [MBProgressHUD hideHUDForView:self.view];
         NSLog(@"评价：%@", responseObject);
         [MBProgressHUD showSuccess:@"提交成功"];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+
+        for (UIViewController *controller in self.navigationController.viewControllers) {
+            if ([controller isKindOfClass:[MyOrderViewController class]]) {
+                [self.navigationController popToViewController:controller animated:YES];
+            }
+        }
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@", error);
         [MBProgressHUD showError:@"网络异常"];

@@ -35,13 +35,37 @@
     [self addSegment];
     self.tableView.hidden = YES;
     [self.view addSubview:self.myTableView];
-//    [self setUpDataWithState:@"0" url:@"/Order/showAllOrder"];
+//    if (_segmentIndex == 1) {
+//        [self setUpDataWithState:@"0" url:@"/Order/showAllOrder"];
+//    } else if (_segmentIndex == 2) {
+//        [self setUpDataWithState:@"1" url:@"/Order/showCar"];
+//    } else if (_segmentIndex == 3) {
+//        [self setUpDataWithState:@"2" url:@"/Order/showCar"];
+//    } else {
+//        [self setUpDataWithState:@"3" url:@"/Order/showCar"];
+//    }
+
 }
 - (void)setNavigationBar
 {
     self.navigationItem.title = @"我的订单";
     //    [self addRightItemWithImage:@"shanchu " action:nil];
 }
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    // 注册通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh:) name:@"orderDetailPayResault" object:nil];
+//}
+//- (void)viewWillDisappear:(BOOL)animated
+//{
+//    // 注销通知
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"orderDetailPayResault" object:nil];
+//}
+//- (void)refresh:(NSNotification *)aNotification
+//{
+//    NSString *payResault = [aNotification object];
+//    NSLog(@"payResault%@", payResault);
+//}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -60,7 +84,6 @@
 {
     LiuXSegmentView *view=[[LiuXSegmentView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44) titles:@[@"全部",@"待发货",@"待收货",@"待评价"] bgColor:[UIColor whiteColor] clickBlick:^void(NSInteger index) {
         self.segmentIndex = index;
-        [_myTableView reloadData];
         if (index == 1) {
             [self setUpDataWithState:@"0" url:@"/Order/showAllOrder"];
         } else if (index == 2) {
@@ -172,7 +195,7 @@
             str = @"待收货";
         } else if ([model.status intValue] == 3) {
             str = @"待评价";
-        } else if ([model.status intValue] == 4) {
+        } else {
             str = @"已完成";
         }
         UILabel *stateLB = [UILabel labelWithText:str textColor:RGB(242, 0, 0) fontSize:13];

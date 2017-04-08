@@ -38,6 +38,7 @@
         make.left.equalTo(image.mas_right).offset(rateWidth(15));
         make.top.equalTo(image).offset(rateHeight(5));
         make.width.equalTo(@(rateWidth(170)));
+        make.height.equalTo(@(40 ));
     }];
     self.nameLB = label1;
     
