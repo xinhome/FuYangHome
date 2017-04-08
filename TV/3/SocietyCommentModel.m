@@ -9,14 +9,5 @@
 #import "SocietyCommentModel.h"
 
 @implementation SocietyCommentModel
-- (instancetype)initWithDictionary:(NSDictionary *)dict {
-    self = [super init];
-    if (self) {
-        self.avatar = dict[@"reviewer"][@"url"];
-        self.nickname = dict[@"reviewer"][@"name"];
-        self.commentContent = dict[@"commentContent"];
-        self.commentTime = dict[@"generateTime"];
-    }
-    return self;
-}
+
 @end

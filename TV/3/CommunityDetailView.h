@@ -14,5 +14,6 @@
 @property (nonatomic, weak) UIImageView *comment;///<<#注释#>
 @property (nonatomic, weak) UIImageView *praise;///<<#注释#>
 @property (nonatomic, strong) ThereModel *model;///<<#注释#>
-
+@property (nonatomic, weak) UILabel *commentLabel;///<<#注释#>
+@property (nonatomic, weak) UILabel *praiseLabel;///<<#注释#>
 @end

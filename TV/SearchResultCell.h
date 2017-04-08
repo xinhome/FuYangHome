@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ThereModel.h"
 
 /// 搜索结果cell
 @interface SearchResultCell : UITableViewCell
-
+@property (nonatomic, strong) ThereModel *cellModel;///<<#注释#>
 @end

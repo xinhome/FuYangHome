@@ -9,8 +9,10 @@
 #import "BaseViewController.h"
 #import "ThereModel.h"
 
+#define CommentSuccess @"CommentSuccess"
+
 @interface ThereDetailViewController : BaseViewController
 
 @property (nonatomic, strong) ThereModel *model;///<<#注释#>
-
+@property (nonatomic, strong) NSIndexPath *selectIndexPath;
 @end

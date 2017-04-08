@@ -10,9 +10,10 @@
 
 /// 社区评论model
 @interface SocietyCommentModel : NSObject
-@property (nonatomic, copy) NSString *avatar;
-@property (nonatomic, copy) NSString *nickname;
 @property (nonatomic, copy) NSString *commentContent;
-@property (nonatomic, copy) NSString *commentTime;
-- (instancetype)initWithDictionary:(NSDictionary *)dict;
+@property (nonatomic, copy) NSString *commentId;
+@property (nonatomic, copy) NSString *generateTime;
+@property (nonatomic, copy) NSString *url;
+@property (nonatomic, copy) NSString *name;
+
 @end

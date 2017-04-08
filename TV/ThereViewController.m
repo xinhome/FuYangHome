@@ -33,19 +33,22 @@ typedef NS_ENUM(NSInteger, CommunityType) {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:UIColorWhite] forBarMetrics:UIBarMetricsDefault];
+    
+    [self loadNewData:self.communityType];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configSearchBar];
     [self initUI];
     [self loadChooseBtn];
-    [self loadNewData:CommunityTypeAll];
+    self.communityType = CommunityTypeAll;
 }
 - (void)loadNewData:(CommunityType)type {
     self.communityType = type;
     [MBProgressHUD showMessage:nil toView:self.view];
     NSDictionary *parameters = @{
-                                 @"page": @0,
+                                 @"page": @1,
                                  @"type": @(type)
                                  };
     //[[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/magazines/getall" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -199,6 +202,7 @@ typedef NS_ENUM(NSInteger, CommunityType) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ThereDetailViewController *detail = [[ThereDetailViewController alloc]init];
     detail.model = self.dataSource[indexPath.row];
+    detail.selectIndexPath = indexPath;
     [self.navigationController pushViewController:detail animated:YES];
 }
 - (IBAction)zuixinBtnClick:(id)sender {

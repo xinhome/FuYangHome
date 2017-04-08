@@ -31,7 +31,7 @@
 //    [self.image whenTapped:^{
 //        [HPPhotoBrowser showFromImageView:self.image inView:[UIApplication sharedApplication].keyWindow withURLStrings:@[[model.magazineUrlContent componentsSeparatedByString:@","].firstObject] atIndex:0];
 //    }];
-//    self.commentLable.text = model.comment;
+    self.commentLable.text = model.count;
     self.dianzanLable.text = model.likes;
 }
 
