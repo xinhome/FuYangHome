@@ -412,7 +412,6 @@
 		F4F22F3E1DCDEBAA007C83F8 /* yanzhengmaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4F22E4D1DCDEBAA007C83F8 /* yanzhengmaViewController.xib */; };
 		F4F22F3F1DCDEBAA007C83F8 /* yiban.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F22E4E1DCDEBAA007C83F8 /* yiban.png */; };
 		F4F22F401DCDEBAA007C83F8 /* YijianViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F22E501DCDEBAA007C83F8 /* YijianViewController.m */; };
-		F4F22F411DCDEBAA007C83F8 /* YijianViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4F22E511DCDEBAA007C83F8 /* YijianViewController.xib */; };
 		F4F22F421DCDEBAA007C83F8 /* yinpai.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F22E521DCDEBAA007C83F8 /* yinpai.png */; };
 		F4F22F4B1DCDEBAA007C83F8 /* ZQTColorSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F22E651DCDEBAA007C83F8 /* ZQTColorSwitch.m */; };
 /* End PBXBuildFile section */
@@ -1168,7 +1167,6 @@
 		F4F22E4E1DCDEBAA007C83F8 /* yiban.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yiban.png; sourceTree = "<group>"; };
 		F4F22E4F1DCDEBAA007C83F8 /* YijianViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YijianViewController.h; path = ../YijianViewController.h; sourceTree = "<group>"; };
 		F4F22E501DCDEBAA007C83F8 /* YijianViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YijianViewController.m; path = ../YijianViewController.m; sourceTree = "<group>"; };
-		F4F22E511DCDEBAA007C83F8 /* YijianViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = YijianViewController.xib; path = ../YijianViewController.xib; sourceTree = "<group>"; };
 		F4F22E521DCDEBAA007C83F8 /* yinpai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yinpai.png; sourceTree = "<group>"; };
 		F4F22E641DCDEBAA007C83F8 /* ZQTColorSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZQTColorSwitch.h; path = ../ZQTColorSwitch.h; sourceTree = "<group>"; };
 		F4F22E651DCDEBAA007C83F8 /* ZQTColorSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZQTColorSwitch.m; path = ../ZQTColorSwitch.m; sourceTree = "<group>"; };
@@ -2354,7 +2352,6 @@
 			children = (
 				F4F22E4F1DCDEBAA007C83F8 /* YijianViewController.h */,
 				F4F22E501DCDEBAA007C83F8 /* YijianViewController.m */,
-				F4F22E511DCDEBAA007C83F8 /* YijianViewController.xib */,
 				F4F22D791DCDEBA9007C83F8 /* fankuiChenggong.h */,
 				F4F22D7A1DCDEBA9007C83F8 /* fankuiChenggong.m */,
 			);
@@ -2760,7 +2757,6 @@
 				F4F22F151DCDEBAA007C83F8 /* ThereViewController.xib in Resources */,
 				8FAC92E41E88C69600021D71 /* AlipaySDK.bundle in Resources */,
 				F4F22EC71DCDEBAA007C83F8 /* jiahao.png in Resources */,
-				F4F22F411DCDEBAA007C83F8 /* YijianViewController.xib in Resources */,
 				8FA6F7561E5FD52E006CC20B /* Main5TableViewCell.xib in Resources */,
 				F4F22EFD1DCDEBAA007C83F8 /* shequ1.png in Resources */,
 				F4F22E771DCDEBAA007C83F8 /* Address.plist in Resources */,

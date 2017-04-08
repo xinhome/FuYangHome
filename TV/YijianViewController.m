@@ -8,9 +8,12 @@
 
 #import "YijianViewController.h"
 #import "fankuiChenggong.h"
+#import "EaseTextView.h"
 
 @interface YijianViewController ()<UITextViewDelegate>
 @property (assign ,nonatomic)int second;
+@property (nonatomic, weak) EaseTextView *textView;///<<#注释#>
+@property (nonatomic, weak) UITextField *textField;///<<#注释#>
 @end
 
 @implementation YijianViewController
@@ -21,22 +24,54 @@
     _bgt.layer.masksToBounds =YES;
     self.title = @"意见反馈";
 //    [self addBackForUser];
-    _textview.delegate = self;
+    EaseTextView *textView = [[EaseTextView alloc] initWithFrame:CGRectMake(20, 0, kScreenWidth-40, 170)];
+    _textView = textView;
+    textView.backgroundColor = RGB(249, 249, 249);
+    textView.placeHolder = @"请留下反馈内容。。。";
+    [self.view addSubview:textView];
+    
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(20, textView.bottom+20, kScreenWidth-40, 40)];
+    _textField = textField;
+    textField.backgroundColor = RGB(249, 249, 249);
+    textField.placeholder = @"请留下手机号，便于我们给您回复";
+    [self.view addSubview:textField];
+    
+    UIButton *commitButton = [UIButton buttonWithTitle:@"提交" fontSize:18 titleColor:UIColorWhite background:RGB(64, 191, 166) cornerRadius:8];
+    [commitButton addActionHandler:^{
+        [self tijiao];
+    }];
+    commitButton.frame = CGRectMake(25, textField.bottom+70, kScreenWidth-50, 50);
+    [self.view addSubview:commitButton];
 }
 //提交按钮
-- (IBAction)tijiao:(id)sender {
+- (void)tijiao {
+    [self.view endEditing:YES];
+    if (_textView.text.length == 0) {
+        [MBProgressHUD showError:@"请填写意见"];
+        return;
+    }
+    if (![_textField.text isMobileNumber]) {
+        [MBProgressHUD showError:@"请填写正确联系方式"];
+        return;
+    }
+    [[HttpRequestManager shareManager] addPOSTURL:@"/Back/save" person:RequestPersonWeiMing parameters:@{@"userId": self.user.ID, @"backContent": self.textView.text, @"backPone": self.textField.text} success:^(id successResponse) {
+        if ([successResponse isSuccess]) {
+            fankuiChenggong *fankui = [[fankuiChenggong alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+            [fankui creatView];
+            
+            [fankui.btn addTarget:self action:@selector(diss) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:fankui];
+            fankui.lab.tag = 100;
+            _second = 10;
+            [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(tenSecond) userInfo:nil repeats:YES];
+        } else {
+            [MBProgressHUD showResponseMessage:successResponse];
+        }
+    } fail:^(NSError *error) {
+        [MBProgressHUD showError:@"网络异常"];
+    }];
+
     
-    [_textview resignFirstResponder];
-    [_tf resignFirstResponder];
-    fankuiChenggong *fankui = [[fankuiChenggong alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-    [fankui creatView];
-    
-    [fankui.btn addTarget:self action:@selector(diss) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:fankui];
-    fankui.lab.tag = 100;
-    _second = 10;
-    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(tenSecond) userInfo:nil repeats:YES];
-        
     
 }
 - (void)tenSecond
@@ -57,24 +92,6 @@
     
 }
 
-#pragma mark UITextViewDelegate
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-    if ([textView.text isEqualToString:@"请留下反馈内容。。。"]) {
-        textView.text = @"";
-    }
-    
-}
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-    if ([textView.text isEqualToString:@""]) {
-        textView.text = @"请留下反馈内容。。。";
-    }
-}
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    [_tf resignFirstResponder];
-    [_textview resignFirstResponder];
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

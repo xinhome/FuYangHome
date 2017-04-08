@@ -135,9 +135,16 @@
     self.photoImg = image;
     [picker dismissViewControllerAnimated:YES completion:^{
         [MBProgressHUD showMessage:@"正在上传"];
-        
-        NSString *imageStr = [UIImageJPEGRepresentation(image, 1.0) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-        NSString *url = [@{@"url": imageStr} mj_JSONString];
+//        [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/FyjjController/head" parameters:@{@"id": self.user.ID} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+//            NSString *fileName = [NSString stringWithFormat:@"%d", arc4random()];
+//            [formData appendPartWithFileData:UIImageJPEGRepresentation(image, 0.3) name:@"uploadFile" fileName:[NSString stringWithFormat:@"%@.jpg", fileName]  mimeType:@"image/jpeg"];
+//        } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//            NSLog(@"%@", responseObject);
+//        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//            NSLog(@"%@", error);
+//        }];
+//        NSString *imageStr = [UIImageJPEGRepresentation(image, 1.0) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+//        NSString *url = [@{@"url": imageStr} mj_JSONString];
 //        NSLog(@"%@", @{@"id": self.user.ID, @"url": url});
 //        [[AFHTTPSessionManager manager] POST:@"http://myc.ngrok.cc/FyHome/FyjjController/head" parameters:@{@"id": self.user.ID, @"url": url} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 //            NSLog(@"%@", responseObject);

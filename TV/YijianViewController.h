@@ -9,9 +9,7 @@
 #import "BaseViewController.h"
 
 @interface YijianViewController : BaseViewController
-@property (retain, nonatomic) IBOutlet UITextView *textview;
-@property (retain, nonatomic) IBOutlet UITextField *tf;
-- (IBAction)tijiao:(id)sender;
+
 @property (retain, nonatomic) IBOutlet UIButton *bgt;
 
 @end

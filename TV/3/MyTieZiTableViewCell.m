@@ -95,10 +95,10 @@
 }
 - (void)setModel:(ThereModel *)model
 {
-    self.label1.text = model.magazineName;
-//    self.label2.text = model.desc;
+    self.label1.text = model.name;
+    self.label2.text = model.magazineName;
     [self.img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", KAIKANG, [model.magazineUrlContent componentsSeparatedByString:@","].firstObject]]];
-//    self.pingLunBtn.numLB.text = model.comment;
+    self.pingLunBtn.numLB.text = model.count;
     self.dianZanBtn.numLB.text = model.likes;
 }
 
