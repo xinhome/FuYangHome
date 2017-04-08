@@ -144,7 +144,10 @@
 //        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 //            NSLog(@"%@", error);
 //        }];
-        [[HttpRequestManager shareManager] addPOSTURL:@"/FyjjController/head" person:RequestPersonYuChuan parameters:@{@"id": self.user.ID, @"url": url} success:^(id successResponse) {
+        [[HttpRequestManager shareManager] addPOSTURL:@"/FyjjController/head" parameters:@{@"id": self.user.ID} constructingBody:^(id<AFMultipartFormData> formData) {
+            NSString *fileName = [NSString stringWithFormat:@"%d", arc4random()];
+            [formData appendPartWithFileData:UIImageJPEGRepresentation(image, 0.3) name:@"uploadFile" fileName:[NSString stringWithFormat:@"%@.jpg", fileName]  mimeType:@"image/jpeg"];
+        } success:^(id successResponse) {
             [MBProgressHUD hideHUD];
             if ([successResponse isSuccess]) {
                 [MBProgressHUD showSuccess:@"修改成功"];
