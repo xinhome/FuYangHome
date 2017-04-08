@@ -29,12 +29,12 @@
         self.cycleView = cycleView;
         [self addSubview:cycleView];
         
-        UILabel *price = [UILabel labelWithText:@"￥ 200" textColor:RGB(255, 0, 0) fontSize:16];
+        UILabel *price = [UILabel labelWithText:@"" textColor:RGB(255, 0, 0) fontSize:16];
         self.priceLabel = price;
         price.frame = CGRectMake(14, cycleView.bottom+10, self.width-28, 16);
         [self addSubview:price];
         
-        UILabel *productName = [UILabel labelWithText:@"创建休闲座椅" textColor:RGB(0, 0, 0) fontSize:16];
+        UILabel *productName = [UILabel labelWithText:@"" textColor:RGB(0, 0, 0) fontSize:16];
         self.nameLabel = productName;
         productName.frame = CGRectMake(14, price.bottom+10, self.width-25, 16);
         [self addSubview:productName];

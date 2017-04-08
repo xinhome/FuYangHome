@@ -52,12 +52,24 @@
 }
 
 - (IBAction)xiugaiBtnClick:(id)sender {
-    AddressModel *model = [[AddressModel alloc] init];
-    model.receiverAddress = [NSString stringWithFormat:@"%@%@%@", self.tf1.text, self.tf2.text, self.tf3.text];
-    model.receiverName = self.tf4.text;
-    model.receiverMobile = self.tf5.text;
     if (self.provience == nil || self.city == nil || self.distr == nil) {
         [MBProgressHUD showError:@"请选择地区"];
+        return;
+    }
+    if (self.tf2.text.length == 0) {
+        [MBProgressHUD showError:@"输入所在街道"];
+        return;
+    }
+    if (self.tf3.text.length == 0) {
+        [MBProgressHUD showError:@"输入详细地址"];
+        return;
+    }
+    if (self.tf4.text.length == 0) {
+        [MBProgressHUD showError:@"输入收货人姓名"];
+        return;
+    }
+    if (![self.tf5.text isMobileNumber]) {
+        [MBProgressHUD showError:@"输入正确手机号"];
         return;
     }
     NSDictionary *parameters = @{
@@ -67,11 +79,11 @@
                                  @"receiverState": self.provience,
                                  @"receiverCity": self.city,
                                  @"receiverDistrict": self.distr,
-                                 @"receiverAddress": model.receiverAddress
+                                 @"receiverAddress": [NSString stringWithFormat:@"%@%@%@", self.tf1.text, self.tf2.text, self.tf3.text]
                                  };
     [[HttpRequestManager shareManager] addPOSTURL:@"/OrderShopping/save" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
         if ([successResponse isSuccess]) {
-            self.callBack(model);
+//            self.callBack(model);
         } else {
             [MBProgressHUD showError:@"添加失败"];
         }

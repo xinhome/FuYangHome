@@ -71,11 +71,17 @@ static HttpRequestManager *requestManager = nil;
     }];
 }
 
-- (void)addPOSTURL:(NSString *)URL parameters:(NSDictionary *)parameters constructingBody:(UIImage *)image name:(NSString *)name fileName:(NSString *)fileName success:(void (^)(id))success fail:(void (^)(NSError *))fail {
-    NSData *data = UIImageJPEGRepresentation(image, 0.3);
+- (void)addPOSTURL:(NSString *)URL parameters:(NSDictionary *)parameters constructingBody:(void (^)(id<AFMultipartFormData>))block success:(void (^)(id))success fail:(void (^)(NSError *))fail {
     [self POST:[NSString stringWithFormat:@"%@%@", @"http://mayuchuan.ngrok.cc/FyHome", URL] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        [formData appendPartWithFileData:data name:name fileName:fileName mimeType:@"image/jpeg"];
+        
     } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (fail) {
+            fail(error);
+        }
+    }];
+    [self POST:[NSString stringWithFormat:@"%@%@", @"http://59.110.8.72/FyHome", URL] parameters:parameters constructingBodyWithBlock:block progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([responseObject isKindOfClass:[NSDictionary class]]) {
             success(responseObject);
         } else if ([responseObject isKindOfClass:[NSData class]]) {
@@ -93,9 +99,7 @@ static HttpRequestManager *requestManager = nil;
             }
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (fail) {
-            fail(error);
-        }
+        
     }];
 }
 

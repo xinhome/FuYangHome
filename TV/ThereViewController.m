@@ -43,6 +43,7 @@ typedef NS_ENUM(NSInteger, CommunityType) {
     [self initUI];
     [self loadChooseBtn];
     self.communityType = CommunityTypeAll;
+    self.currentPage = 1;
 }
 - (void)loadNewData:(CommunityType)type {
     self.communityType = type;
@@ -60,7 +61,7 @@ typedef NS_ENUM(NSInteger, CommunityType) {
         NSLog(@"%@", successResponse);
         [MBProgressHUD hideHUDForView:self.view];
         if ([successResponse isSuccess]) {
-            self.currentPage = 0;
+            self.currentPage = 1;
             NSArray *data = successResponse[@"data"];
             [self.dataSource removeAllObjects];
             self.dataSource = [ThereModel mj_objectArrayWithKeyValuesArray:data];
@@ -211,7 +212,7 @@ typedef NS_ENUM(NSInteger, CommunityType) {
     [self.dataSource sortUsingComparator:^NSComparisonResult(ThereModel *obj1, ThereModel *obj2) {
         NSString *time1 = obj1.generateTime;
         NSString *time2 = obj2.generateTime;
-        return [time1 compare:time2];
+        return [time2 compare:time1];
     }];
     [self.tableView reloadData];
 }
@@ -219,9 +220,9 @@ typedef NS_ENUM(NSInteger, CommunityType) {
     [self.tuijianBnt setTitleColor:RGB(100, 216, 170) forState:UIControlStateNormal];
     [self.zuixinBtn setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
     [self.dataSource sortUsingComparator:^NSComparisonResult(ThereModel *obj1, ThereModel *obj2) {
-        NSString *praise1 = obj1.likes;
-        NSString *praise2 = obj2.likes;
-        return [praise1 compare:praise2];
+        int count1 = [obj1.count intValue];
+        int count2 = [obj2.count intValue];
+        return count1 < count2;
     }];
     [self.tableView reloadData];
 }

@@ -28,11 +28,12 @@
     [self initUI];
 //    [self loadNewData];
 //    [self loadMoreData];
+    self.currentPage = 1;
 }
 
 - (void)loadNewData {
     NSDictionary *parameters = @{
-                                 @"page": @0,
+                                 @"page": @1,
                                  @"type": @0
                                  };
 //    [[AFHTTPSessionManager manager] POST:@"http://xwmasd.ngrok.cc/FyHome/magazines/getall" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -42,7 +43,7 @@
 //    }];
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
         NSArray *data = successResponse[@"data"];
-        self.currentPage = 0;
+        self.currentPage = 1;
         self.dataSource = [MagazineModel mj_objectArrayWithKeyValuesArray:data];
         [self.tableView.mj_header endRefreshing];
         [self.tableView reloadData];

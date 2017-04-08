@@ -27,9 +27,7 @@ typedef NS_ENUM(NSInteger, RequestPerson) {
 
 - (void)addPOSTURL:(NSString *)URL
         parameters:(NSDictionary *)parameters
-  constructingBody:(UIImage *)image
-              name:(NSString *)name
-          fileName:(NSString *)fileName
+  constructingBody:(void (^)(id <AFMultipartFormData> formData))block
            success:(void (^)(id successResponse))success
               fail:(void (^)(NSError *error))fail;
 

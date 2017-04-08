@@ -7,6 +7,7 @@
 //
 
 #import "CustomMadeViewController.h"
+#import "EaseTextView.h"
 
 @interface CustomMadeViewController ()
 @property (nonatomic, weak) UITextField *name;///<姓名
@@ -31,44 +32,64 @@
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     scrollView.backgroundColor = RGB(240, 240, 240);
     [self.view addSubview:scrollView];
-    UILabel *label1 = [UILabel labelWithText:@"姓名" textColor:UIColorBlack fontSize:16];
-    [label1 sizeToFit];
-    label1.origin = (CGPoint){17, 17};
-    [scrollView addSubview:label1];
     
-    UILabel *label2 = [UILabel labelWithText:@"电话" textColor:UIColorBlack fontSize:16];
-    [label2 sizeToFit];
-    label2.origin = (CGPoint){17, label1.bottom+18};
-    [scrollView addSubview:label2];
-    
-    UILabel *label3 = [UILabel labelWithText:@"地址" textColor:UIColorBlack fontSize:16];
-    [label3 sizeToFit];
-    label3.origin = (CGPoint){17, label2.bottom+18};
-    [scrollView addSubview:label3];
-    
-    UITextField *name = [[UITextField alloc] initWithFrame:CGRectMake(label1.right+10, 0, rateWidth(220), 40)];
+    UITextField *name = [[UITextField alloc] initWithFrame:CGRectMake(0, 25, rateWidth(230), 40)];
     name.backgroundColor = UIColorWhite;
-    name.centerY = label1.centerY;
+    name.centerX = kScreenWidth/2;
     [scrollView addSubview:name];
     
-    UITextField *telephone = [[UITextField alloc] initWithFrame:CGRectMake(label2.right+10, 0, rateWidth(220), 40)];
+    UITextField *telephone = [[UITextField alloc] initWithFrame:CGRectMake(0, name.bottom+17, rateWidth(230), 40)];
+    telephone.placeholder = @"请填写真实号码";
     telephone.backgroundColor = UIColorWhite;
-    telephone.centerY = label2.centerY;
+    telephone.centerX = kScreenWidth/2;
     [scrollView addSubview:telephone];
-    
-    UITextField *address = [[UITextField alloc] initWithFrame:CGRectMake(label3.right+10, 0, rateWidth(220), 40)];
+
+    UITextField *address = [[UITextField alloc] initWithFrame:CGRectMake(0, telephone.bottom+17, rateWidth(230), 40)];
+    address.placeholder = @"请具体到小区名称";
     address.backgroundColor = UIColorWhite;
-    address.centerY = label3.centerY;
+    address.centerX = kScreenWidth/2;
     [scrollView addSubview:address];
     
-    UIView *view1 = [[UIView alloc] initWithFrame:(CGRect){0, label3.bottom+20, kScreenWidth, 20}];
-    view1.backgroundColor = RGBA(0, 0, 0, 0.3);
-    [scrollView addSubview:view1];
-    UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(rateWidth(16), 9.5, rateWidth(55), 1)];
-    line1.backgroundColor = UIColorWhite;
-    [view1 addSubview:line1];
+    UILabel *label1 = [UILabel labelWithText:@"姓名" textColor:UIColorFromRGB(0x333333) fontSize:17];
+    [label1 sizeToFit];
+    label1.right = name.left-rateWidth(20);
+    label1.centerY = name.centerY;
+    [scrollView addSubview:label1];
     
-//    UILabel *
+    UILabel *label2 = [UILabel labelWithText:@"电话" textColor:UIColorFromRGB(0x333333) fontSize:16];
+    [label2 sizeToFit];
+    label2.right = telephone.left-rateWidth(20);
+    label2.centerY = telephone.centerY;
+    [scrollView addSubview:label2];
+    
+    UILabel *label3 = [UILabel labelWithText:@"地址" textColor:UIColorFromRGB(0x333333) fontSize:16];
+    [label3 sizeToFit];
+    label3.right = address.left-rateWidth(20);
+    label3.centerY = address.centerY;
+    [scrollView addSubview:label3];
+    
+    UILabel *label4 = [UILabel labelWithText:@"房屋面积" textColor:UIColorFromRGB(0x333333) fontSize:16];
+    label4.frame = CGRectMake(label3.left, label3.bottom+35, 0, 0);
+    [label4 sizeToFit];
+    [scrollView addSubview:label4];
+    
+    UITextField *roomArea = [[UITextField alloc] initWithFrame:CGRectMake(label4.right+rateWidth(19), address.bottom+17, rateWidth(195), 40)];
+    roomArea.backgroundColor = UIColorWhite;
+    [scrollView addSubview:roomArea];
+    
+    UILabel *label5 = [UILabel labelWithText:@"设计需求" textColor:UIColorFromRGB(0x333333) fontSize:16];
+    label5.frame = CGRectMake(label4.left, label4.bottom+50, 0, 0);
+    [label5 sizeToFit];
+    [scrollView addSubview:label5];
+    
+    EaseTextView *textView = [[EaseTextView alloc] initWithFrame:CGRectMake(label5.right+rateWidth(19), roomArea.bottom+17, rateWidth(225), 100)];
+    textView.placeHolder = @"注明主要功能";
+    [scrollView addSubview:textView];
+    
+    UILabel *label6 = [UILabel labelWithText:@"俯视图" textColor:UIColorFromRGB(0x333333) fontSize:16];
+    label6.frame = CGRectMake(label5.left, label5.bottom+130, 0, 0);
+    [label6 sizeToFit];
+    [scrollView addSubview:label6];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -38,6 +38,7 @@
 
 - (void)setupView {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-40) style:UITableViewStylePlain];
+    self.tableView.separatorColor = [UIColor clearColor];
     [self.tableView registerClass:[CommonCell class] forCellReuseIdentifier:@"cell"];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

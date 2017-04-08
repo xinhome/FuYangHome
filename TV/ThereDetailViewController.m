@@ -85,8 +85,16 @@
                                  @"magazineId": self.model.magazineId
                                  };
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/like" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
-        NSLog(@"%@", successResponse);
+        if ([successResponse isSuccess]) {
+            int praiseCount = [self.headerView.praiseLabel.text intValue];
+            self.model.likes = [NSString stringWithFormat:@"%d", ++praiseCount];
+            self.headerView.model = self.model;
+            self.tableView.tableHeaderView = self.headerView;
+        } else {
+            [MBProgressHUD showResponseMessage:successResponse];
+        }
     } fail:^(NSError *error) {
+        [MBProgressHUD showError:@"网络异常"];
         NSLog(@"%@", error);
     }];
 }

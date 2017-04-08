@@ -30,7 +30,10 @@
 @end
 
 @implementation changeAddressViewController
-
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self loadData];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"收货地址";
@@ -39,7 +42,6 @@
     [self setupUI];
     self.selectIndexPath = [NSIndexPath indexPathForRow:CGFLOAT_MAX inSection:CGFLOAT_MAX];
     [self configToolView];
-    [self loadData];
 }
 - (void)loadData {
     [[HttpRequestManager shareManager] addPOSTURL:@"/OrderShopping/showAll" person:RequestPersonWeiMing parameters:@{@"userId": [[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"]} success:^(id successResponse) {
@@ -213,6 +215,7 @@
     AddressCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     cell.contact.text = self.addresses[indexPath.section].receiverName;
     cell.address.text = self.addresses[indexPath.section].receiverAddress;
+    [cell.address sizeToFit];
     cell.contactTel.text = self.addresses[indexPath.section].receiverMobile;
 
     [cell.iv whenTapped:^{
