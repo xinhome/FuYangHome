@@ -39,7 +39,9 @@
     [self initUI];
 }
 - (void)loadData {
-
+    if (self.user == nil) {
+        return;
+    }
     [[HttpRequestManager shareManager] addPOSTURL:@"/Order/OrderNum" person:RequestPersonWeiMing parameters:@{@"userId": self.user.ID} success:^(id successResponse) {
         NSLog(@"%@", successResponse);
         self.headerView.invitation.text = [NSString stringWithFormat:@"%@", successResponse[@"data"][@"count1"]];

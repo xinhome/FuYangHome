@@ -76,7 +76,7 @@
         borderImageView.top = rateHeight(30);
         [self.contentView addSubview:borderImageView];
         
-        UILabel *date = [UILabel labelWithText:@"" textColor:UIColorWhite fontSize:12];
+        UILabel *date = [UILabel labelWithText:@"MAY-20" textColor:UIColorWhite fontSize:12];
         self.date = date;
         [date sizeToFit];
         date.centerX = kScreenWidth/2;
