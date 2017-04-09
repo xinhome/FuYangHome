@@ -76,21 +76,21 @@
         borderImageView.top = rateHeight(30);
         [self.contentView addSubview:borderImageView];
         
-        UILabel *date = [UILabel labelWithText:@"MAY-20" textColor:UIColorWhite fontSize:12];
+        UILabel *date = [UILabel labelWithText:@"" textColor:UIColorWhite fontSize:12];
         self.date = date;
         [date sizeToFit];
         date.centerX = kScreenWidth/2;
         date.top = rateHeight(25);
         [self.contentView addSubview:date];
         
-        UILabel *title = [UILabel labelWithText:@"复古田园风格客厅装饰" textColor:UIColorWhite fontSize:12];
+        UILabel *title = [UILabel labelWithText:@"" textColor:UIColorWhite fontSize:12];
         self.title = title;
         title.textAlignment = NSTextAlignmentCenter;
         title.frame = CGRectMake(0, date.bottom+10, 100, 12);
         title.centerX = kScreenWidth/2;
         [self.contentView addSubview:title];
         
-        UILabel *subTitle = [UILabel labelWithText:@"【客厅天地】" textColor:UIColorWhite fontSize:12];
+        UILabel *subTitle = [UILabel labelWithText:@"" textColor:UIColorWhite fontSize:12];
         self.subTitle = subTitle;
         subTitle.textAlignment = NSTextAlignmentCenter;
         subTitle.frame = CGRectMake(0, title.bottom+10, 100, 12);

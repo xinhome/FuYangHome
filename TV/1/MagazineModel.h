@@ -8,46 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface UserInfo : NSObject
-/*
- comments =                 (
- );
- id = 1490171826172;
- magazines =                 (
- {
- "$ref" = "$.data[7]";
- }
- );
- orderShoppings =                 (
- );
- orders =                 (
- );
- passWord = 123456;
- pone = 15222639312;
- registrationTime = "2017-03-22 16:37:06";
- thumbs =                 (
- );
- verificationCode = 780450;
- */
-@property (nonatomic, copy) NSArray *comments;
-@property (nonatomic, copy) NSString *email;
-@property (nonatomic, copy) NSString *ID;
-@property (nonatomic, strong) NSArray *magazines;///<<#注释#>
-@property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSString *numberOrder;
-@property (nonatomic, copy) NSString *numberPosts;
-@property (nonatomic, copy) NSString *numberShopping;
-@property (nonatomic, strong) NSArray *orderShoppings;///<<#注释#>
-@property (nonatomic, strong) NSArray *orders;///<<#注释#>
-@property (nonatomic, copy) NSString *passWord;
-@property (nonatomic, copy) NSString *pone;
-@property (nonatomic, copy) NSString *registrationTime;
-@property (nonatomic, strong) NSArray *thumbs;///<<#注释#>
-@property (nonatomic, copy) NSString *verificationCode;
-@property (nonatomic, copy) NSString *url;
-
-@end
-
 @interface MagazineModel : NSObject
 /*
  comments =             (
@@ -71,4 +31,5 @@
 @property (nonatomic, copy) NSString *type;
 @property (nonatomic, copy) NSString *url;
 @property (nonatomic, copy) NSString *userId;
+@property (nonatomic, copy) NSString *name;
 @end

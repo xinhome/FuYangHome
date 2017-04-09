@@ -12,12 +12,26 @@
 #import "ScrollLayout.h"
 #import "SceneShowCell.h"
 #import "iCarousel.h"
+#import "ChangJingViewController.h"
 
-@interface ShowSceneViewController ()<iCarouselDataSource, iCarouselDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+typedef NS_ENUM(NSInteger, SceneType) {
+    SceneTypeAll,          ///< 全部
+    SceneTypeRoom,         ///< 卧室
+    SceneTypeKitchen,      ///< 厨房
+    SceneTypeLivingRoom,   ///< 客厅
+    SceneTypeStudy,        ///< 书房
+    SceneTypeBalcony,      ///< 阳台
+    SceneTypeBathRoom,     ///< 卫浴
+    SceneTypeDIY           ///< DIY
+};
 
-@property (nonatomic, assign) BOOL wrap;
-@property (nonatomic, strong) NSMutableArray *items;
-@property (nonatomic, strong) NSArray *months;///<<#注释#>
+@interface ShowSceneViewController ()<iCarouselDataSource, iCarouselDelegate, SceneShowViewDelegate>
+
+@property (nonatomic, weak) iCarousel *carousel;
+@property (nonatomic, strong) NSMutableArray<HomeContentModel *> *items;
+@property (nonatomic, strong) NSMutableArray<NSString *> *months;///<<#注释#>
+@property (nonatomic, strong) NSMutableArray<NSString *> *days;///<<#注释#>
+@property (nonatomic, assign) SceneType sceneType;///< <#注释#>
 @end
 
 @implementation ShowSceneViewController
@@ -27,20 +41,40 @@
     [super viewDidLoad];
     self.title = @"场景展示";
     self.view.backgroundColor = RGB(224, 249, 246);
-    self.months = @[@"1月", @"2月", @"3月", @"4月", @"5月", @"6月", @"7月", @"8月", @"9月", @"10月", @"11月", @"12月"];
     [self setupUI];
-//    [self loadData];
+    [self loadData:SceneTypeAll];
 }
-- (void)loadData {
-    [[HttpRequestManager shareManager] addPOSTURL:@"/Content/ById" person:RequestPersonYuChuan parameters:@{@"category_id": self.model.categoryId} success:^(id successResponse) {
-//        NSLog(@"%@", successResponse);
+- (void)loadData:(SceneType)type {
+    [[HttpRequestManager shareManager] addPOSTURL:@"/Content/list" person:RequestPersonYuChuan parameters:@{@"type": @(type)} success:^(id successResponse) {
+        NSLog(@"%@", successResponse);
+        self.items = [HomeContentModel mj_objectArrayWithKeyValuesArray:successResponse[@"data"]];
+        [self.carousel reloadData];
+        [self setupLeftDataSource];
     } fail:^(NSError *error) {
         NSLog(@"%@", error);
     }];
 }
-
+- (void)setupLeftDataSource {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    NSInteger flags = NSCalendarUnitMonth | NSCalendarUnitDay;
+    for (HomeContentModel *model in self.items) {
+        
+        NSDate *date = [formatter dateFromString:model.updated];
+        
+        comps = [calendar components:flags fromDate:date];
+        NSInteger month = [comps month];
+        NSInteger day = [comps day];
+        [self.months addObject:[NSString stringWithFormat:@"%ld月", month]];
+        [self.days addObject:[NSString stringWithFormat:@"%ld月", day]];
+    }
+    [self.tableView reloadData];
+}
 - (void)setupUI {
     SceneShowView *sceneView = [[SceneShowView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 35)];
+    sceneView.delegate = self;
     [self.view addSubview:sceneView];
     UITableView *leftTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, sceneView.bottom, 60, kScreenHeight-64-35) style:UITableViewStyleGrouped];
     self.tableView = leftTableView;
@@ -52,38 +86,19 @@
     leftTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:leftTableView];
     
-    /*
-    iCarousel *carousel = [[iCarousel alloc] initWithFrame:CGRectMake(leftTableView.right+20, sceneView.bottom, kScreenWidth-leftTableView.right-20, kScreenHeight-64-35)];
-    carousel.type = iCarouselTypeRotary;
-    carousel.vertical = YES;
-    carousel.delegate = self;
-    carousel.dataSource = self;
-//    carousel.backgroundColor = [UIColor redColor];
-    [self.view addSubview:carousel];
-     */
-    
-//    ScrollLayout *flowLayout = [[ScrollLayout alloc] init];
-//    flowLayout.itemSize = CGSizeMake(kScreenWidth-leftTableView.right-20, rateHeight(175));
-//    flowLayout.minimumInteritemSpacing = 0;
-//    flowLayout.minimumLineSpacing = -50;
-//    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(leftTableView.right+20, sceneView.bottom, kScreenWidth-leftTableView.right-20, kScreenHeight-64-35) collectionViewLayout:flowLayout];
-//    collectionView.backgroundColor = [UIColor whiteColor];
-//    [collectionView registerClass:[SceneShowCell class] forCellWithReuseIdentifier:@"cell"];
-//    collectionView.dataSource = self;
-//    collectionView.delegate = self;
-//    [self.view addSubview:collectionView];
-    
-    self.items = [NSMutableArray array];
-    for (int i = 0; i < 5; i ++) {
-        [self.items addObject:@(i)];
-    }
     iCarousel *icarouse = [[iCarousel alloc] initWithFrame:CGRectMake(leftTableView.right+20, sceneView.bottom, kScreenWidth-leftTableView.right-20, kScreenHeight-64-35)];
+    self.carousel = icarouse;
 //    icarouse.backgroundColor = [UIColor blueColor];
     icarouse.type = iCarouselTypeRotary;
     icarouse.vertical = YES;
     icarouse.delegate = self;
     icarouse.dataSource = self;
     [self.view addSubview:icarouse];
+}
+
+#pragma mark - SceneShowViewDelegate
+- (void)sceneShow:(SceneShowView *)view didSelectIndex:(NSInteger)index {
+    [self loadData:index];
 }
 
 #pragma mark - iCarousel dataSource
@@ -95,36 +110,61 @@
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view
 {
-    
-    UILabel *label = nil;
-    
+    UIImageView *backgroundImageView = nil;
+    UILabel *date = nil;
+    UILabel *title = nil;
+    UILabel *subTitle = nil;
     //create new view if no view is available for recycling
     if (view == nil)
     {
-        view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-self.tableView.right-20, 200.0f)];
-        //        ((UIImageView *)view).image = [UIImage imageNamed:@"page.png"];
-        view.backgroundColor = RGBA(arc4random()%255, arc4random()%255, arc4random()%255, arc4random()%255);
-        view.contentMode = UIViewContentModeCenter;
-        label = [[UILabel alloc] initWithFrame:view.bounds];
-        //        label.backgroundColor = [UIColor clearColor];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.font = [label.font fontWithSize:50];
-        label.tag = 1;
-        [view addSubview:label];
-    }
-    else
-    {
-        //get a reference to the label in the recycled view
-        label = (UILabel *)[view viewWithTag:1];
+        view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-self.tableView.right, 200.0f)];
+        backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(150))];
+        [backgroundImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, self.items[index].pic]] placeholderImage:nil];
+        backgroundImageView.backgroundColor = [UIColor blueColor];
+        [view addSubview:backgroundImageView];
+        
+        UIImageView *borderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, rateWidth(130), 70)];
+        borderImageView.image = UIImageNamed(@"kuang");
+        borderImageView.centerX = view.centerX;
+        borderImageView.top = rateHeight(30);
+        [view addSubview:borderImageView];
+        
+        date = [UILabel labelWithText:@"MAY-20" textColor:UIColorWhite fontSize:12];
+        [date sizeToFit];
+        date.centerX = view.centerX;
+        date.top = rateHeight(25);
+        [view addSubview:date];
+        date.text = [self translateDate:self.items[index].updated];
+        
+        title = [UILabel labelWithText:@"" textColor:UIColorWhite fontSize:12];
+        title.textAlignment = NSTextAlignmentCenter;
+        title.frame = CGRectMake(0, date.bottom+10, 100, 12);
+        title.centerX = view.centerX;
+        [view addSubview:title];
+        
+        subTitle = [UILabel labelWithText:@"" textColor:UIColorWhite fontSize:12];
+        subTitle.textAlignment = NSTextAlignmentCenter;
+        subTitle.frame = CGRectMake(0, title.bottom+10, 100, 12);
+        subTitle.centerX = view.centerX;
+        [view addSubview:subTitle];
+        
+        title.text = self.items[index].title;
+        subTitle.text = self.items[index].subTitle;
+    } else {
+        title.text = self.items[index].title;
+        subTitle.text = self.items[index].subTitle;
     }
     
     //set item label
     //remember to always set any properties of your carousel item
     //views outside of the `if (view == nil) {...}` check otherwise
-    //you'll get weird issues with carousel item content appearing
-    //in the wrong place in the carousel
-    label.text = [_items[index] stringValue];
     return view;
+}
+
+- (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index {
+    ChangJingViewController *controller = [[ChangJingViewController alloc] init];
+    controller.model = self.items[index];
+    [self pushViewController:controller animation:YES];
 }
 
 #pragma mark - tableView dataSource
@@ -159,48 +199,56 @@
     label.text = [NSString stringWithFormat:@"  %@", self.months[section]];
     return label;
 }
-
-- (void)setUp
-{
-    //set up data
-    _wrap = YES;
-    self.items = [NSMutableArray array];
-    for (int i = 0; i < 5; i++)
-    {
-        [_items addObject:@(i)];
+- (NSString *)translateDate:(NSString *)dateString {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    NSDate *date = [formatter dateFromString:dateString];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    NSInteger flags = NSCalendarUnitMonth | NSCalendarUnitDay;
+    comps = [calendar components:flags fromDate:date];
+    NSInteger month = [comps month];
+    NSInteger day = [comps day];
+    switch (month) {
+        case 1:
+            return [NSString stringWithFormat:@"Jan-%ld", day];
+        case 2:
+            return [NSString stringWithFormat:@"Feb-%ld", day];
+        case 3:
+            return [NSString stringWithFormat:@"Mar-%ld", day];
+        case 4:
+            return [NSString stringWithFormat:@"Apr-%ld", day];
+        case 5:
+            return [NSString stringWithFormat:@"May-%ld", day];
+        case 6:
+            return [NSString stringWithFormat:@"Jun-%ld", day];
+        case 7:
+            return [NSString stringWithFormat:@"Jul-%ld", day];
+        case 8:
+            return [NSString stringWithFormat:@"Aug-%ld", day];
+        case 9:
+            return [NSString stringWithFormat:@"Sep-%ld", day];
+        case 10:
+            return [NSString stringWithFormat:@"Oct-%ld", day];
+        case 11:
+            return [NSString stringWithFormat:@"Nov-%ld", day];
+        default:
+            return [NSString stringWithFormat:@"Dec-%ld", day];
+            break;
     }
 }
 
-//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-//{
-//    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
-//    {
-////        [self setUp];
-//    }
-//    return self;
-//}
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    if ((self = [super initWithCoder:aDecoder]))
-    {
-        [self setUp];
+- (NSMutableArray<NSString *> *)months {
+    if (!_months) {
+        _months = [NSMutableArray array];
     }
-    return self;
+    return _months;
 }
-#pragma mark -
-#pragma mark View lifecycle
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    self.carousel = nil;
- 
+- (NSMutableArray<NSString *> *)days {
+    if (!_days) {
+        _days = [NSMutableArray array];
+    }
+    return _days;
 }
-//
-//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-//{
-//    return YES;
-//}
 
 @end

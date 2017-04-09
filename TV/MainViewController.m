@@ -52,7 +52,7 @@
 
 - (void)loadData {
     [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
-    [[HttpRequestManager shareManager] addPOSTURL:@"/Content/list" person:RequestPersonYuChuan parameters:nil success:^(id successResponse) {
+    [[HttpRequestManager shareManager] addPOSTURL:@"/Content/list" person:RequestPersonYuChuan parameters:@{@"type": @0} success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
 //        NSLog(@"%@", successResponse);
         [self.tableView.mj_header endRefreshing];
@@ -71,7 +71,7 @@
     
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonWeiMing parameters:@{@"page":@0,@"type":@0} success:^(id successResponse) {
         [self.tableView.mj_header endRefreshing];
-        NSArray *data = successResponse[@"data"];
+        NSArray *data = successResponse;
         NSDictionary *dict = data.firstObject;
         MagazineModel *model = [MagazineModel mj_objectWithKeyValues:dict];
         NSMutableArray *array = [NSMutableArray array];

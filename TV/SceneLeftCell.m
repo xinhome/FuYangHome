@@ -13,8 +13,9 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        [self setSelectedBackgroundView:[UIView new]];
         self.backgroundColor = [UIColor clearColor];
-        UILabel *date = [UILabel labelWithText:@"5111111111222222222222222" textColor:RGB(0, 0, 0) fontSize:13];
+        UILabel *date = [UILabel labelWithText:@"" textColor:RGB(0, 0, 0) fontSize:13];
         date.textAlignment = NSTextAlignmentCenter;
         date.frame = CGRectMake(0, 0, 60, 13);
         [self.contentView addSubview:date];

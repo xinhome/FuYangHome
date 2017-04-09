@@ -50,8 +50,10 @@
 //        NSLog(@"%@", successResponse);
         NSArray *scenes = successResponse[@"data"][@"scenes"];
         self.dataSource = [ChangJingModel mj_objectArrayWithKeyValuesArray:scenes];
-        self.praiseLabel.text = self.dataSource[0].likes;
-        self.commentLabel.text = [NSString stringWithFormat:@"%lu", self.dataSource[0].scenesComments.count];
+        if (self.dataSource.count > 0) {
+            self.praiseLabel.text = self.dataSource[0].likes;
+            self.commentLabel.text = [NSString stringWithFormat:@"%lu", self.dataSource[0].scenesComments.count];
+        }
         [self.collectionView reloadData];
     } fail:^(NSError *error) {
         NSLog(@"%@", error);
