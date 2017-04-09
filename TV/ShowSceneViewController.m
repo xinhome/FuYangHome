@@ -12,6 +12,7 @@
 #import "ScrollLayout.h"
 #import "SceneShowCell.h"
 #import "iCarousel.h"
+#import "ChangJingViewController.h"
 
 typedef NS_ENUM(NSInteger, SceneType) {
     SceneTypeAll,          ///< 全部
@@ -128,11 +129,12 @@ typedef NS_ENUM(NSInteger, SceneType) {
         borderImageView.top = rateHeight(30);
         [view addSubview:borderImageView];
         
-        date = [UILabel labelWithText:@"MYY-20" textColor:UIColorWhite fontSize:12];
+        date = [UILabel labelWithText:@"MAY-20" textColor:UIColorWhite fontSize:12];
         [date sizeToFit];
         date.centerX = view.centerX;
         date.top = rateHeight(25);
         [view addSubview:date];
+        date.text = [self translateDate:self.items[index].updated];
         
         title = [UILabel labelWithText:@"" textColor:UIColorWhite fontSize:12];
         title.textAlignment = NSTextAlignmentCenter;
@@ -157,6 +159,12 @@ typedef NS_ENUM(NSInteger, SceneType) {
     //remember to always set any properties of your carousel item
     //views outside of the `if (view == nil) {...}` check otherwise
     return view;
+}
+
+- (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index {
+    ChangJingViewController *controller = [[ChangJingViewController alloc] init];
+    controller.model = self.items[index];
+    [self pushViewController:controller animation:YES];
 }
 
 #pragma mark - tableView dataSource
@@ -190,6 +198,44 @@ typedef NS_ENUM(NSInteger, SceneType) {
     label.frame = CGRectMake(0, 0, 60, 65);
     label.text = [NSString stringWithFormat:@"  %@", self.months[section]];
     return label;
+}
+- (NSString *)translateDate:(NSString *)dateString {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    NSDate *date = [formatter dateFromString:dateString];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    NSInteger flags = NSCalendarUnitMonth | NSCalendarUnitDay;
+    comps = [calendar components:flags fromDate:date];
+    NSInteger month = [comps month];
+    NSInteger day = [comps day];
+    switch (month) {
+        case 1:
+            return [NSString stringWithFormat:@"Jan-%ld", day];
+        case 2:
+            return [NSString stringWithFormat:@"Feb-%ld", day];
+        case 3:
+            return [NSString stringWithFormat:@"Mar-%ld", day];
+        case 4:
+            return [NSString stringWithFormat:@"Apr-%ld", day];
+        case 5:
+            return [NSString stringWithFormat:@"May-%ld", day];
+        case 6:
+            return [NSString stringWithFormat:@"Jun-%ld", day];
+        case 7:
+            return [NSString stringWithFormat:@"Jul-%ld", day];
+        case 8:
+            return [NSString stringWithFormat:@"Aug-%ld", day];
+        case 9:
+            return [NSString stringWithFormat:@"Sep-%ld", day];
+        case 10:
+            return [NSString stringWithFormat:@"Oct-%ld", day];
+        case 11:
+            return [NSString stringWithFormat:@"Nov-%ld", day];
+        default:
+            return [NSString stringWithFormat:@"Dec-%ld", day];
+            break;
+    }
 }
 
 - (NSMutableArray<NSString *> *)months {

@@ -53,6 +53,7 @@
 }
 - (void)setupUI {
     NSString *HTMLString = [self.model.magazineTextContent stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    HTMLString = [HTMLString stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     HTMLString = [HTMLString stringByReplacingOccurrencesOfString:@"\t" withString:@""];
     UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64)];
     [webView loadHTMLString:HTMLString baseURL:nil];

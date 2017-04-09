@@ -46,7 +46,7 @@
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getone" person:RequestPersonKaiKang parameters:@{@"id": self.model.magazineId} success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
 //        NSLog(@"%@", successResponse);
-        NSArray *comments = successResponse[@"data"];
+        NSArray *comments = successResponse;
         self.dataSource = [SocietyCommentModel mj_objectArrayWithKeyValuesArray:comments];
         [self.tableView reloadData];
 //        NSLog(@"%@",comments);

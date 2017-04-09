@@ -82,14 +82,10 @@ typedef NS_ENUM(NSInteger, CommunityType) {
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
         NSLog(@"%@", successResponse);
         [self.tableView.mj_footer endRefreshing];
-        if ([successResponse isSuccess]) {
-            NSArray *data = successResponse[@"data"];
-            [self.dataSource addObjectsFromArray:[ThereModel mj_objectArrayWithKeyValuesArray:data]];
-            
-            [self.tableView reloadData];
-        } else {
-            [MBProgressHUD showResponseMessage:successResponse];
-        }
+        NSArray *data = successResponse;
+        [self.dataSource addObjectsFromArray:[ThereModel mj_objectArrayWithKeyValuesArray:data]];
+        
+        [self.tableView reloadData];
     } fail:^(NSError *error) {
         NSLog(@"%@", error);
         [self.tableView.mj_footer endRefreshing];
