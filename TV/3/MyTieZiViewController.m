@@ -53,14 +53,9 @@
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonWeiMing parameters:@{@"user.id": userId, @"page": @(1)} success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
         NSLog(@"帖子列表-----%@", successResponse);
-        if ([successResponse isSuccess]) {
-            NSArray *data = successResponse[@"data"];
-            self.tieZiArray = [ThereModel mj_objectArrayWithKeyValuesArray:data];
-            [_myTableView reloadData];
-            
-        } else {
-            [MBProgressHUD showResponseMessage:successResponse];
-        }
+        NSArray *data = successResponse;
+        self.tieZiArray = [ThereModel mj_objectArrayWithKeyValuesArray:data];
+        [_myTableView reloadData];
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view];
         [MBProgressHUD showError:@"网络异常"];
