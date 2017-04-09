@@ -90,6 +90,9 @@
             self.model.likes = [NSString stringWithFormat:@"%d", ++praiseCount];
             self.headerView.model = self.model;
             self.tableView.tableHeaderView = self.headerView;
+            if (self.praiseAction) {
+                self.praiseAction();
+            }
         } else {
             [MBProgressHUD showResponseMessage:successResponse];
         }
@@ -116,10 +119,12 @@
             model.generateTime = [formatter stringFromDate:[NSDate date]];
             model.commentContent = content;
             [self.dataSource addObject:model];
-            
             [self.tableView reloadData];
             int commentCount = [self.headerView.commentLabel.text intValue];
             self.headerView.commentLabel.text = [NSString stringWithFormat:@"%d", ++commentCount];
+            if (self.refreshAction) {
+                self.refreshAction();
+            }
             [MBProgressHUD showSuccess:@"评论成功"];
         } else {
             [MBProgressHUD showResponseMessage:successResponse];

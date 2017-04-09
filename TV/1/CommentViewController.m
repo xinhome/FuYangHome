@@ -25,23 +25,37 @@
     
     UIButton *commit = [UIButton buttonWithTitle:@"提交" fontSize:16 titleColor:UIColorWhite background:RGB(74, 204, 183) cornerRadius:7];
     [commit addActionHandler:^{
-        [self commit];
+        [self commit:textView.text];
     }];
     commit.frame = CGRectMake(0, textView.bottom+30, rateWidth(220), 40);
     commit.centerX = self.view.centerX;
     [self.view addSubview:commit];
 }
 
-- (void)commit {
+- (void)commit:(NSString *)commentContent {
+    if (commentContent.length == 0) {
+        [MBProgressHUD showError:@"请填写评论内容"];
+        return;
+    }
     NSDictionary *parameters = @{
                                  @"reviewer.id": self.user.ID,
                                  @"magazine.magazineId": self.model.magazineId,
-//                                 @"commentContent"
+                                 @"parentComment.commentId": @0,
+                                 @"commentContent": commentContent
                                  };
-    [[HttpRequestManager shareManager] addPOSTURL:@"" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
-//        NSLog(@"%@", successResponse);
+    [[HttpRequestManager shareManager] addPOSTURL:@"/comments/add" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
+        if ([successResponse isSuccess]) {
+            [MBProgressHUD showSuccess:@"评论成功"];
+            if (self.commentAction) {
+                self.commentAction();
+            }
+            [self popViewController];
+        } else {
+            [MBProgressHUD showResponseMessage:successResponse];
+        }
     } fail:^(NSError *error) {
         NSLog(@"%@", error);
+        [MBProgressHUD showError:@"网络异常"];
     }];
 }
 

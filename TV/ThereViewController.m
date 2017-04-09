@@ -60,17 +60,12 @@ typedef NS_ENUM(NSInteger, CommunityType) {
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
         NSLog(@"%@", successResponse);
         [MBProgressHUD hideHUDForView:self.view];
-        if ([successResponse isSuccess]) {
-            self.currentPage = 1;
-            NSArray *data = successResponse[@"data"];
-            [self.dataSource removeAllObjects];
-            self.dataSource = [ThereModel mj_objectArrayWithKeyValuesArray:data];
-            
-            [self.tableView reloadData];
-            
-        } else {
-            [MBProgressHUD showResponseMessage:successResponse];
-        }
+        self.currentPage = 1;
+        NSArray *data = successResponse;
+        [self.dataSource removeAllObjects];
+        self.dataSource = [ThereModel mj_objectArrayWithKeyValuesArray:data];
+        
+        [self.tableView reloadData];
     } fail:^(NSError *error) {
         NSLog(@"%@", error);
         [MBProgressHUD hideHUDForView:self.view];
@@ -203,7 +198,6 @@ typedef NS_ENUM(NSInteger, CommunityType) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ThereDetailViewController *detail = [[ThereDetailViewController alloc]init];
     detail.model = self.dataSource[indexPath.row];
-    detail.selectIndexPath = indexPath;
     [self.navigationController pushViewController:detail animated:YES];
 }
 - (IBAction)zuixinBtnClick:(id)sender {

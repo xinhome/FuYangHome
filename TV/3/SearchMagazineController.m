@@ -28,6 +28,7 @@
 }
 - (void)setupUI {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) style:UITableViewStylePlain];
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     [self.tableView registerClass:[SearchResultCell class] forCellReuseIdentifier:@"cell"];
     self.tableView.delegate = self;

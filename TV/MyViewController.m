@@ -39,13 +39,16 @@
     [self initUI];
 }
 - (void)loadData {
-    NSArray *status = @[@"0",@"123456",@"456"];
-//    NSLog(@"%@",@{@"userId": self.user.ID,@"status":[status mj_JSONString]});
-//    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/OrderNum" person:RequestPersonWeiMing parameters:@{@"userId": self.user.ID, @"status":status} success:^(id successResponse) {
-//        NSLog(@"%@", successResponse);
-//    } fail:^(NSError *error) {
-//        NSLog(@"%@", error);
-//    }];
+
+    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/OrderNum" person:RequestPersonWeiMing parameters:@{@"userId": self.user.ID} success:^(id successResponse) {
+        NSLog(@"%@", successResponse);
+        self.headerView.invitation.text = [NSString stringWithFormat:@"%@", successResponse[@"data"][@"count1"]];
+        self.headerView.order.text = [NSString stringWithFormat:@"%@", successResponse[@"data"][@"count2"]];
+        self.headerView.shopCar.text = [NSString stringWithFormat:@"%@", successResponse[@"data"][@"count3"]];
+        self.headerView.goodsLabel.text = [NSString stringWithFormat:@"%@", successResponse[@"data"][@"count4"]];
+    } fail:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 - (void)initUI
 {

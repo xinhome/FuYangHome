@@ -12,6 +12,6 @@
 
 /// 场景展示controller
 @interface ShowSceneViewController : BaseViewController
-@property (nonatomic, strong) IBOutlet iCarousel *carousel;
+
 @property (nonatomic, strong) HomeContentModel *model;///<<#注释#>
 @end

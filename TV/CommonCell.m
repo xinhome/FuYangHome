@@ -74,7 +74,7 @@
 }
 - (void)setCellModel:(ScenceCommentModel *)cellModel {
     _cellModel = cellModel;
-    [self.avatar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, cellModel.url]]];
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, cellModel.url]] placeholderImage:UIImageNamed(@"Icon2")];
     if (cellModel.name) {
         self.nickname.text = cellModel.name;
     } else {

@@ -152,6 +152,9 @@
 		8FB8053A1E95EFDF00B7BA30 /* OrderSecondView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB805391E95EFDF00B7BA30 /* OrderSecondView.m */; };
 		8FB8053C1E95F4E400B7BA30 /* 立即使用.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FB8053B1E95F4E400B7BA30 /* 立即使用.png */; };
 		8FB8053F1E961F1F00B7BA30 /* SearchMagazineController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB8053E1E961F1F00B7BA30 /* SearchMagazineController.m */; };
+		8FDE02E41E99C20B00A040DA /* 俯视图@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FDE02E31E99C20B00A040DA /* 俯视图@2x.png */; };
+		8FDE02E71E99C50300A040DA /* CustomIntroductionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FDE02E61E99C50300A040DA /* CustomIntroductionController.m */; };
+		8FDE02E91E99C60900A040DA /* 流程@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FDE02E81E99C60900A040DA /* 流程@2x.png */; };
 		8FE3884D1E7F6A0B006CD8EA /* unselect.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE3884C1E7F6A0B006CD8EA /* unselect.png */; };
 		8FE3884F1E7F6AFC006CD8EA /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE3884E1E7F6AFC006CD8EA /* selected.png */; };
 		8FE388511E7F6B77006CD8EA /* 灰框.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE388501E7F6B77006CD8EA /* 灰框.png */; };
@@ -760,6 +763,10 @@
 		8FB8053B1E95F4E400B7BA30 /* 立即使用.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "立即使用.png"; sourceTree = "<group>"; };
 		8FB8053D1E961F1F00B7BA30 /* SearchMagazineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchMagazineController.h; sourceTree = "<group>"; };
 		8FB8053E1E961F1F00B7BA30 /* SearchMagazineController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchMagazineController.m; sourceTree = "<group>"; };
+		8FDE02E31E99C20B00A040DA /* 俯视图@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "俯视图@2x.png"; sourceTree = "<group>"; };
+		8FDE02E51E99C50300A040DA /* CustomIntroductionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIntroductionController.h; sourceTree = "<group>"; };
+		8FDE02E61E99C50300A040DA /* CustomIntroductionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIntroductionController.m; sourceTree = "<group>"; };
+		8FDE02E81E99C60900A040DA /* 流程@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "流程@2x.png"; sourceTree = "<group>"; };
 		8FE3884C1E7F6A0B006CD8EA /* unselect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselect.png; sourceTree = "<group>"; };
 		8FE3884E1E7F6AFC006CD8EA /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		8FE388501E7F6B77006CD8EA /* 灰框.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "灰框.png"; sourceTree = "<group>"; };
@@ -1264,6 +1271,8 @@
 				8FF6329A1E835EA200ED8751 /* CommentViewController.m */,
 				8F0772321E947E9C00A33355 /* CustomMadeViewController.h */,
 				8F0772331E947E9C00A33355 /* CustomMadeViewController.m */,
+				8FDE02E51E99C50300A040DA /* CustomIntroductionController.h */,
+				8FDE02E61E99C50300A040DA /* CustomIntroductionController.m */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -2156,6 +2165,8 @@
 		F4CFBD6B1DD01D16003503DD /* image */ = {
 			isa = PBXGroup;
 			children = (
+				8FDE02E81E99C60900A040DA /* 流程@2x.png */,
+				8FDE02E31E99C20B00A040DA /* 俯视图@2x.png */,
 				8FF7C7E71E95F7BD00BC8EEC /* youhuiquanguoqi.png */,
 				8FB8053B1E95F4E400B7BA30 /* 立即使用.png */,
 				8F0772381E94C0B700A33355 /* 优惠券@2x.png */,
@@ -2779,6 +2790,7 @@
 				8F5DB9231E83B2BA00D834F8 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				F4F22F041DCDEBAA007C83F8 /* shouye2.png in Resources */,
 				F4F22F3B1DCDEBAA007C83F8 /* xinlang1.png in Resources */,
+				8FDE02E41E99C20B00A040DA /* 俯视图@2x.png in Resources */,
 				F4F22E901DCDEBAA007C83F8 /* changjing1.png in Resources */,
 				F4F22EF31DCDEBAA007C83F8 /* pwd.png in Resources */,
 				F4F22E7F1DCDEBAA007C83F8 /* blackBack.png in Resources */,
@@ -2828,6 +2840,7 @@
 				F4F22EC01DCDEBAA007C83F8 /* Icon.png in Resources */,
 				F4F22EB41DCDEBAA007C83F8 /* forgetPwdViewController.xib in Resources */,
 				F4F22EAC1DCDEBAA007C83F8 /* fankuichenggong.png in Resources */,
+				8FDE02E91E99C60900A040DA /* 流程@2x.png in Resources */,
 				F4F22F3C1DCDEBAA007C83F8 /* xinlang2.png in Resources */,
 				F4F22E831DCDEBAA007C83F8 /* caibu.png in Resources */,
 				8F5F68ED1E8E328D006C7CD5 /* duihao@2x.png in Resources */,
@@ -3036,6 +3049,7 @@
 				8F0F16BE1E827D0D00D7D308 /* MJRefreshStateHeader.m in Sources */,
 				F4F22EBF1DCDEBAA007C83F8 /* iCarousel.m in Sources */,
 				8F0CF4411E867014008E95DE /* myTableViewCell.m in Sources */,
+				8FDE02E71E99C50300A040DA /* CustomIntroductionController.m in Sources */,
 				8FE388AE1E7FC14B006CD8EA /* UIButton+WebCache.m in Sources */,
 				8F178E6D1E9797A80034915B /* ForgetPwd2Controller.m in Sources */,
 				8FB805371E95E8D200B7BA30 /* CouponCell.m in Sources */,

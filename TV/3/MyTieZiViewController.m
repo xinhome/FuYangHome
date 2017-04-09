@@ -19,8 +19,8 @@
 @property (nonatomic, assign) BOOL isSelect;
 @property (nonatomic, assign) BOOL selectIsShow;
 @property (nonatomic, strong) NSMutableArray *btnStatusArr;
-@property (nonatomic, strong) NSMutableArray *tieZiArray;
-@property (nonatomic, strong) NSMutableArray *deleteSelectArray;
+@property (nonatomic, strong) NSMutableArray<ThereModel *> *tieZiArray;
+@property (nonatomic, strong) NSMutableArray<ThereModel *> *deleteSelectArray;
 
 @end
 
@@ -102,8 +102,8 @@
     if (_deleteSelectArray.count != 0) {
         [MBProgressHUD showMessage:@"正在删除数据..." toView:self.view];
         NSMutableArray *array = [NSMutableArray array];
-        for (NSString *str in _deleteSelectArray) {
-            NSString *newStr = [NSString stringWithFormat:@"id=%@", str];
+        for (ThereModel *model in _deleteSelectArray) {
+            NSString *newStr = [NSString stringWithFormat:@"id=%@", model.magazineId];
             [array addObject:newStr];
         }
         NSString *idStr = [array componentsJoinedByString:@"&"];
@@ -114,10 +114,8 @@
             [MBProgressHUD hideHUDForView:self.view];
             if ([responseObject[@"result"] intValue] == 0) {
                 [MBProgressHUD showMessage:responseObject[@"msg"] toView:self.view];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.myTableView reloadData];
-                });
-                
+                [self.tieZiArray removeObjectsInArray:self.deleteSelectArray];
+                [self.myTableView reloadData];
             } else {
                 [MBProgressHUD showMessage:@"删除失败" toView:self.view];
             }
@@ -139,7 +137,7 @@
         }
         [_deleteSelectArray removeAllObjects];
         for (ThereModel *model in _tieZiArray) {
-            [_deleteSelectArray addObject:[NSString stringWithFormat:@"%@", model.magazineId]];
+            [_deleteSelectArray addObject:model];
         }
         [self.bottomDeleteV.selectAllBtn setImage:[UIImage imageNamed:@"全选选中"] forState:(UIControlStateNormal)];
         [_myTableView reloadData];
@@ -189,11 +187,11 @@
     if ([_btnStatusArr[btn.tag] intValue] == 0) {
         _btnStatusArr[btn.tag] = @"1";
         ThereModel *model = _tieZiArray[btn.tag];
-        [_deleteSelectArray addObject:[NSString stringWithFormat:@"%@", model.magazineId]];
+        [_deleteSelectArray addObject:model];
     } else if ([_btnStatusArr[btn.tag] intValue] == 1) {
         _btnStatusArr[btn.tag] = @"0";
         ThereModel *model = _tieZiArray[btn.tag];
-        [_deleteSelectArray removeObject:model.magazineId];
+        [_deleteSelectArray removeObject:model];
     }
     [_myTableView reloadData];
 }
@@ -206,6 +204,20 @@
 {
     if (_tieZiArray.count != 0) {
         ThereDetailViewController *detail = [[ThereDetailViewController alloc]init];
+        detail.refreshAction = ^{
+            ThereModel *model = self.tieZiArray[indexPath.row];
+            int count = [model.count intValue];
+            model.count = [NSString stringWithFormat:@"%d", ++count];
+            [self.tieZiArray replaceObjectAtIndex:indexPath.row withObject:model];
+            [tableView reloadData];
+        };
+        detail.praiseAction = ^{
+            ThereModel *model = self.tieZiArray[indexPath.row];
+//            int count = [model.likes intValue];
+//            model.likes = [NSString stringWithFormat:@"%d", ++count];
+            [self.tieZiArray replaceObjectAtIndex:indexPath.row withObject:model];
+            [tableView reloadData];
+        };
         detail.model = self.tieZiArray[indexPath.row];
         [self.navigationController pushViewController:detail animated:YES];
     }

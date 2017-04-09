@@ -9,6 +9,9 @@
 #import "BaseViewController.h"
 #import "MagazineModel.h"
 
+#define CommentSuccess @"CommentSuccess"
+
 @interface CommentViewController : BaseViewController
 @property (nonatomic, strong) MagazineModel *model;///<<#注释#>
+@property (nonatomic, copy) MYAction commentAction;
 @end

@@ -19,6 +19,7 @@
 }
 @property (nonatomic, strong) NSMutableArray<MagazineModel *> *dataSource;///<<#注释#>
 @property (nonatomic, assign) int currentPage;///< <#注释#>
+@property (nonatomic, strong) MagazineModel *selectedModel;///<<#注释#>
 @end
 
 @implementation OneViewController
@@ -42,9 +43,9 @@
 //        NSLog(@"%@", error);
 //    }];
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
-        NSArray *data = successResponse[@"data"];
+//        NSArray *data = successResponse[@"data"];
         self.currentPage = 1;
-        self.dataSource = [MagazineModel mj_objectArrayWithKeyValuesArray:data];
+        self.dataSource = [MagazineModel mj_objectArrayWithKeyValuesArray:successResponse];
         [self.tableView.mj_header endRefreshing];
         [self.tableView reloadData];
     } fail:^(NSError *error) {
@@ -58,7 +59,7 @@
                                  @"page": @(self.currentPage)
                                  };
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonKaiKang parameters:parameters success:^(id successResponse) {
-        NSArray *data = successResponse[@"data"];
+        NSArray *data = successResponse;
         [self.dataSource addObjectsFromArray:[MagazineModel mj_objectArrayWithKeyValuesArray:data]];
         [self.tableView.mj_footer endRefreshing];
         [self.tableView reloadData];
@@ -130,8 +131,23 @@
 #pragma mark  UITableViewDataSource
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     OneDetailViewController *controller = [[OneDetailViewController alloc] init];
     controller.model = self.dataSource[indexPath.row];
+    controller.commentAction = ^{
+        MagazineModel *model = self.dataSource[indexPath.row];
+        int count = [model.count intValue];
+        model.count = [NSString stringWithFormat:@"%d", ++count];
+        [self.dataSource replaceObjectAtIndex:indexPath.row withObject:model];
+        [self.tableView reloadData];
+    };
+    controller.praiseAction = ^{
+        MagazineModel *model = self.dataSource[indexPath.row];
+        int likes = [model.likes intValue];
+        model.likes = [NSString stringWithFormat:@"%d", ++likes];
+        [self.dataSource replaceObjectAtIndex:indexPath.row withObject:model];
+        [self.tableView reloadData];
+    };
     [self.navigationController pushViewController:controller animated:YES];
     
 }
@@ -180,6 +196,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 0.01;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
