@@ -21,7 +21,7 @@
         avatar.centerX = self.centerX;
         [self addSubview:avatar];
         
-        UILabel *nickname = [UILabel labelWithText:@"用户123" textColor:UIColorBlack fontSize:16];
+        UILabel *nickname = [UILabel labelWithText:@"" textColor:UIColorBlack fontSize:16];
         self.nickname = nickname;
         nickname.frame = CGRectMake(0, avatar.bottom+15, kScreenWidth, 16);
         nickname.textAlignment = NSTextAlignmentCenter;
@@ -40,17 +40,17 @@
         post.textAlignment = NSTextAlignmentCenter;
         post.frame = CGRectMake(0, 13, kScreenWidth/4, 16);
         [view addSubview:post];
-        UILabel *order = [UILabel labelWithText:@"10" textColor:RGB(140, 139, 140) fontSize:16];
+        UILabel *order = [UILabel labelWithText:@"" textColor:RGB(140, 139, 140) fontSize:16];
         self.order = order;
         order.textAlignment = NSTextAlignmentCenter;
         order.frame = CGRectMake(post.right, 13, kScreenWidth/4, 16);
         [view addSubview:order];
-        UILabel *shopcar = [UILabel labelWithText:@"10" textColor:RGB(140, 139, 140) fontSize:16];
+        UILabel *shopcar = [UILabel labelWithText:@"" textColor:RGB(140, 139, 140) fontSize:16];
         self.shopCar = shopcar;
         shopcar.textAlignment = NSTextAlignmentCenter;
         shopcar.frame = CGRectMake(order.right, 13, kScreenWidth/4, 16);
         [view addSubview:shopcar];
-        UILabel *goods = [UILabel labelWithText:@"10" textColor:RGB(140, 139, 140) fontSize:16];
+        UILabel *goods = [UILabel labelWithText:@"" textColor:RGB(140, 139, 140) fontSize:16];
         self.goodsLabel = goods;
         goods.textAlignment = NSTextAlignmentCenter;
         goods.frame = CGRectMake(shopcar.right, 13, kScreenWidth/4, 16);

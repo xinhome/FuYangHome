@@ -160,7 +160,6 @@ typedef NS_ENUM(NSInteger, ShareType) {
     
     UIButton *tencent = [UIButton buttonWithType:UIButtonTypeCustom];
     tencent.hidden = ![QQApiInterface isQQInstalled];
-    tencent.selected = YES;
     [tencent addActionHandler:^{
         self.shareType = ShareTypeTencent;
     }];
@@ -318,12 +317,7 @@ typedef NS_ENUM(NSInteger, ShareType) {
         [MBProgressHUD showError:@"选择图片"];
         return;
     }
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    for (UIImage *image in _selectedPhotos) {
-        NSString *string = [UIImageJPEGRepresentation(image, 0.3) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-        dict[[NSString stringWithFormat:@"image%lu", (unsigned long)[_selectedPhotos indexOfObject:image]]] = string;
-    }
-    NSString *jsonStr = [dict mj_JSONString];
+    
     
     [MBProgressHUD showMessage:@"正在发布..." toView:self.view];
     NSDictionary *parameters = @{
@@ -358,6 +352,9 @@ typedef NS_ENUM(NSInteger, ShareType) {
             [self.selectedPhotos removeAllObjects];
             [self.collectionView reloadData];
             [MBProgressHUD showSuccess:@"发布成功"];
+            if (self.shareType == nil) {
+                return;
+            }
             switch (self.shareType) {
                 case ShareTypeTencent: {
                     NSMutableDictionary *params = [NSMutableDictionary dictionary];
