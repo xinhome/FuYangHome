@@ -55,6 +55,7 @@
     NSString *HTMLString = [self.model.magazineTextContent stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     HTMLString = [HTMLString stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     HTMLString = [HTMLString stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+    HTMLString = [HTMLString stringByReplacingOccurrencesOfString:@"2017" withString:[NSString stringWithFormat:@"%@%@", WEIMING, @"2017"]];
     UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64)];
     [webView loadHTMLString:HTMLString baseURL:nil];
     webView.backgroundColor = UIColorWhite;
