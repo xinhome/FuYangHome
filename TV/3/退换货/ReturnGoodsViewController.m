@@ -245,20 +245,15 @@
 }
 - (void)shenQingShouHou:(UIButton *)btn
 {
-    ReturnGoodsDetaildsViewController *detailsVC = [[ReturnGoodsDetaildsViewController alloc] init];
-    ShoppingCarModel *model = (ShoppingCarModel *)_showReturnGoodsArray[btn.tag];
-    detailsVC.model = model;
-    [self.navigationController pushViewController:detailsVC animated:YES];
+    if (_showReturnGoodsArray.count != 0) {
+        ShoppingCarModel *model = (ShoppingCarModel *)_showReturnGoodsArray[btn.tag];
+        if ([model.num intValue] > 0) {
+            ReturnGoodsDetaildsViewController *detailsVC = [[ReturnGoodsDetaildsViewController alloc] init];
+            detailsVC.model = model;
+            [self.navigationController pushViewController:detailsVC animated:YES];
+        }
+    }
 }
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-////    if (self.segmentIndex == 1) {
-//        ReturnGoodsDetaildsViewController *detailsVC = [[ReturnGoodsDetaildsViewController alloc] init];
-//        ShoppingCarModel *model = (ShoppingCarModel *)_showReturnGoodsArray[indexPath.section];
-//        detailsVC.model = model;
-//        [self.navigationController pushViewController:detailsVC animated:YES];
-////    }
-//}
 - (UITableView *)myTableView
 {
     if (!_myTableView) {
