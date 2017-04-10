@@ -46,11 +46,11 @@
     } else if (score < 500) { //金牌
         self.headerView.gradeImageView.image = UIImageNamed(@"jinpai");
     } else if (score < 800) { // 白金
-        self.headerView.gradeImageView.image = UIImageNamed(@"");
+        self.headerView.gradeImageView.image = UIImageNamed(@"白金");
     } else if (score < 1200) { // 铂金
-        self.headerView.gradeImageView.image = UIImageNamed(@"");
+        self.headerView.gradeImageView.image = UIImageNamed(@"铂金");
     } else { // 钻石
-        self.headerView.gradeImageView.image = UIImageNamed(@"");
+        self.headerView.gradeImageView.image = UIImageNamed(@"钻石");
     }
 }
 
