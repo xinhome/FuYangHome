@@ -42,10 +42,10 @@
     if (self.user == nil) {
         return;
     }
-    [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
+//    [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
     [[HttpRequestManager shareManager] addPOSTURL:@"/Order/OrderNum" person:RequestPersonWeiMing parameters:@{@"userId": self.user.ID} success:^(id successResponse) {
         NSLog(@"%@", successResponse);
-        [MBProgressHUD hideHUDForView:self.view];
+//        [MBProgressHUD hideHUDForView:self.view];
         self.headerView.invitation.text = [NSString stringWithFormat:@"%@", successResponse[@"data"][@"count1"]];
         self.headerView.order.text = [NSString stringWithFormat:@"%@", successResponse[@"data"][@"count2"]];
         self.headerView.shopCar.text = [NSString stringWithFormat:@"%@", successResponse[@"data"][@"count3"]];
