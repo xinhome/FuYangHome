@@ -8,7 +8,11 @@
 
 #import "JiFenDuiHuanViewController.h"
 
-@interface JiFenDuiHuanViewController ()
+@interface JiFenDuiHuanViewController ()<UITextFieldDelegate>
+
+@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) UILabel *moneyLB;
+@property (nonatomic, strong) NSString *jiFenJinE;
 
 @end
 
@@ -36,7 +40,8 @@
         make.centerY.equalTo(view1);
     }];
     
-    UILabel *label2 = [UILabel labelWithText:@"345分" textColor:RGB(223, 0, 0) fontSize:15];
+    UILabel *label2 = [UILabel labelWithText:[NSString stringWithFormat:@"%@分", _jiFen] textColor:RGB(223, 0, 0) fontSize:15];
+//    UILabel *label2 = [UILabel labelWithText:@"300" textColor:RGB(223, 0, 0) fontSize:15];
     [label2 sizeToFit];
     [view1 addSubview:label2];
     [label2 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -72,12 +77,14 @@
     textField.layer.borderWidth = 1;
     textField.layer.cornerRadius = 4;
     textField.textAlignment = NSTextAlignmentCenter;
+    textField.delegate = self;
     [view2 addSubview:textField];
     [textField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(label4.mas_right).offset(rateWidth(10));
         make.centerY.equalTo(label4);
         make.size.mas_offset(CGSizeMake(rateWidth(100), rateHeight(30)));
     }];
+    self.textField = textField;
     
     UIView *view3 = [[UIView alloc] initWithFrame:CGRectMake(0, rateHeight(110), kScreenWidth, rateHeight(50))];
     view3.backgroundColor = [UIColor whiteColor];
@@ -91,13 +98,14 @@
         make.centerY.equalTo(view3);
     }];
     
-    UILabel *label6 = [UILabel labelWithText:@"20元" textColor:RGB(223, 0, 0) fontSize:14];
+    UILabel *label6 = [UILabel labelWithText:@"0元" textColor:RGB(223, 0, 0) fontSize:14];
     [label6 sizeToFit];
     [view3 addSubview:label6];
     [label6 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(textField);
         make.bottom.equalTo(label5);
     }];
+    self.moneyLB = label6;
     
     UIButton *btn = [UIButton buttonWithTitle:@"确定" fontSize:16 titleColor:[UIColor whiteColor] background:RGB(99, 203, 185) cornerRadius:6];
     [self.view addSubview:btn];
@@ -106,7 +114,23 @@
         make.top.equalTo(view3.mas_bottom).offset(rateHeight(180));
         make.size.mas_offset(CGSizeMake(rateWidth(315), rateHeight(50)));
     }];
+    [btn addActionHandler:^{
+        [self.delegate getJiFen:self.jiFenJinE];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
 }
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if ([textField.text intValue] > [self.jiFen intValue]) {
+        self.moneyLB.text = @"0元";
+        [MBProgressHUD showError:@"输入积分数超出当前积分"];
+        self.jiFenJinE = @"0";
+    } else {
+        self.moneyLB.text = [NSString stringWithFormat:@"%.2f元", [textField.text floatValue]/10];
+        self.jiFenJinE = textField.text;
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

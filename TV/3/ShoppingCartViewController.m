@@ -310,7 +310,7 @@
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *userId = [userDefaults valueForKey:@"myUserId"];
         parameters[@"userId"] = userId;
-        NSLog(@"-------%@", parameters);
+        NSLog(@"-------%@", userId);
         
         [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
         [[HttpRequestManager shareManager] addPOSTURL:@"/Order/showCarById" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
@@ -318,7 +318,7 @@
             if ([successResponse isSuccess]) {
                 [MBProgressHUD hideHUDForView:self.view];
                 if ([successResponse isSuccess]) {
-                    //                    NSLog(@"结算返回：%@", successResponse);
+                    NSLog(@"结算返回：%@", successResponse);
                     self.listArray = [NSMutableArray array];
                     NSArray *listArr = successResponse[@"data"][@"list"];
                     self.listArray = [ShoppingCarModel mj_objectArrayWithKeyValuesArray:listArr];
@@ -333,6 +333,7 @@
                     addressModel.receiverState = successResponse[@"data"][@"receiverState"];
                     jieSuanVC.selectAddressModel = addressModel;
                     jieSuanVC.listArray = _listArray;
+                    jieSuanVC.credit = successResponse[@"data"][@"credit"];
                     [self.navigationController pushViewController:jieSuanVC animated:YES];
                 }
             }

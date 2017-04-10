@@ -24,7 +24,7 @@
 #import "CouponViewController.h"
 #import "CouponModel.h"
 
-@interface JieSuanOrderViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface JieSuanOrderViewController ()<UITableViewDelegate, UITableViewDataSource, jiFenDelegate>
 
 @property (nonatomic, strong) UITableView *myTableView;
 @property (nonatomic, weak) UILabel *dizhiLabel;///<<#注释#>
@@ -35,6 +35,8 @@
 @property (nonatomic, assign) int timeCount;///< <#注释#>
 @property (nonatomic, weak) UIView *cover;///<<#注释#>
 @property (nonatomic, strong) CouponModel *couponModel;///<<#注释#>
+@property (nonatomic, strong) NSString *jiFen;
+@property (nonatomic, strong) NSString *heJiStr;
 @end
 
 @implementation JieSuanOrderViewController
@@ -269,10 +271,18 @@
             if (self.couponModel) {
                 cell.secondLB.text = @"已使用";
             } else {
-                cell.secondLB.text = @"无可用";
+                cell.secondLB.text = @"优惠券";
             }
         } else if (indexPath.row == 2) {
-            cell.secondLB.text = @"100积分抵10元";
+            if (self.jiFen.length != 0) {
+                cell.secondLB.text = [NSString stringWithFormat:@"%@积分兑换%.2f元",_jiFen,[_jiFen floatValue]/10];
+            } else {
+                if ([_credit intValue] > 0) {
+                    cell.secondLB.text = @"积分抵现可用";
+                } else {
+                    cell.secondLB.text = @"无积分可用";
+                }
+            }
             cell.secondLB.textColor = RGB(140, 140, 140);
         } else {
             CGFloat sumPrice = 0.0;
@@ -280,16 +290,33 @@
             for (ShoppingCarModel *model in _listArray) {
                 sumPrice = sumPrice + [model.price floatValue]*[model.num intValue];
                 if (self.couponModel) {
-                    sumPrice = sumPrice - [self.couponModel.amount floatValue];
+                    sumPrice = sumPrice - [self.couponModel.amount floatValue]-[self.jiFen floatValue]/10;
                 }
                 str = [NSString stringWithFormat:@"%.2f", sumPrice];
             }
+            self.heJiStr = str;
             cell.arrow.hidden = YES;
-            cell.secondLB.text = [NSString stringWithFormat:@"￥%@", str];
+            cell.secondLB.text = [NSString stringWithFormat:@"￥%@", _heJiStr];
         }
         
         return cell;
     }
+}
+- (void)getJiFen:(NSString *)jifen
+{
+    self.jiFen = jifen;
+    self.gongJiLB.text = [NSString stringWithFormat:@"共计：%.2f元（含0元运费）", self.sumPrice-[self.couponModel.amount floatValue] - [self.jiFen floatValue]/10];
+    CGFloat sumPrice = 0.0;
+    NSString *str;
+    for (ShoppingCarModel *model in _listArray) {
+        sumPrice = sumPrice + [model.price floatValue]*[model.num intValue];
+        if (self.couponModel) {
+            sumPrice = sumPrice - [self.couponModel.amount floatValue]-[self.jiFen floatValue]/10;
+        }
+        str = [NSString stringWithFormat:@"%.2f", sumPrice];
+    }
+    self.heJiStr = str;
+    [_myTableView reloadData];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -318,12 +345,14 @@
         [self.navigationController pushViewController:changeAddressVC animated:YES];
     } else if (indexPath.section == 2 && indexPath.row == 2) {
         JiFenDuiHuanViewController *jiFenVC = [[JiFenDuiHuanViewController alloc] init];
+        jiFenVC.jiFen = _credit;
+        jiFenVC.delegate = self;
         [self.navigationController pushViewController:jiFenVC animated:YES];
     } else if (indexPath.section == 2 && indexPath.row == 1) {
         CouponViewController *controller = [[CouponViewController alloc] init];
         controller.couponMoney = ^(id arguments) {
             self.couponModel = arguments;
-            self.gongJiLB.text = [NSString stringWithFormat:@"共计：%.2f元（含0元运费）", self.sumPrice-[self.couponModel.amount floatValue]];
+            self.gongJiLB.text = [NSString stringWithFormat:@"共计：%.2f元（含0元运费）", self.sumPrice-[self.couponModel.amount floatValue] - [self.jiFen floatValue]/10];
             [self.myTableView reloadData];
         };
         [self pushViewController:controller animation:YES];

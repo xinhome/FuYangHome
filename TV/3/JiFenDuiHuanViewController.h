@@ -8,6 +8,15 @@
 
 #import "BaseViewController.h"
 
+@protocol jiFenDelegate <NSObject>
+
+- (void)getJiFen:(NSString *)jifen;
+
+@end
+
 @interface JiFenDuiHuanViewController : BaseViewController
+
+@property (nonatomic, strong) NSString *jiFen;
+@property (nonatomic, assign) id<jiFenDelegate> delegate;
 
 @end

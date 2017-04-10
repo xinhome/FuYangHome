@@ -35,22 +35,22 @@
         [view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)]];
         [self addSubview:view];
         
-        UILabel *post = [UILabel labelWithText:@"" textColor:RGB(140, 139, 140) fontSize:16];
+        UILabel *post = [UILabel labelWithText:@"0" textColor:RGB(140, 139, 140) fontSize:16];
         self.invitation = post;
         post.textAlignment = NSTextAlignmentCenter;
         post.frame = CGRectMake(0, 13, kScreenWidth/4, 16);
         [view addSubview:post];
-        UILabel *order = [UILabel labelWithText:@"10" textColor:RGB(140, 139, 140) fontSize:16];
+        UILabel *order = [UILabel labelWithText:@"0" textColor:RGB(140, 139, 140) fontSize:16];
         self.order = order;
         order.textAlignment = NSTextAlignmentCenter;
         order.frame = CGRectMake(post.right, 13, kScreenWidth/4, 16);
         [view addSubview:order];
-        UILabel *shopcar = [UILabel labelWithText:@"10" textColor:RGB(140, 139, 140) fontSize:16];
+        UILabel *shopcar = [UILabel labelWithText:@"0" textColor:RGB(140, 139, 140) fontSize:16];
         self.shopCar = shopcar;
         shopcar.textAlignment = NSTextAlignmentCenter;
         shopcar.frame = CGRectMake(order.right, 13, kScreenWidth/4, 16);
         [view addSubview:shopcar];
-        UILabel *goods = [UILabel labelWithText:@"10" textColor:RGB(140, 139, 140) fontSize:16];
+        UILabel *goods = [UILabel labelWithText:@"0" textColor:RGB(140, 139, 140) fontSize:16];
         self.goodsLabel = goods;
         goods.textAlignment = NSTextAlignmentCenter;
         goods.frame = CGRectMake(shopcar.right, 13, kScreenWidth/4, 16);

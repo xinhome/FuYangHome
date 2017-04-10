@@ -37,7 +37,7 @@ static HttpRequestManager *requestManager = nil;
     //   http://xwmasd.ngrok.cc/FyHome 测试地址
     switch (person) {
         case RequestPersonWeiMing:
-            baseURL = @"http://59.110.8.72/FyHome";
+            baseURL = @"http://xwmasd.ngrok.cc/FyHome";
             break;
         case RequestPersonYuChuan:
             baseURL = @"http://59.110.8.72/FyHome";

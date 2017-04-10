@@ -13,5 +13,6 @@
 @interface JieSuanOrderViewController : BaseViewController
 @property (nonatomic, strong) AddressModel *selectAddressModel;///<<#注释#>
 @property (nonatomic, strong) NSArray<ShoppingCarModel *> *listArray;
+@property (nonatomic, strong) NSString *credit; // 积分
 
 @end
