@@ -12,6 +12,7 @@
 + (instancetype)shareInstance;
 @property (nonatomic, copy) NSString *ID;
 @property (nonatomic, copy) NSString *tel;
-@property (nonatomic, copy) NSString *avatar;
-@property (nonatomic, copy) NSString *nickname;
+@property (nonatomic, copy) NSString *avatar; ///< 头像
+@property (nonatomic, copy) NSString *nickname; ///< 昵称
+@property (nonatomic, copy) NSString *credit; ///<积分
 @end

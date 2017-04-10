@@ -78,4 +78,9 @@
     self.timeLabel.text = [formatter stringFromDate:date];
 }
 
++ (CGFloat)cellHeightForModel:(SocietyCommentModel *)model {
+    return 75 + [model.commentContent getSizeWithMaxSize:CGSizeMake(kScreenWidth-45-17, CGFLOAT_MAX) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]}].height;
+    
+}
+
 @end

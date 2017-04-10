@@ -11,4 +11,5 @@
 
 @interface CommunityDetailCell : UITableViewCell
 @property (nonatomic, strong) SocietyCommentModel *model;///<<#注释#>
++ (CGFloat)cellHeightForModel:(SocietyCommentModel *)model;
 @end

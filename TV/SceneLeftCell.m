@@ -15,10 +15,13 @@
     if (self) {
         [self setSelectedBackgroundView:[UIView new]];
         self.backgroundColor = [UIColor clearColor];
-        UILabel *date = [UILabel labelWithText:@"" textColor:RGB(0, 0, 0) fontSize:13];
+        UILabel *date = [UILabel labelWithText:@"" textColor:RGB(96, 96, 96) fontSize:13];
+        self.date = date;
         date.textAlignment = NSTextAlignmentCenter;
-        date.frame = CGRectMake(0, 0, 60, 13);
         [self.contentView addSubview:date];
+        [date mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.bottom.right.equalTo(@0);
+        }];
     }
     return self;
 }

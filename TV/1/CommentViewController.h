@@ -13,5 +13,5 @@
 
 @interface CommentViewController : BaseViewController
 @property (nonatomic, strong) MagazineModel *model;///<<#注释#>
-@property (nonatomic, copy) MYAction commentAction;
+@property (nonatomic, copy) MYActionArgu commentAction;
 @end
