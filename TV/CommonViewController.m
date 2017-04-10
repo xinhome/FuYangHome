@@ -60,6 +60,10 @@
 
 #pragma mark - CommentViewDelegate
 - (void)sendContent:(CommentView *)commentView content:(NSString *)content {
+    if (self.user == nil) {
+        [MBProgressHUD showError:@"请登录"];
+        return;
+    }
     NSDictionary *parameters = @{
                                  @"discussContent": content,
                                  @"scenesId": self.scenceId,

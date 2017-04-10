@@ -85,9 +85,9 @@
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:_tableView];
-    UITapGestureRecognizer *oneTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyBoard)] ;
-    oneTap.delegate = self;
-    [self.tableView addGestureRecognizer:oneTap];
+//    UITapGestureRecognizer *oneTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyBoard)] ;
+//    oneTap.delegate = self;
+//    [self.tableView addGestureRecognizer:oneTap];
 
 }
 - (void)hideKeyBoard

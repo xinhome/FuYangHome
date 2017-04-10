@@ -103,8 +103,12 @@
 }
 #pragma mark - CommentViewDelegate
 - (void)sendContent:(CommentView *)commentView content:(NSString *)content {
+    if (self.user == nil) {
+        [MBProgressHUD showError:@"请登录"];
+        return;
+    }
     NSDictionary *parameters = @{
-                                 @"reviewer.id": [[NSUserDefaults standardUserDefaults] stringForKey:@"myUserId"],
+                                 @"reviewer.id": self.user.ID,
                                  @"magazine.magazineId": self.model.magazineId,
                                  @"parentComment.commentId": @0,
                                  @"commentContent": content

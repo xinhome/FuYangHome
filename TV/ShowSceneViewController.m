@@ -67,8 +67,11 @@ typedef NS_ENUM(NSInteger, SceneType) {
         comps = [calendar components:flags fromDate:date];
         NSInteger month = [comps month];
         NSInteger day = [comps day];
-        [self.months addObject:[NSString stringWithFormat:@"%ld月", month]];
-        [self.days addObject:[NSString stringWithFormat:@"%ld月", day]];
+        if (![self.months containsObject:[NSString stringWithFormat:@"%ld月", month]]) {
+            [self.months addObject:[NSString stringWithFormat:@"%ld月", month]];
+        }
+        
+//        [self.days addObject:[NSString stringWithFormat:@"%ld月", day]];
     }
     [self.tableView reloadData];
 }
@@ -89,8 +92,8 @@ typedef NS_ENUM(NSInteger, SceneType) {
     iCarousel *icarouse = [[iCarousel alloc] initWithFrame:CGRectMake(leftTableView.right+20, sceneView.bottom, kScreenWidth-leftTableView.right-20, kScreenHeight-64-35)];
 //    icarouse.bounces = NO;
     self.carousel = icarouse;
-//    icarouse.backgroundColor = [UIColor blueColor];
-    icarouse.type = iCarouselTypeCustom;
+    icarouse.backgroundColor = [UIColor blueColor];
+    icarouse.type = iCarouselTypeRotary;
     icarouse.vertical = YES;
     icarouse.delegate = self;
     icarouse.dataSource = self;
@@ -167,11 +170,12 @@ typedef NS_ENUM(NSInteger, SceneType) {
     controller.model = self.items[index];
     [self pushViewController:controller animation:YES];
 }
-
-- (CATransform3D)carousel:(iCarousel *)carousel itemTransformForOffset:(CGFloat)offset baseTransform:(CATransform3D)transform {
-    NSLog(@"%f", carousel.itemWidth);
-    return CATransform3DTranslate(transform, 0, offset*carousel.itemWidth, 0);
+- (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel {
+    
+    NSLog(@"%ld", carousel.currentItemIndex);
 }
+
+//- carouselscroll
 
 #pragma mark - tableView dataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
