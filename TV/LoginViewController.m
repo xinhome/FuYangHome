@@ -120,6 +120,7 @@
             user.nickname = data[@"name"];
             user.tel = self.tel.text;
             user.avatar = [NSString stringWithFormat:@"%@%@", WEIMING, data[@"url"]];
+            user.credit = [NSString stringWithFormat:@"%@", data[@"credit"]];
             [[UserUtil shareInstance] saveUser:user];
             [self dismissViewControllerAnimated:YES completion:nil];
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];

@@ -29,9 +29,10 @@ typedef NS_ENUM(NSInteger, SceneType) {
 
 @property (nonatomic, weak) iCarousel *carousel;
 @property (nonatomic, strong) NSMutableArray<HomeContentModel *> *items;
-@property (nonatomic, strong) NSMutableArray<NSString *> *months;///<<#注释#>
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSArray *> *dataSource;///<<#注释#>
 @property (nonatomic, strong) NSMutableArray<NSString *> *days;///<<#注释#>
 @property (nonatomic, assign) SceneType sceneType;///< <#注释#>
+@property (nonatomic, copy) NSString *selectedDate;
 @end
 
 @implementation ShowSceneViewController
@@ -42,17 +43,67 @@ typedef NS_ENUM(NSInteger, SceneType) {
     self.title = @"场景展示";
     self.view.backgroundColor = RGB(224, 249, 246);
     [self setupUI];
-    [self loadData:SceneTypeAll];
+    self.selectedDate = @"00-00";
+    [self loadDataWithType:SceneTypeAll date:self.selectedDate];
 }
-- (void)loadData:(SceneType)type {
-    [[HttpRequestManager shareManager] addPOSTURL:@"/Content/list" person:RequestPersonYuChuan parameters:@{@"type": @(type)} success:^(id successResponse) {
-        NSLog(@"%@", successResponse);
-        self.items = [HomeContentModel mj_objectArrayWithKeyValuesArray:successResponse[@"data"]];
-        [self.carousel reloadData];
-        [self setupLeftDataSource];
+- (void)loadDataWithType:(SceneType)type date:(NSString *)date {
+    [[HttpRequestManager shareManager] addPOSTURL:@"/Content/list/first" person:RequestPersonWeiMing parameters:@{@"time": date, @"type": @0} success:^(id successResponse) {
+        NSArray *data = successResponse[@"data"];
+        self.items = [HomeContentModel mj_objectArrayWithKeyValuesArray:data];
+        if (type == SceneTypeAll && [date isEqualToString:@"00-00"]) {
+            [self.dataSource removeAllObjects];
+            [self.days removeAllObjects];
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+            NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+            NSDateComponents *comps = [[NSDateComponents alloc] init];
+            NSInteger flags = NSCalendarUnitMonth | NSCalendarUnitDay;
+            NSMutableArray *array = [NSMutableArray array];
+            for (HomeContentModel *model in self.items) {
+                [array addObject:model.created];
+            }
+            
+            for (NSString *created in array) {
+                NSDate *date = [formatter dateFromString:created];
+                comps = [calendar components:flags fromDate:date];
+                NSInteger month = [comps month];
+                NSInteger day = [comps day];
+                if (![self.dataSource.allKeys containsObject:[NSString stringWithFormat:@"%ld", month]]) {
+                    self.dataSource[[NSString stringWithFormat:@"%ld月", month]] = self.days;
+                }
+            }
+            
+            for (HomeContentModel *model in self.items) {
+                NSDate *date = [formatter dateFromString:model.created];
+                comps = [calendar components:flags fromDate:date];
+                NSInteger month = [comps month];
+                NSInteger day = [comps day];
+                for (NSString *key in self.dataSource.allKeys) {
+                    if ([key isEqualToString:[NSString stringWithFormat:@"%ld月", month]]) {
+                        if (![self.days containsObject:[NSString stringWithFormat:@"%ld日", day]]) {
+                            [self.days addObject:[NSString stringWithFormat:@"%02ld.%02ld",  month, day]];
+                        }
+                    }
+                    self.dataSource[key] = self.days;
+                }
+                
+            }
+            [self.carousel reloadData];
+            [self.tableView reloadData];
+        } else {
+            [self.carousel reloadData];
+        }
     } fail:^(NSError *error) {
         NSLog(@"%@", error);
     }];
+//    [[HttpRequestManager shareManager] addPOSTURL:@"/Content/list" person:RequestPersonYuChuan parameters:@{@"type": @(type)} success:^(id successResponse) {
+//        NSLog(@"%@", successResponse);
+//        self.items = [HomeContentModel mj_objectArrayWithKeyValuesArray:successResponse[@"data"]];
+//        [self.carousel reloadData];
+//        [self setupLeftDataSource];
+//    } fail:^(NSError *error) {
+//        NSLog(@"%@", error);
+//    }];
 }
 - (void)setupLeftDataSource {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -67,11 +118,27 @@ typedef NS_ENUM(NSInteger, SceneType) {
         comps = [calendar components:flags fromDate:date];
         NSInteger month = [comps month];
         NSInteger day = [comps day];
-        if (![self.months containsObject:[NSString stringWithFormat:@"%ld月", month]]) {
-            [self.months addObject:[NSString stringWithFormat:@"%ld月", month]];
+        if (![self.dataSource.allKeys containsObject:[NSString stringWithFormat:@"%ld月", month]]) {
+            [self.days addObject:[NSString stringWithFormat:@"%ld", day]];
+//            [self.dataSource addObject:[NSString stringWithFormat:@"%ld月", month]];
+//            self.dataSource[[NSString stringWithFormat:@"%ld", month]] =
         }
         
 //        [self.days addObject:[NSString stringWithFormat:@"%ld月", day]];
+    }
+    for (HomeContentModel *model in self.items) {
+        NSDate *date = [formatter dateFromString:model.updated];
+        
+        comps = [calendar components:flags fromDate:date];
+        NSInteger monthNumber = [comps month];
+        NSInteger dayNumber = [comps day];
+        for (NSString *month in self.dataSource) {
+            
+            if ([month isEqualToString:[NSString stringWithFormat:@"%ld月", (long)monthNumber]]) {
+                [self.days addObject:[NSString stringWithFormat:@"%02ld%02ld", monthNumber, dayNumber]];
+            }
+            
+        }
     }
     [self.tableView reloadData];
 }
@@ -92,7 +159,7 @@ typedef NS_ENUM(NSInteger, SceneType) {
     iCarousel *icarouse = [[iCarousel alloc] initWithFrame:CGRectMake(leftTableView.right+20, sceneView.bottom, kScreenWidth-leftTableView.right-20, kScreenHeight-64-35)];
 //    icarouse.bounces = NO;
     self.carousel = icarouse;
-    icarouse.backgroundColor = [UIColor blueColor];
+//    icarouse.backgroundColor = [UIColor blueColor];
     icarouse.type = iCarouselTypeRotary;
     icarouse.vertical = YES;
     icarouse.delegate = self;
@@ -102,7 +169,11 @@ typedef NS_ENUM(NSInteger, SceneType) {
 
 #pragma mark - SceneShowViewDelegate
 - (void)sceneShow:(SceneShowView *)view didSelectIndex:(NSInteger)index {
-    [self loadData:index];
+    self.sceneType = index;
+    if (index == 0) {
+        self.selectedDate = @"00-00";
+    }
+    [self loadDataWithType:index date:self.selectedDate];
 }
 
 #pragma mark - iCarousel dataSource
@@ -179,15 +250,18 @@ typedef NS_ENUM(NSInteger, SceneType) {
 
 #pragma mark - tableView dataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.months.count;
+    return self.dataSource.allKeys.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    NSArray *array = self.dataSource.allValues[section];
+    return array.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SceneLeftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    NSArray *array = self.dataSource.allValues[indexPath.section];
+    cell.date.text = array[indexPath.row];
     return cell;
 }
 
@@ -206,8 +280,15 @@ typedef NS_ENUM(NSInteger, SceneType) {
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UILabel *label = [UILabel labelWithText:@"" textColor:UIColorBlack fontSize:18];
     label.frame = CGRectMake(0, 0, 60, 65);
-    label.text = [NSString stringWithFormat:@"  %@", self.months[section]];
+    label.text = [NSString stringWithFormat:@"  %@", self.dataSource.allKeys[section]];
     return label;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSArray *array = self.dataSource.allValues[indexPath.section];
+    NSString *date = array[indexPath.row];
+    date = [date stringByReplacingOccurrencesOfString:@"." withString:@"-"];
+    self.selectedDate = date;
+    [self loadDataWithType:self.sceneType date:date];
 }
 - (NSString *)translateDate:(NSString *)dateString {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -221,38 +302,38 @@ typedef NS_ENUM(NSInteger, SceneType) {
     NSInteger day = [comps day];
     switch (month) {
         case 1:
-            return [NSString stringWithFormat:@"Jan-%ld", day];
+            return [NSString stringWithFormat:@"Jan-%02ld", day];
         case 2:
-            return [NSString stringWithFormat:@"Feb-%ld", day];
+            return [NSString stringWithFormat:@"Feb-%02ld", day];
         case 3:
-            return [NSString stringWithFormat:@"Mar-%ld", day];
+            return [NSString stringWithFormat:@"Mar-%02ld", day];
         case 4:
-            return [NSString stringWithFormat:@"Apr-%ld", day];
+            return [NSString stringWithFormat:@"Apr-%02ld", day];
         case 5:
-            return [NSString stringWithFormat:@"May-%ld", day];
+            return [NSString stringWithFormat:@"May-%02ld", day];
         case 6:
-            return [NSString stringWithFormat:@"Jun-%ld", day];
+            return [NSString stringWithFormat:@"Jun-%02ld", day];
         case 7:
-            return [NSString stringWithFormat:@"Jul-%ld", day];
+            return [NSString stringWithFormat:@"Jul-%02ld", day];
         case 8:
-            return [NSString stringWithFormat:@"Aug-%ld", day];
+            return [NSString stringWithFormat:@"Aug-%02ld", day];
         case 9:
-            return [NSString stringWithFormat:@"Sep-%ld", day];
+            return [NSString stringWithFormat:@"Sep-%02ld", day];
         case 10:
-            return [NSString stringWithFormat:@"Oct-%ld", day];
+            return [NSString stringWithFormat:@"Oct-%02ld", day];
         case 11:
-            return [NSString stringWithFormat:@"Nov-%ld", day];
+            return [NSString stringWithFormat:@"Nov-%02ld", day];
         default:
-            return [NSString stringWithFormat:@"Dec-%ld", day];
+            return [NSString stringWithFormat:@"Dec-%02ld", day];
             break;
     }
 }
 
-- (NSMutableArray<NSString *> *)months {
-    if (!_months) {
-        _months = [NSMutableArray array];
+- (NSMutableDictionary<NSString *,NSArray *> *)dataSource {
+    if (!_dataSource) {
+        _dataSource = [NSMutableDictionary dictionary];
     }
-    return _months;
+    return _dataSource;
 }
 - (NSMutableArray<NSString *> *)days {
     if (!_days) {

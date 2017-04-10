@@ -8,6 +8,7 @@
 
 #import "CommentViewController.h"
 #import "EaseTextView.h"
+#import "SocietyCommentModel.h"
 
 @interface CommentViewController ()<EaseTextViewDelegate>
 
@@ -47,7 +48,14 @@
         if ([successResponse isSuccess]) {
             [MBProgressHUD showSuccess:@"评论成功"];
             if (self.commentAction) {
-                self.commentAction();
+                SocietyCommentModel *model = [[SocietyCommentModel alloc] init];
+                model.commentContent = commentContent;
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+                model.generateTime = [formatter stringFromDate:[NSDate date]];
+                model.name = self.user.nickname;
+                model.url = [self.user.avatar substringFromIndex:WEIMING.length];
+                self.commentAction(model);
             }
             [self popViewController];
         } else {

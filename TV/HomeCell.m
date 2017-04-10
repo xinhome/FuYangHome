@@ -51,7 +51,14 @@
 @end
 
 @implementation HomeCell
-
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    for (HomeCellButton *btn in self.btns) {
+        btn.imageView.image = nil;
+        btn.price.text = nil;
+        btn.title.text = nil;
+    }
+}
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
