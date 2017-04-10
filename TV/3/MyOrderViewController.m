@@ -51,19 +51,6 @@
     self.navigationItem.title = @"我的订单";
     //    [self addRightItemWithImage:@"shanchu " action:nil];
 }
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//    if (_segmentIndex == 1) {
-//        [self setUpDataWithState:@"0" url:@"/Order/showAllOrder"];
-//    } else if (_segmentIndex == 2) {
-//        [self setUpDataWithState:@"1" url:@"/Order/showCar"];
-//    } else if (_segmentIndex == 3) {
-//        [self setUpDataWithState:@"2" url:@"/Order/showCar"];
-//    } else {
-//        [self setUpDataWithState:@"3" url:@"/Order/showCar"];
-//    }
-//}
 #pragma mark - 分段选择
 - (void)addSegment
 {

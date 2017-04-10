@@ -42,38 +42,6 @@
 #pragma mark - 提交评价
 - (void)actionTiJiao
 {
-//    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-//    for (UIImage *image in _selectedPhotos) {
-//        NSString *string = [UIImageJPEGRepresentation(image, 1.0) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-//        dict[[NSString stringWithFormat:@"returnGoodsImage%lu", (unsigned long)[_selectedPhotos indexOfObject:image]]] = string;
-//    }
-//    NSString *jsonStr = [dict mj_JSONString];
-//    
-//    [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
-//    NSDictionary *parameters = @{
-//                                 @"id": @([_model.goodsId intValue]),
-//                                 @"buyerMsg": self.textView.text,
-//                                 @"buyerStatus": @(_btnIndex),
-//                                 @"buyerNm":@(_isNiMing),
-//                                 @"buyerPic": jsonStr
-//                                 };
-//        NSLog(@"%@", parameters);
-//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-//    [manager POST:[NSString stringWithFormat:@"%@Order/saveMsg", WeiMingURL] parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        [MBProgressHUD hideHUDForView:self.view];
-//        NSLog(@"评价：%@", responseObject);
-//        [MBProgressHUD showSuccess:@"提交成功"];
-//
-//        for (UIViewController *controller in self.navigationController.viewControllers) {
-//            if ([controller isKindOfClass:[MyOrderViewController class]]) {
-//                [self.navigationController popToViewController:controller animated:YES];
-//            }
-//        }
-//        
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSLog(@"%@", error);
-//        [MBProgressHUD showError:@"网络异常"];
-//    }];
     [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
     NSDictionary *parameters = @{
                                  @"id": @([_model.goodsId intValue]),

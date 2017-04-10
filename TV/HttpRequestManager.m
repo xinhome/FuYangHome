@@ -34,10 +34,10 @@ static HttpRequestManager *requestManager = nil;
 }
 - (void)addPOSTURL:(NSString *)URL person:(RequestPerson)person parameters:(NSDictionary *)parameters success:(void (^)(id))success fail:(void (^)(NSError *))fail {
     NSString *baseURL = nil;
-    //   http://xwmasd.ngrok.cc/FyHome 测试地址
+    //   http://xwmasd.server.ngrok.cc/FyHome 测试地址
     switch (person) {
         case RequestPersonWeiMing:
-            baseURL = @"http://xwmasd.ngrok.cc/FyHome";
+            baseURL = @"http://59.110.8.72/FyHome";
             break;
         case RequestPersonYuChuan:
             baseURL = @"http://59.110.8.72/FyHome";
@@ -81,7 +81,7 @@ static HttpRequestManager *requestManager = nil;
 //            fail(error);
 //        }
 //    }];
-    [self POST:[NSString stringWithFormat:@"%@%@", @"http://59.110.8.72/FyHome", URL] parameters:parameters constructingBodyWithBlock:block progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self POST:[NSString stringWithFormat:@"%@%@", @"http://mayuchuan.ngrok.cc/FyHome", URL] parameters:parameters constructingBodyWithBlock:block progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([responseObject isKindOfClass:[NSDictionary class]]) {
             success(responseObject);
         } else if ([responseObject isKindOfClass:[NSData class]]) {

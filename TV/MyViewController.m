@@ -42,7 +42,7 @@
     if (self.user == nil) {
         return;
     }
-//    [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
+//    [MBProgressHUD showMessage:nil toView:self.view];
     [[HttpRequestManager shareManager] addPOSTURL:@"/Order/OrderNum" person:RequestPersonWeiMing parameters:@{@"userId": self.user.ID} success:^(id successResponse) {
         NSLog(@"%@", successResponse);
 //        [MBProgressHUD hideHUDForView:self.view];

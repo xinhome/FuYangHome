@@ -11,11 +11,14 @@
 #import "TZTestCell.h"
 #import "TZImagePickerController.h"
 #import "CustomIntroductionController.h"
+#import <AlipaySDK/AlipaySDK.h>
 
-@interface CustomMadeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
+@interface CustomMadeViewController ()<UICollectionViewDelegate, UICollectionViewDataSource,UITextFieldDelegate>
 @property (nonatomic, weak) UITextField *name;///<姓名
 @property (nonatomic, weak) UITextField *telephone;///<电话
 @property (nonatomic, weak) UITextField *address;///<地址
+@property (nonatomic, weak) UITextField *roomArea; // 面积
+@property (nonatomic, weak) EaseTextView *textView;
 @property (nonatomic, strong) UICollectionView *collectionView;///<<#注释#>
 @property (nonatomic, strong) NSMutableArray<UIImage *> *selectedPhotos;///<<#注释#>
 @end
@@ -49,18 +52,22 @@
     name.backgroundColor = UIColorWhite;
     name.centerX = kScreenWidth/2;
     [scrollView addSubview:name];
+    self.name = name;
     
     UITextField *telephone = [[UITextField alloc] initWithFrame:CGRectMake(0, name.bottom+17, rateWidth(230), 40)];
     telephone.placeholder = @"请填写真实号码";
     telephone.backgroundColor = UIColorWhite;
     telephone.centerX = kScreenWidth/2;
     [scrollView addSubview:telephone];
+    self.telephone = telephone;
+    _telephone.delegate = self;
 
     UITextField *address = [[UITextField alloc] initWithFrame:CGRectMake(0, telephone.bottom+17, rateWidth(230), 40)];
     address.placeholder = @"请具体到小区名称";
     address.backgroundColor = UIColorWhite;
     address.centerX = kScreenWidth/2;
     [scrollView addSubview:address];
+    self.address = address;
     
     UILabel *label1 = [UILabel labelWithText:@"姓名" textColor:UIColorFromRGB(0x333333) fontSize:17];
     [label1 sizeToFit];
@@ -88,6 +95,7 @@
     UITextField *roomArea = [[UITextField alloc] initWithFrame:CGRectMake(label4.right+rateWidth(19), address.bottom+17, rateWidth(195), 40)];
     roomArea.backgroundColor = UIColorWhite;
     [scrollView addSubview:roomArea];
+    self.roomArea = roomArea;
     UILabel *meterLabel = [UILabel labelWithText:@"m²" textColor:UIColorFromRGB(0x333333) fontSize:16];
     [meterLabel sizeToFit];
     meterLabel.left = roomArea.right+10;
@@ -102,6 +110,7 @@
     EaseTextView *textView = [[EaseTextView alloc] initWithFrame:CGRectMake(label5.right+rateWidth(19), roomArea.bottom+17, rateWidth(225), 100)];
     textView.placeHolder = @"注明主要功能";
     [scrollView addSubview:textView];
+    self.textView = textView;
     
     UILabel *label6 = [UILabel labelWithText:@"俯视图" textColor:UIColorFromRGB(0x333333) fontSize:16];
     label6.frame = CGRectMake(label5.left, label5.bottom+130, 0, 0);
@@ -135,14 +144,69 @@
     detailIntroductionsBtn.right = kScreenWidth-15;
     [scrollView addSubview:detailIntroductionsBtn];
     
-    UIButton *commitBtn = [UIButton buttonWithTitle:@"提交" fontSize:14 titleColor:RGB(172, 220, 212) background:[UIColor clearColor] cornerRadius:0];
+    UIButton *commitBtn = [UIButton buttonWithTitle:@"支付" fontSize:14 titleColor:RGB(172, 220, 212) background:[UIColor clearColor] cornerRadius:0];
     commitBtn.layer.borderColor = RGB(172, 220, 212).CGColor;
     commitBtn.layer.borderWidth = 0.7;
     commitBtn.frame = CGRectMake(0, detailIntroductionsBtn.bottom+28, rateWidth(152), 36);
     commitBtn.centerX = kScreenWidth/2;
     [scrollView addSubview:commitBtn];
     scrollView.contentSize = CGSizeMake(0, commitBtn.bottom+150);
+    [commitBtn addActionHandler:^{
+        [self tiJiao];
+    }];
 }
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (![self.telephone.text isMobileNumber]) {
+        [MBProgressHUD showError:@"请输入正确手机号"];
+        return;
+    }
+}
+#pragma mark - 提交
+- (void)tiJiao
+{
+    if (_name.text.length != 0 && _telephone.text.length != 0 && _address.text.length != 0 && _roomArea.text.length != 0 && _textView.text.length != 0 && _selectedPhotos.count != 0) {
+        [MBProgressHUD showMessage:@"正在提交..." toView:self.view];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *userId = [userDefaults valueForKey:@"myUserId"];
+        NSDictionary *parameters = @{
+                                     @"userId": userId,
+                                     @"nick":_name.text,
+                                     @"pone":_telephone.text,
+                                     @"address":_address.text,
+                                     @"area":_roomArea.text,
+                                     @"design":_textView.text,
+                                     @"amount":@"0.01"
+                                     };
+        NSLog(@"%@", parameters);
+        NSLog(@"%@", [NSString stringWithFormat:@"%@design/buy", WeiMingURL]);
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        [manager POST:[NSString stringWithFormat:@"%@design/buy", WeiMingURL] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+            for (UIImage *image in self.selectedPhotos) {
+                NSString *fileName = [NSString stringWithFormat:@"%d", arc4random()];
+                [formData appendPartWithFileData:UIImageJPEGRepresentation(image, 0.3) name:@"uploadFile" fileName:[NSString stringWithFormat:@"%@.jpg", fileName]  mimeType:@"image/jpeg"];
+            }
+        } progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            [MBProgressHUD hideHUDForView:self.view];
+            [MBProgressHUD hideHUDForView:self.view];
+//            NSLog(@"定制：%@", responseObject);
+//            [MBProgressHUD showSuccess:@"提交成功"];
+            [[AlipaySDK defaultService] payOrder:responseObject[@"data"] fromScheme:@"fuyangjiaju" callback:^(NSDictionary *resultDic) {
+//                NSLog(@"%@", resultDic);
+            }];
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"%@", error);
+            [MBProgressHUD hideHUDForView:self.view];
+            [MBProgressHUD showError:@"网络异常"];
+        }];
+    } else {
+        [MBProgressHUD showError:@"请把信息填写完整"];
+    }
+}
+#pragma mark - 支付
+
 
 #pragma mark - collectionView dataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
