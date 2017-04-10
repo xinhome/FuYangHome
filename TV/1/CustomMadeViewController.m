@@ -180,23 +180,26 @@
                                      };
 //        NSLog(@"%@", parameters);
 //        NSLog(@"%@", [NSString stringWithFormat:@"%@design/buy", WeiMingURL]);
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-        [manager POST:[NSString stringWithFormat:@"%@design/buy", WeiMingURL] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [[HttpRequestManager shareManager] addPOSTURL:@"/design/buy" parameters:parameters constructingBody:^(id<AFMultipartFormData> formData) {
             for (UIImage *image in self.selectedPhotos) {
+                NSLog(@"%d", arc4random());
                 NSString *fileName = [NSString stringWithFormat:@"%d", arc4random()];
                 [formData appendPartWithFileData:UIImageJPEGRepresentation(image, 0.3) name:@"uploadFile" fileName:[NSString stringWithFormat:@"%@.jpg", fileName]  mimeType:@"image/jpeg"];
             }
-        } progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        } success:^(id successResponse) {
             [MBProgressHUD hideHUDForView:self.view];
-            [MBProgressHUD hideHUDForView:self.view];
-//            NSLog(@"定制：%@", responseObject);
-//            [MBProgressHUD showSuccess:@"提交成功"];
-            [[AlipaySDK defaultService] payOrder:responseObject[@"data"] fromScheme:@"fuyangjiaju" callback:^(NSDictionary *resultDic) {
-//                NSLog(@"%@", resultDic);
-            }];
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            if ([successResponse isSuccess]) {
+                [MBProgressHUD hideHUDForView:self.view];
+                [MBProgressHUD hideHUDForView:self.view];
+                //            NSLog(@"定制：%@", responseObject);
+                //            [MBProgressHUD showSuccess:@"提交成功"];
+                [[AlipaySDK defaultService] payOrder:successResponse[@"data"] fromScheme:@"fuyangjiaju" callback:^(NSDictionary *resultDic) {
+                    //                NSLog(@"%@", resultDic);
+                }];
+            } else {
+                [MBProgressHUD showResponseMessage:successResponse];
+            }
+        } fail:^(NSError *error) {
             NSLog(@"%@", error);
             [MBProgressHUD hideHUDForView:self.view];
             [MBProgressHUD showError:@"网络异常"];
