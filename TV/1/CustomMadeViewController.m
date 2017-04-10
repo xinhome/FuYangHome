@@ -178,8 +178,8 @@
                                      @"design":_textView.text,
                                      @"amount":@"0.01"
                                      };
-        NSLog(@"%@", parameters);
-        NSLog(@"%@", [NSString stringWithFormat:@"%@design/buy", WeiMingURL]);
+//        NSLog(@"%@", parameters);
+//        NSLog(@"%@", [NSString stringWithFormat:@"%@design/buy", WeiMingURL]);
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         [manager POST:[NSString stringWithFormat:@"%@design/buy", WeiMingURL] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             for (UIImage *image in self.selectedPhotos) {
