@@ -15,11 +15,13 @@
 #import "HomeContentModel.h"
 #import "HomeCell.h"
 #import "MagazineModel.h"
+#import "OneDetailViewController.h"
 
 @interface MainViewController ()<UITableViewDelegate,UITableViewDataSource, SDCycleScrollViewDelegate>
 @property (nonatomic,strong)NSMutableArray * images;
 @property (nonatomic, strong) NSMutableArray<HomeContentModel *> *dataSource;///<<#注释#>
 @property (nonatomic, strong) SDCycleScrollView *cycleView;///<<#注释#>
+@property (nonatomic, strong) NSMutableArray<MagazineModel *> *magazines;///<<#注释#>
 @end
 
 @implementation MainViewController
@@ -72,14 +74,15 @@
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonWeiMing parameters:@{@"page":@0,@"type":@0} success:^(id successResponse) {
         [self.tableView.mj_header endRefreshing];
         NSArray *data = successResponse;
-        NSArray<MagazineModel *> *models = [MagazineModel mj_objectArrayWithKeyValuesArray:data];
-        NSInteger count = models.count;
+        self.magazines = [MagazineModel mj_objectArrayWithKeyValuesArray:data];
+        
+        NSInteger count = self.magazines.count;
         if (count > 5) {
             count = 5;
         }
         NSMutableArray *urls = [NSMutableArray array];
         for (int i = 0; i < count; i ++) {
-            [urls addObject:[NSString stringWithFormat:@"%@%@", WEIMING, [models[i].magazineUrlContent componentsSeparatedByString:@","].firstObject]];
+            [urls addObject:[NSString stringWithFormat:@"%@%@", WEIMING, [self.magazines[i].magazineUrlContent componentsSeparatedByString:@","].firstObject]];
         }
         self.cycleView.imageURLStringsGroup = urls;
     } fail:^(NSError *error) {
@@ -102,6 +105,9 @@
 }
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
+    OneDetailViewController *controller = [[OneDetailViewController alloc] init];
+    controller.model = self.magazines[index];
+    [self pushViewController:controller animation:YES];
     NSLog(@"%ld", index);
 }
 

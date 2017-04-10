@@ -34,7 +34,6 @@
     _height = 0;
     _panLocation = CGPointMake(kScreenWidth-85+30, kScreenHeight-128);
     _imageHeight =kScreenHeight*360/1280;
-    self.automaticallyAdjustsScrollViewInsets = NO;
     self.title = @"杂志详情";
     [self setupUI];
     
@@ -56,14 +55,14 @@
     HTMLString = [HTMLString stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     HTMLString = [HTMLString stringByReplacingOccurrencesOfString:@"\t" withString:@""];
     HTMLString = [HTMLString stringByReplacingOccurrencesOfString:@"2017" withString:[NSString stringWithFormat:@"%@%@", WEIMING, @"2017"]];
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64)];
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     [webView loadHTMLString:HTMLString baseURL:nil];
     webView.backgroundColor = UIColorWhite;
     [self.view addSubview:webView];
     [self setupToolView];
 }
 - (void)setupToolView {
-    UIView *toolView = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight-45, kScreenWidth, 45)];
+    UIView *toolView = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight-45-64, kScreenWidth, 45)];
     toolView.backgroundColor = RGB(74, 74, 74);
     [self.view addSubview:toolView];
     UIImageView *comment = [[UIImageView alloc] initWithFrame:CGRectMake(13, (45-20)/2, 22, 20)];

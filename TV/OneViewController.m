@@ -23,7 +23,10 @@
 @end
 
 @implementation OneViewController
-
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:UIColorWhite] forBarMetrics:UIBarMetricsDefault];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initUI];
