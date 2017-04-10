@@ -21,7 +21,7 @@
         avatar.centerX = self.centerX;
         [self addSubview:avatar];
         
-        UILabel *nickname = [UILabel labelWithText:@"用户123" textColor:UIColorBlack fontSize:16];
+        UILabel *nickname = [UILabel labelWithText:@"" textColor:UIColorBlack fontSize:16];
         self.nickname = nickname;
         nickname.frame = CGRectMake(0, avatar.bottom+15, kScreenWidth, 16);
         nickname.textAlignment = NSTextAlignmentCenter;

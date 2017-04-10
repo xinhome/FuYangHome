@@ -118,7 +118,7 @@
             User *user = [User shareInstance];
             user.ID = data[@"id"];
             user.nickname = data[@"name"];
-            user.tel = data[@"pone"];
+            user.tel = self.tel.text;
             user.avatar = [NSString stringWithFormat:@"%@%@", WEIMING, data[@"url"]];
             [[UserUtil shareInstance] saveUser:user];
             [self dismissViewControllerAnimated:YES completion:nil];

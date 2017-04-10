@@ -120,7 +120,7 @@
     for (int i = 0; i < count; i ++) {
         NSString *url = [model.items[i].image componentsSeparatedByString:@","].firstObject;
         self.btns[i].title.text = model.items[i].title;
-        self.btns[i].price.text = [NSString stringWithFormat:@"%@￥", model.items.firstObject.price];
+        self.btns[i].price.text = [NSString stringWithFormat:@"%@￥", model.items[i].price];
         [self.btns[i].imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, url]]];
     }
 }
@@ -137,29 +137,29 @@
     NSInteger day = [comps day];
     switch (month) {
         case 1:
-            return [NSString stringWithFormat:@"Jan-%ld", day];
+            return [NSString stringWithFormat:@"Jan-%02ld", day];
         case 2:
-            return [NSString stringWithFormat:@"Feb-%ld", day];
+            return [NSString stringWithFormat:@"Feb-%02ld", day];
         case 3:
-            return [NSString stringWithFormat:@"Mar-%ld", day];
+            return [NSString stringWithFormat:@"Mar-%02ld", day];
         case 4:
-            return [NSString stringWithFormat:@"Apr-%ld", day];
+            return [NSString stringWithFormat:@"Apr-%02ld", day];
         case 5:
-            return [NSString stringWithFormat:@"May-%ld", day];
+            return [NSString stringWithFormat:@"May-%02ld", day];
         case 6:
-            return [NSString stringWithFormat:@"Jun-%ld", day];
+            return [NSString stringWithFormat:@"Jun-%02ld", day];
         case 7:
-            return [NSString stringWithFormat:@"Jul-%ld", day];
+            return [NSString stringWithFormat:@"Jul-%02ld", day];
         case 8:
-            return [NSString stringWithFormat:@"Aug-%ld", day];
+            return [NSString stringWithFormat:@"Aug-%02ld", day];
         case 9:
-            return [NSString stringWithFormat:@"Sep-%ld", day];
+            return [NSString stringWithFormat:@"Sep-%02ld", day];
         case 10:
-            return [NSString stringWithFormat:@"Oct-%ld", day];
+            return [NSString stringWithFormat:@"Oct-%02ld", day];
         case 11:
-            return [NSString stringWithFormat:@"Nov-%ld", day];
+            return [NSString stringWithFormat:@"Nov-%02ld", day];
         default:
-            return [NSString stringWithFormat:@"Dec-%ld", day];
+            return [NSString stringWithFormat:@"Dec-%02ld", day];
             break;
     }
 }

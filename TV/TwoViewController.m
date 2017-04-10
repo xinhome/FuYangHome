@@ -17,6 +17,7 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 
 typedef NS_ENUM(NSInteger, ShareType) {
+    ShareTypeNone,
     ShareTypeTencent,
     ShareTypeWeiXin,
     ShareTypeSina
@@ -160,7 +161,6 @@ typedef NS_ENUM(NSInteger, ShareType) {
     
     UIButton *tencent = [UIButton buttonWithType:UIButtonTypeCustom];
     tencent.hidden = ![QQApiInterface isQQInstalled];
-    tencent.selected = YES;
     [tencent addActionHandler:^{
         self.shareType = ShareTypeTencent;
     }];
@@ -318,12 +318,7 @@ typedef NS_ENUM(NSInteger, ShareType) {
         [MBProgressHUD showError:@"选择图片"];
         return;
     }
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    for (UIImage *image in _selectedPhotos) {
-        NSString *string = [UIImageJPEGRepresentation(image, 0.3) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-        dict[[NSString stringWithFormat:@"image%lu", (unsigned long)[_selectedPhotos indexOfObject:image]]] = string;
-    }
-    NSString *jsonStr = [dict mj_JSONString];
+    
     
     [MBProgressHUD showMessage:@"正在发布..." toView:self.view];
     NSDictionary *parameters = @{
@@ -375,12 +370,16 @@ typedef NS_ENUM(NSInteger, ShareType) {
                     }];
                 }
                     break;
-                default: {
+                case ShareTypeSina: {
                     NSMutableDictionary *params = [NSMutableDictionary dictionary];
                     [params SSDKSetupShareParamsByText:@"富阳家居" images:@"https://www.taobao.com" url:[NSURL URLWithString:@"https://www.baidu.com"] title:@"富阳家居" type:SSDKContentTypeAuto];
                     [ShareSDK share:SSDKPlatformTypeSinaWeibo parameters:params onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                         NSLog(@"%d", state);
                     }];
+                }
+                    break;
+                default: {
+                    NSLog(@"不分享内容");  
                 }
                     break;
             }

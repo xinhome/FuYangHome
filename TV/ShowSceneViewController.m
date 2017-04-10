@@ -87,9 +87,10 @@ typedef NS_ENUM(NSInteger, SceneType) {
     [self.view addSubview:leftTableView];
     
     iCarousel *icarouse = [[iCarousel alloc] initWithFrame:CGRectMake(leftTableView.right+20, sceneView.bottom, kScreenWidth-leftTableView.right-20, kScreenHeight-64-35)];
+//    icarouse.bounces = NO;
     self.carousel = icarouse;
 //    icarouse.backgroundColor = [UIColor blueColor];
-    icarouse.type = iCarouselTypeRotary;
+    icarouse.type = iCarouselTypeCustom;
     icarouse.vertical = YES;
     icarouse.delegate = self;
     icarouse.dataSource = self;
@@ -118,7 +119,7 @@ typedef NS_ENUM(NSInteger, SceneType) {
     if (view == nil)
     {
         view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-self.tableView.right, 200.0f)];
-        backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(150))];
+        backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 200.0f)];
         [backgroundImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, self.items[index].pic]] placeholderImage:nil];
         backgroundImageView.backgroundColor = [UIColor blueColor];
         [view addSubview:backgroundImageView];
@@ -165,6 +166,11 @@ typedef NS_ENUM(NSInteger, SceneType) {
     ChangJingViewController *controller = [[ChangJingViewController alloc] init];
     controller.model = self.items[index];
     [self pushViewController:controller animation:YES];
+}
+
+- (CATransform3D)carousel:(iCarousel *)carousel itemTransformForOffset:(CGFloat)offset baseTransform:(CATransform3D)transform {
+    NSLog(@"%f", carousel.itemWidth);
+    return CATransform3DTranslate(transform, 0, offset*carousel.itemWidth, 0);
 }
 
 #pragma mark - tableView dataSource

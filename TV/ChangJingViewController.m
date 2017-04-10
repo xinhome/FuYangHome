@@ -21,6 +21,7 @@
 @property (nonatomic, weak) UICollectionView *collectionView;
 
 @property (nonatomic, copy) NSString *scenceId;
+@property (nonatomic, assign) int scrollToIndex;///< <#注释#>
 @end
 
 @implementation ChangJingViewController
@@ -129,6 +130,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     int index = (int)scrollView.contentOffset.x/kScreenWidth;
+    self.scrollToIndex = index;
     self.scenceId = self.dataSource[index].scenesId;
     self.praiseLabel.text = self.dataSource[index].likes;
     self.commentLabel.text = [NSString stringWithFormat:@"%lu", self.dataSource[index].scenesComments.count];
@@ -181,9 +183,12 @@
     }
     [[HttpRequestManager shareManager] addPOSTURL:@"/Scenes/like" person:RequestPersonWeiMing parameters:@{@"id": self.scenceId} success:^(id successResponse) {
         if ([successResponse isSuccess]) {
-            int value = [self.praiseLabel.text intValue];
+            ChangJingModel *model = self.dataSource[self.scrollToIndex];
+            int value = [model.likes intValue];
             value ++;
-            self.praiseLabel.text = [NSString stringWithFormat:@"%d", value];
+            model.likes = [NSString stringWithFormat:@"%d", value];
+            [self.dataSource replaceObjectAtIndex:self.scrollToIndex withObject:model];
+            self.praiseLabel.text = model.likes;
         } else {
             [MBProgressHUD showResponseMessage:successResponse];
         }
