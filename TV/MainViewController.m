@@ -16,7 +16,7 @@
 #import "HomeCell.h"
 #import "MagazineModel.h"
 
-@interface MainViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface MainViewController ()<UITableViewDelegate,UITableViewDataSource, SDCycleScrollViewDelegate>
 @property (nonatomic,strong)NSMutableArray * images;
 @property (nonatomic, strong) NSMutableArray<HomeContentModel *> *dataSource;///<<#注释#>
 @property (nonatomic, strong) SDCycleScrollView *cycleView;///<<#注释#>
@@ -72,13 +72,16 @@
     [[HttpRequestManager shareManager] addPOSTURL:@"/magazines/getall" person:RequestPersonWeiMing parameters:@{@"page":@0,@"type":@0} success:^(id successResponse) {
         [self.tableView.mj_header endRefreshing];
         NSArray *data = successResponse;
-        NSDictionary *dict = data.firstObject;
-        MagazineModel *model = [MagazineModel mj_objectWithKeyValues:dict];
-        NSMutableArray *array = [NSMutableArray array];
-        for (NSString *image in [model.magazineUrlContent componentsSeparatedByString:@","]) {
-            [array addObject:[NSString stringWithFormat:@"%@%@", WEIMING, image]];
+        NSArray<MagazineModel *> *models = [MagazineModel mj_objectArrayWithKeyValuesArray:data];
+        NSInteger count = models.count;
+        if (count > 5) {
+            count = 5;
         }
-        self.cycleView.imageURLStringsGroup = array;
+        NSMutableArray *urls = [NSMutableArray array];
+        for (int i = 0; i < count; i ++) {
+            [urls addObject:[NSString stringWithFormat:@"%@%@", WEIMING, [models[i].magazineUrlContent componentsSeparatedByString:@","].firstObject]];
+        }
+        self.cycleView.imageURLStringsGroup = urls;
     } fail:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
         NSLog(@"%@", error);
@@ -92,10 +95,14 @@
 }
 
 - (void)configHeaderView {
-    SDCycleScrollView *cycleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(150)) imageNamesGroup:nil];
+    SDCycleScrollView *cycleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(150)) delegate:self placeholderImage:nil];
     self.cycleView = cycleView;
     cycleView.currentPageDotColor = RGB(82, 182, 157);
     self.tableView.tableHeaderView = cycleView;
+}
+
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
+    NSLog(@"%ld", index);
 }
 
 #pragma mark - tableView dataSource

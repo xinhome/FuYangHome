@@ -17,6 +17,7 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 
 typedef NS_ENUM(NSInteger, ShareType) {
+    ShareTypeNone,
     ShareTypeTencent,
     ShareTypeWeiXin,
     ShareTypeSina
@@ -352,9 +353,6 @@ typedef NS_ENUM(NSInteger, ShareType) {
             [self.selectedPhotos removeAllObjects];
             [self.collectionView reloadData];
             [MBProgressHUD showSuccess:@"发布成功"];
-            if (self.shareType == nil) {
-                return;
-            }
             switch (self.shareType) {
                 case ShareTypeTencent: {
                     NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -372,12 +370,16 @@ typedef NS_ENUM(NSInteger, ShareType) {
                     }];
                 }
                     break;
-                default: {
+                case ShareTypeSina: {
                     NSMutableDictionary *params = [NSMutableDictionary dictionary];
                     [params SSDKSetupShareParamsByText:@"富阳家居" images:@"https://www.taobao.com" url:[NSURL URLWithString:@"https://www.baidu.com"] title:@"富阳家居" type:SSDKContentTypeAuto];
                     [ShareSDK share:SSDKPlatformTypeSinaWeibo parameters:params onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                         NSLog(@"%d", state);
                     }];
+                }
+                    break;
+                default: {
+                    NSLog(@"不分享内容");  
                 }
                     break;
             }
