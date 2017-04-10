@@ -261,6 +261,9 @@
 		8FFD4E381E9B2A99004BD53C /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFD4E301E9B2A99004BD53C /* SDCycleScrollView.m */; };
 		8FFD4E391E9B2A99004BD53C /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFD4E321E9B2A99004BD53C /* UIView+SDExtension.m */; };
 		8FFD4E3C1E9B2F69004BD53C /* MainHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFD4E3B1E9B2F69004BD53C /* MainHeaderView.m */; };
+		8FFD4EB01E9B9EA4004BD53C /* 白金@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFD4EAF1E9B9EA4004BD53C /* 白金@2x.png */; };
+		8FFD4EB21E9B9EAA004BD53C /* 铂金@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFD4EB11E9B9EAA004BD53C /* 铂金@2x.png */; };
+		8FFD4EB41E9B9EAF004BD53C /* 钻石@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFD4EB31E9B9EAF004BD53C /* 钻石@2x.png */; };
 		F4636D111E35D305001102EF /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = F4636D0E1E35D305001102EF /* iTunesArtwork.png */; };
 		F4636D121E35D305001102EF /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4636D0F1E35D305001102EF /* iTunesArtwork@2x.png */; };
 		F4636D1C1E35E6C6001102EF /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4636D1B1E35E6C6001102EF /* Icon-60@2x.png */; };
@@ -979,6 +982,9 @@
 		8FFD4E321E9B2A99004BD53C /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		8FFD4E3A1E9B2F69004BD53C /* MainHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainHeaderView.h; sourceTree = "<group>"; };
 		8FFD4E3B1E9B2F69004BD53C /* MainHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainHeaderView.m; sourceTree = "<group>"; };
+		8FFD4EAF1E9B9EA4004BD53C /* 白金@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "白金@2x.png"; sourceTree = "<group>"; };
+		8FFD4EB11E9B9EAA004BD53C /* 铂金@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "铂金@2x.png"; sourceTree = "<group>"; };
+		8FFD4EB31E9B9EAF004BD53C /* 钻石@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "钻石@2x.png"; sourceTree = "<group>"; };
 		F4636D0E1E35D305001102EF /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		F4636D0F1E35D305001102EF /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		F4636D1B1E35E6C6001102EF /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
@@ -2170,6 +2176,9 @@
 		F4CFBD6B1DD01D16003503DD /* image */ = {
 			isa = PBXGroup;
 			children = (
+				8FFD4EB31E9B9EAF004BD53C /* 钻石@2x.png */,
+				8FFD4EB11E9B9EAA004BD53C /* 铂金@2x.png */,
+				8FFD4EAF1E9B9EA4004BD53C /* 白金@2x.png */,
 				8FDE02E81E99C60900A040DA /* 流程@2x.png */,
 				8FDE02E31E99C20B00A040DA /* 俯视图@2x.png */,
 				8FF7C7E71E95F7BD00BC8EEC /* youhuiquanguoqi.png */,
@@ -2803,6 +2812,7 @@
 				8FF632C31E8369D500ED8751 /* TZImagePickerController.bundle in Resources */,
 				F4F22E951DCDEBAA007C83F8 /* comment.png in Resources */,
 				F4F22EAE1DCDEBAA007C83F8 /* favor1.png in Resources */,
+				8FFD4EB41E9B9EAF004BD53C /* 钻石@2x.png in Resources */,
 				8FA6F74B1E5FD058006CC20B /* riqidata.png in Resources */,
 				F4CFBD661DD01C91003503DD /* 2222.png in Resources */,
 				F4636D121E35D305001102EF /* iTunesArtwork@2x.png in Resources */,
@@ -2880,6 +2890,7 @@
 				F4F22ED01DCDEBAA007C83F8 /* love.png in Resources */,
 				F4F22EBE1DCDEBAA007C83F8 /* group_default@3x.png in Resources */,
 				F4F22F421DCDEBAA007C83F8 /* yinpai.png in Resources */,
+				8FFD4EB01E9B9EA4004BD53C /* 白金@2x.png in Resources */,
 				8FEF6B6F1E8123B0000FB1DE /* border@2x.png in Resources */,
 				F4F22EA31DCDEBAA007C83F8 /* dingzhi.png in Resources */,
 				F4F22EC21DCDEBAA007C83F8 /* Icon2.png in Resources */,
@@ -2895,6 +2906,7 @@
 				F4F22E8C1DCDEBAA007C83F8 /* changeNikeNameViewController.xib in Resources */,
 				F4F22ED81DCDEBAA007C83F8 /* main2TableViewCell.xib in Resources */,
 				8F5DB9251E83B2BA00D834F8 /* WeiboSDK.bundle in Resources */,
+				8FFD4EB21E9B9EAA004BD53C /* 铂金@2x.png in Resources */,
 				F4F22EBC1DCDEBAA007C83F8 /* gouwuceh.png in Resources */,
 				F4F22E9D1DCDEBAA007C83F8 /* dianping5.png in Resources */,
 			);
