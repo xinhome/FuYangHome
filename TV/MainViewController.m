@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSMutableArray<HomeContentModel *> *dataSource;///<<#注释#>
 @property (nonatomic, strong) SDCycleScrollView *cycleView;///<<#注释#>
 @property (nonatomic, strong) NSMutableArray<MagazineModel *> *magazines;///<<#注释#>
+@property (nonatomic, assign) int currentPage;///< <#注释#>
 @end
 
 @implementation MainViewController
