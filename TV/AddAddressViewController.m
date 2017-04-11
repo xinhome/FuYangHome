@@ -85,6 +85,7 @@
     [[HttpRequestManager shareManager] addPOSTURL:@"/OrderShopping/save" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
         if ([successResponse isSuccess]) {
 //            self.callBack(model);
+            [self.navigationController popViewControllerAnimated:YES];
         } else {
             [MBProgressHUD showError:@"添加失败"];
         }
@@ -93,7 +94,7 @@
         NSLog(@"%@", error);
         [MBProgressHUD showError:@"添加失败"];
     }];
-    [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 - (IBAction)diquBtn:(id)sender {

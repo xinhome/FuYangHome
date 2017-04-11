@@ -15,6 +15,7 @@
 #import "TZImagePickerController.h"
 #import <ShareSDK/ShareSDK.h>
 #import <TencentOpenAPI/QQApiInterface.h>
+#import "WXApi.h"
 
 typedef NS_ENUM(NSInteger, ShareType) {
     ShareTypeNone,
@@ -148,6 +149,7 @@ typedef NS_ENUM(NSInteger, ShareType) {
     [scrollView addSubview:label3];
     
     UIButton *wechat = [UIButton buttonWithType:UIButtonTypeCustom];
+    wechat.hidden = ![WXApi isWXAppInstalled];
     [wechat addActionHandler:^{
         self.shareType = ShareTypeWeiXin;
     }];
