@@ -333,7 +333,8 @@
                     addressModel.receiverState = successResponse[@"data"][@"receiverState"];
                     jieSuanVC.selectAddressModel = addressModel;
                     jieSuanVC.listArray = _listArray;
-                    jieSuanVC.credit = successResponse[@"data"][@"credit"];
+                    NSString *strCredit = successResponse[@"data"][@"credit"];
+                    jieSuanVC.credit = [NSString stringWithFormat:@"%.0f", [strCredit floatValue]];
                     [self.navigationController pushViewController:jieSuanVC animated:YES];
                 }
             }
