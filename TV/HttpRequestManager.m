@@ -81,7 +81,7 @@ static HttpRequestManager *requestManager = nil;
 //            fail(error);
 //        }
 //    }];
-    [self POST:[NSString stringWithFormat:@"%@%@", @"http://xwmasd.server.ngrok.cc/FyHome", URL] parameters:parameters constructingBodyWithBlock:block progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self POST:[NSString stringWithFormat:@"%@%@", @"http://59.110.8.72/FyHome", URL] parameters:parameters constructingBodyWithBlock:block progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([responseObject isKindOfClass:[NSDictionary class]]) {
             success(responseObject);
         } else if ([responseObject isKindOfClass:[NSData class]]) {

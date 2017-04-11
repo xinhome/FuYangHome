@@ -116,8 +116,8 @@ typedef void(^MYAction)();
 #define K_GET_ACCESS_TOKEN [[NSUserDefaults standardUserDefaults] objectForKey:K_ACCESS_TOKEN]
 #define K_GET_STRINGSIZE(_info_,_font_)  [_info_ boundingRectWithSize:CGSizeMake(250, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:_font_]} context:nil].size;
 
-//#define WeiMingURL @"http://59.110.8.72/FyHome/"
-#define WeiMingURL @"http://xwmasd.server.ngrok.cc/FyHome/"
+#define WeiMingURL @"http://59.110.8.72/FyHome/"
+//#define WeiMingURL @"http://xwmasd.server.ngrok.cc/FyHome/"
 
 
 #endif
