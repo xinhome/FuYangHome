@@ -168,8 +168,8 @@
 - (IBAction)share:(id)sender {
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
     [shareParams SSDKSetupShareParamsByText:@"分享内容"
-                                     images:nil
-                                        url:[NSURL URLWithString:@"http://www.mob.com"]
+                                     images:[NSURL URLWithString:@"http://www.taobao.com"]
+                                        url:[NSURL URLWithString:@"http://www.taobao.com"]
                                       title:@"分享标题"
                                        type:SSDKContentTypeAuto];
     [ShareSDK showShareActionSheet:nil items:nil shareParams:shareParams onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {

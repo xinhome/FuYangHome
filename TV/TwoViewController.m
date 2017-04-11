@@ -368,7 +368,7 @@ typedef NS_ENUM(NSInteger, ShareType) {
                 case ShareTypeWeiXin: {
                     NSMutableDictionary *params = [NSMutableDictionary dictionary];
                     [params SSDKSetupShareParamsByText:@"富阳家居" images:@"https://www.taobao.com" url:[NSURL URLWithString:@"https://www.baidu.com"] title:@"富阳家居" type:SSDKContentTypeAuto];
-                    [ShareSDK share:SSDKPlatformTypeWechat parameters:params onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                    [ShareSDK share:SSDKPlatformSubTypeWechatTimeline parameters:params onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                         NSLog(@"%d", state);
                     }];
                 }
