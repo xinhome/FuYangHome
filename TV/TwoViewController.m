@@ -353,6 +353,9 @@ typedef NS_ENUM(NSInteger, ShareType) {
             [self.selectedPhotos removeAllObjects];
             [self.collectionView reloadData];
             [MBProgressHUD showSuccess:@"发布成功"];
+            for (UIButton *btn in self.btns) {
+                btn.selected = NO;
+            }
             switch (self.shareType) {
                 case ShareTypeTencent: {
                     NSMutableDictionary *params = [NSMutableDictionary dictionary];

@@ -21,7 +21,7 @@
     if (self) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height-30)];
         self.imageView = imageView;
-        imageView.backgroundColor = [UIColor redColor];
+        
         [self addSubview:imageView];
         
         UILabel *title = [UILabel labelWithText:@"" textColor:UIColorBlack fontSize:13];
@@ -65,7 +65,7 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(150))];
         self.backgroundImageView = backgroundImageView;
-        backgroundImageView.backgroundColor = [UIColor blueColor];
+        
         [self.contentView addSubview:backgroundImageView];
         CGFloat height = rateHeight(150);
         for (int i = 0; i < 6; i ++) {
@@ -128,7 +128,7 @@
         NSString *url = [model.items[i].image componentsSeparatedByString:@","].firstObject;
         self.btns[i].title.text = model.items[i].title;
         self.btns[i].price.text = [NSString stringWithFormat:@"%@￥", model.items[i].price];
-        [self.btns[i].imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, url]]];
+        [self.btns[i].imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, url]] placeholderImage:UIImageNamed(@"placeholder")];
     }
 }
 

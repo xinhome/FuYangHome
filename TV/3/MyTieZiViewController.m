@@ -43,6 +43,7 @@
 {
     self.navigationItem.title = @"我的帖子";
     [self addRightItemWithImage:@"shanchu " action:@selector(deleteTieZi:)];
+    [self addBackForUser];
 }
 - (void)setUpData
 {

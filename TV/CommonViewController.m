@@ -27,6 +27,10 @@
 }
 
 - (void)loadData {
+    if (self.scenceId == nil) {
+        [MBProgressHUD showError:@"没有场景"];
+        return;
+    }
     [[HttpRequestManager shareManager] addPOSTURL:@"/ScenesComments/list" person:RequestPersonWeiMing parameters:@{@"scenesId": self.scenceId} success:^(id successResponse) {
         NSLog(@"%@", successResponse[@"data"]);
         self.dataSource = [ScenceCommentModel mj_objectArrayWithKeyValuesArray:successResponse[@"data"]];

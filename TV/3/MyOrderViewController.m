@@ -29,7 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self addBackForUser];
     [self setNavigationBar];
     self.segmentIndex = 1;
     [self addSegment];

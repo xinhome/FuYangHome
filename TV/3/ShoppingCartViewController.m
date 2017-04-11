@@ -36,7 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self addBackForUser];
     [self setNavigationBar];
     [self.view addSubview:self.myTableView];
     [self addJieSuanView];
