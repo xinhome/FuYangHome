@@ -55,9 +55,6 @@
                 [self.pingLunArray addObject:model];
             }
         }
-//        NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"OrderMsg.buyerStatus == 0"];
-//        NSPredicate *predicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[searchPredicate]];
-//        self.pingLunArray = [self.dataSource filteredArrayUsingPredicate:predicate].mutableCopy;
         [self.tableView reloadData];
     } else if (index == 2) {
         // 中评
