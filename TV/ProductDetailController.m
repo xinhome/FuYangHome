@@ -26,6 +26,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (self.index == 1) {
+        [self addBackForUser];
+    }
     self.title = @"产品详情";
     _num = 1;
     [self setupUI];

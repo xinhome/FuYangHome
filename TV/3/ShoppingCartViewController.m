@@ -393,6 +393,7 @@
         ShoppingCarModel *model = (ShoppingCarModel *)_shoppingArray[indexPath.section];
         ProductDetailController *detail = [[ProductDetailController alloc]init];
         detail.itemID = model.itemId;
+        detail.index = 1;
         [self pushViewController:detail animation:YES];
     }
 }
