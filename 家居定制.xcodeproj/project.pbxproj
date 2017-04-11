@@ -220,6 +220,7 @@
 		8FE660D31E7BE34B0047DF58 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE660D21E7BE34B0047DF58 /* LoginViewController.m */; };
 		8FE660D71E7BE9710047DF58 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE660D61E7BE9710047DF58 /* RegisterViewController.m */; };
 		8FE660DA1E7BEE310047DF58 /* SetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE660D91E7BEE310047DF58 /* SetPasswordViewController.m */; };
+		8FE8E0FC1E9C82F700F7BCA7 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE8E0FB1E9C82F700F7BCA7 /* AboutViewController.m */; };
 		8FEF6B0D1E80B929000FB1DE /* SceneShowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6B0C1E80B929000FB1DE /* SceneShowCell.m */; };
 		8FEF6B681E810AF0000FB1DE /* ProductDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6B671E810AF0000FB1DE /* ProductDetailHeaderView.m */; };
 		8FEF6B6B1E810D4D000FB1DE /* ProductDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6B6A1E810D4D000FB1DE /* ProductDetailController.m */; };
@@ -280,7 +281,6 @@
 		F4CFBD661DD01C91003503DD /* 2222.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CFBD601DD01C91003503DD /* 2222.png */; };
 		F4CFBD681DD01C9F003503DD /* 分割条.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CFBD671DD01C9F003503DD /* 分割条.png */; };
 		F4CFBD6A1DD01CB7003503DD /* 渐变背景.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CFBD691DD01CB7003503DD /* 渐变背景.png */; };
-		F4F22E731DCDEBAA007C83F8 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F22D301DCDEBA9007C83F8 /* AboutViewController.m */; };
 		F4F22E751DCDEBAA007C83F8 /* AddAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F22D331DCDEBA9007C83F8 /* AddAddressViewController.m */; };
 		F4F22E761DCDEBAA007C83F8 /* AddAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4F22D341DCDEBA9007C83F8 /* AddAddressViewController.xib */; };
 		F4F22E771DCDEBAA007C83F8 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4F22D351DCDEBA9007C83F8 /* Address.plist */; };
@@ -902,6 +902,7 @@
 		8FE660D61E7BE9710047DF58 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		8FE660D81E7BEE310047DF58 /* SetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetPasswordViewController.h; sourceTree = "<group>"; };
 		8FE660D91E7BEE310047DF58 /* SetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPasswordViewController.m; sourceTree = "<group>"; };
+		8FE8E0FB1E9C82F700F7BCA7 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		8FEF6B0B1E80B929000FB1DE /* SceneShowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneShowCell.h; sourceTree = "<group>"; };
 		8FEF6B0C1E80B929000FB1DE /* SceneShowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneShowCell.m; sourceTree = "<group>"; };
 		8FEF6B661E810AF0000FB1DE /* ProductDetailHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailHeaderView.h; sourceTree = "<group>"; };
@@ -1006,7 +1007,6 @@
 		F4CFBD671DD01C9F003503DD /* 分割条.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "分割条.png"; sourceTree = "<group>"; };
 		F4CFBD691DD01CB7003503DD /* 渐变背景.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "渐变背景.png"; sourceTree = "<group>"; };
 		F4F22D2F1DCDEBA9007C83F8 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = ../AboutViewController.h; sourceTree = "<group>"; };
-		F4F22D301DCDEBA9007C83F8 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = ../AboutViewController.m; sourceTree = "<group>"; };
 		F4F22D321DCDEBA9007C83F8 /* AddAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddAddressViewController.h; path = ../AddAddressViewController.h; sourceTree = "<group>"; };
 		F4F22D331DCDEBA9007C83F8 /* AddAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddAddressViewController.m; path = ../AddAddressViewController.m; sourceTree = "<group>"; };
 		F4F22D341DCDEBA9007C83F8 /* AddAddressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AddAddressViewController.xib; path = ../AddAddressViewController.xib; sourceTree = "<group>"; };
@@ -2329,7 +2329,7 @@
 			isa = PBXGroup;
 			children = (
 				F4F22D2F1DCDEBA9007C83F8 /* AboutViewController.h */,
-				F4F22D301DCDEBA9007C83F8 /* AboutViewController.m */,
+				8FE8E0FB1E9C82F700F7BCA7 /* AboutViewController.m */,
 			);
 			name = "关于";
 			sourceTree = "<group>";
@@ -2990,7 +2990,6 @@
 				8FE660881E7BCE8A0047DF58 /* MASConstraint.m in Sources */,
 				F4F22EE81DCDEBAA007C83F8 /* OneViewController.m in Sources */,
 				F4F22F071DCDEBAA007C83F8 /* ShowSceneViewController.m in Sources */,
-				F4F22E731DCDEBAA007C83F8 /* AboutViewController.m in Sources */,
 				F4F22F4B1DCDEBAA007C83F8 /* ZQTColorSwitch.m in Sources */,
 				8FE660AD1E7BE05E0047DF58 /* NSObject+MJCoding.m in Sources */,
 				F4F22EDA1DCDEBAA007C83F8 /* MainViewController.m in Sources */,
@@ -3052,6 +3051,7 @@
 				8F22C4B41E8B50CC00EDC6C5 /* CommunityDetailCell.m in Sources */,
 				8F0CF43C1E866FE9008E95DE /* MyZiLiaoViewController.m in Sources */,
 				F4F22EF81DCDEBAA007C83F8 /* registViewController.m in Sources */,
+				8FE8E0FC1E9C82F700F7BCA7 /* AboutViewController.m in Sources */,
 				F4F22EA51DCDEBAA007C83F8 /* DPPhotoGroupViewController.m in Sources */,
 				8F0F16C11E827D0D00D7D308 /* NSBundle+MJRefresh.m in Sources */,
 				8FF338601E8F43B400CF2393 /* HPPhotoBrowser.m in Sources */,

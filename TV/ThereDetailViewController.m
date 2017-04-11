@@ -24,6 +24,7 @@
     [super viewDidLoad];
     if (self.selfIndex == 1) {
         self.title = @"帖子详情";
+        [self addBackForUser];
     } else {
         self.title = @"社区详情";
     }
