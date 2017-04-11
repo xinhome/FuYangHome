@@ -47,7 +47,7 @@ typedef NS_ENUM(NSInteger, SceneType) {
     [self loadDataWithType:SceneTypeAll date:self.selectedDate];
 }
 - (void)loadDataWithType:(SceneType)type date:(NSString *)date {
-    [[HttpRequestManager shareManager] addPOSTURL:@"/Content/list/first" person:RequestPersonWeiMing parameters:@{@"time": date, @"type": @0} success:^(id successResponse) {
+    [[HttpRequestManager shareManager] addPOSTURL:@"/Content/list/first" person:RequestPersonWeiMing parameters:@{@"time": date, @"type": @(type)} success:^(id successResponse) {
         NSArray *data = successResponse[@"data"];
         self.items = [HomeContentModel mj_objectArrayWithKeyValuesArray:data];
         if (type == SceneTypeAll && [date isEqualToString:@"00-00"]) {
@@ -84,6 +84,9 @@ typedef NS_ENUM(NSInteger, SceneType) {
                             [self.days addObject:[NSString stringWithFormat:@"%02ld.%02ld",  month, day]];
                         }
                     }
+                    [self.days sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                        return [obj2 compare:obj1];
+                    }];
                     self.dataSource[key] = self.days;
                 }
                 
@@ -194,8 +197,7 @@ typedef NS_ENUM(NSInteger, SceneType) {
     {
         view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-self.tableView.right, 200.0f)];
         backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 200.0f)];
-        [backgroundImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, self.items[index].pic]] placeholderImage:nil];
-        backgroundImageView.backgroundColor = [UIColor blueColor];
+        [backgroundImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, self.items[index].pic]] placeholderImage:UIImageNamed(@"scence-placeholder")];
         [view addSubview:backgroundImageView];
         
         UIImageView *borderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, rateWidth(130), 70)];
@@ -228,6 +230,7 @@ typedef NS_ENUM(NSInteger, SceneType) {
     } else {
         title.text = self.items[index].title;
         subTitle.text = self.items[index].subTitle;
+        [backgroundImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, self.items[index].pic]] placeholderImage:UIImageNamed(@"scence-placeholder")];
     }
     
     //set item label

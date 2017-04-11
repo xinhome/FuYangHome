@@ -88,8 +88,8 @@
     [self creatTableView];
     self.tableView.separatorStyle = 0;
     
-    _titleArray = [[NSArray alloc]initWithObjects:@"我的资料", @"我的优惠券" ,@"系统消息",@"关于我们",@"意见反馈",nil];
-    _titleImageArray = [[NSArray alloc]initWithObjects:@"1",@"优惠券",@"2222",@"3",@"4",@"7",@"8",nil];
+    _titleArray = [[NSArray alloc]initWithObjects:@"我的资料", @"我的优惠券" ,@"系统消息",@"关于我们",@"意见反馈",@"退出登录",nil];
+    _titleImageArray = [[NSArray alloc]initWithObjects:@"1",@"优惠券",@"2222",@"3",@"4",@"logout",nil];
     //    self.tableView.scrollEnabled = NO;
     [self configHeaderView];
 }
@@ -206,9 +206,29 @@
             [self.navigationController pushViewController:zi animated:YES];
         }
             break;
-        default: {
+        case 4: {
             YijianViewController *gfb =[[YijianViewController alloc]init];
             [self.navigationController pushViewController:gfb animated:YES];
+            break;
+        }
+        default: {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否退出登录" preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"myUserId"];
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"user"];
+                self.headerView.invitation.text = nil;
+                self.headerView.order.text = nil;
+                self.headerView.shopCar.text = nil;
+                self.headerView.goodsLabel.text = nil;
+                self.headerView.avatar.image = UIImageNamed(@"Icon2");
+                self.headerView.nickname.text = nil;
+                self.headerView.gradeLabel.text = nil;
+                self.headerView.gradeImageView.image = nil;
+                self.headerView.scoreLabel.text = nil;
+                self.user = nil;
+            }]];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+            [self presentViewController:alertController animated:YES completion:nil];
         }
             break;
     }
