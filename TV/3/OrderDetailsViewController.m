@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self addBackForUser];
     self.navigationItem.title = @"我的订单";
     self.view.backgroundColor = RGB(242, 242, 242);
     [self.view addSubview:self.myTableView];
