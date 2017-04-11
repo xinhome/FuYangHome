@@ -34,6 +34,10 @@
 }
 
 - (void)commit:(NSString *)commentContent {
+    if (self.user == nil) {
+        [MBProgressHUD showError:@"请登录"];
+        return;
+    }
     if (commentContent.length == 0) {
         [MBProgressHUD showError:@"请填写评论内容"];
         return;

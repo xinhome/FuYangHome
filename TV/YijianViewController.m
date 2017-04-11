@@ -47,6 +47,10 @@
 //提交按钮
 - (void)tijiao {
     [self.view endEditing:YES];
+    if (self.user == nil) {
+        [MBProgressHUD showError:@"请登录"];
+        return;
+    }
     if (_textView.text.length == 0) {
         [MBProgressHUD showError:@"请填写意见"];
         return;

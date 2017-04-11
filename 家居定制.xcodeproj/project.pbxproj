@@ -184,6 +184,7 @@
 		8FE3BC431E9C68E3008AAA32 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE3BC421E9C68E3008AAA32 /* placeholder.png */; };
 		8FE3BC471E9C6B83008AAA32 /* scence-placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE3BC461E9C6B83008AAA32 /* scence-placeholder.png */; };
 		8FE3BC4B1E9C6D80008AAA32 /* user-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE3BC4A1E9C6D80008AAA32 /* user-back@2x.png */; };
+		8FE3BC811E9C790F008AAA32 /* logout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE3BC801E9C790F008AAA32 /* logout@2x.png */; };
 		8FE6605C1E7BB9EC0047DF58 /* UserHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE6605B1E7BB9EC0047DF58 /* UserHeaderView.m */; };
 		8FE660611E7BBD070047DF58 /* UIView+customerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE660601E7BBD070047DF58 /* UIView+customerView.m */; };
 		8FE660641E7BBD1D0047DF58 /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE660631E7BBD1D0047DF58 /* Global.m */; };
@@ -280,7 +281,6 @@
 		F4CFBD681DD01C9F003503DD /* 分割条.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CFBD671DD01C9F003503DD /* 分割条.png */; };
 		F4CFBD6A1DD01CB7003503DD /* 渐变背景.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CFBD691DD01CB7003503DD /* 渐变背景.png */; };
 		F4F22E731DCDEBAA007C83F8 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F22D301DCDEBA9007C83F8 /* AboutViewController.m */; };
-		F4F22E741DCDEBAA007C83F8 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4F22D311DCDEBA9007C83F8 /* AboutViewController.xib */; };
 		F4F22E751DCDEBAA007C83F8 /* AddAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F22D331DCDEBA9007C83F8 /* AddAddressViewController.m */; };
 		F4F22E761DCDEBAA007C83F8 /* AddAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4F22D341DCDEBA9007C83F8 /* AddAddressViewController.xib */; };
 		F4F22E771DCDEBAA007C83F8 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4F22D351DCDEBA9007C83F8 /* Address.plist */; };
@@ -824,6 +824,7 @@
 		8FE3BC421E9C68E3008AAA32 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		8FE3BC461E9C6B83008AAA32 /* scence-placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scence-placeholder.png"; sourceTree = "<group>"; };
 		8FE3BC4A1E9C6D80008AAA32 /* user-back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user-back@2x.png"; sourceTree = "<group>"; };
+		8FE3BC801E9C790F008AAA32 /* logout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logout@2x.png"; sourceTree = "<group>"; };
 		8FE6605A1E7BB9EC0047DF58 /* UserHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHeaderView.h; sourceTree = "<group>"; };
 		8FE6605B1E7BB9EC0047DF58 /* UserHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHeaderView.m; sourceTree = "<group>"; };
 		8FE6605F1E7BBD070047DF58 /* UIView+customerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+customerView.h"; sourceTree = "<group>"; };
@@ -1006,7 +1007,6 @@
 		F4CFBD691DD01CB7003503DD /* 渐变背景.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "渐变背景.png"; sourceTree = "<group>"; };
 		F4F22D2F1DCDEBA9007C83F8 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = ../AboutViewController.h; sourceTree = "<group>"; };
 		F4F22D301DCDEBA9007C83F8 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = ../AboutViewController.m; sourceTree = "<group>"; };
-		F4F22D311DCDEBA9007C83F8 /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AboutViewController.xib; path = ../AboutViewController.xib; sourceTree = "<group>"; };
 		F4F22D321DCDEBA9007C83F8 /* AddAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddAddressViewController.h; path = ../AddAddressViewController.h; sourceTree = "<group>"; };
 		F4F22D331DCDEBA9007C83F8 /* AddAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddAddressViewController.m; path = ../AddAddressViewController.m; sourceTree = "<group>"; };
 		F4F22D341DCDEBA9007C83F8 /* AddAddressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AddAddressViewController.xib; path = ../AddAddressViewController.xib; sourceTree = "<group>"; };
@@ -2174,6 +2174,7 @@
 		F4CFBD6B1DD01D16003503DD /* image */ = {
 			isa = PBXGroup;
 			children = (
+				8FE3BC801E9C790F008AAA32 /* logout@2x.png */,
 				8FFD4EB31E9B9EAF004BD53C /* 钻石@2x.png */,
 				8FFD4EB11E9B9EAA004BD53C /* 铂金@2x.png */,
 				8FFD4EAF1E9B9EA4004BD53C /* 白金@2x.png */,
@@ -2329,7 +2330,6 @@
 			children = (
 				F4F22D2F1DCDEBA9007C83F8 /* AboutViewController.h */,
 				F4F22D301DCDEBA9007C83F8 /* AboutViewController.m */,
-				F4F22D311DCDEBA9007C83F8 /* AboutViewController.xib */,
 			);
 			name = "关于";
 			sourceTree = "<group>";
@@ -2823,7 +2823,6 @@
 				F4F22E7A1DCDEBAA007C83F8 /* back.png in Resources */,
 				8FE3BC471E9C6B83008AAA32 /* scence-placeholder.png in Resources */,
 				F4F22F051DCDEBAA007C83F8 /* shouye439.png in Resources */,
-				F4F22E741DCDEBAA007C83F8 /* AboutViewController.xib in Resources */,
 				F4F22EC11DCDEBAA007C83F8 /* Icon1.png in Resources */,
 				F4F22EC91DCDEBAA007C83F8 /* jiantou.png in Resources */,
 				F4F22F131DCDEBAA007C83F8 /* thereTableViewCell.xib in Resources */,
@@ -2869,6 +2868,7 @@
 				8FE388531E7F7898006CD8EA /* 全选.png in Resources */,
 				F4CFBD651DD01C91003503DD /* 4.png in Resources */,
 				F4F22E911DCDEBAA007C83F8 /* changjing2.png in Resources */,
+				8FE3BC811E9C790F008AAA32 /* logout@2x.png in Resources */,
 				F4F22E941DCDEBAA007C83F8 /* ChangJingViewController.xib in Resources */,
 				F4F22ECC1DCDEBAA007C83F8 /* LaunchScreen.storyboard in Resources */,
 				F4F22E9C1DCDEBAA007C83F8 /* deng.png in Resources */,

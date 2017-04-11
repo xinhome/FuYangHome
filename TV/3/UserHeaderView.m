@@ -98,7 +98,7 @@
         gradeImageView.centerY = grade.centerY;
         [self addSubview:gradeImageView];
         
-        UILabel *score = [UILabel labelWithText:@"0分" textColor:RGB(168, 168, 168) fontSize:14];
+        UILabel *score = [UILabel labelWithText:@"" textColor:RGB(168, 168, 168) fontSize:14];
         self.scoreLabel = score;
         score.frame = CGRectMake(grade.left, gradeImageView.bottom, kScreenWidth-grade.left, 14);
         [self addSubview:score];
