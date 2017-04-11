@@ -14,6 +14,7 @@
 @property (nonatomic, copy) NSString *buyerStatus;
 @property (nonatomic, copy) NSString *ID;
 @property (nonatomic, copy) NSString *orderMsg;
+@property (nonatomic, copy) NSString *buyerPic;
 @end
 
 /// 产品评论

@@ -42,6 +42,7 @@
         NSLog(@"%@", self.itemID);
         [[HttpRequestManager shareManager] addPOSTURL:@"/Item/ById" person:RequestPersonWeiMing parameters:@{@"id": self.itemID} success:^(id successResponse) {
             if ([successResponse isSuccess]) {
+                NSLog(@"产品详情：%@", successResponse);
                 ProductDetailModel *model = [ProductDetailModel mj_objectWithKeyValues:successResponse[@"data"]];
                 self.model1 = model;
                 NSString *paramData = successResponse[@"data"][@"paramData"];

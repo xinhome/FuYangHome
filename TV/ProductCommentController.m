@@ -12,6 +12,8 @@
 
 @interface ProductCommentController ()<GoodsCommentViewDelegate>
 
+@property (nonatomic, strong) NSMutableArray *pingLunArray;
+
 @end
 
 @implementation ProductCommentController
@@ -20,6 +22,8 @@
     [super viewDidLoad];
     self.title = @"商品评论";
     [self setupUI];
+    self.pingLunArray = [NSMutableArray arrayWithArray:self.dataSource];
+    NSLog(@"%@", self.dataSource);
 }
 
 - (void)setupUI {
@@ -37,14 +41,63 @@
 #pragma mrak - GoodsCommentViewDelegate 
 - (void)goodsCommentView:(GoodsCommentView *)commentView didSelectIndex:(int)index {
     NSLog(@"%d", index);
+    if (index == 0) {
+        // 全部
+        [self.pingLunArray removeAllObjects];
+        self.pingLunArray = [NSMutableArray arrayWithArray:self.dataSource];
+        [self.tableView reloadData];
+        
+    } else if (index == 1) {
+        // 好评
+        [self.pingLunArray removeAllObjects];
+        for (ProductCommentModel *model in self.dataSource) {
+            if ([model.orderMsg.buyerStatus intValue] == 0) {
+                [self.pingLunArray addObject:model];
+            }
+        }
+//        NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"OrderMsg.buyerStatus == 0"];
+//        NSPredicate *predicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[searchPredicate]];
+//        self.pingLunArray = [self.dataSource filteredArrayUsingPredicate:predicate].mutableCopy;
+        [self.tableView reloadData];
+    } else if (index == 2) {
+        // 中评
+        [self.pingLunArray removeAllObjects];
+        for (ProductCommentModel *model in self.dataSource) {
+            if ([model.orderMsg.buyerStatus intValue] == 1) {
+                [self.pingLunArray addObject:model];
+            }
+        }
+        [self.tableView reloadData];
+    } else if (index == 3) {
+        // 差评
+        [self.pingLunArray removeAllObjects];
+        for (ProductCommentModel *model in self.dataSource) {
+            if ([model.orderMsg.buyerStatus intValue] == 2) {
+                [self.pingLunArray addObject:model];
+            }
+        }
+        [self.tableView reloadData];
+    } else {
+        // 有图
+        [self.pingLunArray removeAllObjects];
+        for (ProductCommentModel *model in self.dataSource) {
+            if (model.orderMsg.buyerPic != nil) {
+                [self.pingLunArray addObject:model];
+            }
+        }
+        [self.tableView reloadData];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataSource.count;
+    return self.pingLunArray.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GoodsCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.cellModel = self.dataSource[indexPath.row];
+    if (self.pingLunArray.count != 0) {
+        cell.cellModel = self.pingLunArray[indexPath.row];
+    }
+    
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -56,14 +109,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
