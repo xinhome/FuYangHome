@@ -155,7 +155,8 @@
         value ++;
         self.commentLabel.text = [NSString stringWithFormat:@"%d", value];
     };
-    controller.scenceId = self.scenceId;
+    NSLog(@"%ld", self.scrollToIndex);
+    controller.scenceId = self.dataSource[self.scrollToIndex].scenesId;
     [self.navigationController pushViewController:controller    animated:YES];
 }
 

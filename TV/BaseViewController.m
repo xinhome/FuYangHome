@@ -166,7 +166,7 @@
     self.titleLable.textColor = [UIColor whiteColor];
 }
 - (void)addBackForUser {
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonBack:self imageName:@"backBlue" action:@selector(backAction)];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonBack:self imageName:@"user-back" action:@selector(backAction)];
 }
 - (void)navTitleView
 {

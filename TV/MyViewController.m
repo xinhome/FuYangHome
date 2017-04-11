@@ -30,26 +30,34 @@
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     [self.headerView.avatar sd_setImageWithURL:[NSURL URLWithString:self.user.avatar] placeholderImage:UIImageNamed(@"Icon2")];
     self.headerView.nickname.text = self.user.nickname;
-    CGFloat credit = [self.user.credit floatValue];
-    [self judgeGrade:credit];
-    self.headerView.scoreLabel.text = [NSString stringWithFormat:@"%@分", self.user.credit];
+    
+    
+    if (self.user) {
+        self.headerView.scoreLabel.text = [NSString stringWithFormat:@"%@分", self.user.credit];
+    }
     [self loadData];
 }
 
 - (void)judgeGrade:(CGFloat)score {
     if (score < 50) {
-        
+        self.headerView.gradeLabel.text = @"普通会员";
     } else if (score>50&&score<100) { //铜牌
+        self.headerView.gradeLabel.text = @"铜牌会员";
         self.headerView.gradeImageView.image = UIImageNamed(@"tongpai");
     } else if (score < 300) {// 银牌
+        self.headerView.gradeLabel.text = @"银牌会员";
         self.headerView.gradeImageView.image = UIImageNamed(@"yinpai");
     } else if (score < 500) { //金牌
+        self.headerView.gradeLabel.text = @"金牌会员";
         self.headerView.gradeImageView.image = UIImageNamed(@"jinpai");
     } else if (score < 800) { // 白金
+        self.headerView.gradeLabel.text = @"白金会员";
         self.headerView.gradeImageView.image = UIImageNamed(@"白金");
     } else if (score < 1200) { // 铂金
+        self.headerView.gradeLabel.text = @"铂金会员";
         self.headerView.gradeImageView.image = UIImageNamed(@"铂金");
     } else { // 钻石
+        self.headerView.gradeLabel.text = @"钻石会员";
         self.headerView.gradeImageView.image = UIImageNamed(@"钻石");
     }
 }
@@ -69,6 +77,8 @@
         self.headerView.order.text = [NSString stringWithFormat:@"%@", successResponse[@"data"][@"count2"]];
         self.headerView.shopCar.text = [NSString stringWithFormat:@"%@", successResponse[@"data"][@"count3"]];
         self.headerView.goodsLabel.text = [NSString stringWithFormat:@"%@", successResponse[@"data"][@"count4"]];
+        CGFloat credit = [successResponse[@"data"][@"credit"] floatValue];
+        [self judgeGrade:credit];
     } fail:^(NSError *error) {
         NSLog(@"%@", error);
     }];

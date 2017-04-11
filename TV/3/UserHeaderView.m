@@ -85,7 +85,8 @@
         line4.backgroundColor = RGB(230, 230, 230);
         [view addSubview:line4];
         
-        UILabel *grade = [UILabel labelWithText:@"" textColor:RGB(168, 168, 168) fontSize:14];
+        UILabel *grade = [UILabel labelWithText:@"               " textColor:RGB(168, 168, 168) fontSize:14];
+        self.gradeLabel = grade;
         [grade sizeToFit];
         grade.centerY = avatar.centerY;
         grade.right = kScreenWidth-rateWidth(30);
