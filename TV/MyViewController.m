@@ -32,9 +32,7 @@
     self.headerView.nickname.text = self.user.nickname;
     
     
-    if (self.user) {
-        self.headerView.scoreLabel.text = [NSString stringWithFormat:@"%@分", self.user.credit];
-    }
+    
     [self loadData];
 }
 
@@ -78,6 +76,7 @@
         self.headerView.shopCar.text = [NSString stringWithFormat:@"%@", successResponse[@"data"][@"count3"]];
         self.headerView.goodsLabel.text = [NSString stringWithFormat:@"%@", successResponse[@"data"][@"count4"]];
         CGFloat credit = [successResponse[@"data"][@"credit"] floatValue];
+        self.headerView.scoreLabel.text = [NSString stringWithFormat:@"%.0f分", credit];
         [self judgeGrade:credit];
     } fail:^(NSError *error) {
         NSLog(@"%@", error);
