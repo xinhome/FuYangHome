@@ -14,7 +14,6 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 #import "WXApi.h"
 #import "WeiboSDK.h"
-#import "ViewController2.h"
 #import <AlipaySDK/AlipaySDK.h>
 
 // alipay  appid 2017032406383124

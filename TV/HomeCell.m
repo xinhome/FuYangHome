@@ -116,7 +116,7 @@
 
 - (void)setModel:(HomeContentModel *)model {
     _model = model;
-    [self.backgroundImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, model.pic]]];
+    [self.backgroundImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WEIMING, model.pic]] placeholderImage:UIImageNamed(@"scence-placeholder")];
     self.date.text = [self translateDate:model.updated];
     self.title.text = model.titleDesc;
     self.subTitle.text = model.title;
