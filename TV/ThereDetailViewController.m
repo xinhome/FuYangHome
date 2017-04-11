@@ -22,7 +22,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"社区详情";
+    if (self.selfIndex == 1) {
+        self.title = @"帖子详情";
+    } else {
+        self.title = @"社区详情";
+    }
+    
     [self setupUI];
     [self loadData];
 }

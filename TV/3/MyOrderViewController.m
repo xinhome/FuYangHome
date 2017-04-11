@@ -86,8 +86,10 @@
         NSLog(@"订单-----%@", successResponse);
         if ([successResponse isSuccess]) {
             NSArray *orderArray = successResponse[@"data"];
-            
             self.orderArray = [ShoppingCarModel mj_objectArrayWithKeyValuesArray:orderArray];
+            NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"status == 4 || status == 1 || status == 2 || status == 3"];
+            NSPredicate *predicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[searchPredicate]];
+            self.orderArray = [self.orderArray filteredArrayUsingPredicate:predicate].mutableCopy;
             [_myTableView reloadData];
             
         } else {
@@ -192,8 +194,8 @@
         UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(80))];
         footerView.backgroundColor = [UIColor whiteColor];
         ShoppingCarModel *model = _orderArray[section];
-        CGFloat sumPrice = [model.num intValue]*[model.price floatValue]-[model.amount floatValue];
-        UILabel *priceLB = [UILabel labelWithText:[NSString stringWithFormat:@"共计：%.2f元（含0元运费）", sumPrice] textColor:UIColorFromRGB(0x666666) fontSize:15];
+//        CGFloat sumPrice = [model.num intValue]*[model.price floatValue]-[model.amount floatValue];
+        UILabel *priceLB = [UILabel labelWithText:[NSString stringWithFormat:@"共计：%.2f元（含0元运费）", [model.totalFee floatValue]] textColor:UIColorFromRGB(0x666666) fontSize:15];
         [priceLB sizeToFit];
         [footerView addSubview:priceLB];
         [priceLB mas_makeConstraints:^(MASConstraintMaker *make) {

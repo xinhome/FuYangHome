@@ -27,6 +27,7 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"退换货";
+    [self addBackForUser];
     self.segmentIndex = 1;
 //    [self addSegment];
     [self.view addSubview:self.myTableView];
@@ -112,16 +113,13 @@
     if (cell == nil) {
         cell = [[ReturnGoodsTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identififer];
     }
-//    if (self.segmentIndex == 2) {
-//        cell.shouHouBtn.hidden = YES;
-//    } else {
+
         if (_showReturnGoodsArray.count != 0) {
             cell.shouHouBtn.hidden = YES;
-//            cell.shouHouBtn.tag = indexPath.section;
+
             cell.cellModel = (ShoppingCarModel *)_showReturnGoodsArray[indexPath.section];
-//            [cell.shouHouBtn addTarget:self action:@selector(actionList:) forControlEvents:(UIControlEventTouchUpInside)];
         }
-//    }
+
     cell.selectionStyle = NO;
     return cell;
 }
@@ -207,7 +205,7 @@
         btn2.tag = section;
         [btn2 addTarget:self action:@selector(shenQingShouHou:) forControlEvents:(UIControlEventTouchUpInside)];
 
-//        if (self.segmentIndex == 1) {
+
             UIView *line = [UIView new];
             line.backgroundColor = UIColorFromRGB(0xf2f2f2);
             [footerView addSubview:line];
@@ -216,28 +214,7 @@
                 make.left.equalTo(footerView);
                 make.size.mas_offset(CGSizeMake(kScreenWidth, rateHeight(5)));
             }];
-//        } else {
-//            UIImageView *segmentImg = [UIImageView new];
-//            if ([model.status intValue] == 7) {
-//                segmentImg.image = [UIImage imageNamed:@"已完成"];
-//            } else {
-//                segmentImg.image = [UIImage imageNamed:@"审核中"];
-//            }
-//            [segmentImg sizeToFit];
-//            [footerView addSubview:segmentImg];
-//            [segmentImg mas_makeConstraints:^(MASConstraintMaker *make) {
-//                make.right.equalTo(footerView).offset(-rateWidth(20));
-//                make.bottom.equalTo(footerView).offset(-rateHeight(10));
-//            }];
-//            UIView *line = [UIView new];
-//            line.backgroundColor = UIColorFromRGB(0xf2f2f2);
-//            [footerView addSubview:line];
-//            [line mas_makeConstraints:^(MASConstraintMaker *make) {
-//                make.bottom.equalTo(footerView);
-//                make.left.equalTo(footerView);
-//                make.size.mas_offset(CGSizeMake(kScreenWidth, rateHeight(5)));
-//            }];
-//        }
+
         return footerView;
     } else {
         return nil;
@@ -251,6 +228,8 @@
             ReturnGoodsDetaildsViewController *detailsVC = [[ReturnGoodsDetaildsViewController alloc] init];
             detailsVC.model = model;
             [self.navigationController pushViewController:detailsVC animated:YES];
+        } else {
+            [MBProgressHUD showError:@"商品数量为0不能退货"];
         }
     }
 }

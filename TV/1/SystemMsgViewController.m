@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"系统消息";
-//    [self addBackForUser];
+    [self addBackForUser];
     [self setupUI];
     [self setUpData];
 }

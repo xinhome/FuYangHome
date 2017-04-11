@@ -36,6 +36,7 @@
     
     self.num = 1;
     self.navigationItem.title = @"退换货";
+    [self addBackForUser];
     [self.view addSubview:self.myTableView];
 }
 #pragma mark - setUpData

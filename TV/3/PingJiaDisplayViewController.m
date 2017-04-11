@@ -21,7 +21,7 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"评价详情";
-    
+    [self addBackForUser];
     [self setUpData];
 //    [self setUpUI];
     

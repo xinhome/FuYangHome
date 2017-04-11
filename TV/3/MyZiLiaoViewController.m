@@ -27,6 +27,7 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"我的资料";
+    [self addBackForUser];
     [self.view addSubview:self.myTableView];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

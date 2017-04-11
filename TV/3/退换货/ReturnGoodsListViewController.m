@@ -22,6 +22,7 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"退货详情";
+    [self addBackForUser];
     [self.view addSubview:self.myTableView];
     [self setUpData];
 }

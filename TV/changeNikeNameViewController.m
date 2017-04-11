@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"修改昵称";
+    [self addBackForUser];
     [self.view bringSubviewToFront:_fasong];
     _textview.delegate = self;
     _fasong.layer.cornerRadius = 5;

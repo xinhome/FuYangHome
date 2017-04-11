@@ -14,4 +14,5 @@
 @property (nonatomic, strong) ThereModel *model;///<<#注释#>
 @property (nonatomic, copy) MYAction refreshAction;
 @property (nonatomic, copy) MYAction praiseAction;
+@property (nonatomic, assign) NSInteger selfIndex;
 @end

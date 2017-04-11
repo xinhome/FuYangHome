@@ -37,6 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"收货地址";
+    [self addBackForUser];
     [self addRightItemWithImage:@"shanchu " action:@selector(deleteAddress)];
 //    [self addBackForUser];
     [self setupUI];

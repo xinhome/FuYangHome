@@ -29,10 +29,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.btnStatusArr = [NSMutableArray array];
-    for (int i = 0; i < 10; i++) {
-        [self.btnStatusArr addObject:[NSString stringWithFormat:@"0"]];
-    }
+//    self.btnStatusArr = [NSMutableArray array];
+//    for (int i = 0; i < 10; i++) {
+//        [self.btnStatusArr addObject:[NSString stringWithFormat:@"0"]];
+//    }
     [self setNavigationBar];
     [self.view addSubview:self.myTableView];
     [self setUpUI];
@@ -56,6 +56,11 @@
         NSLog(@"帖子列表-----%@", successResponse);
         NSArray *data = successResponse;
         self.tieZiArray = [ThereModel mj_objectArrayWithKeyValuesArray:data];
+        self.btnStatusArr = [NSMutableArray array];
+        [_btnStatusArr removeAllObjects];
+        for (int i = 0; i < _tieZiArray.count; i++) {
+            [self.btnStatusArr addObject:[NSString stringWithFormat:@"0"]];
+        }
         [_myTableView reloadData];
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view];
@@ -110,8 +115,11 @@
             [MBProgressHUD hideHUDForView:self.view];
             if ([responseObject[@"result"] intValue] == 0) {
                 [MBProgressHUD showMessage:responseObject[@"msg"] toView:self.view];
-                [self.tieZiArray removeObjectsInArray:self.deleteSelectArray];
-                [self.myTableView reloadData];
+//                [self.tieZiArray removeObjectsInArray:self.deleteSelectArray];
+                [_tieZiArray removeAllObjects];
+                [_deleteSelectArray removeAllObjects];
+                [self setUpData];
+                
             } else {
                 [MBProgressHUD showMessage:@"删除失败" toView:self.view];
             }
@@ -200,6 +208,7 @@
 {
     if (_tieZiArray.count != 0) {
         ThereDetailViewController *detail = [[ThereDetailViewController alloc]init];
+        detail.selfIndex = 1;
         detail.refreshAction = ^{
             ThereModel *model = self.tieZiArray[indexPath.row];
             int count = [model.count intValue];

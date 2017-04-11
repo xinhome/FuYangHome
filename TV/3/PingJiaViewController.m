@@ -37,6 +37,7 @@
     self.navigationItem.title = @"提交评价";
     [self addRightItemWithTitle:@"提交" action:@selector(actionTiJiao)];
     [self setUpUI];
+    [self addBackForUser];
 }
 
 #pragma mark - 提交评价

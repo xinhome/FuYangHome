@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"修改密码";
+    [self addBackForUser];
     self.fasong.layer.cornerRadius = 7;
     self.fasong.layer.masksToBounds = YES;
 }

@@ -23,6 +23,7 @@
     _bgt.layer.cornerRadius =5;
     _bgt.layer.masksToBounds =YES;
     self.title = @"意见反馈";
+    [self addBackForUser];
 //    [self addBackForUser];
     EaseTextView *textView = [[EaseTextView alloc] initWithFrame:CGRectMake(20, 0, kScreenWidth-40, 170)];
     _textView = textView;

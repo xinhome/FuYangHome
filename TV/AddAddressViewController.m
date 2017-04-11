@@ -19,6 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"编辑";
+    [self addBackForUser];
     [self loadUI];
 //    [self addBackForUser];
     NSLog(@"%@", self.user);

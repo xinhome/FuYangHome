@@ -23,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"修改手机号";
+    [self addBackForUser];
     _fasong.layer.cornerRadius = 5;
     _fasong.layer.masksToBounds = YES;
 //    [self addBackForUser];

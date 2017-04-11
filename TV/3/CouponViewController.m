@@ -26,6 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"优惠券";
+    [self addBackForUser];
     [self setupUI];
     self.index = 1;
 //    [self setUpData];
